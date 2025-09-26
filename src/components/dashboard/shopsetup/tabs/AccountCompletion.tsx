@@ -6,6 +6,7 @@ import { UserData } from "@/types";
 import { toast } from "sonner";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { updateUserMutation } from "@/services/auth/updateUser/mutations"; // Düzgün yolu öz proyektinizə görə qeyd edin
+import { getUserQuery } from "@/services/auth/queries";
 
 interface AccountCompletionProps {
   user: UserData;
@@ -23,7 +24,7 @@ const AccountCompletion = React.forwardRef<AccountCompletionRef, AccountCompleti
     const { mutate: updateUser, isPending } = useMutation({
       ...updateUserMutation(),
       onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: ["user"] });
+        queryClient.invalidateQueries(getUserQuery());
         toast.success("Məlumatlar uğurla yadda saxlanıldı");
         if (onStepComplete) {
           onStepComplete();

@@ -30,7 +30,7 @@ const StoreInfo = () => {
   const { mutate: updateStore, isPending } = useMutation({
     ...updateStoreMutation(),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["all-store-options"] });
+      queryClient.invalidateQueries(getAllStoreQuery());
       toast.success("Dəyişikliklər uğurla yadda saxlanıldı");
       setStoreLogo(null);
       setBackgroundImage(null);

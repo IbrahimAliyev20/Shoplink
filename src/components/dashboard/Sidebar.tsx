@@ -16,13 +16,13 @@ import {
   PanelRightOpen,
   LayoutGrid,
   Globe,
-  
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import { useQuery } from '@tanstack/react-query';
 import { getAllStoreQuery } from '@/services/Seller-services/store/allstore/queries';
+import { getUserQuery } from '@/services/auth/queries';
 
 interface SidebarProps {
   className?: string;
@@ -84,8 +84,10 @@ export default function Sidebar({ className, isCollapsed: externalIsCollapsed, o
   const [internalIsCollapsed, setInternalIsCollapsed] = useState(false);
   const [expandedItems, setExpandedItems] = useState<string[]>(['mehsullar']);
   const { data: store } = useQuery(getAllStoreQuery());
-
-  // Use external state if provided, otherwise use internal state
+  
+  // DƏYİŞİKLİK 1: isLoading və isError statuslarını useQuery-dan götürürük
+  const { data: user, isLoading, isError } = useQuery(getUserQuery());
+  
   const isCollapsed = externalIsCollapsed !== undefined ? externalIsCollapsed : internalIsCollapsed;
 
   const toggleCollapsed = () => {
@@ -148,19 +150,40 @@ export default function Sidebar({ className, isCollapsed: externalIsCollapsed, o
           </Button>
         </div>
 
-        {/* User Profile */}
+        {/* DƏYİŞİKLİK 2: User Profile bloku tamamilə yeniləndi */}
         <div className="p-4 border-b border-gray-800">
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0">
-              <span className="text-sm font-semibold">AF</span>
+            <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 bg-gray-700">
+              {/* Əgər sorğu hələ yüklənirsə, boz bir dairə (skeleton) göstər */}
+              {isLoading && (
+                <div className="w-full h-full rounded-full bg-gray-700 animate-pulse"></div>
+              )}
+
+              {/* Əgər sorğuda xəta baş veribsə və ya məlumat uğurla gəlibsə */}
+              {!isLoading && (
+                <Image 
+                  // Burada həm datanın mövcudluğunu, həm də "null" stringi olmadığını yoxlayırıq
+                  src={!isError && user?.data?.image && user.data.image !== 'null' ? user.data.image : "/images/Card.svg"}
+                  alt="User"
+                  width={40}
+                  height={40}
+                  className="rounded-full"
+                  // Əlavə təhlükəsizlik: Əgər src linki yüklənməsə, standart şəkilə qayıt
+                  onError={(e) => {
+                    e.currentTarget.src = "/images/Card.svg";
+                  }}
+                />
+              )}
             </div>
+            
             {!isCollapsed && (
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium text-white truncate">
-                  
+                  {/* Bu hissə orijinal kodunuzda boş idi */}
                 </p>
                 <p className="text-xs text-gray-400 truncate">
-                  aysunfeyzullayevaux@...
+                  {/* Məlumat yüklənərkən və ya xəta olanda emaili göstərmə */}
+                  {!isLoading && !isError ? user?.data?.email : '...'}
                 </p>
               </div>
             )}
@@ -254,20 +277,20 @@ export default function Sidebar({ className, isCollapsed: externalIsCollapsed, o
         </nav>
 
         {/* Footer */}
-        <div className="  p-4 border-t border-gray-800">
+        <div className="p-4 border-t border-gray-800">
           {!isCollapsed ? (
             <div className='flex items-center space-x-2'>
-           <Globe  className='w-[18px] h-[18px] text-[#AF52DE]'/> 
-            <Link href={`${store?.slug}`} className="text-xs text-gray-400">
-              {store?.name}
-            </Link> 
-             </div>
+              <Globe  className='w-[18px] h-[18px] text-[#AF52DE]'/> 
+              <Link href={`/${store?.slug}`} className="text-xs text-gray-400">
+                {store?.name}
+              </Link> 
+            </div>
           ) : (
             <div className="flex justify-center">
               <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-600 rounded-lg flex items-center justify-center">
-               <Link href={`${store?.slug}`} className="text-xs text-gray-400">
-                <Package className="h-4 w-4 text-white" />
-               </Link>
+                <Link href={`/${store?.slug}`} className="text-xs text-gray-400">
+                  <Package className="h-4 w-4 text-white" />
+                </Link>
               </div>
             </div>
           )}

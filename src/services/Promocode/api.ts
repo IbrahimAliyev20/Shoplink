@@ -24,5 +24,3 @@ export const deletePromocode = async (id: number) => {
     const response = await post<{ data: Promocode }>(`user/promocode/delete/${id}`);
     return response.data;
 };
-
-export default {getPromocode, createPromocode, updatePromocode, deletePromocode};    

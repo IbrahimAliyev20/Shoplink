@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button'
 import { useLoginMutation } from '@/services/auth/mutations'
 import { useRouter } from 'next/navigation'
 import { getUserAction } from '@/services/auth/server-actions'
+import { toast } from 'sonner'
 
 // Helper component for floating label effect
 interface FloatingFieldProps {
@@ -60,7 +61,7 @@ function Login() {
                             router.push("/dashboard/shopsetup");
                         }
                     } catch (error) {
-                        
+                        toast.error(error instanceof Error ? error.message : "Giriş zamanı xəta baş verdi.");
                         router.push("/dashboard/shopsetup");
                     }
                 }

@@ -64,8 +64,8 @@ function EditCategory() {
     ...updateCategoryMutation(),
     onSuccess: () => {
       toast.success("Kateqoriya uğurla yeniləndi");
-      queryClient.invalidateQueries({ queryKey: ["categories"] });
-      queryClient.invalidateQueries({ queryKey: ["category", id] });
+      queryClient.invalidateQueries(categoryQueries.all());
+      queryClient.invalidateQueries(categoryQueries.show(Number(id)));
     },
     onError: (error) => {
       toast.error("Kateqoriya yenilənərkən xəta baş verdi: " + error.message);

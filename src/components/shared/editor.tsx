@@ -15,7 +15,6 @@ import {Table} from "@tiptap/extension-table";
 import TableRow from "@tiptap/extension-table-row";
 import TableHeader from "@tiptap/extension-table-header";
 import TableCell from "@tiptap/extension-table-cell";
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -527,7 +526,7 @@ export default function RichTextEditor({
                     <div className="space-y-2">
                       <Label>Preview:</Label>
                       <div className="border rounded-lg p-2">
-                        <img
+                        <img 
                           src={imagePreview}
                           alt="Preview"
                           className="max-w-full h-auto max-h-48 mx-auto rounded"

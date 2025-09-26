@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/select";
 
 import { createCategoryMutation } from "@/services/Seller-services/category/mutations"; 
+import { categoryQueries } from "@/services/Seller-services/category/queries";
 
 type CategoryFormValues = {
   name: string;
@@ -41,7 +42,7 @@ function CreateCategory() {
     ...createCategoryMutation(),
     onSuccess: () => {
       toast.success("Kateqoriya uğurla yaradıldı");
-      queryClient.invalidateQueries({ queryKey: ["category"] });
+      queryClient.invalidateQueries(categoryQueries.all());
       reset();
     },
     onError: (error) => {

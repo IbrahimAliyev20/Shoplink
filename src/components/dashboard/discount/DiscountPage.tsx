@@ -28,13 +28,16 @@ import {
 } from "@/services/Promocode/mutations";
 import { toast } from "sonner";
 import getPromocodeOptions from "@/services/Promocode/queries";
+import EditPromocodeModal from "@/components/dashboard/modal/EditPromocodeModal";
+import { Promocode } from "@/types";
 
 function DiscountPage() {
   const [promoCode, setPromoCode] = useState("");
   const [discountPercent, setDiscountPercent] = useState("");
   const [selectedProducts, setSelectedProducts] = useState<number[]>([]);
   const [currentPage, setCurrentPage] = useState(3);
-
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [selectedPromocodeForEdit, setSelectedPromocodeForEdit] = useState<Promocode | null>(null);
   const queryClient = useQueryClient();
 
   const { data: promocode } = useQuery({
@@ -83,6 +86,11 @@ function DiscountPage() {
         ? prev.filter((id) => id !== productId)
         : [...prev, productId]
     );
+  };
+  const handleEditProduct = (promoCodeId: number) => {
+    const promocodeToEdit = promocode?.find(p => p.id === promoCodeId);
+    setSelectedPromocodeForEdit(promocodeToEdit || null);
+    setIsEditModalOpen(true);
   };
   return (
     <div className="bg-gray-50 min-h-screen">
@@ -165,7 +173,8 @@ function DiscountPage() {
                       variant="ghost"
                       size="icon"
                       className="w-8 h-8 p-0 hover:bg-gray-100 rounded-full max-sm:w-6 max-sm:h-6"
-                    >
+                      onClick={() => handleEditProduct(promocode.id)}
+                   >
                       <Edit className="w-5 h-5 text-gray-500 max-sm:w-4 max-sm:h-4" />
                     </Button>
                     <Button
@@ -298,6 +307,17 @@ function DiscountPage() {
           </PaginationContent>
         </Pagination>
       </div>
+
+      {isEditModalOpen && (
+        <EditPromocodeModal
+          isOpen={isEditModalOpen}
+          onClose={() => {
+            setIsEditModalOpen(false);
+            setSelectedPromocodeForEdit(null);
+          }}
+          promocode={selectedPromocodeForEdit}
+        />
+      )}
     </div>
   );
 }

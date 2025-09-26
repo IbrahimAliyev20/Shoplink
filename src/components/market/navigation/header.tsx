@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { getUserAction } from "@/services/auth/server-actions";
 import { UserData } from "@/types";
+import { toast } from "sonner";
 
 
 export default function Header({ marketSlug }: { marketSlug: string }) {
@@ -17,6 +18,7 @@ export default function Header({ marketSlug }: { marketSlug: string }) {
         const userData = await getUserAction();
         setUser(userData);
       } catch (error) {
+        toast.error(error instanceof Error ? error.message : "Giriş zamanı xəta baş verdi.");
         setUser(null);
       } finally {
         

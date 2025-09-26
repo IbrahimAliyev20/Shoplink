@@ -87,10 +87,11 @@ const ProductEdit: React.FC = () => {
       setOtherImages((prev) => [...prev, ...newImages]);
     }
   };
-
+ 
   const handleDeleteImage = (id: number) => {
     setOtherImages((prev) => prev.filter((image) => image.id !== id));
   };
+ 
 
   const triggerFileInput = () => {
     fileInputRef.current?.click();

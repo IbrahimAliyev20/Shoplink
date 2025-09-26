@@ -18,6 +18,7 @@ import { UserData } from "@/types";
 import { toast } from "sonner";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { updateUserMutation } from "@/services/auth/updateUser/mutations";
+import { getUserQuery } from "@/services/auth/queries";
 
 const PersonalInfo = ({ user }: { user: UserData }) => {
   const queryClient = useQueryClient();
@@ -25,8 +26,8 @@ const PersonalInfo = ({ user }: { user: UserData }) => {
   const { mutate: updateUser, isPending } = useMutation({
     ...updateUserMutation(),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["user"] });
       toast.success("Dəyişikliklər uğurla yadda saxlanıldı");
+      queryClient.invalidateQueries(getUserQuery());
     },
     onError: (error) => {
       toast.error("Xəta baş verdi: " + error.message);
@@ -40,7 +41,8 @@ const PersonalInfo = ({ user }: { user: UserData }) => {
   const [fin, setFin] = useState("");
   const [type, setType] = useState("");
   const [region, setRegion] = useState("");
-
+  const [image, setImage] = useState<string | File>("");
+  const [imagePreview, setImagePreview] = useState<string>("");
   useEffect(() => {
     if (user) {
       setName(user.name || "");
@@ -50,6 +52,8 @@ const PersonalInfo = ({ user }: { user: UserData }) => {
       setFin(user.fin || "");
       setType(user.type || "");
       setRegion(user.region || "");
+      setImage(user.image || "");
+      setImagePreview(user.image || "");
     }
   }, [user]);
 
@@ -62,8 +66,16 @@ const PersonalInfo = ({ user }: { user: UserData }) => {
     formData.append("fin", fin);
     formData.append("type", type);
     formData.append("region", region);
-
+    formData.append("image", image instanceof File ? image : image);
     updateUser(formData);
+  };
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setImage(file);
+      const previewUrl = URL.createObjectURL(file);
+      setImagePreview(previewUrl);
+    }
   };
 
   return (
@@ -78,7 +90,7 @@ const PersonalInfo = ({ user }: { user: UserData }) => {
           <div className="relative">
             <Avatar className="h-20 w-20 max-md:h-16 max-md:w-16">
               <AvatarImage
-                src={user.image || ""}
+                src={imagePreview || user.image || ""}
                 alt="Profile"
                 className="object-cover"
               />
@@ -86,10 +98,16 @@ const PersonalInfo = ({ user }: { user: UserData }) => {
                 AF
               </AvatarFallback>
             </Avatar>
+            <input
+              type="file"
+              accept="image/*"
+              className="absolute inset-0 opacity-0 cursor-pointer"
+              onChange={handleImageChange}
+            />
             <Button
               size="sm"
               variant="outline"
-              className="absolute -top-1 -right-1 h-8 w-8 rounded-full p-0 max-md:h-6 max-md:w-6"
+              className="absolute -top-1 -right-1 h-8 w-8 rounded-full p-0 max-md:h-6 max-md:w-6 pointer-events-none"
             >
               <Pencil className="h-4 w-4 max-md:h-3 max-md:w-3" />
             </Button>
