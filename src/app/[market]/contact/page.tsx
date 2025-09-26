@@ -1,0 +1,116 @@
+import React from 'react';
+import { Mail, Phone, MapPin, Facebook, Instagram, Send } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
+
+function ContactMarket() {
+  return (
+    <div className=" flex items-center justify-center py-10">
+      <div className="max-w-6xl mx-auto bg-[#FBFDFF] rounded-2xl overflow-hidden grid grid-cols-1 lg:grid-cols-2 p-20 shadow-sm">
+        
+        <div className="py-8 flex flex-col justify-between ">
+          <div>
+            <h2 className="text-3xl md:text-4xl font-semibold text-gray-900 mb-8">
+              Sualınız Var? Biz Buradayıq!
+            </h2>
+            <div className="space-y-6 text-gray-700">
+              <div className="flex items-center space-x-4">
+                <Mail className="h-6 w-6 text-gray-600" />
+                <span className="text-lg">stridex@gmail.com</span>
+              </div>
+              <div className="flex items-center space-x-4">
+                <Phone className="h-6 w-6 text-gray-600" />
+                <span className="text-lg">+994 700 70 77</span>
+              </div>
+              <div className="flex items-start space-x-4">
+                <MapPin className="h-6 w-6 text-gray-600 flex-shrink-0 mt-1" />
+                <span className="text-lg">Nizami rayonu, M.Abbasov küçəsi</span>
+              </div>
+            </div>
+          </div>
+          
+          <div className=" flex space-x-6">
+            <Link href="#" className="flex items-center justify-center w-12 h-12 rounded-full bg-white shadow-sm  transition-colors">
+              <Facebook className="text-pink-500" />
+            </Link>
+            <Link href="#" className="flex items-center justify-center w-12 h-12 rounded-full bg-white shadow-sm transition-colors">
+              <Instagram className="text-pink-500" />
+            </Link>
+            <Link href="#" className="flex items-center justify-center w-12 h-12 rounded-full bg-white shadow-sm  transition-colors">
+              <Send className="text-pink-500" />
+            </Link>
+          </div>
+        </div>
+
+
+<div className="p-8 sm:p-10  shadow-sm bg-white rounded-2xl">
+  <form className="space-y-8">
+    
+    <div className="relative">
+      <label
+        htmlFor="fullname"
+        className="absolute -top-2.5 left-3 inline-block bg-white px-1 text-sm font-medium text-gray-600"
+      >
+        Ad,soyad
+      </label>
+      <input
+        type="text"
+        id="fullname"
+        placeholder="Ad və soyadınızı daxil edin"
+        className="block w-full rounded-xl border-2 px-4 py-4 text-gray-900 placeholder:text-[#8E8E93]   sm:text-base "
+      />
+    </div>
+
+    <div className="relative">
+       <label
+        htmlFor="phone"
+        className="absolute -top-2.5 left-3 inline-block bg-white px-1 text-sm font-medium text-gray-600"
+      >
+        Telefon nömrəsi
+      </label>
+      <div className="flex w-full rounded-xl  border-2">
+        <select
+          id="country-code"
+          className="bg-transparent pl-4 pr-2 text-gray-700  sm:text-base border-r border-gray-300"
+        >
+          <option>+994</option>
+        </select>
+        <input
+          type="tel"
+          id="phone"
+          placeholder="Telefon nömrənizi daxil edin"
+          className="flex-1 block w-full bg-transparent px-4 py-4 text-gray-900 placeholder:text-[#8E8E93] focus:outline-none sm:text-base sm:leading-6"
+        />
+      </div>
+    </div>
+
+    <div className="relative">
+       <label
+        htmlFor="message"
+        className="absolute -top-2.5 left-3 inline-block bg-white px-1 text-sm font-medium text-gray-600"
+      >
+        Mesaj
+      </label>
+      <textarea
+        id="message"
+        placeholder="Mesajınız"
+        className="block w-full rounded-xl border-2 px-4 py-4 text-gray-900 placeholder:text-[#8E8E93] sm:text-base "
+      ></textarea>
+    </div>
+
+    <Button
+      variant="default"
+      type="submit"
+      className="w-full rounded-xl bg-[#FF13F0] hover:bg-[#FF13F0]/90   px-6 py-4 text-base font-medium text-white cursor-pointer"
+    >
+      Mesaj göndər
+    </Button>
+  </form>
+</div>
+
+      </div>
+    </div>
+  );
+}
+
+export default ContactMarket;

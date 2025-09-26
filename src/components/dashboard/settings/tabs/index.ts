@@ -1,0 +1,6 @@
+export { default as PersonalInfo } from './PersonalInfo'
+export { default as StoreInfo } from './StoreInfo'
+export { default as Security } from './Security'
+export { default as PaymentMethods } from './PaymentMethods'
+export { default as Staff } from './Staff'
+export { default as Support } from './Support'
