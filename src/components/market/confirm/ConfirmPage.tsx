@@ -77,21 +77,7 @@ function ConfirmPage() {
                   Ödəniş metodu
                 </h2>
                 <div className="flex flex-col sm:flex-row sm:items-center gap-y-3 gap-x-12">
-                  <label className="flex items-center gap-4 cursor-pointer">
-                    <input
-                      type="radio"
-                      name="paymentMethod"
-                      value="card"
-                      checked={formData.paymentMethod === "card"}
-                      onChange={(e) =>
-                        handleInputChange("paymentMethod", e.target.value)
-                      }
-                      className="w-4 h-4 text-pink-500 border-gray-300 focus:ring-pink-500"
-                    />
-                    <span className="text-gray-700">
-                      Bank kartı vasitəsilə onlayn ödəniş
-                    </span>
-                  </label>
+            
                   <label className="flex items-center gap-4 cursor-pointer">
                     <input
                       type="radio"
@@ -235,11 +221,10 @@ function ConfirmPage() {
             </form>
           </div>
 
-          {/* Order Summary */}
           <div className="lg:col-span-1">
             <div className="bg-white rounded-2xl p-6 shadow-sm sticky top-6">
               <h3 className="text-lg font-medium text-gray-900 mb-2">
-                Stridex
+              {marketSlug}
               </h3>
               <p className="text-gray-600 mb-6">{cartItems.length} məhsul</p>
 
