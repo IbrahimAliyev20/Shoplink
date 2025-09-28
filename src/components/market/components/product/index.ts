@@ -1,7 +1,5 @@
 export { default as ProductImageGallery } from './ProductImageGallery'
-export { default as ColorSelector } from './ColorSelector'
-export { default as SizeSelector } from './SizeSelector'
 export { default as QuantitySelector } from './QuantitySelector'
 export { default as ProductActions } from './ProductActions'
 export { default as ProductTabs } from './ProductTabs'
-export { default as SimilarProducts } from './SimilarProducts'
+export { default as OtherProductsInCategory } from './OtherProductsInCategory'

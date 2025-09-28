@@ -61,7 +61,6 @@ function Addresses() {
     onError: onMutationError,
   });
 
-  // 3. Handler funksiyaları mutation-ları çağırır
   const handleSubmit = (data: AddressFormData) => {
     if (editingAddress) {
       updateAddress({ ...data, id: editingAddress.id });

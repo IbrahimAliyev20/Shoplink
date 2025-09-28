@@ -189,7 +189,7 @@ export interface Address {
   name: string;
   surname: string;
   phone: string;
-  selected: boolean | null; 
+  selected:number; 
 }
 
 

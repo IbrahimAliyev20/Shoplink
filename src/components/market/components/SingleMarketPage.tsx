@@ -1,92 +1,84 @@
-'use client'
 
-import React, { useState } from 'react'
-import { mockProduct } from '../data/product'
+
+'use client';
+
+import React, { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { getProductSingleOptions } from '@/services/User-services/StoreForUsers/queries';
 import {
   ProductImageGallery,
-  ColorSelector,
-  SizeSelector,
+  
   QuantitySelector,
   ProductActions,
   ProductTabs,
-  SimilarProducts
-} from './product'
+} from './product';
+import OtherProductsInCategory from './product/OtherProductsInCategory';
 
-function SingleProductPage() {
-  const [selectedColor, setSelectedColor] = useState(mockProduct.colors[0].id)
-  const [selectedSize, setSelectedSize] = useState("38") 
-  const [quantity, setQuantity] = useState(1)
-  const [activeTab, setActiveTab] = useState("details")
-  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+function SingleProductPage({ slug }: { slug: string }) {
+  const { data: product, isLoading, isError } = useQuery(getProductSingleOptions(slug));
+
+  const [quantity, setQuantity] = useState(1);
+  const [activeTab, setActiveTab] = useState("details");
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  if (isLoading) {
+    return <div className="text-center py-20">Məhsul yüklənir...</div>;
+  }
+  if (isError || !product) {
+    return <div className="text-center py-20 text-red-500">Məhsul tapılmadı və ya xəta baş verdi.</div>;
+  }
 
   const handleQuantityChange = (change: number) => {
-    setQuantity((prev) => Math.max(1, prev + change))
-  }
-  
-  const handleBuyNow = () => console.log("Indi al:", { selectedColor, selectedSize, quantity })
-  const handleAddToCart = () => console.log("Səbətə at:", { selectedColor, selectedSize, quantity })
+    setQuantity((prev) => Math.max(1, prev + change));
+  };
+  const handleBuyNow = () => console.log("Indi al:", { productId: product.id, quantity });
+  const handleAddToCart = () => console.log("Səbətə at:", { productId: product.id, quantity });
+
+  const imageUrls = product.images.map(img => img.image);
 
   return (
     <div className="min-h-screen bg-white py-8 sm:py-12 max-md:py-6">
       <div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 max-md:gap-6">
-          {/* Product Image Gallery */}
           <ProductImageGallery
-            images={mockProduct.images}
+            images={imageUrls}
             currentImageIndex={currentImageIndex}
             onImageChange={setCurrentImageIndex}
-            productName={mockProduct.name}
+            productName={product.name}
           />
 
-          {/* Product Information */}
           <div className="flex flex-col justify-between max-md:space-y-6">
             <h1 className="text-[24px] font-medium text-gray-900 leading-snug max-md:text-xl max-md:leading-tight">
-              {mockProduct.name}
+              {product.name}
             </h1>
 
-            {/* Color Selection */}
-            <ColorSelector
-              colors={mockProduct.colors}
-              selectedColor={selectedColor}
-              onColorSelect={setSelectedColor}
-            />
-
-            {/* Size Selection */}
-            <SizeSelector
-              sizes={mockProduct.sizes}
-              selectedSize={selectedSize}
-              onSizeSelect={setSelectedSize}
-            />
-
-            {/* Quantity and Price */}
+       
+            
             <QuantitySelector
               quantity={quantity}
               onQuantityChange={handleQuantityChange}
-              price={mockProduct.price}
+              price={product.detail.discount_price || product.detail.sales_price}
             />
 
-            {/* Action Buttons */}
             <ProductActions
               onBuyNow={handleBuyNow}
               onAddToCart={handleAddToCart}
             />
-
-            {/* Product Information Tabs */}
+            
             <ProductTabs
-              details={mockProduct.details}
+              description={product.detail.description}
               activeTab={activeTab}
               onTabChange={setActiveTab}
             />
           </div>
         </div>
-
-        {/* Similar Products Section */}
+        
         <div className="max-md:mt-12">
-          <SimilarProducts />
+          <OtherProductsInCategory currentProduct={product} />
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export default SingleProductPage;

@@ -6,7 +6,7 @@ import { getCategoryStore, getStore, getProductStoreCategory, getProductSingle, 
 
 export const getStoreOptions = function(slug: string){
     return queryOptions({
-        queryKey: ['store-options'],
+        queryKey: ['store-options' , slug],
         queryFn: () => getStore(slug)
     })
 }
@@ -15,7 +15,7 @@ export const getStoreOptions = function(slug: string){
 
 export const getCategoryStoreOptions = function(slug: string){
     return queryOptions({
-        queryKey: ['category-store-options'],
+        queryKey: ['category-store-options' , slug],
         queryFn: () => getCategoryStore(slug)
     })
 }
@@ -24,7 +24,7 @@ export const getCategoryStoreOptions = function(slug: string){
 
 export const getProductStoreCategoryOptions = function(slug: string, category_name: string){
     return queryOptions({
-        queryKey: ['product-store-category-options'],
+        queryKey: ['product-store-category-options' , slug, category_name],
         queryFn: () => getProductStoreCategory(slug, category_name)
     })
 }
@@ -33,7 +33,7 @@ export const getProductStoreCategoryOptions = function(slug: string, category_na
 
 export const getProductSingleOptions = function(slug: string){
     return queryOptions({
-        queryKey: ['product-single-options'],
+        queryKey: ['product-single-options' , slug],
         queryFn: () => getProductSingle(slug)
     })
 }
@@ -42,7 +42,7 @@ export const getProductSingleOptions = function(slug: string){
  
 export const getAllProductsStoreOptions = function(slug: string){
     return queryOptions({
-        queryKey: ['all-products-store-options'],
+        queryKey: ['all-products-store-options' , slug],
         queryFn: () => getAllProductsStore(slug)
     })
 }

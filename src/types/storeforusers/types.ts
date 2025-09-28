@@ -35,6 +35,7 @@ export interface ProductStoreCategoryImage {
     image: string;
     thumb_image: string;
 }
+
 export interface ProductStoreCategoryDetail {
     sales_price: string;
     discount_price: string;

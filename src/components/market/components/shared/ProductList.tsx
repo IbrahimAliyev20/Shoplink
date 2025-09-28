@@ -1,15 +1,16 @@
-import { SimpleProduct } from "../../data/product";
+import { ProductStoreCategory } from "@/types/storeforusers/types";
 import ProductCard from "./ProoductCard";
 
 interface ProductListProps {
-  products: SimpleProduct[];
+  products: ProductStoreCategory[];
+  storeSlug: string;
 }
 
-const ProductList: React.FC<ProductListProps> = ({ products }) => {
+const ProductList: React.FC<ProductListProps> = ({ products, storeSlug }) => {
   return (
     <div className="mt-6 sm:mt-8 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
       {products.map((product) => (
-        <ProductCard key={product.id} product={product} />
+        <ProductCard key={product.id} product={product} storeSlug={storeSlug} />
       ))}
 
       {products.length === 0 && (

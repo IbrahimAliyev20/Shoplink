@@ -21,7 +21,7 @@ function AddressItem({ address, onEdit, onDelete, onSelect }: AddressItemProps) 
           <div className="relative flex items-center gap-2 mb-2">
             <MapPin className="w-4 h-4 text-gray-400" />
             <h3 className="font-medium text-gray-900">{address.title}</h3>
-            {address.selected === true && (
+            {address.selected === 1 && (
               <div className="absolute right-0 top-0 bg-[#fff5ff] text-[#FF13F0] text-base px-3 py-2 rounded-lg flex items-center gap-1 font-medium">
                 Seçilmiş ünvan
               </div>
@@ -47,7 +47,7 @@ function AddressItem({ address, onEdit, onDelete, onSelect }: AddressItemProps) 
             <DropdownMenuItem onClick={() => onDelete(address.id)}>
               <Trash2 className="w-4 h-4 mr-2" /> Ünvanı sil
             </DropdownMenuItem>
-            {address.selected !== true && (
+            {address.selected !== 1 && (
               <DropdownMenuItem onClick={() => onSelect(address.id)}>
                 <CircleCheck className="w-4 h-4 mr-2" /> Seçilmiş ünvan et
               </DropdownMenuItem>

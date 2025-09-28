@@ -1,12 +1,13 @@
-import SingleMarketPage from '@/components/market/components/SingleMarketPage'
-import React from 'react'
 
-const SingleMarket = () => {
+import SingleProductPage from '@/components/market/components/SingleMarketPage';
+import React from 'react';
+
+const SingleProduct = ({ params }: { params: { slug: string } }) => {
   return (
     <div className='container mx-auto px-4 max-md:px-3'>
-        <SingleMarketPage />
+      <SingleProductPage slug={params.slug} />
     </div>
-  )
-}
+  );
+};
 
-export default SingleMarket
+export default SingleProduct;

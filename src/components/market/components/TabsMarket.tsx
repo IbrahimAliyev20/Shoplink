@@ -4,8 +4,10 @@ import React, { useState, useMemo } from "react";
 import ProductList from "./shared/ProductList";
 import { useQuery } from "@tanstack/react-query";
 import { getProductStoreCategory } from "@/services/User-services/StoreForUsers/api";
-import { CategoryStore, ProductStoreCategory } from "@/types/storeforusers/types";
-import { SimpleProduct } from "../data/product";
+import {
+  CategoryStore,
+  ProductStoreCategory,
+} from "@/types/storeforusers/types";
 
 interface TabsMarketProps {
   categories: CategoryStore[];
@@ -13,39 +15,39 @@ interface TabsMarketProps {
   allProducts: ProductStoreCategory[];
 }
 
-const TabsMarket: React.FC<TabsMarketProps> = ({ categories, storeSlug, allProducts }) => {
-  const allTabs = useMemo(() => [
-    { id: -1, name: "Bütün məhsullar", slug: "all" },
-    ...categories,
-  ], [categories]);
+const TabsMarket: React.FC<TabsMarketProps> = ({
+  categories,
+  storeSlug,
+  allProducts,
+}) => {
+  const allTabs = useMemo(
+    () => [{ id: -1, name: "Bütün məhsullar", slug: "all" }, ...categories],
+    [categories]
+  );
 
-  const [activeTab, setActiveTab] = useState<string>("all"); 
+  const [activeTab, setActiveTab] = useState<string>("all");
   const [searchTerm, setSearchTerm] = useState("");
 
-  const { 
-    data: products, 
-    isLoading, 
-    isError 
-  } = useQuery({
-    queryKey: ["products", storeSlug, activeTab], 
-    queryFn: () => activeTab === "all" ? allProducts : getProductStoreCategory(storeSlug, activeTab),
-    enabled: !!activeTab,
+  const {
+    data: products = [],
+    isLoading,
+    isError,
+  } = useQuery<ProductStoreCategory[]>({
+    queryKey: ["products", storeSlug, activeTab],
+    queryFn: () => getProductStoreCategory(storeSlug, activeTab),
+    enabled: activeTab !== "all", 
   });
 
   const filteredProducts = useMemo(() => {
-    if (!products) return allProducts;
-    const transformedProducts = products.map(product => ({
-      id: product.id,
-      name: product.name,
-      price: product.detail.sales_price,
-      image: product.image,
-      category: product.category_name
-    }));
-    if (searchTerm === "") return transformedProducts;
-    return transformedProducts.filter((product) =>
+    const baseProducts = activeTab === "all" ? allProducts : products;
+
+    if (!baseProducts) return [];
+    if (searchTerm === "") return baseProducts;
+
+    return baseProducts.filter((product) =>
       product.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
-  }, [products, searchTerm, allProducts]);
+  }, [products, searchTerm, allProducts, activeTab]);
 
   return (
     <div>
@@ -79,27 +81,59 @@ const TabsMarket: React.FC<TabsMarketProps> = ({ categories, storeSlug, allProdu
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
-             <svg className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400 absolute right-3 sm:right-4 top-1/2 transform -translate-y-1/2 max-md:w-4 max-md:h-4 max-md:right-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
+            <svg
+              className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400 absolute right-3 sm:right-4 top-1/2 transform -translate-y-1/2 max-md:w-4 max-md:h-4 max-md:right-3"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+              />
+            </svg>
           </div>
           <button className="flex items-center gap-2 border border-gray-300 rounded-md py-2 px-3 sm:px-4 hover:bg-gray-50 transition w-full sm:w-auto justify-center max-md:h-10 max-md:px-3">
-            <svg className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600 max-md:w-4 max-md:h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4h18M3 10h12M3 16h6" />
-            </svg>
-            <span className="font-medium text-xs sm:text-sm max-md:text-xs">Filter</span>
+            <svg
+              className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600 max-md:w-4 max-md:h-4"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M3 4h18M3 10h12M3 16h6"
+              />
+            </svg>
+            <span className="font-medium text-xs sm:text-sm max-md:text-xs">
+              Filter
+            </span>
           </button>
         </div>
-        
+
         <div className="mt-4 sm:mt-6 max-md:mt-3">
-            <p className="text-xs sm:text-sm text-gray-600 max-md:text-xs">{!isLoading && `${filteredProducts.length} məhsul`}</p>
+          {!isLoading && !isError && (
+            <p className="text-xs sm:text-sm text-gray-600 max-md:text-xs">
+              {filteredProducts.length} məhsul
+            </p>
+          )}
         </div>
       </div>
 
       {isLoading && <p>Məhsullar yüklənir...</p>}
       {isError && <p>Məhsulları yükləyərkən xəta baş verdi.</p>}
-      {!isLoading && !isError && filteredProducts.length === 0 && <p>Bu kateqoriyada məhsul tapılmadı.</p>}
-      {!isLoading && !isError && filteredProducts.length > 0 && <ProductList products={filteredProducts as SimpleProduct[]} />}
+      {!isLoading && !isError && filteredProducts.length === 0 && (
+        <p>Bu kateqoriyada məhsul tapılmadı.</p>
+      )}
+      {!isLoading && !isError && filteredProducts.length > 0 && (
+        <ProductList products={filteredProducts} storeSlug={storeSlug} />
+      )}
     </div>
   );
 };
