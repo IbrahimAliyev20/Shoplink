@@ -27,6 +27,7 @@ type CategoryFormValues = {
   order: string;
   meta_description: string;
   meta_keywords: string;
+  meta_title: string;
 };
 
 function EditCategory() {
@@ -51,6 +52,7 @@ function EditCategory() {
         order: "",
         meta_description: "",
         meta_keywords: "",
+        meta_title: "",
     }
   });
 
@@ -80,6 +82,7 @@ function EditCategory() {
     formData.append("order", data.order);
     formData.append("meta_description", data.meta_description);
     formData.append("meta_keywords", data.meta_keywords);
+    formData.append("meta_title", data.meta_title);
 
     updateCategory(formData);
   };
@@ -195,6 +198,7 @@ function EditCategory() {
                     className="max-sm:h-10 max-sm:text-sm"
                   />
                 </div>
+             
                 <div className="space-y-2 max-sm:space-y-1.5">
                   <Label htmlFor="meta_description" className="max-sm:text-sm">
                     SEO Təsvir (Description)
@@ -203,6 +207,17 @@ function EditCategory() {
                     id="meta_description"
                     placeholder="Kateqoriya təsviri"
                     {...register("meta_description")}
+                    className="max-sm:h-10 max-sm:text-sm"
+                  />
+                </div>
+                <div className="col-span-2   space-y-2 max-sm:space-y-1.5">
+                  <Label htmlFor="meta_title" className="max-sm:text-sm">
+                    Açar sözlərx
+                  </Label>
+                  <Input
+                    id="meta_title"
+                    placeholder="Kateqoriya adı"
+                    {...register("meta_title")}
                     className="max-sm:h-10 max-sm:text-sm"
                   />
                 </div>

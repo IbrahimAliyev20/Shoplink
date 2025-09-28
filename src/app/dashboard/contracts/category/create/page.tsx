@@ -16,7 +16,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import { createCategoryMutation } from "@/services/Seller-services/category/mutations"; 
+import { createCategoryMutation } from "@/services/Seller-services/category/mutations";
 import { categoryQueries } from "@/services/Seller-services/category/queries";
 
 type CategoryFormValues = {
@@ -25,6 +25,7 @@ type CategoryFormValues = {
   order: string;
   meta_description: string;
   meta_keywords: string;
+  meta_title: string;
 };
 
 function CreateCategory() {
@@ -56,6 +57,7 @@ function CreateCategory() {
     formData.append("name", data.name);
     formData.append("description", data.description);
     formData.append("order", data.order);
+    formData.append("meta_title", data.meta_title);
     formData.append("meta_description", data.meta_description);
     formData.append("meta_keywords", data.meta_keywords);
 
@@ -119,32 +121,36 @@ function CreateCategory() {
                     Məhsul sıralanması
                   </Label>
                   <Controller
-  name="order"
-  control={control}
-  rules={{ required: "Sıralama mütləqdir" }}
-  defaultValue="desc" // ✨ default olaraq yaradılma tarixi üzrə azalan (desc)
-  render={({ field }) => (
-    <Select
-      onValueChange={field.onChange}
-      value={field.value}
-    >
-      <SelectTrigger className="w-full max-sm:h-10 max-sm:text-sm">
-        <SelectValue placeholder="Seçin" />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectItem value="asc">Yaradılma tarixi (Asc)</SelectItem>
-        <SelectItem value="desc">Yaradılma tarixi (Desc)</SelectItem>
-        <SelectItem value="A-Z">A-Z</SelectItem>
-        <SelectItem value="Z-A">Z-A</SelectItem>
-      </SelectContent>
-    </Select>
-  )}
-/>
-{errors.order && (
-  <p className="text-xs text-red-600 mt-1">
-    {errors.order.message}
-  </p>
-)}
+                    name="order"
+                    control={control}
+                    rules={{ required: "Sıralama mütləqdir" }}
+                    defaultValue="desc"
+                    render={({ field }) => (
+                      <Select
+                        onValueChange={field.onChange}
+                        value={field.value}
+                      >
+                        <SelectTrigger className="w-full max-sm:h-10 max-sm:text-sm">
+                          <SelectValue placeholder="Seçin" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="asc">
+                            Yaradılma tarixi (Asc)
+                          </SelectItem>
+                          <SelectItem value="desc">
+                            Yaradılma tarixi (Desc)
+                          </SelectItem>
+                          <SelectItem value="A-Z">A-Z</SelectItem>
+                          <SelectItem value="Z-A">Z-A</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    )}
+                  />
+                  {errors.order && (
+                    <p className="text-xs text-red-600 mt-1">
+                      {errors.order.message}
+                    </p>
+                  )}
                 </div>
               </div>
             </CardContent>
@@ -161,7 +167,8 @@ function CreateCategory() {
             </CardHeader>
             <CardContent className="space-y-4 max-sm:space-y-3 max-sm:px-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-sm:gap-3">
-                <div className="space-y-2 max-sm:space-y-1.5">
+              
+               <div className="space-y-2 max-sm:space-y-1.5">
                   <Label htmlFor="meta_keywords" className="max-sm:text-sm">
                     SEO Başlıq (Keywords)
                   </Label>
@@ -180,6 +187,17 @@ function CreateCategory() {
                     id="meta_description"
                     placeholder="Kateqoriya təsviri"
                     {...register("meta_description")}
+                    className="max-sm:h-10 max-sm:text-sm"
+                  />
+                </div>
+                <div className="col-span-2   space-y-2 max-sm:space-y-1.5">
+                  <Label htmlFor="meta_title" className="max-sm:text-sm">
+                    Açar sözlər 
+                  </Label>
+                  <Input
+                    id="meta_title"
+                    placeholder="Kateqoriya adı"
+                    {...register("meta_title")}
                     className="max-sm:h-10 max-sm:text-sm"
                   />
                 </div>

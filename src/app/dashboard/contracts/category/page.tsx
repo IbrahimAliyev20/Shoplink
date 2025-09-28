@@ -110,9 +110,9 @@ export default function Category() {
                       </td>
                       <td className="py-4 px-6 max-sm:py-3 max-sm:px-4">
                         <div className="flex items-center justify-start space-x-2 max-sm:space-x-1">
-                          <button className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors max-sm:p-1.5">
+                          <Link href={`/dashboard/contracts/category/preview/${category.id}`} className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors max-sm:p-1.5">
                             <Eye className="h-4 w-4 max-sm:h-3 max-sm:w-3" />
-                          </button>
+                          </Link>
                           <Link href={`/dashboard/contracts/category/edit/${category.id}`} className="p-2 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors max-sm:p-1.5">
                               <Edit className="h-4 w-4 max-sm:h-3 max-sm:w-3" />
                           </Link>
