@@ -1,4 +1,5 @@
 import ClientLayoutMarket from "@/components/market/navigation/clientLayout";
+import { CartProvider } from "@/contexts/CartContext";
 import React from "react";
 
 
@@ -12,9 +13,11 @@ export default async function MarketLayout({
 
   return (
         <div className="">
-          <ClientLayoutMarket>
-            {children}
+          <CartProvider>
+            <ClientLayoutMarket>
+              {children}
             </ClientLayoutMarket>
-          </div>
+          </CartProvider>
+        </div>
   );
 }

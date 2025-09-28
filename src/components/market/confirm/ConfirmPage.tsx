@@ -10,12 +10,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  mockCartItems,
-  calculateCartSummary,
-} from "@/components/market/data/cart";
+import { useCart } from "@/contexts/CartContext";
 import Image from "next/image";
-import Link from "next/link";
+import { useRouter, useParams } from "next/navigation";
 
 interface OrderForm {
   paymentMethod: string;
@@ -28,6 +25,11 @@ interface OrderForm {
 }
 
 function ConfirmPage() {
+  const { cartItems, getCartSummary, clearCart, appliedPromocode } = useCart();
+  const router = useRouter();
+  const params = useParams();
+  const marketSlug = params.market as string;
+  
   const [formData, setFormData] = useState<OrderForm>({
     paymentMethod: "card",
     fullName: "",
@@ -38,8 +40,7 @@ function ConfirmPage() {
     notes: "",
   });
 
-  const cartItems = mockCartItems.slice(0, 2);
-  const summary = calculateCartSummary(cartItems);
+  const summary = getCartSummary();
 
   const handleInputChange = (field: keyof OrderForm, value: string) => {
     setFormData((prev) => ({
@@ -50,7 +51,11 @@ function ConfirmPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Order submitted:", formData);
+    console.log("Order submitted:", { formData, cartItems, summary });
+    
+    clearCart();
+    alert("Sifarişiniz uğurla təsdiqləndi!");
+    router.push(`/${marketSlug}`);
   };
 
   return (
@@ -103,7 +108,6 @@ function ConfirmPage() {
                 </div>
               </div>
 
-              {/* Personal Information */}
               <div className="mb-8">
                 <h2 className="text-lg font-semibold text-gray-800 mb-4">
                   Şəxsi Məlumat
@@ -213,15 +217,14 @@ function ConfirmPage() {
 
               {/* Action Buttons */}
               <div className="flex space-x-4">
-                <Link href="/market/basket" className="flex-1">
-                  <Button
-                    type="button"
-                    variant="outline"
-                    className="w-full h-12 text-gray-700 border-gray-300 hover:bg-gray-50 rounded-[16px]"
-                  >
-                    Ləğv et
-                  </Button>
-                </Link>
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => router.push(`/${marketSlug}/basket`)}
+                  className="flex-1 h-12 text-gray-700 border-gray-300 hover:bg-gray-50 rounded-[16px]"
+                >
+                  Ləğv et
+                </Button>
                 <Button
                   type="submit"
                   className="flex-1 h-12 bg-[#FF13F0] hover:bg-pink-500 text-white font-medium rounded-[16px]"
@@ -267,6 +270,20 @@ function ConfirmPage() {
                 ))}
               </div>
 
+              {/* Applied Promocode */}
+              {appliedPromocode && (
+                <div className="bg-green-50 border border-green-200 rounded-lg p-3 mb-4">
+                  <div className="flex items-center justify-between">
+                    <span className="text-green-800 font-medium">
+                      Tətbiq edilmiş promokod: {appliedPromocode.name}
+                    </span>
+                    <span className="text-green-600 text-sm">
+                      {appliedPromocode.discount}% endirim
+                    </span>
+                  </div>
+                </div>
+              )}
+
               {/* Summary */}
               <div className="border-t border-gray-200 pt-4 space-y-3">
                 <div className="flex justify-between items-center">
@@ -281,6 +298,14 @@ function ConfirmPage() {
                     {summary.delivery === 0 ? "Pulsuz" : `${summary.delivery} AZN`}
                   </span>
                 </div>
+                {summary.promocodeDiscount > 0 && (
+                  <div className="flex justify-between items-center">
+                    <span className="text-green-600">Promokod endirimi</span>
+                    <span className="font-medium text-green-600">
+                      -{summary.promocodeDiscount} AZN
+                    </span>
+                  </div>
+                )}
                 <div className="border-t border-gray-200 pt-3">
                   <div className="flex justify-between items-center">
                     <span className="text-lg font-medium text-gray-900">Toplam</span>

@@ -1,5 +1,3 @@
-
-
 'use client';
 
 import React, { useState } from 'react';
@@ -31,8 +29,6 @@ function SingleProductPage({ slug }: { slug: string }) {
   const handleQuantityChange = (change: number) => {
     setQuantity((prev) => Math.max(1, prev + change));
   };
-  const handleBuyNow = () => console.log("Indi al:", { productId: product.id, quantity });
-  const handleAddToCart = () => console.log("Səbətə at:", { productId: product.id, quantity });
 
   const imageUrls = product.images.map(img => img.image);
 
@@ -61,8 +57,8 @@ function SingleProductPage({ slug }: { slug: string }) {
             />
 
             <ProductActions
-              onBuyNow={handleBuyNow}
-              onAddToCart={handleAddToCart}
+              product={product}
+              quantity={quantity}
             />
             
             <ProductTabs

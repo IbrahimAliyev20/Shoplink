@@ -1,39 +1,37 @@
 "use client";
 
-import React, { useState } from "react";
-import {
-  mockCartItems,
-  calculateCartSummary,
-  CartItem as CartItemType,
-} from "@/components/market/data/cart";
+import React from "react";
+import { useCart } from "@/contexts/CartContext";
 import CartItem from "@/components/market/components/cart/CartItem";
 import CartSummary from "@/components/market/components/cart/CartSummary";
+import { useRouter, useParams } from "next/navigation";
 
 
 
 
 function Basket() {
-  const [cartItems, setCartItems] = useState<CartItemType[]>(mockCartItems);
+  const { cartItems, updateQuantity, removeFromCart, getCartSummary } = useCart();
+  const router = useRouter();
+  const params = useParams();
+  const marketSlug = params.market as string;
 
   const handleQuantityChange = (id: number, change: number) => {
-    setCartItems((prev) =>
-      prev.map((item) =>
-        item.id === id
-          ? { ...item, quantity: Math.max(1, item.quantity + change) }
-          : item
-      )
-    );
+    updateQuantity(id, change);
   };
 
   const handleRemoveItem = (id: number) => {
-    setCartItems((prev) => prev.filter((item) => item.id !== id));
+    removeFromCart(id);
   };
 
   const handleCompleteOrder = () => {
-    console.log("Sifariş tamamlandı:", cartItems);
+    router.push(`/${marketSlug}/basket/confirm`);
   };
 
-  const summary = calculateCartSummary(cartItems);
+  const handleGoToMarket = () => {
+    router.push(`/${marketSlug}`);
+  };
+
+  const summary = getCartSummary();
 
   return (
     <div className="min-h-screen  py-8">
@@ -67,7 +65,10 @@ function Basket() {
                 <p className="text-gray-500 mb-6">
                   Məhsul əlavə etmək üçün mağazaya keçin
                 </p>
-                <button className="bg-pink-500 text-white px-6 py-3 rounded-lg font-medium hover:bg-pink-600 transition-colors">
+                <button 
+                  onClick={handleGoToMarket}
+                  className="bg-pink-500 text-white px-6 py-3 rounded-lg font-medium hover:bg-pink-600 transition-colors"
+                >
                   Mağazaya keç
                 </button>
               </div>

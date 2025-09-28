@@ -6,11 +6,15 @@ import { useState, useEffect } from "react";
 import { getUserAction } from "@/services/auth/server-actions";
 import { UserData } from "@/types";
 import { toast } from "sonner";
+import { useCart } from "@/contexts/CartContext";
 
 
 export default function Header({ marketSlug }: { marketSlug: string }) {
   const [user, setUser] = useState<UserData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const { getCartCount } = useCart();
+  
+  const cartCount = getCartCount();
 
   useEffect(() => {
     const checkUserStatus = async () => {
@@ -46,10 +50,17 @@ export default function Header({ marketSlug }: { marketSlug: string }) {
           </div>
 
           <div className="flex items-center gap-6">
-            <Link href="/market/basket" className="flex items-center gap-2 text-gray-600 hover:text-gray-900">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-              </svg>
+            <Link href={`/${marketSlug}/basket`} className="flex items-center gap-2 text-gray-600 hover:text-gray-900 relative">
+              <div className="relative">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                </svg>
+                {cartCount > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-pink-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-medium">
+                    {cartCount > 99 ? '99+' : cartCount}
+                  </span>
+                )}
+              </div>
               <span>Səbət</span>
             </Link>
             

@@ -10,6 +10,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { useContactMutation } from "@/services/Contact/queries"
 import { Contact } from "@/types"
+import { toast } from "sonner"
 
 const formSchema = z.object({
   name: z.string().min(2, "Ad və soyad ən azı 2 simvol olmalıdır"),
@@ -52,24 +53,18 @@ export default function ContactPage() {
       
       await contactMutation.mutateAsync(contactData)
       
-      // Reset form after successful submission
       reset()
       
-      // You can add a success notification here
-      console.log("Form submitted successfully!")
-      
+      toast.success("Mesaj göndərildi")
     } catch (error) {
-      console.error("Form submission error:", error)
-      // You can add an error notification here
+      toast.error("Mesaj göndərərkən xəta baş verdi")
     }
   }
 
   return (
-    // Bu hissə olduğu kimi qala bilər, əsas dəyişiklik formun içindədir
     <div className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 bg-[#fbfdff]">
       <div className="max-w-7xl mx-auto">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-start">
-          {/* Sol Hissə - Məzmun */}
           <div className="space-y-6 lg:space-y-8">
             <div className="space-y-4 lg:space-y-6">
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
@@ -87,10 +82,8 @@ export default function ContactPage() {
             </div>
           </div>
 
-          {/* Sağ Hissə - Form (DƏYİŞİKLİKLƏR BURADADIR) */}
           <div className="bg-white rounded-2xl shadow-lg p-4 sm:p-6 lg:p-8">
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-              {/* Ad,soyad Sahəsi */}
               <fieldset className={`mb-2 rounded-xl border transition-all duration-200 ${errors.name ? 'border-red-500' : 'border-gray-300'}`}>
                 <legend className="ml-3 px-1 text-sm text-gray-500">Ad,soyad</legend>
                 <Input
@@ -105,7 +98,6 @@ export default function ContactPage() {
                 <p className="text-sm text-red-600 -mt-4 ml-1">{errors.name.message}</p>
               )}
 
-              {/* Telefon Sahəsi */}
               <fieldset className={` mb-2 flex items-center rounded-xl border transition-all duration-200 ${errors.phone ? 'border-red-500' : 'border-gray-300'}`}>
                 <legend className="ml-3 px-1 text-sm text-gray-500">Telefon nömrəsi</legend>
                 <div className="flex w-full items-center -mt-3">
@@ -133,7 +125,6 @@ export default function ContactPage() {
                 <p className="text-sm text-red-600 -mt-4 ml-1">{errors.phone.message}</p>
               )}
 
-              {/* Mesaj Sahəsi */}
               <fieldset className={`mb-2 rounded-xl border transition-all duration-200 ${errors.message ? 'border-red-500' : 'border-gray-300'}`}>
                 <legend className="ml-3 px-1 text-sm text-gray-500">Mesaj</legend>
                 <Textarea
@@ -147,7 +138,6 @@ export default function ContactPage() {
                 <p className="text-sm text-red-600 -mt-4 ml-1">{errors.message.message}</p>
               )}
 
-              {/* Göndər Düyməsi */}
               <Button
                 type="submit"
                 disabled={isSubmitting || contactMutation.isPending}
