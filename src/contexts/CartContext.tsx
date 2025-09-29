@@ -5,14 +5,15 @@ import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 
 import { CartItem, calculateCartSummary } from "@/components/market/data/cart"; 
-import { checkPromocode } from "@/services/Promocode/api"; 
+import { checkPromocode } from "@/services/Promocode/api";
+import { Product } from "@/types/product/productTypes"; 
 
 interface CartContextType {
   cartItems: CartItem[];
-  appliedPromocode: { name: string } | null;
+  appliedPromocode: { name: string, discount: number } | null;
   promocodeDiscount: number;
   isApplyingPromo: boolean;
-  addToCart: (product: any, quantity: number) => void;
+  addToCart: (product: Product, quantity: number) => void;
   removeFromCart: (id: number) => void;
   updateQuantity: (id: number, change: number) => void;
   clearCart: () => void;
@@ -32,7 +33,7 @@ export const useCart = () => {
 
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
-  const [appliedPromocode, setAppliedPromocode] = useState<{ name: string } | null>(null);
+  const [appliedPromocode, setAppliedPromocode] = useState<{ name: string, discount: number } | null>(null);
   const [promocodeDiscount, setPromocodeDiscount] = useState<number>(0);
 
   useEffect(() => {
@@ -55,7 +56,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     onSuccess: (data, variables) => {
       const discount = data.product_price - data.promocode_price;
       setPromocodeDiscount(discount);
-      setAppliedPromocode({ name: variables.promocode });
+      setAppliedPromocode({ name: variables.promocode, discount: discount });
       toast.success("Promokod uğurla tətbiq edildi!");
     },
     onError: (error) => {
@@ -77,7 +78,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setPromocodeDiscount(0);
   };
   
-  const addToCart = (product: any, quantity: number = 1) => {
+  const addToCart = (product: Product, quantity: number = 1) => {
     setCartItems((prev) => {
       const existingItem = prev.find((item) => item.id === product.id);
       if (existingItem) {

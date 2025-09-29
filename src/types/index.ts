@@ -139,6 +139,5 @@ export interface StoreOrder {
   address: string;
   city: string;
   total_price: number;
-  detail: {
-  }[];
+  detail: [];
 }

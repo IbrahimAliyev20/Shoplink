@@ -9,8 +9,9 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { useContactMutation } from "@/services/Home/Contact/queries"
-import { Contact } from "@/types"
 import { toast } from "sonner"
+import { Contact } from "@/types/home/hometypes"
+
 
 const formSchema = z.object({
   name: z.string().min(2, "Ad və soyad ən azı 2 simvol olmalıdır"),
@@ -56,7 +57,7 @@ export default function ContactPage() {
       reset()
       
       toast.success("Mesaj göndərildi")
-    } catch (error) {
+    } catch {
       toast.error("Mesaj göndərərkən xəta baş verdi")
     }
   }

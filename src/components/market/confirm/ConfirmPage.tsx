@@ -29,6 +29,7 @@ function ConfirmPage() {
   const router = useRouter();
   const params = useParams();
   const marketSlug = params.market as string;
+  console.log(appliedPromocode);  
   
   const [formData, setFormData] = useState<OrderForm>({
     paymentMethod: "card",

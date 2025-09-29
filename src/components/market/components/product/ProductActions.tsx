@@ -5,9 +5,10 @@ import { Button } from '@/components/ui/button'
 import { useCart } from '@/contexts/CartContext'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
+import { Product } from '@/types/product/productTypes'
 
 interface ProductActionsProps {
-  product: any
+  product: Product
   quantity: number
 }
 

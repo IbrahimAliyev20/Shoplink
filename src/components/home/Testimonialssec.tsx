@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from "react"
 import Image from "next/image"
-import { Sellers } from "@/types"
 import { useQuery } from "@tanstack/react-query"
 import { getSellersOptions } from "@/services/Home/Sellers/queries"
+import { Sellers } from "@/types/home/hometypes"
 
 
 

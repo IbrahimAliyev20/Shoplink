@@ -199,7 +199,7 @@ export default function ProductsPage() {
                                   Axtarışa uyğun məhsul tapılmadı
                                 </p>
                                 <p className="text-sm mt-1">
-                                  "{searchTerm}" üçün nəticə yoxdur
+                                  {searchTerm} üçün nəticə yoxdur
                                 </p>
                               </>
                             ) : (
@@ -208,8 +208,8 @@ export default function ProductsPage() {
                                   Hələ məhsul əlavə edilməyib
                                 </p>
                                 <p className="text-sm mt-1">
-                                  İlk məhsulunuzu əlavə etmək üçün "Məhsul əlavə
-                                  et" düyməsini basın
+                                  İlk məhsulunuzu əlavə etmək üçün Məhsul əlavə
+                                  et düyməsini basın
                                 </p>
                               </>
                             )}
