@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { Menu,  X } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
-import { getSosialOptions } from "@/services/Sosial/queries";
+import { getSosialOptions } from "@/services/Home/Sosial/queries";
 import { UserProfile, UserProfileMobile } from "./UserProfile";
 import { getUserAction } from "@/services/auth/server-actions";
 import { UserData } from "@/types";

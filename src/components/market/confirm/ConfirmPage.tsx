@@ -68,10 +68,8 @@ function ConfirmPage() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Order Form */}
           <div className="lg:col-span-2">
             <form onSubmit={handleSubmit} className="bg-white rounded-2xl p-6">
-              {/* Payment Method */}
               <div className="mb-8">
                 <h2 className="text-lg font-medium text-gray-900 mb-4">
                   Ödəniş metodu
@@ -148,6 +146,23 @@ function ConfirmPage() {
                 </div>
               </div>
 
+
+      
+                <div className="mb-8">
+                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-4">Çatdırılma ünvani</label>
+                  <Select>
+                    <SelectTrigger className="w-full h-12 rounded-lg border-gray-300 ">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent >
+                      <SelectItem value="1">1</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+              
+              {/* ///////////////////////////////////////////////// */}
+              <div>
               <div className="mb-8">
                 <h2 className="text-lg font-medium text-gray-900 mb-4">
                   Çatdırılma Məlumatları
@@ -200,8 +215,11 @@ function ConfirmPage() {
                   className="w-full h-24 px-3 py-2 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
                 />
               </div>
+              </div>
+              {/* ///////////////////////////////////////////////// */}
 
-              {/* Action Buttons */}
+         
+
               <div className="flex space-x-4">
                 <Button
                   type="button"
@@ -255,7 +273,6 @@ function ConfirmPage() {
                 ))}
               </div>
 
-              {/* Applied Promocode */}
               {appliedPromocode && (
                 <div className="bg-green-50 border border-green-200 rounded-lg p-3 mb-4">
                   <div className="flex items-center justify-between">
@@ -269,7 +286,6 @@ function ConfirmPage() {
                 </div>
               )}
 
-              {/* Summary */}
               <div className="border-t border-gray-200 pt-4 space-y-3">
                 <div className="flex justify-between items-center">
                   <span className="text-gray-600">Qiymət</span>

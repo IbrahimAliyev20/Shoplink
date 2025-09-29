@@ -2,7 +2,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { useQuery } from '@tanstack/react-query';
-import { getAboutOptions } from '@/services/About/queries';
+import { getAboutOptions } from '@/services/Home/About/queries';
 
 const ShoplinkInfo = () => {
   const { data, isLoading, isError, error } = useQuery(getAboutOptions());

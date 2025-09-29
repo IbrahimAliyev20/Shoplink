@@ -1,5 +1,5 @@
 import { get } from "@/lib/api";
-import { HeroBanner } from "@/types";
+import { HeroBanner } from "@/types/home/hometypes";   
 
 const getHeroBanner = async () => {
     const response = await get<{ data: HeroBanner }>("api/hero"); 

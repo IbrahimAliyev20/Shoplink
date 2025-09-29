@@ -1,5 +1,5 @@
 import { get } from "@/lib/api";
-import { Sosial } from "@/types";
+import { Sosial } from "@/types/home/hometypes";
 
 type SosialApiResponse = Sosial;
 

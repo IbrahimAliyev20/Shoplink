@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
-import { getSetupOptions } from "@/services/Setup/queries";
+import { getSetupOptions } from "@/services/Home/Setup/queries";
 
 
 

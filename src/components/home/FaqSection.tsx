@@ -3,7 +3,7 @@
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion"
 import { useQuery } from "@tanstack/react-query"
-import { getFaqsOptions } from "@/services/Faqs/queries"
+import { getFaqsOptions } from "@/services/Home/Faqs/queries"
 
 export function FaqSection() {
   const { data, isLoading, isError, error } = useQuery(getFaqsOptions());

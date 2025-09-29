@@ -5,7 +5,7 @@ import AutoScroll from "embla-carousel-auto-scroll";
 import Image from "next/image";
 import Link from "next/link"; 
 import { useQuery } from "@tanstack/react-query"; 
-import { getHeroBannerOptions } from "@/services/Hero/queries";
+import { getHeroBannerOptions } from "@/services/Home/Hero/queries";
 
 
 export default function HeroCarousel() {

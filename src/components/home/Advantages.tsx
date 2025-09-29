@@ -2,7 +2,7 @@
 import React from "react";
 import Image from "next/image"; // Şəkilləri optimallaşdırmaq üçün Next.js Image komponentini istifadə edə bilərsiniz
 import { useQuery } from "@tanstack/react-query";
-import { getAdvantagesOptions } from "@/services/Advantages/queries";
+import { getAdvantagesOptions } from "@/services/Home/Advantages/queries";
 
 const Advantages = () => {
   const { data, isLoading, isError, error } = useQuery(getAdvantagesOptions());

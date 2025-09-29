@@ -4,7 +4,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import Image from "next/image"
 import { useQuery } from "@tanstack/react-query"
-import { getSosialOptions } from "@/services/Sosial/queries"
+import { getSosialOptions } from "@/services/Home/Sosial/queries"
 
 export function Footer() {
   const { data, isLoading, isError, error } = useQuery(getSosialOptions());

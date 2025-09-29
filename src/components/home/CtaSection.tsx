@@ -1,7 +1,7 @@
 "use client"
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
-import { getBannerOptions } from "@/services/Banner/queries";
+import { getBannerOptions } from "@/services/Home/Banner/queries";
 import Link from "next/link";
 
 export default function CtaSection() {
