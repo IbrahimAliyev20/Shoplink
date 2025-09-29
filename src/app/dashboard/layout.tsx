@@ -2,6 +2,7 @@
 
 import MobileSidebar from '@/components/dashboard/MobileSidebar';
 import Sidebar from '@/components/dashboard/Sidebar';
+import DashboardBreadcrumb from '@/components/dashboard/DashboardBreadcrumb';
 import React, { useState, useEffect } from 'react';
 
 export default function DashboardLayout({
@@ -29,6 +30,7 @@ export default function DashboardLayout({
   }, []);
 
   return (
+     
     <div className="min-h-screen bg-gray-50">
       <div className="hidden lg:block">
         <Sidebar 
@@ -47,6 +49,7 @@ export default function DashboardLayout({
         </div>
 
         <main className="p-6">
+          <DashboardBreadcrumb />
           {children}
         </main>
       </div>
