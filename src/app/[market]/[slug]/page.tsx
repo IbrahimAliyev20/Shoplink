@@ -2,10 +2,11 @@
 import SingleProductPage from '@/components/market/components/SingleMarketPage';
 import React from 'react';
 
-const SingleProduct = ({ params }: { params: { slug: string } }) => {
+const SingleProduct = async ({ params }: { params: Promise<{ slug: string }> }) => {
+  const { slug } = await params;
   return (
     <div className='container mx-auto px-4 max-md:px-3'>
-      <SingleProductPage slug={params.slug} />
+      <SingleProductPage slug={slug} />
     </div>
   );
 };
