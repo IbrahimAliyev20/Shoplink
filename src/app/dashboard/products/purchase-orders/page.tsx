@@ -1,4 +1,3 @@
-'use client';
 
 import PurchasePage from '@/components/dashboard/allproducts/purchase/PurchasePage';
 import React from 'react';

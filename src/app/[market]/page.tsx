@@ -25,7 +25,7 @@ async function MarketHome({ params }: MarketHomePageProps) {
           <MarketHero store={storeData} />
         </div>
         <div className="container mx-auto px-4 max-md:px-3">
-          <TabsMarket categories={categories} storeSlug={marketSlug} allProducts={allProducts} />
+          <TabsMarket categories={categories} storeSlug={marketSlug} />
         </div>
       </div>
     );

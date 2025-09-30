@@ -8,7 +8,6 @@ interface ProductCardProps {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product, storeSlug }) => {
-  console.log(product);
   return (
     <Link href={`/${storeSlug}/${product.slug}`} className="block">
       <div className="group cursor-pointer">

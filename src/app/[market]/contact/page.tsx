@@ -1,9 +1,16 @@
+"use client"
 import React from 'react';
 import { Mail, Phone, MapPin, Facebook, Instagram, Send } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { getContactQuery } from '@/services/Home/Contact/queries';
+import { useQuery } from '@tanstack/react-query';
 
 function ContactMarket() {
+
+  const { data: contact } = useQuery({
+    ...getContactQuery(),
+  });
   return (
     <div className=" flex items-center justify-center py-10">
       <div className="max-w-6xl mx-auto bg-[#FBFDFF] rounded-2xl overflow-hidden grid grid-cols-1 lg:grid-cols-2 p-20 shadow-sm">
@@ -16,15 +23,15 @@ function ContactMarket() {
             <div className="space-y-6 text-gray-700">
               <div className="flex items-center space-x-4">
                 <Mail className="h-6 w-6 text-gray-600" />
-                <span className="text-lg">stridex@gmail.com</span>
+                <span className="text-lg">{contact?.email}</span>
               </div>
               <div className="flex items-center space-x-4">
                 <Phone className="h-6 w-6 text-gray-600" />
-                <span className="text-lg">+994 700 70 77</span>
+                <span className="text-lg">{contact?.phone}</span>
               </div>
               <div className="flex items-start space-x-4">
                 <MapPin className="h-6 w-6 text-gray-600 flex-shrink-0 mt-1" />
-                <span className="text-lg">Nizami rayonu, M.Abbasov küçəsi</span>
+                <span className="text-lg">{contact?.address}</span>
               </div>
             </div>
           </div>

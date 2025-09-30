@@ -64,10 +64,15 @@ export interface HeroBanner {
     }[];
   }
   
-  export interface Contact {
+  export interface ContactForm {
     name: string;
     phone: string;
     message: string;
+  }
+  export interface Contact {
+    email: string;
+    phone: string;
+    address: string;
   }
   
   export interface ApiResponse<T> {

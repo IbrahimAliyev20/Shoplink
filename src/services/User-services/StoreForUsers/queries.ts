@@ -22,12 +22,16 @@ export const getCategoryStoreOptions = function(slug: string){
 
 
 
-export const getProductStoreCategoryOptions = function(slug: string, category_name: string){
+export const getProductStoreCategoryOptions = function(
+    slug: string,
+    category_name: string,
+    search?: string 
+  ) {
     return queryOptions({
-        queryKey: ['product-store-category-options' , slug, category_name],
-        queryFn: () => getProductStoreCategory(slug, category_name)
-    })
-}
+      queryKey: ["product-store-category-options", slug, category_name, search],
+      queryFn: () => getProductStoreCategory(slug, category_name, search),
+    });
+  };
 
 
 
@@ -40,9 +44,9 @@ export const getProductSingleOptions = function(slug: string){
 
 
  
-export const getAllProductsStoreOptions = function(slug: string){
+export const getAllProductsStoreOptions = function(slug: string, search?: string) {
     return queryOptions({
-        queryKey: ['all-products-store-options' , slug],
-        queryFn: () => getAllProductsStore(slug)
-    })
-}
+      queryKey: ['all-products-store-options', slug, search],
+      queryFn: () => getAllProductsStore(slug, search),
+    });
+  };

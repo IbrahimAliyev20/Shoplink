@@ -29,8 +29,7 @@ function ConfirmPage() {
   const router = useRouter();
   const params = useParams();
   const marketSlug = params.market as string;
-  console.log(appliedPromocode);  
-  
+
   const [formData, setFormData] = useState<OrderForm>({
     paymentMethod: "card",
     fullName: "",
@@ -52,8 +51,7 @@ function ConfirmPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Order submitted:", { formData, cartItems, summary });
-    
+
     clearCart();
     alert("Sifarişiniz uğurla təsdiqləndi!");
     router.push(`/${marketSlug}`);
@@ -76,7 +74,6 @@ function ConfirmPage() {
                   Ödəniş metodu
                 </h2>
                 <div className="flex flex-col sm:flex-row sm:items-center gap-y-3 gap-x-12">
-            
                   <label className="flex items-center gap-4 cursor-pointer">
                     <input
                       type="radio"
@@ -147,79 +144,79 @@ function ConfirmPage() {
                 </div>
               </div>
 
+              <div className="mb-8">
+                <label
+                  htmlFor="name"
+                  className="block text-sm font-medium text-gray-700 mb-4"
+                >
+                  Çatdırılma ünvani
+                </label>
+                <Select>
+                  <SelectTrigger className="w-full h-12 rounded-lg border-gray-300 ">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="1">1</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
 
-      
-                <div className="mb-8">
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-4">Çatdırılma ünvani</label>
-                  <Select>
-                    <SelectTrigger className="w-full h-12 rounded-lg border-gray-300 ">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent >
-                      <SelectItem value="1">1</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
-              
-              {/* ///////////////////////////////////////////////// */}
               <div>
-              <div className="mb-8">
-                <h2 className="text-lg font-medium text-gray-900 mb-4">
-                  Çatdırılma Məlumatları
-                </h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="flex-1">
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Şəhər
-                    </label>
-                    <Select
-                      value={formData.city}
-                      onValueChange={(value) =>
-                        handleInputChange("city", value)
-                      }
-                    >
-                      <SelectTrigger className="w-full h-12 rounded-lg border-gray-300">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="Bakı">Bakı</SelectItem>
-                        <SelectItem value="Gəncə">Gəncə</SelectItem>
-                        <SelectItem value="Sumqayıt">Sumqayıt</SelectItem>
-                        <SelectItem value="Mingəçevir">Mingəçevir</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="flex-1">
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Ünvan
-                    </label>
-                    <Input
-                      type="text"
-                      placeholder="Ünvanı qeyd edin"
-                      value={formData.address}
-                      onChange={(e) =>
-                        handleInputChange("address", e.target.value)
-                      }
-                      className="w-full h-12 rounded-lg border-gray-300"
-                    />
+                <div className="mb-8">
+                  <h2 className="text-lg font-medium text-gray-900 mb-4">
+                    Çatdırılma Məlumatları
+                  </h2>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="flex-1">
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Şəhər
+                      </label>
+                      <Select
+                        value={formData.city}
+                        onValueChange={(value) =>
+                          handleInputChange("city", value)
+                        }
+                      >
+                        <SelectTrigger className="w-full h-12 rounded-lg border-gray-300">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="Bakı">Bakı</SelectItem>
+                          <SelectItem value="Gəncə">Gəncə</SelectItem>
+                          <SelectItem value="Sumqayıt">Sumqayıt</SelectItem>
+                          <SelectItem value="Mingəçevir">Mingəçevir</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div className="flex-1">
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Ünvan
+                      </label>
+                      <Input
+                        type="text"
+                        placeholder="Ünvanı qeyd edin"
+                        value={formData.address}
+                        onChange={(e) =>
+                          handleInputChange("address", e.target.value)
+                        }
+                        className="w-full h-12 rounded-lg border-gray-300"
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div className="mb-8">
-                <h2 className="text-lg font-medium text-gray-900 mb-4">Qeyd</h2>
-                <textarea
-                  placeholder="Sifarişiniz barədə əlavə qeydləriniz varsa daxil edin"
-                  value={formData.notes}
-                  onChange={(e) => handleInputChange("notes", e.target.value)}
-                  className="w-full h-24 px-3 py-2 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
-                />
+                <div className="mb-8">
+                  <h2 className="text-lg font-medium text-gray-900 mb-4">
+                    Qeyd
+                  </h2>
+                  <textarea
+                    placeholder="Sifarişiniz barədə əlavə qeydləriniz varsa daxil edin"
+                    value={formData.notes}
+                    onChange={(e) => handleInputChange("notes", e.target.value)}
+                    className="w-full h-24 px-3 py-2 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                  />
+                </div>
               </div>
-              </div>
-              {/* ///////////////////////////////////////////////// */}
-
-         
 
               <div className="flex space-x-4">
                 <Button
@@ -243,7 +240,7 @@ function ConfirmPage() {
           <div className="lg:col-span-1">
             <div className="bg-white rounded-2xl p-6 shadow-sm sticky top-6">
               <h3 className="text-lg font-medium text-gray-900 mb-2">
-              {marketSlug}
+                {marketSlug}
               </h3>
               <p className="text-gray-600 mb-6">{cartItems.length} məhsul</p>
 
@@ -297,7 +294,7 @@ function ConfirmPage() {
                 <div className="flex justify-between items-center">
                   <span className="text-gray-600">Çatdırılma</span>
                   <span className="font-medium text-gray-900">
-                    {summary.delivery === 0 ? "Pulsuz" : `${summary.delivery} AZN`}
+                  5 AZN
                   </span>
                 </div>
                 {summary.promocodeDiscount > 0 && (
@@ -310,7 +307,9 @@ function ConfirmPage() {
                 )}
                 <div className="border-t border-gray-200 pt-3">
                   <div className="flex justify-between items-center">
-                    <span className="text-lg font-medium text-gray-900">Toplam</span>
+                    <span className="text-lg font-medium text-gray-900">
+                      Toplam
+                    </span>
                     <span className="text-xl font-medium text-gray-900">
                       {summary.total} AZN
                     </span>

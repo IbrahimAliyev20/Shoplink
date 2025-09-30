@@ -1,53 +1,50 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import ProductList from "./shared/ProductList";
 import { useQuery } from "@tanstack/react-query";
-import { getProductStoreCategory } from "@/services/User-services/StoreForUsers/api";
+import { CategoryStore } from "@/types/storeforusers/types";
 import {
-  CategoryStore,
-  ProductStoreCategory,
-} from "@/types/storeforusers/types";
+  getAllProductsStoreOptions,
+  getProductStoreCategoryOptions,
+} from "@/services/User-services/StoreForUsers/queries";
 
 interface TabsMarketProps {
   categories: CategoryStore[];
   storeSlug: string;
-  allProducts: ProductStoreCategory[];
 }
 
-const TabsMarket: React.FC<TabsMarketProps> = ({
-  categories,
-  storeSlug,
-  allProducts,
-}) => {
-  const allTabs = useMemo(
-    () => [{ id: -1, name: "Bütün məhsullar", slug: "all" }, ...categories],
-    [categories]
-  );
+const TabsMarket: React.FC<TabsMarketProps> = ({ categories, storeSlug }) => {
+  const allTabs = [
+    { id: -1, name: "Bütün məhsullar", slug: "all" },
+    ...categories,
+  ];
 
   const [activeTab, setActiveTab] = useState<string>("all");
   const [searchTerm, setSearchTerm] = useState("");
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearchTerm(searchTerm);
+    }, 500);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [searchTerm]);
 
   const {
     data: products = [],
     isLoading,
     isError,
-  } = useQuery<ProductStoreCategory[]>({
-    queryKey: ["products", storeSlug, activeTab],
-    queryFn: () => getProductStoreCategory(storeSlug, activeTab),
-    enabled: activeTab !== "all", 
-  });
-
-  const filteredProducts = useMemo(() => {
-    const baseProducts = activeTab === "all" ? allProducts : products;
-
-    if (!baseProducts) return [];
-    if (searchTerm === "") return baseProducts;
-
-    return baseProducts.filter((product) =>
-      product.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-  }, [products, searchTerm, allProducts, activeTab]);
+  } = useQuery(
+    debouncedSearchTerm
+      ? getAllProductsStoreOptions(storeSlug, debouncedSearchTerm)
+      : activeTab === "all"
+      ? getAllProductsStoreOptions(storeSlug)
+      : getProductStoreCategoryOptions(storeSlug, activeTab)
+  );
 
   return (
     <div>
@@ -120,7 +117,7 @@ const TabsMarket: React.FC<TabsMarketProps> = ({
         <div className="mt-4 sm:mt-6 max-md:mt-3">
           {!isLoading && !isError && (
             <p className="text-xs sm:text-sm text-gray-600 max-md:text-xs">
-              {filteredProducts.length} məhsul
+              {products.length} məhsul
             </p>
           )}
         </div>
@@ -128,11 +125,15 @@ const TabsMarket: React.FC<TabsMarketProps> = ({
 
       {isLoading && <p>Məhsullar yüklənir...</p>}
       {isError && <p>Məhsulları yükləyərkən xəta baş verdi.</p>}
-      {!isLoading && !isError && filteredProducts.length === 0 && (
-        <p>Bu kateqoriyada məhsul tapılmadı.</p>
+      {!isLoading && !isError && products.length === 0 && (
+        <p>
+          {debouncedSearchTerm
+            ? "Axtarışa uyğun məhsul tapılmadı."
+            : "Bu kateqoriyada məhsul yoxdur."}
+        </p>
       )}
-      {!isLoading && !isError && filteredProducts.length > 0 && (
-        <ProductList products={filteredProducts} storeSlug={storeSlug} />
+      {!isLoading && !isError && products.length > 0 && (
+        <ProductList products={products} storeSlug={storeSlug} />
       )}
     </div>
   );

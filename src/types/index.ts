@@ -41,6 +41,12 @@ export interface AuthRegisterResponse {
   };
 }
 
+export interface AuthForgetpasswordResponse {
+  remark: string;
+  status: string;
+  message:string;
+}
+
 export interface RegisterFormData {
   name: string;
   phone: string;
@@ -133,11 +139,51 @@ export interface  Promocode {
 
 
 export interface StoreOrder {
+    id: number;
+    name: string;
+    email: string;
+    phone: string;
+    note: string;
+    address: string;
+    city: string;
+    total_price: number;
+    status: number;
+    promocode: string | null;
+    detail: [
+        {
+            quantity: string,
+            product: string,
+            product_price: number,
+            total_price: number
+        },
+     
+    ]
+
+}
+
+
+
+export interface ClientsResponse {
+  id: number;
   name: string;
   phone: string;
+  email: string;
+  voen: string;
+  fin: string;
+  type: string;
+  region: string;
+  image: string;
+  role: string[];
+  complete: number;
+  created_at: string;
+  order_count: number;
+  feedback: string;
+ 
+}
+
+export interface FeedbackResponse {
+  id: number;
   note: string;
-  address: string;
-  city: string;
-  total_price: number;
-  detail: [];
+  user_id: number;
+  created_at: string;
 }

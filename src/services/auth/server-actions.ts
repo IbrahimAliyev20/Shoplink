@@ -75,7 +75,6 @@ export async function registerAction(formData: FormData): Promise<AuthRegisterRe
       },
     });
 
-    console.log("Serverdən gələn cavab:", res.data);
 
     const data = res.data as AuthRegisterResponse;
 

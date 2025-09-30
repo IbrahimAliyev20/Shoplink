@@ -125,7 +125,7 @@ function Login() {
                         </FloatingField>
 
                         <div className='flex items-center justify-end'>
-                            <Link href={'/forgot-password'} className='text-sm text-muted-foreground hover:underline'>
+                            <Link href={'/forgetpassword'} className='text-sm text-muted-foreground hover:underline'>
                                 Şifrəmi unutdum
                             </Link>
                         </div>

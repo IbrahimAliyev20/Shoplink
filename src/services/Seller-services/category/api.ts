@@ -6,7 +6,6 @@ import {  Category } from "@/types/category/categoryTypes";
 
 const getCategoryProducts = async () => {
     const response = await get<{ data: Category[] }>("user/categories"); 
-    console.log(response.data);
     return response.data;
 };
 

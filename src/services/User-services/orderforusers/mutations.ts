@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import OrderForUsers from "./api";
+import { OrderForUsers } from "./api";
 
 const OrderForUsersMutation = () => {   
     return useMutation({
@@ -7,4 +7,4 @@ const OrderForUsersMutation = () => {
     });
 };
 
-export default OrderForUsersMutation;
+export { OrderForUsersMutation };

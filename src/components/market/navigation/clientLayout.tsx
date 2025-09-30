@@ -11,7 +11,6 @@ export default function ClientLayoutMarket({
 }) {
   const pathname = usePathname();
   const marketSlug = useParams().market;
-  console.log("Current Pathname:", pathname);
 
   const isHomePage = 
   pathname === `/${marketSlug}/login` || pathname === `/${marketSlug}/register`

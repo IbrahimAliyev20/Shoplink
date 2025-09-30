@@ -11,7 +11,6 @@ export default function ClientLayout({
 }) {
   const pathname = usePathname();
 
-  console.log("Current Pathname:", pathname);
 
   const isHomePage = pathname === "/";
 
