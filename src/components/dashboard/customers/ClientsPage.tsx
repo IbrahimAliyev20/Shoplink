@@ -7,8 +7,6 @@ import { Button } from '@/components/ui/button';
 import { 
   Search,
   Eye,
-  Edit,
-  Trash2,
   ListFilter
 } from 'lucide-react';
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from '@/components/ui/pagination';

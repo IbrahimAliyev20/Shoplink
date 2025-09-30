@@ -1,6 +1,5 @@
 import { get, post } from "@/lib/api";
 import { ApiResponse, StoreOrder } from "@/types/";
-import { Category } from "@/types/category/categoryTypes";
 
 
 const getStoreOrders = async () => {

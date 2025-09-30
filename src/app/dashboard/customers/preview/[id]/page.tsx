@@ -2,7 +2,6 @@
 import { getShowClientQuery } from '@/services/Seller-services/clients/queries'
 import { useQuery } from '@tanstack/react-query'
 import { useParams } from 'next/navigation'
-import React, { useState } from 'react' 
 import FeedBack from '@/components/dashboard/customers/FeedBack'
 
 

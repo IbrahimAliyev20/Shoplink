@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Link from "next/link";
 import Image from "next/image";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -212,7 +211,7 @@ function ForgetPassword() {
           toast.error(data.message || "Xəta baş verdi");
         }
       },
-      onError: (error) => {
+      onError: () => {
         toast.error("Xəta baş verdi");
       },
     });
@@ -228,13 +227,12 @@ function ForgetPassword() {
         onSuccess: (data) => {
           if (data.status === "success") {
             toast.success("Kod təsdiqləndi");
-            // ARTIQ SERVERDƏN TOKEN GÖZLƏMİRİK, SADƏCƏ NÖVBƏTİ ADDIMA KEÇİRİK
             setCurrentStep("password");
           } else {
             toast.error(data.message || "Kod yanlışdır");
           }
         },
-        onError: (error) => {
+        onError: () => {
           toast.error("Kod yanlışdır");
         },
       }
@@ -248,7 +246,6 @@ function ForgetPassword() {
       return;
     }
 
-    // BACKEND-Ə "TOKEN" OLARAQ İSTİFADƏÇİNİN DAXİL ETDİYİ 6 RƏQƏMLİ OTP KODUNU GÖNDƏRİRİK
     resetPasswordMutation.mutate(
       { token: otpCode, password: newPassword },
       {
@@ -260,7 +257,7 @@ function ForgetPassword() {
             toast.error(data.message || "Xəta baş verdi");
           }
         },
-        onError: (error) => {
+        onError: () => {
           toast.error("Xəta baş verdi");
         },
       }

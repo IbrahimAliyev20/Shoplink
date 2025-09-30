@@ -2,6 +2,7 @@ import React from "react";
 import MarketHero from "@/components/market/components/MarketHero";
 import TabsMarket from "@/components/market/components/TabsMarket";
 import { getAllProductsStore, getCategoryStore, getStore } from "@/services/User-services/StoreForUsers/api";
+import Link from "next/link";
 
 interface MarketHomePageProps {
   params: Promise<{
@@ -13,7 +14,7 @@ async function MarketHome({ params }: MarketHomePageProps) {
   const { market: marketSlug } = await params;
 
   try {
-    const [storeData, categories, allProducts] = await Promise.all([
+    const [storeData, categories] = await Promise.all([
       getStore(marketSlug),
       getCategoryStore(marketSlug),
       getAllProductsStore(marketSlug),
@@ -41,12 +42,12 @@ async function MarketHome({ params }: MarketHomePageProps) {
           <p className="text-gray-600 mb-6">
             Bu mağaza mövcud deyil və ya serverə bağlantı problemi var.
           </p>
-          <a 
+          <Link 
             href="/" 
             className="bg-pink-500 text-white px-6 py-3 rounded-lg font-medium hover:bg-pink-600 transition-colors"
           >
             Ana səhifəyə qayıt
-          </a>
+          </Link>
         </div>
       </div>
     );

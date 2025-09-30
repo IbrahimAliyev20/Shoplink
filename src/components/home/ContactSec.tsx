@@ -10,7 +10,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { useContactMutation } from "@/services/Home/ContactForm/mutations"
 import { toast } from "sonner"
-import { Contact } from "@/types/home/hometypes"
+import { ContactForm } from "@/types/home/hometypes"
 
 
 const formSchema = z.object({
@@ -46,7 +46,7 @@ export default function ContactPage() {
 
   const onSubmit = async (data: FormData) => {
     try {
-      const contactData: Contact = {
+      const contactData: ContactForm = {
         name: data.name,
         phone: `${data.countryCode}${data.phone}`,
         message: data.message,
