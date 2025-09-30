@@ -12,14 +12,13 @@ const getStoreOrder = async (id: string) => {
     return response.data;
 };
 
-const changeStoreOrderStatus = async (formData: FormData) => {
-    const productId = formData.get('id');
-    if (!productId) {
-        throw new Error("Order ID is missing in FormData for update.");
-    }
-    const response = await post<ApiResponse<StoreOrder>>(`user/store-order/status/${productId}`, formData);
+const changeStoreOrderStatus = async ({ id, status }: { id: string; status: number }) => {
+    const formData = new FormData();
+    formData.append('status', String(status));
+  
+    const response = await post<ApiResponse<StoreOrder>>(`user/store-order/status/${id}`, formData);
     return response.data;
-};
+  };
 
 
 

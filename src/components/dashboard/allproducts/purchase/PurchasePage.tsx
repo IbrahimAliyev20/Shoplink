@@ -1,25 +1,28 @@
-'use client';
+"use client";
 import React, { useState, useMemo } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Search, Eye,  ListFilter } from "lucide-react";
+import { Search, Eye, ListFilter } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { getStoreOrdersOptions } from "@/services/Seller-services/orderforseller/queries";
 import ReusablePagination from "@/components/dashboard/ReusablePagination";
 import Link from "next/link";
+import StatusIcons from "./StatusIcons";
+
+
 
 export default function PurchasePage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
-  
+
   const { data: storeOrders } = useQuery(getStoreOrdersOptions());
 
   const filteredOrders = useMemo(() => {
     if (!storeOrders) return [];
     if (!searchTerm) return storeOrders;
-    
+
     return storeOrders.filter(
       (order) =>
         order.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -108,15 +111,14 @@ export default function PurchasePage() {
                         {product.total_price} AZN
                       </td>
                       <td className="py-4 px-6 text-sm text-gray-900 max-sm:py-3 max-sm:px-4 max-sm:text-xs">
-                        {product.status === 0
-                          ? "Gözləyir"
-                          : product.status === 1
-                          ? "Təsdiqləndi"
-                          : "Ləğv edildi"}
+                        <StatusIcons status={product.status} />
                       </td>
                       <td className="py-4 px-6 max-sm:py-3 max-sm:px-4">
                         <div className="flex items-center justify-start space-x-2 max-sm:space-x-1">
-                          <Link href={`/dashboard/products/purchase-orders/preview/${product.id}`} className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors max-sm:p-1.5">
+                          <Link
+                            href={`/dashboard/products/purchase-orders/preview/${product.id}`}
+                            className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors max-sm:p-1.5"
+                          >
                             <Eye className="h-4 w-4 max-sm:h-3 max-sm:w-3" />
                           </Link>
                         </div>

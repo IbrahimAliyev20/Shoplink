@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { X, Image as ImageIcon } from "lucide-react";
+import { toast } from "sonner";
 
 export interface ProductVariant {
   type: "color" | "size";
@@ -40,8 +41,7 @@ const ProductVariants = ({ variants, setVariants }: ProductVariantsProps) => {
 
   const handleAddVariant = () => {
     if (!name.trim()) {
-      // Real proyektde toast istifade edin
-      alert("Variant adı boş ola bilməz.");
+      toast.error("Variant adı boş ola bilməz.");
       return;
     }
 

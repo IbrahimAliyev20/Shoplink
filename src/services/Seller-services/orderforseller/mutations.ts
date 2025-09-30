@@ -3,6 +3,7 @@ import { changeStoreOrderStatus } from "./api";
 
 
 export const useChangeStoreOrderStatusMutation = () =>
-    mutationOptions({
-      mutationFn: (formData: FormData) => changeStoreOrderStatus(formData),
-    });
+  mutationOptions({
+    mutationFn: (variables: { id: string; status: number }) => 
+      changeStoreOrderStatus(variables),
+  });

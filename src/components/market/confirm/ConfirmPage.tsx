@@ -13,6 +13,7 @@ import {
 import { useCart } from "@/contexts/CartContext";
 import Image from "next/image";
 import { useRouter, useParams } from "next/navigation";
+import { toast } from "sonner";
 
 interface OrderForm {
   paymentMethod: string;
@@ -53,7 +54,7 @@ function ConfirmPage() {
     e.preventDefault();
 
     clearCart();
-    alert("Sifarişiniz uğurla təsdiqləndi!");
+    toast.success("Sifarişiniz uğurla təsdiqləndi!");
     router.push(`/${marketSlug}`);
   };
 

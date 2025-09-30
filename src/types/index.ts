@@ -133,6 +133,7 @@ export interface  Promocode {
   id: number;
   name: string;
   discount: number;
+  status: number;
 }
 
 
