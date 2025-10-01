@@ -1,5 +1,5 @@
 import { get, post } from "@/lib/api";
-import { ApiResponse, StoreOrder, Promocode, OrderPayload } from "@/types";
+import { ApiResponse, StoreOrder, OrderPayload } from "@/types";
 
 
 export const getUserOrder = async () => {
@@ -15,7 +15,6 @@ export const getSingleUserOrder = async (orderId: string) => {
 
 
 export const createOrder = async (orderPayload: OrderPayload) => {
-  console.log('=== ORDER PAYLOAD ===', JSON.stringify(orderPayload, null, 2));
   const response = await post<ApiResponse<null>>(`/api/order`, orderPayload);
   return response;
 };

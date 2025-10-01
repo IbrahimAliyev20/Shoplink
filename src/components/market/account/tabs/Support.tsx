@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getFaqsOptions } from "@/services/Home/Faqs/queries";
-import { Faqs } from "@/types/home/hometypes";
 
 function Support() {
   const [activeTab, setActiveTab] = useState(0);

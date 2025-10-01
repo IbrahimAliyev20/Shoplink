@@ -1,5 +1,5 @@
 import { get, post } from "@/lib/api";
-import { ApiResponse, Promocode } from "@/types";
+import {Promocode } from "@/types";
 
 
 

@@ -8,7 +8,7 @@ export interface ProductImage {
   export interface ProductDetail {
     sales_price: string;
     discount_price: string | null;
-    purchase_price: number;
+    purchase_price: string;
     description: string;
     meta_description: string;
     meta_keywords: string;

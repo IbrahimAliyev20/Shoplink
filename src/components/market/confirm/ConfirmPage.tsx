@@ -77,8 +77,7 @@ function ConfirmPage() {
       return;
     }
 
-    // Postman formatında AYNEN payload oluştur
-    const orderPayload: any = {
+    const orderPayload: OrderPayload = {
       name: data.fullName,
       email: data.email,
       phone: `${data.phoneCode} ${data.phoneNumber}`,
@@ -86,7 +85,7 @@ function ConfirmPage() {
       address: data.address,
       city: data.city,
       store_slug: marketSlug,
-      promocode: "",
+      promocode: appliedPromocode?.name || null,
       products: cartItems.map((item) => ({ 
         quantity: Number(item.quantity),
         product_id: Number(item.id)
