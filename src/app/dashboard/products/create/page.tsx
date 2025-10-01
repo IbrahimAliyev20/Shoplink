@@ -2,7 +2,7 @@
 
 import React, { useState, useRef } from 'react';
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
-  import { useMutation, useQuery } from '@tanstack/react-query';
+  import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import Image from 'next/image';
 import { Button } from "@/components/ui/button";
@@ -16,6 +16,8 @@ import { FileImage, X } from "lucide-react";
 
 import { createProductMutation } from '@/services/Seller-services/product/mutations';
 import { categoryQueries } from '@/services/Seller-services/category/queries';
+import { productQueries } from '@/services/Seller-services/product/queries';
+import { useRouter } from 'next/navigation';
 
 type ProductFormValues = {
   name: string;
@@ -30,6 +32,8 @@ type ProductFormValues = {
 };
 
 const CreateProduct = () => {
+  const queryClient = useQueryClient();
+  const router = useRouter();
   const { data: categories } = useQuery({
     ...categoryQueries.all(),
   });
@@ -39,7 +43,6 @@ const CreateProduct = () => {
     handleSubmit,
     control,
     formState: { errors },
-    reset,
   } = useForm<ProductFormValues>();
 
   const [mainImage, setMainImage] = useState<File | null>(null);
@@ -53,8 +56,10 @@ const CreateProduct = () => {
   const { mutate: createProduct, isPending } = useMutation({
     ...createProductMutation(),
     onSuccess: () => {
+      queryClient.invalidateQueries({ ...productQueries.all() });
       toast.success("Məhsul uğurla əlavə edildi");
-      reset();
+      router.push("/dashboard/products");
+      
     },
     onError: () => {
       toast.error("Məhsul əlavə edilərkən xəta baş verdi");
