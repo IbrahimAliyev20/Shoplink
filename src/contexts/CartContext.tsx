@@ -4,13 +4,13 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 
-import { CartItem, calculateCartSummary } from "@/components/market/data/cart"; 
-import { checkPromocode } from "@/services/Promocode/api";
-import { Product } from "@/types/product/productTypes"; 
+import { CartItem, calculateCartSummary } from "@/components/market/data/cart";
+import { Product } from "@/types/product/productTypes";
+import { checkPromocode } from "@/services/User-services/orderforusers/api";
 
 interface CartContextType {
   cartItems: CartItem[];
-  appliedPromocode: { name: string, discount: number } | null;
+  appliedPromocode: { name: string; discount?: number } | null;
   promocodeDiscount: number;
   isApplyingPromo: boolean;
   addToCart: (product: Product, quantity: number) => void;
@@ -33,18 +33,12 @@ export const useCart = () => {
 
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
-  const [appliedPromocode, setAppliedPromocode] = useState<{ name: string, discount: number } | null>(null);
+  const [appliedPromocode, setAppliedPromocode] = useState<{ name: string; discount?: number } | null>(null);
   const [promocodeDiscount, setPromocodeDiscount] = useState<number>(0);
 
   useEffect(() => {
     const savedCart = localStorage.getItem("shoplink-cart");
-    if (savedCart) {
-        try {
-            setCartItems(JSON.parse(savedCart));
-        } catch (e) {
-            console.error("Failed to parse cart from localStorage", e);
-        }
-    }
+    if (savedCart) setCartItems(JSON.parse(savedCart));
   }, []);
 
   useEffect(() => {
@@ -56,7 +50,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     onSuccess: (data, variables) => {
       const discount = data.product_price - data.promocode_price;
       setPromocodeDiscount(discount);
-      setAppliedPromocode({ name: variables.promocode, discount: discount });
+      setAppliedPromocode({ name: variables.promocode });
       toast.success("Promokod uğurla tətbiq edildi!");
     },
     onError: (error) => {
@@ -66,7 +60,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const applyPromocode = (code: string) => {
     if (cartItems.length === 0) {
-      toast.error("Promokod tətbiq etmək üçün səbətinizdə məhsul olmalıdır.");
+      toast.error("Səbətinizdə məhsul olmalıdır.");
       return;
     }
     const productIds = cartItems.map(item => item.id);
@@ -83,15 +77,13 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const existingItem = prev.find((item) => item.id === product.id);
       if (existingItem) {
         return prev.map((item) =>
-          item.id === product.id
-            ? { ...item, quantity: item.quantity + quantity }
-            : item
+          item.id === product.id ? { ...item, quantity: item.quantity + quantity } : item
         );
       } else {
         const newItem: CartItem = {
           id: product.id,
           name: product.name,
-          price: product.detail.sales_price,
+          price: parseFloat( product.detail.sales_price),
           quantity,
           image: product.thumb_image || "/placeholder.png",
         };
@@ -100,16 +92,12 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     });
   };
 
-  const removeFromCart = (id: number) => {
-    setCartItems((prev) => prev.filter((item) => item.id !== id));
-  };
+  const removeFromCart = (id: number) => setCartItems((prev) => prev.filter((item) => item.id !== id));
 
   const updateQuantity = (id: number, change: number) => {
     setCartItems((prev) =>
       prev.map((item) =>
-        item.id === id
-          ? { ...item, quantity: Math.max(1, item.quantity + change) }
-          : item
+        item.id === id ? { ...item, quantity: Math.max(1, item.quantity + change) } : item
       )
     );
   };
@@ -123,18 +111,9 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const getCartCount = () => cartItems.reduce((total, item) => total + item.quantity, 0);
 
   const value: CartContextType = {
-    cartItems,
-    appliedPromocode,
-    promocodeDiscount,
-    isApplyingPromo,
-    addToCart,
-    removeFromCart,
-    updateQuantity,
-    clearCart,
-    applyPromocode,
-    removePromocode,
-    getCartSummary,
-    getCartCount,
+    cartItems, appliedPromocode, promocodeDiscount, isApplyingPromo,
+    addToCart, removeFromCart, updateQuantity, clearCart,
+    applyPromocode, removePromocode, getCartSummary, getCartCount,
   };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

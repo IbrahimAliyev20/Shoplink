@@ -57,6 +57,7 @@ export interface RegisterFormData {
 }
 
 export interface UserData {
+  id?: number;
   name: string;
   phone: string;
   email: string;
@@ -141,6 +142,7 @@ export interface  Promocode {
 
 export interface StoreOrder {
     id: number;
+    user_id?: number;
     name: string;
     email: string;
     phone: string;
@@ -149,7 +151,7 @@ export interface StoreOrder {
     city: string;
     total_price: number;
     status: number;
-    promocode: string | null;
+    promocode?: string | null;
     detail: [
         {
             quantity: string,
@@ -187,4 +189,26 @@ export interface FeedbackResponse {
   note: string;
   user_id: number;
   created_at: string;
+}
+    
+
+
+
+interface OrderProduct {
+  product_id: number;
+  quantity: number;
+}
+
+
+export interface OrderPayload {
+  user_id?: number;
+  name: string;
+  email: string;
+  phone: string;
+  city: string;
+  address: string;
+  store_slug: string;
+  note?: string;
+  promocode?: string | null;
+  products: OrderProduct[];
 }

@@ -38,20 +38,3 @@ export const ChangePromocodeStatus = async (formData: FormData) => {
 
 
 
-interface CheckPromoPayload {
-  promocode: string;
-  products: number[]; 
-}
-
-interface CheckPromoResponse {
-  promocode_price: number; 
-  product_price: number;   
-}
-
-export const checkPromocode = async (payload: CheckPromoPayload) => {
-    const response = await post<ApiResponse<CheckPromoResponse>>("/user/promocode-check", payload);
-    if (!response.data || !response.status) {
-        throw new Error("Promokod etibarsızdır və ya xəta baş verdi");
-    }
-    return response.data;
-};

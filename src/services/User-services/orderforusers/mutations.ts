@@ -1,10 +1,13 @@
-import { useMutation } from "@tanstack/react-query";
-import { OrderForUsers } from "./api";
+import { mutationOptions } from "@tanstack/react-query";
+import { createOrder, checkPromocode } from "./api";
+import { OrderPayload } from "@/types";
 
-const OrderForUsersMutation = () => {   
-    return useMutation({
-        mutationFn: OrderForUsers,
-    });
-};
+export const createOrderMutation = () =>
+  mutationOptions({
+    mutationFn: (orderPayload: OrderPayload) => createOrder(orderPayload),
+  });
 
-export { OrderForUsersMutation };
+export const checkPromocodeMutation = () =>
+  mutationOptions({
+    mutationFn: (payload: { promocode: string; products: number[] }) => checkPromocode(payload),
+  });
