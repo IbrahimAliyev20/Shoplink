@@ -71,7 +71,7 @@ const CartSummary: React.FC<CartSummaryProps> = ({ summary, onCompleteOrder }) =
           </div>
         )}
         
-        <div className="flex justify-between items-center"><span className="text-gray-600">Qiymət</span><span className="font-medium text-gray-900">{summary.subtotal} AZN</span></div>
+        <div className="flex justify-between items-center"><span className="text-gray-600">Qiymət</span><span className="font-medium text-gray-900">{summary.total} AZN</span></div>
         <div className="flex justify-between items-center"><span className="text-gray-600">Çatdırılma</span><span className="font-medium text-gray-900">5 AZN</span></div>
         
         {summary.promocodeDiscount > 0 && (

@@ -289,7 +289,7 @@ function ConfirmPage() {
                 <div className="flex justify-between items-center">
                   <span className="text-gray-600">Qiymət</span>
                   <span className="font-medium text-gray-900">
-                    {summary.subtotal} AZN
+                    {summary.total} AZN
                   </span>
                 </div>
                 <div className="flex justify-between items-center">

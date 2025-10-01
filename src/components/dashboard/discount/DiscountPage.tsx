@@ -17,6 +17,7 @@ import { getPromocode } from "@/services/Promocode/api";
 import {
   createPromocodeMutation,
   deletePromocodeMutation,
+  changePromocodeStatusMutation,
 } from "@/services/Promocode/mutations";
 import { toast } from "sonner";
 import getPromocodeOptions from "@/services/Promocode/queries";
@@ -27,7 +28,6 @@ import ReusablePagination from "../ReusablePagination";
 function DiscountPage() {
   const [promoCode, setPromoCode] = useState("");
   const [discountPercent, setDiscountPercent] = useState("");
-  const [selectedProducts, setSelectedProducts] = useState<number[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedPromocodeForEdit, setSelectedPromocodeForEdit] =
@@ -71,17 +71,30 @@ function DiscountPage() {
     },
   });
 
+  const { mutate: changeStatus } = useMutation({
+    ...changePromocodeStatusMutation(),
+    onSuccess: () => {
+      toast.success("Promo kod statusu dəyişdirildi");
+      queryClient.invalidateQueries({
+        queryKey: getPromocodeOptions().queryKey,
+      });
+    },
+    onError: () => {
+      toast.error("Status dəyişdirilərkən xəta baş verdi");
+    },
+  });
+
   const handleDeleteProduct = (promoCodeId: number) => {
     deletePromocode(promoCodeId);
     toast.success("Promo kod uğurla silindi");
   };
 
-  const handleSelectProduct = (productId: number) => {
-    setSelectedProducts((prev) =>
-      prev.includes(productId)
-        ? prev.filter((id) => id !== productId)
-        : [...prev, productId]
-    );
+
+
+  const handleChangeStatus = (promoCodeId: number) => {
+    const formData = new FormData();
+    formData.append("id", promoCodeId.toString());
+    changeStatus(formData);
   };
 
   const handleEditProduct = (promoCodeId: number) => {
@@ -90,8 +103,7 @@ function DiscountPage() {
     setIsEditModalOpen(true);
   };
 
-  const totalPages =2; 
-
+  const totalPages = 1;
   return (
     <div className="bg-gray-50 min-h-screen">
       {/* Create Form */}
@@ -149,8 +161,8 @@ function DiscountPage() {
                 >
                   <TableCell className="text-center max-sm:px-2">
                     <Checkbox
-                      checked={selectedProducts.includes(promocode.id)}
-                      onCheckedChange={() => handleSelectProduct(promocode.id)}
+                      checked={promocode.status === 1}
+                      onCheckedChange={() => handleChangeStatus(promocode.id)}
                       className="max-sm:w-5 max-sm:h-5"
                     />
                   </TableCell>

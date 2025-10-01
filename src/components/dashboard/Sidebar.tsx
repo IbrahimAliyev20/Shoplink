@@ -172,10 +172,6 @@ export default function Sidebar({
         <div className="p-4 border-b border-gray-800">
           <div className="flex items-center space-x-3">
             <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 bg-gray-700">
-              {isLoading && (
-                <div className="w-full h-full rounded-full bg-gray-700 animate-pulse"></div>
-              )}
-
               {!isLoading && (
                 <Image
                   src={
@@ -294,7 +290,7 @@ export default function Sidebar({
           {!isCollapsed ? (
             <div className="flex items-center space-x-2">
               <Globe className="w-[18px] h-[18px] text-[#AF52DE]" />
-              <Link href={`/${store?.slug}`} className="text-xs text-gray-400">
+              <Link target="_blank" href={`/${store?.slug}`} className="text-xs text-gray-400">
                 {store?.name}
               </Link>
             </div>

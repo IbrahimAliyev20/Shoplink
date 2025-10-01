@@ -1,5 +1,5 @@
 import { mutationOptions } from "@tanstack/react-query";
-import { createPromocode, deletePromocode, updatePromocode } from "./api";
+import { ChangePromocodeStatus, createPromocode, deletePromocode, updatePromocode } from "./api";
 
 export const createPromocodeMutation = () =>
   mutationOptions({
@@ -14,6 +14,10 @@ export const updatePromocodeMutation = () =>
 export const deletePromocodeMutation = () =>
   mutationOptions({
     mutationFn: (id: number) => deletePromocode(id),
+  });
+export const changePromocodeStatusMutation = () =>
+  mutationOptions({
+    mutationFn: (formData: FormData) => ChangePromocodeStatus(formData),
   });
 
 

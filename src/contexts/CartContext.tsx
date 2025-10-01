@@ -91,7 +91,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         const newItem: CartItem = {
           id: product.id,
           name: product.name,
-          price: parseFloat(product.detail.discount_price || product.detail.sales_price),
+          price: product.detail.sales_price,
           quantity,
           image: product.thumb_image || "/placeholder.png",
         };

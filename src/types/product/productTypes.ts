@@ -6,9 +6,9 @@ export interface ProductImage {
   }
   
   export interface ProductDetail {
-    sales_price: string;
-    discount_price: string | null;
-    purchase_price: string;
+    sales_price: number;
+    discount_price: number | null;
+    purchase_price: number;
     description: string;
     meta_description: string;
     meta_keywords: string;

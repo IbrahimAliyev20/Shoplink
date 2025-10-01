@@ -27,6 +27,15 @@ export const deletePromocode = async (id: number) => {
   return response.data;
 };
 
+export const ChangePromocodeStatus = async (formData: FormData) => {
+  const statusId = formData.get('id');
+  if (!statusId) {
+    throw new Error("Promo code ID is missing in FormData for status change.");
+  }
+  const response = await post<{ data: Promocode }>(`user/promocode/status/${statusId}`);
+  return response.data;
+};
+
 
 
 interface CheckPromoPayload {
