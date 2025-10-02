@@ -91,11 +91,11 @@ const ReportsPage: React.FC = () => {
   };
 
   const handleViewProject = (project: ActiveInvestment) => {
-    console.log("Viewing project:", project);
+    // TODO: Implement view project functionality
   };
 
   const handleEditProject = (project: ActiveInvestment) => {
-    console.log("Editing project:", project);
+    // TODO: Implement edit project functionality
   };
 
   const SortableHeader: React.FC<{

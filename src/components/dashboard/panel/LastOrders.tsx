@@ -65,15 +65,15 @@ const LastOrders: React.FC = () => {
   };
 
   const handleViewProject = (project: ActiveInvestment) => {
-    console.log("Viewing project:", project);
+    // TODO: Implement view project functionality
   };
 
   const handleEditProject = (project: ActiveInvestment) => {
-    console.log("Editing project:", project);
+    // TODO: Implement edit project functionality
   };
 
   const handleDeleteProject = (project: ActiveInvestment) => {
-    console.log("Deleting project:", project);
+    // TODO: Implement delete project functionality
   };
 
 

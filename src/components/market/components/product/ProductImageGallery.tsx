@@ -36,10 +36,13 @@ const ProductImageGallery: React.FC<ProductImageGalleryProps> = ({
       <div className="w-[620px] h-[500px] border border-gray-200 rounded-xl aspect-square flex items-center justify-center p-4 max-md:w-full max-md:h-80 max-md:p-3 max-md:rounded-lg">
         <Image
           src={images[currentImageIndex]}
-          alt={productName}
-          width={500}
-          height={500}
+          alt={`${productName} - Görünüş ${currentImageIndex + 1} / ${images.length}`}
+          width={600}
+          height={600}
           className="w-full h-full object-contain"
+          priority={currentImageIndex === 0}
+          sizes="(max-width: 768px) 100vw, 620px"
+          quality={90}
         />
       </div>
 
@@ -64,13 +67,16 @@ const ProductImageGallery: React.FC<ProductImageGalleryProps> = ({
                   ? 'border-pink-500'
                   : 'border-gray-200 hover:border-gray-400'
               }`}
+              aria-label={`${productName} görünüş ${index + 1}`}
             >
               <Image
                 src={image}
-                alt={`Məhsul görünüşü ${index + 1}`}
-                width={80}
-                height={80}
+                alt={`${productName} kiçik şəkil ${index + 1}`}
+                width={100}
+                height={100}
                 className="w-full h-full object-cover"
+                loading="lazy"
+                sizes="100px"
               />
             </button>
           ))}

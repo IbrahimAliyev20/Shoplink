@@ -15,10 +15,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, storeSlug }) => {
           <div className="border border-gray-200 w-full mb-3 sm:mb-4 rounded-2xl overflow-hidden aspect-square">
             <Image
               src={product.thumb_image}
-              alt={product.name}
-              width={300}
-              height={300}
+              alt={`${product.name} - ${product.detail.sales_price} AZN məhsul şəkli`}
+              width={400}
+              height={400}
               className="w-full h-full object-contain p-1 transition-transform duration-300 group-hover:scale-105"
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+              loading="lazy"
+              quality={85}
             />
           </div>
           

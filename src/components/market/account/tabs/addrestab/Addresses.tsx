@@ -11,6 +11,8 @@ import AddressList from './AddressList';
 import EmptyState from './EmptyState';
 import { Address } from '@/types';
 import { AddressFormData } from './types';
+import { LoadingState } from '@/components/shared/LoadingState';
+import { ErrorState } from '@/components/shared/ErrorState';
 import { 
   createAddressMutation, 
   deleteAddressMutation, 
@@ -39,20 +41,90 @@ function Addresses() {
 
   const { mutate: createAddress, isPending: isCreating } = useMutation({
     ...createAddressMutation(),
-    onSuccess: () => onMutationSuccess("Ünvan uğurla yaradıldı!"),
-    onError: onMutationError,
+    onMutate: async (newAddress) => {
+      // Cancel outgoing refetches
+      await queryClient.cancelQueries({ queryKey: ['addresses'] });
+      
+      // Snapshot previous value
+      const previousAddresses = queryClient.getQueryData<Address[]>(['addresses']);
+      
+      // Optimistically update
+      queryClient.setQueryData<Address[]>(['addresses'], (old = []) => [
+        ...old,
+        { ...newAddress, id: Date.now(), is_selected: 0 } as Address
+      ]);
+      
+      return { previousAddresses };
+    },
+    onError: (error, _newAddress, context) => {
+      // Rollback on error
+      if (context?.previousAddresses) {
+        queryClient.setQueryData(['addresses'], context.previousAddresses);
+      }
+      toast.error("Xəta baş verdi: " + error.message);
+    },
+    onSuccess: () => {
+      toast.success("Ünvan uğurla yaradıldı!");
+      setShowForm(false);
+      setEditingAddress(null);
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ['addresses'] });
+    },
   });
 
   const { mutate: updateAddress, isPending: isUpdating } = useMutation({
     ...updateAddressMutation(),
-    onSuccess: () => onMutationSuccess("Ünvan uğurla yeniləndi!"),
-    onError: onMutationError,
+    onMutate: async (updatedAddress) => {
+      await queryClient.cancelQueries({ queryKey: ['addresses'] });
+      const previousAddresses = queryClient.getQueryData<Address[]>(['addresses']);
+      
+      queryClient.setQueryData<Address[]>(['addresses'], (old = []) =>
+        old.map((addr) => addr.id === updatedAddress.id ? { ...addr, ...updatedAddress } : addr)
+      );
+      
+      return { previousAddresses };
+    },
+    onError: (error, _updatedAddress, context) => {
+      if (context?.previousAddresses) {
+        queryClient.setQueryData(['addresses'], context.previousAddresses);
+      }
+      toast.error("Xəta baş verdi: " + error.message);
+    },
+    onSuccess: () => {
+      toast.success("Ünvan uğurla yeniləndi!");
+      setShowForm(false);
+      setEditingAddress(null);
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ['addresses'] });
+    },
   });
 
   const { mutate: deleteAddress } = useMutation({
     ...deleteAddressMutation(),
-    onSuccess: () => onMutationSuccess("Ünvan uğurla silindi!"),
-    onError: onMutationError,
+    onMutate: async (id: number) => {
+      await queryClient.cancelQueries({ queryKey: ['addresses'] });
+      const previousAddresses = queryClient.getQueryData<Address[]>(['addresses']);
+      
+      queryClient.setQueryData<Address[]>(['addresses'], (old = []) =>
+        old.filter((addr) => addr.id !== id)
+      );
+      
+      return { previousAddresses };
+    },
+    onError: (error, _id, context) => {
+      if (context?.previousAddresses) {
+        queryClient.setQueryData(['addresses'], context.previousAddresses);
+      }
+      toast.error("Xəta baş verdi: " + error.message);
+    },
+    onSuccess: () => {
+      toast.success("Ünvan uğurla silindi!");
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ['addresses'] });
+    },
   });
 
   const { mutate: selectAddress } = useMutation({
@@ -84,8 +156,8 @@ function Addresses() {
     setEditingAddress(null);
   };
 
-  if (isLoading) return <div>Yüklənir...</div>;
-  if (isError) return <div>Xəta baş verdi. Məlumatları yükləmək mümkün olmadı.</div>;
+  if (isLoading) return <LoadingState message="Ünvanlar yüklənir..." />;
+  if (isError) return <ErrorState message="Ünvanları yükləyərkən xəta baş verdi." onRetry={() => queryClient.invalidateQueries({ queryKey: ['addresses'] })} />;
 
   if (showForm) {
     return (

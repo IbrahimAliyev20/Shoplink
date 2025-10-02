@@ -7,7 +7,7 @@ import {
   registerAction,
 } from "./server-actions";
 import { logout, updatePassword } from "./api";
-import { AuthLoginResponse } from "@/types";
+import { AuthLoginResponse, AuthRegisterResponse } from "@/types";
 
 interface LoginVariables {
   email: string;
@@ -49,28 +49,27 @@ export const useLoginMutation = () => {
     },
   });
 };
-
-export const RegisterMutation = (
-  name: string,
-  email: string,
-  password: string,
-  phone: string,
-  store_name_or_id: string,
-  isMarketRegistration: boolean
-) => {
-  return useMutation({
-    mutationFn: async () => {
+interface RegisterVariables {
+  name: string;
+  email: string;
+  password: string;
+  phone: string;
+  store_name_or_id: string;
+  isMarketRegistration: boolean;
+}
+export const useRegisterMutation = () => {
+  return useMutation<AuthRegisterResponse, Error, RegisterVariables>({
+    mutationFn: async (variables) => {
       const formData = new FormData();
-      formData.append("name", name);
-      formData.append("email", email);
-      formData.append("password", password);
-      formData.append("phone", phone);
+      formData.append("name", variables.name);
+      formData.append("email", variables.email);
+      formData.append("password", variables.password);
+      formData.append("phone", variables.phone);
       formData.append(
-        isMarketRegistration ? "store_id" : "store_name",
-        store_name_or_id
+        variables.isMarketRegistration ? "store_id" : "store_name",
+        variables.store_name_or_id
       );
-      const result = await registerAction(formData);
-      return result;
+      return registerAction(formData);
     },
   });
 };

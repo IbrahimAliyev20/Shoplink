@@ -13,11 +13,11 @@ import { LogOut } from "lucide-react";
 import { UserData } from "@/types";
 import { logoutAction } from "@/services/auth/server-actions";
 import { useParams, useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 function AccountPage({ user }: { user: UserData }) {
   const [showLogoutDialog, setShowLogoutDialog] = useState(false);
-  const [logoutuser, setLogoutuser] = useState<UserData | null>(user);
-   console.log(logoutuser)
+  
   const { market: marketSlug } = useParams();
   
   const router = useRouter();
@@ -25,11 +25,9 @@ function AccountPage({ user }: { user: UserData }) {
   const handleLogout = async () => {
     try {
       await logoutAction();
-      setLogoutuser(null);
       router.push(`/${marketSlug}`);
-      
     } catch (error) {
-      console.error("Logout failed:", error);
+      toast.error("Logout failed. Please try again.");
     }
   };
 
