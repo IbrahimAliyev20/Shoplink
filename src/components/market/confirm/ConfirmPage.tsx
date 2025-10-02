@@ -92,15 +92,9 @@ function ConfirmPage() {
       })),
     };
 
-    // SADECE login olmuşsa user_id ekle
     if (userData?.data?.id) {
       orderPayload.user_id = Number(userData.data.id);
     }
-
-    console.log("=== FINAL PAYLOAD ===", JSON.stringify(orderPayload, null, 2));
-    console.log("=== Cart Items ===", cartItems);
-    console.log("=== User Data ===", userData);
-    
     createOrder(orderPayload);
   };
 

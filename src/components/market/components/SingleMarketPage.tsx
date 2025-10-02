@@ -31,6 +31,7 @@ function SingleProductPage({ slug }: { slug: string }) {
   };
 
   const imageUrls = product.images.map(img => img.image);
+  const thumbImageUrls = product.images.map(img => img.thumb_image);
 
   return (
     <div className="min-h-screen bg-white py-8 sm:py-12 max-md:py-6">
@@ -41,6 +42,7 @@ function SingleProductPage({ slug }: { slug: string }) {
             currentImageIndex={currentImageIndex}
             onImageChange={setCurrentImageIndex}
             productName={product.name}
+            thumbImages={thumbImageUrls}
           />
 
           <div className="flex flex-col justify-between max-md:space-y-6">

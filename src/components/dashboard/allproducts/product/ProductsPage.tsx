@@ -11,7 +11,6 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteProductMutation } from "@/services/Seller-services/product/mutations";
 import { toast } from "sonner";
 import ReusablePagination from "../../ReusablePagination";
-import { categoryQueries } from "@/services/Seller-services/category/queries";
 import { useRouter } from "next/navigation";
 
 export default function ProductsPage() {
@@ -21,7 +20,6 @@ export default function ProductsPage() {
   const router = useRouter();
 
   const queryClient = useQueryClient();
-  const { data: categories } = useQuery({ ...categoryQueries.all() });
   const { data: allProducts } = useQuery({ ...productQueries.all() });
 
   const filteredProducts =
@@ -59,7 +57,6 @@ export default function ProductsPage() {
           Məhsullar
         </h1>
         <Button
-          disabled={categories?.length === 0} 
           variant="default"
           onClick={() => router.push("/dashboard/products/create")}
           className="bg-pink-500 hover:bg-pink-600 text-white max-sm:w-full max-sm:text-sm max-sm:py-2.5"

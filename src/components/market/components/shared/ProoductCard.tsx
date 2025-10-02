@@ -14,7 +14,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, storeSlug }) => {
         <div className=" rounded-2xl p-3 ">
           <div className="border border-gray-200 w-full mb-3 sm:mb-4 rounded-2xl overflow-hidden aspect-square">
             <Image
-              src={product.image}
+              src={product.thumb_image}
               alt={product.name}
               width={300}
               height={300}

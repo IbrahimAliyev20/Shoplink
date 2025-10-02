@@ -12,12 +12,13 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import RichTextEditor from "@/components/shared/editor";
-import { FileImage, X } from "lucide-react";
+import { FileImage, X, Plus } from "lucide-react";
 
 import { createProductMutation } from '@/services/Seller-services/product/mutations';
 import { categoryQueries } from '@/services/Seller-services/category/queries';
 import { productQueries } from '@/services/Seller-services/product/queries';
 import { useRouter } from 'next/navigation';
+import CreateCategoryModal from '@/components/dashboard/modal/CreateCategoryModal';
 
 type ProductFormValues = {
   name: string;
@@ -52,6 +53,8 @@ const CreateProduct = () => {
   const [additionalImages, setAdditionalImages] = useState<File[]>([]);
   const [additionalImagePreviews, setAdditionalImagePreviews] = useState<string[]>([]);
   const additionalImagesInputRef = useRef<HTMLInputElement>(null);
+
+  const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
 
   const { mutate: createProduct, isPending } = useMutation({
     ...createProductMutation(),
@@ -119,6 +122,10 @@ const CreateProduct = () => {
     setAdditionalImages(prev => prev.filter((_, i) => i !== index));
     setAdditionalImagePreviews(prev => prev.filter((_, i) => i !== index));
   }
+
+  const handleCategoryCreated = (categoryId: number) => {
+    queryClient.invalidateQueries({ ...categoryQueries.all() });
+  };
 
   return (
     <div className="mx-auto space-y-6 bg-gray-50/50 p-4 sm:p-6 lg:p-8">
@@ -197,28 +204,53 @@ const CreateProduct = () => {
             <CardContent className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
-    <Label>Kateqoriya</Label>
-    <Controller 
-        name="category_id" 
-        control={control} 
-        rules={{ required: "Kateqoriya mütləqdir" }} 
-        render={({ field }) => (
-            <Select onValueChange={field.onChange} value={field.value}>
-                <SelectTrigger>
-                    <SelectValue placeholder="Kateqoriya seçin" />
-                </SelectTrigger>
-                <SelectContent>
-                    {categories?.map((category) => (
-                        <SelectItem key={category.id} value={String(category.id)}>
-                            {category.name}
-                        </SelectItem>
-                    ))}
-                </SelectContent>
-            </Select>
-        )}
-    />
-    {errors.category_id && <p className="text-xs text-red-600 mt-1">{errors.category_id.message}</p>}
-</div>
+                  <Label>Kateqoriya</Label>
+                  <Controller 
+                    name="category_id" 
+                    control={control} 
+                    rules={{ required: "Kateqoriya mütləqdir" }} 
+                    render={({ field }) => (
+                      <>
+                        {categories && categories.length > 0 ? (
+                          <Select onValueChange={field.onChange} value={field.value}>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Kateqoriya seçin" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {categories.map((category) => (
+                                <SelectItem key={category.id} value={String(category.id)}>
+                                  {category.name}
+                                </SelectItem>
+                              ))}
+                              <div className="border-t">
+                                <div
+                                  className="flex items-center gap-2 px-2 py-1.5 text-sm cursor-pointer hover:bg-accent rounded-sm"
+                                  onClick={() => setIsCategoryModalOpen(true)}
+                                >
+                              <Plus className="h-4 w-4" />
+                              Kateqoriya əlavə et
+                                </div>
+                              </div>
+                            </SelectContent>
+                          </Select>
+                        ) : (
+                          <div className="flex items-center gap-2">
+                            <Button
+                              type="button"
+                              variant="outline"
+                              onClick={() => setIsCategoryModalOpen(true)}
+                              className="flex items-center gap-2 w-full justify-start"
+                            >
+                              <Plus className="h-4 w-4" />
+                              Kateqoriya yarat
+                            </Button>
+                          </div>
+                        )}
+                      </>
+                    )}
+                  />
+                  {errors.category_id && <p className="text-xs text-red-600 mt-1">{errors.category_id.message}</p>}
+                </div>
                     <div className="space-y-2">
                         <Label>Stok sayı</Label>
                         <Input placeholder="Stok sayını qeyd edin" type="number" {...register("stock", { required: "Stok sayı mütləqdir", valueAsNumber: true })} />
@@ -254,6 +286,12 @@ const CreateProduct = () => {
           </div>
         </fieldset>
       </form>
+
+      <CreateCategoryModal
+        isOpen={isCategoryModalOpen}
+        onClose={() => setIsCategoryModalOpen(false)}
+        onCategoryCreated={handleCategoryCreated}
+      />
     </div>
   );
 }

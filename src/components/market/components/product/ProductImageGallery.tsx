@@ -8,6 +8,7 @@ interface ProductImageGalleryProps {
   currentImageIndex: number
   onImageChange: (index: number) => void
   productName: string
+  thumbImages: string[]
 }
 
 const ChevronLeftIcon = () => (
@@ -26,7 +27,8 @@ const ProductImageGallery: React.FC<ProductImageGalleryProps> = ({
   images,
   currentImageIndex,
   onImageChange,
-  productName
+  productName,
+  thumbImages
 }) => {
   return (
     <div className="space-y-5 max-md:space-y-4">
@@ -53,7 +55,7 @@ const ProductImageGallery: React.FC<ProductImageGalleryProps> = ({
         </button>
         
         <div className="flex-grow grid grid-cols-5 gap-3 max-md:grid-cols-4 max-md:gap-2">
-          {images.map((image, index) => (
+          {thumbImages.map((image, index) => (
             <button
               key={index}
               onClick={() => onImageChange(index)}

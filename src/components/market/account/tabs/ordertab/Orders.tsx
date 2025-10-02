@@ -64,7 +64,7 @@ function Orders() {
                 <div className="flex-1 flex justify-between items-start max-sm:flex-col max-sm:gap-3 max-sm:w-full">
                   <div className="flex-1 max-sm:text-center max-sm:w-full">
                     <h3 className="text-lg font-semibold text-gray-900 mb-1 max-sm:text-base max-sm:mb-2">
-                      {order.detail[0]?.product || "Məhsul adı"}
+                      {order.detail[0]?.product}
                     </h3>
                     <div className="space-y-1 text-sm text-gray-600 max-sm:text-xs max-sm:space-y-1">
                       <p className="max-sm:flex max-sm:justify-between">
