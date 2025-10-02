@@ -123,7 +123,7 @@ const CreateProduct = () => {
     setAdditionalImagePreviews(prev => prev.filter((_, i) => i !== index));
   }
 
-  const handleCategoryCreated = (categoryId: number) => {
+  const handleCategoryCreated = () => {
     queryClient.invalidateQueries({ ...categoryQueries.all() });
   };
 

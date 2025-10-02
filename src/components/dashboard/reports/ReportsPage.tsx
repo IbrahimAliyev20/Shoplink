@@ -90,11 +90,11 @@ const ReportsPage: React.FC = () => {
     setCurrentPage(1);
   };
 
-  const handleViewProject = (project: ActiveInvestment) => {
+  const handleViewProject = (_project: ActiveInvestment) => {
     // TODO: Implement view project functionality
   };
 
-  const handleEditProject = (project: ActiveInvestment) => {
+  const handleEditProject = (_project: ActiveInvestment) => {
     // TODO: Implement edit project functionality
   };
 

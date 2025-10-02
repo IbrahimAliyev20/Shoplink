@@ -526,6 +526,7 @@ export default function RichTextEditor({
                     <div className="space-y-2">
                       <Label>Preview:</Label>
                       <div className="border rounded-lg p-2">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img 
                           src={imagePreview}
                           alt="Preview"

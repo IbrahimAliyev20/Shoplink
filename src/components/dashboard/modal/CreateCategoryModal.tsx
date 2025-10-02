@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { useForm, SubmitHandler, Controller, FieldError } from 'react-hook-form';
+import { useForm, SubmitHandler, Controller, FieldError, UseFormRegisterReturn } from 'react-hook-form';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
@@ -35,7 +35,7 @@ interface CreateCategoryModalProps {
 interface FormInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   id: string;
   label: string;
-  register: any;
+  register: UseFormRegisterReturn;
   error?: FieldError;
 }
 

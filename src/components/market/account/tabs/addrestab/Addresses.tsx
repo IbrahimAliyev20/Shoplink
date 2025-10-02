@@ -42,16 +42,13 @@ function Addresses() {
   const { mutate: createAddress, isPending: isCreating } = useMutation({
     ...createAddressMutation(),
     onMutate: async (newAddress) => {
-      // Cancel outgoing refetches
       await queryClient.cancelQueries({ queryKey: ['addresses'] });
       
-      // Snapshot previous value
       const previousAddresses = queryClient.getQueryData<Address[]>(['addresses']);
       
-      // Optimistically update
       queryClient.setQueryData<Address[]>(['addresses'], (old = []) => [
         ...old,
-        { ...newAddress, id: Date.now(), is_selected: 0 } as Address
+        { ...newAddress, id: Date.now(), is_selected: 0, selected: 0 } as Address
       ]);
       
       return { previousAddresses };

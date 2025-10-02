@@ -5,11 +5,6 @@
 
 type LogLevel = 'debug' | 'info' | 'warn' | 'error';
 
-interface LogOptions {
-  level?: LogLevel;
-  timestamp?: boolean;
-}
-
 class Logger {
   private isDevelopment = process.env.NODE_ENV === 'development';
 
@@ -18,7 +13,7 @@ class Logger {
     return `[${timestamp}] [${level.toUpperCase()}] ${message}`;
   }
 
-  debug(message: string, data?: unknown, options?: LogOptions): void {
+  debug(message: string, data?: unknown): void {
     if (!this.isDevelopment) return;
     
     const formattedMessage = this.formatMessage('debug', message);

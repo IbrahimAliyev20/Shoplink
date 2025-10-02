@@ -29,7 +29,7 @@ export default function OrderConfirmationPage() {
                 <p className="text-sm text-gray-600 mb-1">
                   Sifariş nömrəsi : <span className="font-semibold text-gray-900">#9581347322</span>
                 </p>
-                <h2 className="text-xl font-semibold text-gray-900 mb-3">Tommy Hilfiger Men's Kelby Sneaker</h2>
+                <h2 className="text-xl font-semibold text-gray-900 mb-3">Tommy Hilfiger Mens Kelby Sneaker</h2>
                 <p className="text-2xl font-bold text-gray-900">1250 AZN</p>
               </div>
             </div>
