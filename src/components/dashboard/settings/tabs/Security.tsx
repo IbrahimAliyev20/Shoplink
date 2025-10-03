@@ -65,17 +65,6 @@ const Security = () => {
           </Button>
         </div>
 
-          <div>
-            <h3 className="text-lg font-medium mb-4 max-md:text-base max-md:mb-3">Hesab</h3>
-            <div className="flex items-center justify-between max-md:flex-col max-md:items-start max-md:gap-3">
-              <p className="text-sm text-gray-600 max-md:text-xs">
-                Bu əməliyyat geri qaytarıla bilməz
-              </p>
-              <Button variant="link" className="text-gray-700 underline p-0 h-auto max-md:text-sm">
-                Hesabınızı bağlayın
-              </Button>
-            </div>
-          </div>
         </div>
 
        

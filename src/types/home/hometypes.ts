@@ -80,3 +80,27 @@ export interface HeroBanner {
     message: string;
     data: T;
   }
+
+
+
+  
+  export interface TrackNumberDetail {
+    quantity: string;
+    product: string;
+    product_price: number;
+    total_price: number;
+  }
+  
+  export interface TrackNumber {
+    id: number;
+    name: string;
+    email: string;
+    phone: string;
+    note: string | null;
+    address: string;
+    city: string;
+    total_price: number;
+    status: number;
+    promocode: string | null;
+    detail: TrackNumberDetail[];
+  }
