@@ -64,16 +64,19 @@ const LastOrders: React.FC = () => {
     setSortConfig({ key, direction });
   };
 
-  const handleViewProject = (_project: ActiveInvestment) => {
+  const handleViewProject = (project: ActiveInvestment) => {
     // TODO: Implement view project functionality
+    console.log('View project:', project);
   };
 
-  const handleEditProject = (_project: ActiveInvestment) => {
+  const handleEditProject = (project: ActiveInvestment) => {
     // TODO: Implement edit project functionality
+    console.log('Edit project:', project);
   };
 
-  const handleDeleteProject = (_project: ActiveInvestment) => {
+  const handleDeleteProject = (project: ActiveInvestment) => {
     // TODO: Implement delete project functionality
+    console.log('Delete project:', project);
   };
 
 

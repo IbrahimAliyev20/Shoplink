@@ -18,7 +18,7 @@ export interface CartSummary {
 
 export const calculateCartSummary = (items: CartItem[], promocodeDiscount: number = 0): CartSummary => {
   const subtotal = items.reduce((sum, item) => sum + (item.price * item.quantity), 0)
-  const delivery = subtotal > 100 ? 0 : 20 
+  const delivery = subtotal > 100 ? 0 : 5 
   const total = Math.max(0, subtotal - promocodeDiscount + delivery) 
   
   

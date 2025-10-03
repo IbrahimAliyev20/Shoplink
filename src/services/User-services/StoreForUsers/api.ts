@@ -1,4 +1,4 @@
-import { get } from "@/lib/api";
+import { get, post } from "@/lib/api";
 import {
   StoreForUsers,
   CategoryStore,
@@ -47,5 +47,10 @@ export const getAllProductsStore = async ( slug: string, search?: string):
     apiUrl += `?search=${encodeURIComponent(search)}`;
   }
   const response = await get<{ data: ProductStoreCategory[] }>(apiUrl);
+  return response.data;
+};
+
+export const FilterProductsStore = async ( formData: FormData): Promise<ProductStoreCategory[]> => {
+  const response = await post<{ data: ProductStoreCategory[] }>('api/filter', formData);
   return response.data;
 };

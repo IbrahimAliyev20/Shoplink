@@ -2,12 +2,22 @@
 
 import React, { useState, useEffect } from "react";
 import ProductList from "./shared/ProductList";
+import FilterPanel from "./FilterModal";
 import { useQuery } from "@tanstack/react-query";
-import { CategoryStore } from "@/types/storeforusers/types";
+import { CategoryStore, ProductStoreCategory } from "@/types/storeforusers/types";
 import {
   getAllProductsStoreOptions,
   getProductStoreCategoryOptions,
+  getFilteredProductsStoreOptions,
 } from "@/services/User-services/StoreForUsers/queries";
+import { getAllProductsStore } from "@/services/User-services/StoreForUsers/api";
+
+interface ProductFilters {
+  category_id?: number;
+  min_price?: number;
+  max_price?: number;
+  stock?: 0 | 1;
+}
 
 interface TabsMarketProps {
   categories: CategoryStore[];
@@ -23,6 +33,9 @@ const TabsMarket: React.FC<TabsMarketProps> = ({ categories, storeSlug }) => {
   const [activeTab, setActiveTab] = useState<string>("all");
   const [searchTerm, setSearchTerm] = useState("");
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [filters, setFilters] = useState<ProductFilters>({});
+  const [hasActiveFilters, setHasActiveFilters] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -34,17 +47,93 @@ const TabsMarket: React.FC<TabsMarketProps> = ({ categories, storeSlug }) => {
     };
   }, [searchTerm]);
 
+  useEffect(() => {
+    const hasFilters = Object.keys(filters).some(key => 
+      filters[key as keyof ProductFilters] !== undefined && 
+      filters[key as keyof ProductFilters] !== null
+    );
+    setHasActiveFilters(hasFilters);
+  }, [filters]);
+
+  const handleApplyFilters = (newFilters: ProductFilters) => {
+    setFilters(newFilters);
+  };
+
+  const handleClearFilters = () => {
+    setFilters({});
+    setHasActiveFilters(false);
+  };
+
+  // Determine which query to use based on filters and search
+  const shouldUseFilteredQuery = hasActiveFilters && !debouncedSearchTerm;
+  const shouldUseSearchQuery = debouncedSearchTerm && !hasActiveFilters;
+  const shouldUseCategoryQuery = !debouncedSearchTerm && !hasActiveFilters && activeTab !== "all";
+
+  // Filtered products query
   const {
-    data: products = [],
-    isLoading,
-    isError,
-  } = useQuery(
-    debouncedSearchTerm
-      ? getAllProductsStoreOptions(storeSlug, debouncedSearchTerm)
-      : activeTab === "all"
-      ? getAllProductsStoreOptions(storeSlug)
-      : getProductStoreCategoryOptions(storeSlug, activeTab)
-  );
+    data: filteredProducts = [],
+    isLoading: isFilteredLoading,
+    isError: isFilteredError,
+  } = useQuery({
+    ...getFilteredProductsStoreOptions(filters),
+    enabled: shouldUseFilteredQuery,
+  });
+
+  // Search products query
+  const {
+    data: searchProducts = [],
+    isLoading: isSearchLoading,
+    isError: isSearchError,
+  } = useQuery({
+    queryKey: ['all-products-store-options', storeSlug, debouncedSearchTerm],
+    queryFn: () => getAllProductsStore(storeSlug, debouncedSearchTerm),
+    enabled: Boolean(shouldUseSearchQuery && debouncedSearchTerm.length > 0),
+  });
+
+  // Category products query
+  const {
+    data: categoryProducts = [],
+    isLoading: isCategoryLoading,
+    isError: isCategoryError,
+  } = useQuery({
+    ...getProductStoreCategoryOptions(storeSlug, activeTab),
+    enabled: Boolean(shouldUseCategoryQuery && !!activeTab),
+  });
+
+  // All products query
+  const {
+    data: allProducts = [],
+    isLoading: isAllLoading,
+    isError: isAllError,
+  } = useQuery({
+    ...getAllProductsStoreOptions(storeSlug),
+    enabled: Boolean(!shouldUseFilteredQuery && !shouldUseSearchQuery && !shouldUseCategoryQuery),
+  });
+
+  // Determine which data to use
+  const products: ProductStoreCategory[] = shouldUseFilteredQuery 
+    ? filteredProducts 
+    : shouldUseSearchQuery 
+    ? searchProducts 
+    : shouldUseCategoryQuery 
+    ? categoryProducts 
+    : allProducts;
+
+  const isLoading = shouldUseFilteredQuery 
+    ? isFilteredLoading 
+    : shouldUseSearchQuery 
+    ? isSearchLoading 
+    : shouldUseCategoryQuery 
+    ? isCategoryLoading 
+    : isAllLoading;
+
+  const isError = shouldUseFilteredQuery 
+    ? isFilteredError 
+    : shouldUseSearchQuery 
+    ? isSearchError 
+    : shouldUseCategoryQuery 
+    ? isCategoryError 
+    : isAllError;
 
   return (
     <div>
@@ -93,26 +182,40 @@ const TabsMarket: React.FC<TabsMarketProps> = ({ categories, storeSlug }) => {
               />
             </svg>
           </div>
-          <button className="flex items-center gap-2 border border-gray-300 rounded-md py-2 px-3 sm:px-4 hover:bg-gray-50 transition w-full sm:w-auto justify-center max-md:h-10 max-md:px-3">
-            <svg
-              className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600 max-md:w-4 max-md:h-4"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
+          <div className="flex items-center gap-2">
+            <button 
+              onClick={() => setIsFilterOpen(!isFilterOpen)}
+              className="flex items-center gap-2 border border-gray-300 rounded-md py-2 px-3 sm:px-4 hover:bg-gray-50 transition w-full sm:w-auto justify-center max-md:h-10 max-md:px-3"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M3 4h18M3 10h12M3 16h6"
-              />
-            </svg>
-            <span className="font-medium text-xs sm:text-sm max-md:text-xs">
-              Filter
-            </span>
-          </button>
+              <svg
+                className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600 max-md:w-4 max-md:h-4"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M3 4h18M3 10h12M3 16h6"
+                />
+              </svg>
+              <span className="font-medium text-xs sm:text-sm max-md:text-xs">
+                Filter
+              </span>
+            </button>
+          </div>
         </div>
+
+        {/* Filter Panel */}
+        <FilterPanel
+          isOpen={isFilterOpen}
+          categories={categories}
+          onApplyFilters={handleApplyFilters}
+          currentFilters={filters}
+          onClearFilters={handleClearFilters}
+        />
 
         <div className="mt-4 sm:mt-6 max-md:mt-3">
           {!isLoading && !isError && (

@@ -19,55 +19,46 @@ import {
   ListFilter,
   X,
 } from "lucide-react";
-import { ActiveInvestment, mockInvestments } from "@/utils/static";
+import { Reports } from "@/types";
+import { useQuery } from "@tanstack/react-query";
+import getReportsQuery from "@/services/Seller-services/reports/queries";
 import ReusablePagination from "../ReusablePagination";
+import { LoadingState } from "@/components/shared/LoadingState";
+import { ErrorState } from "@/components/shared/ErrorState";
 
 const ReportsPage: React.FC = () => {
-  type SortKey =
-    | keyof Omit<ActiveInvestment, "startup" | "documents">
-    | "startup.name";
+  type SortKey = keyof Reports;
 
   const [searchTerm, setSearchTerm] = useState("");
   const [sortConfig, setSortConfig] = useState<{
     key: SortKey;
     direction: "asc" | "desc";
-  }>({ key: "id", direction: "asc" });
+  }>({ key: "product", direction: "asc" });
   const [currentPage, setCurrentPage] = useState(1);
 
   const itemsPerPage = 5;
 
+  // Fetch data from API
+  const { data: reportsData, isLoading, error } = useQuery(getReportsQuery());
+
   const sortedAndFilteredData = useMemo(() => {
-    const filtered = mockInvestments.filter(
+    if (!reportsData) return [];
+
+    const filtered = reportsData.filter(
       (item) =>
-        item.startup.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.category.some((cat) =>
-          cat.toLowerCase().includes(searchTerm.toLowerCase())
-        ) ||
-        item.investmentAmount.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.currentValue.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.status.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.developmentStatus.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.shortDescription.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.id.toString().includes(searchTerm)
+        item.product.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.product_price.toString().includes(searchTerm) ||
+        item.total_price.toString().includes(searchTerm) ||
+        item.quantity.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     return filtered.sort((a, b) => {
       const key = sortConfig.key;
       const direction = sortConfig.direction === "asc" ? 1 : -1;
 
-      let aValue: string | number;
-      let bValue: string | number;
-
-      if (key === "startup.name") {
-        aValue = a.startup.name;
-        bValue = b.startup.name;
-      } else if (key === "category") {
-        aValue = a.category[0] || "";
-        bValue = b.category[0] || "";
-      } else {
-        aValue = a[key as keyof ActiveInvestment] as string | number;
-        bValue = b[key as keyof ActiveInvestment] as string | number;
-      }
+      const aValue: string | number = a[key] as string | number;
+      const bValue: string | number = b[key] as string | number;
 
       if (typeof aValue === "string" && typeof bValue === "string") {
         return direction === 1
@@ -79,23 +70,23 @@ const ReportsPage: React.FC = () => {
       if (aValue > bValue) return 1 * direction;
       return 0;
     });
-  }, [searchTerm, sortConfig]);
+  }, [reportsData, searchTerm, sortConfig]);
 
   const requestSort = (key: SortKey) => {
     const direction: "asc" | "desc" =
-      sortConfig.key === key && sortConfig.direction === "asc"
-        ? "desc"
-        : "asc";
+      sortConfig.key === key && sortConfig.direction === "asc" ? "desc" : "asc";
     setSortConfig({ key, direction });
     setCurrentPage(1);
   };
 
-  const handleViewProject = (_project: ActiveInvestment) => {
+  const handleViewProject = (project: Reports) => {
     // TODO: Implement view project functionality
+    console.log('View project:', project);
   };
 
-  const handleEditProject = (_project: ActiveInvestment) => {
+  const handleEditProject = (project: Reports) => {
     // TODO: Implement edit project functionality
+    console.log('Edit project:', project);
   };
 
   const SortableHeader: React.FC<{
@@ -119,6 +110,14 @@ const ReportsPage: React.FC = () => {
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
+
+  if (isLoading) {
+    return <LoadingState />;
+  }
+
+  if (error) {
+    return <ErrorState />;
+  }
 
   return (
     <div className="p-0">
@@ -148,25 +147,34 @@ const ReportsPage: React.FC = () => {
         <Table>
           <TableHeader>
             <TableRow className="border-b-gray-200">
-              <SortableHeader sortKey="id" className="max-md:min-w-[40px]">
+              <TableHead className="text-gray-500 font-medium max-md:px-2 max-md:py-2 max-md:text-xs max-md:min-w-[40px]">
                 №
-              </SortableHeader>
-              <SortableHeader sortKey="startup.name" className="max-md:min-w-[120px]">
+              </TableHead>
+              <SortableHeader
+                sortKey="product"
+                className="max-md:min-w-[120px]"
+              >
                 Məhsul
               </SortableHeader>
               <SortableHeader sortKey="category" className="max-md:hidden">
                 Kateqoriya
               </SortableHeader>
-              <SortableHeader sortKey="investmentAmount" className="max-md:min-w-[80px]">
+              <SortableHeader
+                sortKey="product_price"
+                className="max-md:min-w-[80px]"
+              >
                 Satış qiyməti
               </SortableHeader>
-              <SortableHeader sortKey="currentValue" className="max-md:hidden">
+              <SortableHeader sortKey="quantity" className="max-md:hidden">
                 Satılan (ədəd)
               </SortableHeader>
-              <SortableHeader sortKey="status" className="max-md:min-w-[90px]">
+              <SortableHeader
+                sortKey="total_price"
+                className="max-md:min-w-[90px]"
+              >
                 Ümumi gəlir
               </SortableHeader>
-              <SortableHeader sortKey="developmentStatus" className="max-md:min-w-[80px]">
+              <SortableHeader sortKey="stock" className="max-md:min-w-[80px]">
                 Stok
               </SortableHeader>
               <TableHead className="text-gray-500 font-medium max-md:px-2 max-md:py-2 max-md:text-xs max-md:min-w-[100px]">
@@ -176,38 +184,38 @@ const ReportsPage: React.FC = () => {
           </TableHeader>
           <TableBody>
             {paginatedData.map((item, index) => (
-              <TableRow key={item.id} className="hover:bg-gray-50">
+              <TableRow key={index} className="hover:bg-gray-50">
                 <TableCell className="font-medium text-gray-800 max-md:px-2 max-md:py-2 max-md:text-sm">
                   {(currentPage - 1) * itemsPerPage + index + 1}
                 </TableCell>
                 <TableCell className="max-md:px-2 max-md:py-2">
                   <div className="flex items-center gap-3 max-md:gap-2">
                     <Image
-                      src="/images/team1.png"
-                      alt={item.startup.name}
+                      src={item.image || "/images/team1.png"}
+                      alt={item.product}
                       width={32}
                       height={32}
                       className="rounded-md max-md:w-6 max-md:h-6"
                     />
                     <span className="font-medium text-gray-800 max-md:text-sm">
-                      {item.startup.name}
+                      {item.product}
                     </span>
                   </div>
                 </TableCell>
                 <TableCell className="text-gray-600 max-md:hidden">
-                  {item.category[0]}
+                  {item.category}
                 </TableCell>
                 <TableCell className="text-gray-600 max-md:px-2 max-md:py-2 max-md:text-sm">
-                  {item.investmentAmount}
+                  {item.product_price} AZN
                 </TableCell>
                 <TableCell className="text-gray-600 max-md:hidden">
-                  {item.currentValue}
+                  {item.quantity}
                 </TableCell>
                 <TableCell className="text-gray-600 max-md:px-2 max-md:py-2 max-md:text-sm">
-                  {item.status}
+                  {item.total_price} AZN
                 </TableCell>
                 <TableCell className="max-md:px-2 max-md:py-2">
-                  {index === 0 || index === 4 ? (
+                  {item.stock === null || item.stock === 0 ? (
                     <div className="flex items-center gap-2 max-md:gap-1">
                       <span className="text-red-500">
                         <X className="max-md:h-3 max-md:w-3" />
@@ -221,7 +229,7 @@ const ReportsPage: React.FC = () => {
                     </div>
                   ) : (
                     <span className="text-gray-600 max-md:text-sm">
-                      {item.developmentStatus}
+                      {item.stock}
                     </span>
                   )}
                 </TableCell>

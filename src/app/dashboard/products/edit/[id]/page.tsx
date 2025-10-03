@@ -56,9 +56,9 @@ const ProductEdit: React.FC = () => {
     if (product) {
       setFormData({
         name: product.name || "",
-        sales_price: product.detail.sales_price || "",
-        discount_price: product.detail.discount_price || "",
-        purchase_price: product.detail.purchase_price || "",
+        sales_price: product.detail.sales_price || "0",
+        discount_price: product.detail.discount_price || "0",
+        purchase_price: product.detail.purchase_price || "0",
         stock: product.detail.stock || 0,
         category_id: product.category_id || 0,
         description: product.detail.description || "",
@@ -70,9 +70,15 @@ const ProductEdit: React.FC = () => {
   const mainImageInputRef = useRef<HTMLInputElement>(null);
 
   const handleInputChange = (field: string, value: string | number) => {
+    // Ensure price fields default to 0 when empty
+    let processedValue = value;
+    if (field === 'sales_price' || field === 'discount_price' || field === 'purchase_price') {
+      processedValue = value === "" || value === null || value === undefined ? "0" : value;
+    }
+    
     setFormData((prev) => ({
       ...prev,
-      [field]: value,
+      [field]: processedValue,
     }));
   };
 
@@ -115,12 +121,20 @@ const ProductEdit: React.FC = () => {
 
     const formDataToSend = new FormData();
 
+    // Ensure price fields are never null/undefined
+    const processedData = {
+      sales_price: formData.sales_price || "0",
+      discount_price: formData.discount_price || "0",
+      purchase_price: formData.purchase_price || "0",
+      stock: formData.stock || 0,
+    };
+
     formDataToSend.append("id", productId.toString());
     formDataToSend.append("name", formData.name);
-    formDataToSend.append("sales_price", formData.sales_price);
-    formDataToSend.append("discount_price", formData.discount_price || "");
-    formDataToSend.append("purchase_price", formData.purchase_price);
-    formDataToSend.append("stock", formData.stock.toString());
+    formDataToSend.append("sales_price", processedData.sales_price);
+    formDataToSend.append("discount_price", processedData.discount_price);
+    formDataToSend.append("purchase_price", processedData.purchase_price);
+    formDataToSend.append("stock", processedData.stock.toString());
     formDataToSend.append("category_id", formData.category_id.toString());
     formDataToSend.append("description", formData.description);
 
@@ -169,7 +183,7 @@ const ProductEdit: React.FC = () => {
                   className="w-full rounded-xl border border-gray-200 py-4 px-4 text-base shadow "
                   value={formData.sales_price}
                   onChange={(e) =>
-                    handleInputChange("sales_price", e.target.value)
+                    handleInputChange("sales_price", e.target.value || "0")
                   }
                 />
                 <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500 text-base">
@@ -187,7 +201,7 @@ const ProductEdit: React.FC = () => {
                   className="w-full rounded-xl border border-gray-200 py-4 px-4 text-base shadow "
                   value={formData.discount_price}
                   onChange={(e) =>
-                    handleInputChange("discount_price", e.target.value)
+                    handleInputChange("discount_price", e.target.value || "0")
                   }
                 />
                 <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 text-base">
@@ -205,7 +219,7 @@ const ProductEdit: React.FC = () => {
                   className="w-full rounded-xl border border-gray-200 py-4 px-4 text-base shadow "
                   value={formData.purchase_price}
                   onChange={(e) =>
-                    handleInputChange("purchase_price", e.target.value)
+                    handleInputChange("purchase_price", e.target.value || "0")
                   }
                 />
                 <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500 text-base">

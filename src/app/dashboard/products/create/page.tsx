@@ -77,7 +77,16 @@ const CreateProduct = () => {
 
     const formData = new FormData();
     
-    Object.entries(data).forEach(([key, value]) => {
+    // Process data and ensure price fields are never null/undefined
+    const processedData = {
+      ...data,
+      sales_price: data.sales_price || 0,
+      discount_price: data.discount_price || 0,
+      purchase_price: data.purchase_price || 0,
+      stock: data.stock || 0,
+    };
+    
+    Object.entries(processedData).forEach(([key, value]) => {
         if (value !== null && value !== undefined) {
             formData.append(key, String(value));
         }
@@ -144,16 +153,16 @@ const CreateProduct = () => {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="space-y-2">
                   <Label htmlFor="sales-price">Satış qiyməti</Label>
-                  <Input id="sales-price" type="number" placeholder="0" {...register("sales_price", { required: "Satış qiyməti mütləqdir", valueAsNumber: true })} />
+                  <Input id="sales-price" type="number" placeholder="0" {...register("sales_price", { required: "Satış qiyməti mütləqdir", valueAsNumber: true, setValueAs: (value) => value === "" ? 0 : Number(value) })} />
                   {errors.sales_price && <p className="text-xs text-red-600 mt-1">{errors.sales_price.message}</p>}
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="discount-price">Endirim qiyməti</Label>
-                  <Input id="discount-price" type="number" placeholder="0" {...register("discount_price", { valueAsNumber: true })} />
+                  <Input id="discount-price" type="number" placeholder="0" {...register("discount_price", { valueAsNumber: true, setValueAs: (value) => value === "" ? 0 : Number(value) })} />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="purchase-price">Alış qiyməti</Label>
-                  <Input id="purchase-price" type="number" placeholder="0" {...register("purchase_price", { required: "Alış qiyməti mütləqdir", valueAsNumber: true })} />
+                  <Input id="purchase-price" type="number" placeholder="0" {...register("purchase_price", { required: "Alış qiyməti mütləqdir", valueAsNumber: true, setValueAs: (value) => value === "" ? 0 : Number(value) })} />
                    {errors.purchase_price && <p className="text-xs text-red-600 mt-1">{errors.purchase_price.message}</p>}
                 </div>
               </div>
@@ -253,7 +262,7 @@ const CreateProduct = () => {
                 </div>
                     <div className="space-y-2">
                         <Label>Stok sayı</Label>
-                        <Input placeholder="Stok sayını qeyd edin" type="number" {...register("stock", { required: "Stok sayı mütləqdir", valueAsNumber: true })} />
+                        <Input placeholder="Stok sayını qeyd edin" type="number" {...register("stock", { required: "Stok sayı mütləqdir", valueAsNumber: true, setValueAs: (value) => value === "" ? 0 : Number(value) })} />
                         {errors.stock && <p className="text-xs text-red-600 mt-1">{errors.stock.message}</p>}
                     </div>
                 </div>

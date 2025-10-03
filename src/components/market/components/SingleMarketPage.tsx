@@ -55,7 +55,7 @@ function SingleProductPage({ slug }: { slug: string }) {
             <QuantitySelector
               quantity={quantity}
               onQuantityChange={handleQuantityChange}
-              price={ product.detail.sales_price}
+              price={product.detail.sales_price || "0"}
             />
 
             <ProductActions

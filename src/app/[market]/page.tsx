@@ -12,6 +12,7 @@ interface MarketHomePageProps {
 
 async function MarketHome({ params }: MarketHomePageProps) {
   const { market: marketSlug } = await params;
+  
 
   try {
     const [storeData, categories] = await Promise.all([

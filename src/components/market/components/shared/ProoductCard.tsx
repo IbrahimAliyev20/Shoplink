@@ -15,7 +15,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, storeSlug }) => {
           <div className="border border-gray-200 w-full mb-3 sm:mb-4 rounded-2xl overflow-hidden aspect-square">
             <Image
               src={product.thumb_image}
-              alt={`${product.name} - ${product.detail.sales_price} AZN məhsul şəkli`}
+              alt={`${product.name} - ${product.detail.sales_price || "0"} AZN məhsul şəkli`}
               width={400}
               height={400}
               className="w-full h-full object-contain p-1 transition-transform duration-300 group-hover:scale-105"
@@ -30,7 +30,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, storeSlug }) => {
               {product.name}
             </h3>
             <p className="font-semibold text-sm sm:text-base text-[#242123]">
-              {product.detail.sales_price} AZN
+              {product.detail.sales_price || "0"} AZN
             </p>
           </div>
         </div>

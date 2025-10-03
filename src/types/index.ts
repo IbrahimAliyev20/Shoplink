@@ -212,3 +212,14 @@ export interface OrderPayload {
   promocode?: string | null;
   products: OrderProduct[];
 }
+
+
+export interface Reports {
+  quantity: string;
+  product: string;
+  product_price: number;
+  total_price: number;
+  image: string;
+  category: string;
+  stock: number | null;
+}

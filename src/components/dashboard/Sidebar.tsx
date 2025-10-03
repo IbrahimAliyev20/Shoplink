@@ -16,6 +16,7 @@ import {
   PanelRightOpen,
   LayoutGrid,
   Globe,
+  CreditCard,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -79,6 +80,12 @@ const menuItems = [
     label: "Tənzimlənmələr",
     icon: Bolt,
     href: "/dashboard/settings",
+  },
+  {
+    id: "abuneler",
+    label: "Abunəlik",
+    icon: CreditCard,
+    href: "/dashboard/subscription",
   },
 ];
 
