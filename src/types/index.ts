@@ -1,6 +1,20 @@
 
 
 export interface ApiResponse<T> {
+  meta: {
+    current_page: number;
+    from: number;
+    last_page: number;
+    per_page: number;
+    to: number;
+    total: number;
+  };
+  links: {
+    first: string;
+    last: string;
+    prev: string;
+    next: string;
+  };
   status: string;
   message: string;
   data: T;
@@ -222,4 +236,30 @@ export interface Reports {
   image: string;
   category: string;
   stock: number | null;
+}
+
+export interface StoreStats {
+  total_amount: number;
+  total_users: number;
+  todays_order: number;
+  active_order: number;
+}
+
+
+export interface ReportStats {
+  [year: string]: {
+    January: string | number;
+    February: string | number;
+    March: string | number;
+    April: string | number;
+    May: string | number;
+    June: string | number;
+    July: string | number;
+    August: string | number;
+    September: string | number;
+    October: string | number;
+    November: string | number;
+    December: string | number;
+    total: number;
+  };
 }

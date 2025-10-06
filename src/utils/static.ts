@@ -13,14 +13,7 @@ export const PAYMENT_METHODS = [
 ]
 
 
-  // Tiplər (Interfaces)
-export interface MetricData {
-  title: string
-  value: string
-  change: string
-  trend: "up" | "down"
-  icon: "dollar" | "users" | "userCheck" | "zap"
-}
+
 
 export interface ChartDataPoint {
   label: string 
@@ -33,13 +26,6 @@ export interface Activity {
   time: string
 }
 
-// Statistik Kartlar üçün Məlumat
-export const dashboardMetrics: MetricData[] = [
-  { title: "Ümumi gəlir", value: "27000 AZN", change: "8.5%", trend: "up", icon: "dollar" },
-  { title: "Bugünkü sifarişlər", value: "12", change: "8.5%", trend: "up", icon: "users" },
-  { title: "Aktiv sifarişlər", value: "4", change: "8.5%", trend: "down", icon: "userCheck" },
-  { title: "Aktiv istifadəçilər", value: "27000 AZN", change: "8.5%", trend: "up", icon: "zap" },
-]
 
 // Qrafiklər üçün Məlumatlar
 export const monthlyChartData: ChartDataPoint[] = [
@@ -137,3 +123,9 @@ export const mockInvestments: ActiveInvestment[] = [
     };
   }),
 ];
+
+export interface MetricData {
+  title: string;
+  value: string;
+  icon: "dollar" | "users" | "userCheck" | "zap";
+}

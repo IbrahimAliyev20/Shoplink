@@ -80,12 +80,10 @@ const ReportsPage: React.FC = () => {
   };
 
   const handleViewProject = (project: Reports) => {
-    // TODO: Implement view project functionality
     console.log('View project:', project);
   };
 
   const handleEditProject = (project: Reports) => {
-    // TODO: Implement edit project functionality
     console.log('Edit project:', project);
   };
 
@@ -121,7 +119,6 @@ const ReportsPage: React.FC = () => {
 
   return (
     <div className="p-0">
-      {/* Search + Filter */}
       <div className="flex justify-between items-center gap-4 mb-6 max-md:flex-col max-md:items-stretch max-md:gap-3 max-md:mb-4">
         <div className="relative flex-1 max-w-md max-md:max-w-none">
           <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
@@ -142,7 +139,6 @@ const ReportsPage: React.FC = () => {
         </Button>
       </div>
 
-      {/* Table */}
       <div className="border rounded-lg overflow-x-auto bg-white">
         <Table>
           <TableHeader>
@@ -215,7 +211,7 @@ const ReportsPage: React.FC = () => {
                   {item.total_price} AZN
                 </TableCell>
                 <TableCell className="max-md:px-2 max-md:py-2">
-                  {item.stock === null || item.stock === 0 ? (
+                  {item.stock === null || item.stock ===  0 ? (
                     <div className="flex items-center gap-2 max-md:gap-1">
                       <span className="text-red-500">
                         <X className="max-md:h-3 max-md:w-3" />

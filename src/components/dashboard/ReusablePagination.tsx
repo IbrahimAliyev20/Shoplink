@@ -26,7 +26,6 @@ export default function ReusablePagination({
     const maxVisiblePages = 5;
     
     if (totalPages <= maxVisiblePages) {
-      // Show all pages if total is small
       for (let i = 1; i <= totalPages; i++) {
         pages.push(i);
       }

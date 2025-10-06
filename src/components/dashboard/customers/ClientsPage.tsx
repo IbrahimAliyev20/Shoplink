@@ -1,38 +1,38 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Search, Eye, ListFilter } from "lucide-react";
-import { getClientsQuery } from "@/services/Seller-services/clients/queries";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
-import ReusablePagination from "../ReusablePagination";
+import ReusablePagination from "../ReusablePagination"; // Bu komponentin yolunu yoxlayın
+import { getClientsQuery } from "@/services/Seller-services/clients/queries"; // Düzgün yolu qeyd edin
+import { ClientsResponse } from "@/types"; // Düzgün yolu qeyd edin
 
 export default function ClientsPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const { data: clients, isLoading, isError, error } = useQuery(getClientsQuery());
-  const itemsPerPage = 10;
 
+  const { data: clientsResponse, isLoading, isError, error } = useQuery(getClientsQuery(currentPage));
+  
+  const clientsData = clientsResponse?.data || [];
+  const meta = clientsResponse?.meta;
+
+  // Axtarış client-side edilir, amma API-dən gələn səhifələnmiş data üzərində
   const filteredClients =
-    clients?.filter(
-      (client) =>
+    clientsData.filter(
+      (client: ClientsResponse) =>
         client.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         client.email?.toLowerCase().includes(searchTerm.toLowerCase())
     ) || [];
-  const totalPages = Math.ceil(filteredClients.length / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const paginatedClients = filteredClients.slice(
-    startIndex,
-    startIndex + itemsPerPage
-  );
-  React.useEffect(() => {
+
+  // Axtarış dəyişdikdə birinci səhifəyə qayıt
+  useEffect(() => {
     setCurrentPage(1);
   }, [searchTerm]);
 
-  // Loading state
   if (isLoading) {
     return (
       <div className="space-y-6 bg-white max-sm:space-y-4">
@@ -50,7 +50,6 @@ export default function ClientsPage() {
     );
   }
 
-  // Error state
   if (isError) {
     return (
       <div className="space-y-6 bg-white max-sm:space-y-4">
@@ -100,7 +99,6 @@ export default function ClientsPage() {
         </CardContent>
       </Card>
 
-      {/* Clients Table */}
       <Card className="border-none shadow-none">
         <CardContent className="p-0">
           <div className="overflow-x-auto">
@@ -108,72 +106,38 @@ export default function ClientsPage() {
               <table className="w-full">
                 <thead>
                   <tr className="border-b border-gray-200">
-                    <th className="text-left py-4 px-6 text-sm font-medium text-gray-500 max-sm:py-3 max-sm:px-4 max-sm:text-xs">
-                      №
-                    </th>
-                    <th className="text-left py-4 px-6 text-sm font-medium text-gray-500 max-sm:py-3 max-sm:px-4 max-sm:text-xs">
-                      Müştəri
-                    </th>
-                    <th className="text-left py-4 px-6 text-sm font-medium text-gray-500 max-sm:py-3 max-sm:px-4 max-sm:text-xs">
-                      Email
-                    </th>
-                    <th className="text-left py-4 px-6 text-sm font-medium text-gray-500 max-sm:py-3 max-sm:px-4 max-sm:text-xs">
-                      Telefon nömrəsi
-                    </th>
-                    <th className="text-left py-4 px-6 text-sm font-medium text-gray-500 max-sm:py-3 max-sm:px-4 max-sm:text-xs">
-                      Ümumi sifariş
-                    </th>
-                    <th className="text-left py-4 px-6 text-sm font-medium text-gray-500 max-sm:py-3 max-sm:px-4 max-sm:text-xs">
-                      Yaranma tarixi
-                    </th>
-                    <th className="text-left py-4 px-6 text-sm font-medium text-gray-500 max-sm:py-3 max-sm:px-4 max-sm:text-xs">
-                      Əməliyyatlar
-                    </th>
+                    <th className="text-left py-4 px-6 text-sm font-medium text-gray-500">№</th>
+                    <th className="text-left py-4 px-6 text-sm font-medium text-gray-500">Müştəri</th>
+                    <th className="text-left py-4 px-6 text-sm font-medium text-gray-500">Email</th>
+                    <th className="text-left py-4 px-6 text-sm font-medium text-gray-500">Telefon nömrəsi</th>
+                    <th className="text-left py-4 px-6 text-sm font-medium text-gray-500">Ümumi sifariş</th>
+                    <th className="text-left py-4 px-6 text-sm font-medium text-gray-500">Yaranma tarixi</th>
+                    <th className="text-left py-4 px-6 text-sm font-medium text-gray-500">Əməliyyatlar</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {paginatedClients.map((client) => (
+                  {filteredClients.map((client) => (
                     <tr
                       key={client.id}
                       className="border-b border-gray-200 hover:bg-gray-50"
                     >
-                      <td className="py-4 px-6 text-sm text-gray-900 max-sm:py-3 max-sm:px-4 max-sm:text-xs">
-                        {client.id}
-                      </td>
-                      <td className="py-4 px-6 max-sm:py-3 max-sm:px-4">
+                      <td className="py-4 px-6 text-sm text-gray-900">{client.id}</td>
+                      <td className="py-4 px-6">
                         <div className="flex items-center space-x-3">
-                          <span className="text-sm font-medium text-gray-900 max-sm:text-xs">
-                            {client.name}
-                          </span>
+                          <span className="text-sm font-medium text-gray-900">{client.name}</span>
                         </div>
                       </td>
-                      <td className="py-4 px-6 text-sm text-gray-900 max-sm:py-3 max-sm:px-4 max-sm:text-xs">
-                        {client.email || "Yoxdur"}
-                      </td>
-                      <td className="py-4 px-6 text-sm text-gray-900 max-sm:py-3 max-sm:px-4 max-sm:text-xs">
-                        {client.phone}
-                      </td>
-                      <td className="py-4 px-6 max-sm:py-3 max-sm:px-4">
-                        {typeof client.order_count === "string" ? (
-                          <span className="inline-flex items-center space-x-1 text-sm max-sm:text-xs">
-                            <span>{client.order_count}</span>
-                          </span>
-                        ) : (
-                          <span className="text-sm text-gray-900 max-sm:text-xs">
-                            {client.order_count}
-                          </span>
-                        )}
-                      </td>
-                      <td className="py-4 px-6 text-sm text-gray-900 max-sm:py-3 max-sm:px-4 max-sm:text-xs">
-                        {client.created_at}
-                      </td>
-                      <td className="py-4 px-6 max-sm:py-3 max-sm:px-4">
-                        <div className="flex items-center justify-start space-x-2 max-sm:space-x-1">
+                      <td className="py-4 px-6 text-sm text-gray-900">{client.email || "Yoxdur"}</td>
+                      <td className="py-4 px-6 text-sm text-gray-900">{client.phone}</td>
+                      <td className="py-4 px-6 text-sm text-gray-900">{client.order_count}</td>
+                      <td className="py-4 px-6 text-sm text-gray-900">{client.created_at}</td>
+                      <td className="py-4 px-6">
+                        <div className="flex items-center justify-start space-x-2">
                           <Link
                             href={`/dashboard/customers/preview/${client.id}`}
-                            className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors max-sm:p-1.5"
+                            className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
                           >
-                            <Eye className="h-4 w-4 max-sm:h-3 max-sm:w-3" />
+                            <Eye className="h-4 w-4" />
                           </Link>
                         </div>
                       </td>
@@ -186,12 +150,11 @@ export default function ClientsPage() {
         </CardContent>
       </Card>
 
-      {/* Pagination */}
-      <div className="flex items-center justify-center space-x-2">
-        {totalPages > 1 && (
+      <div className="flex items-center justify-end space-x-2">
+        {meta && meta.last_page > 1 && (
           <ReusablePagination
             currentPage={currentPage}
-            totalPages={totalPages}
+            totalPages={meta.last_page}
             onPageChange={setCurrentPage}
           />
         )}

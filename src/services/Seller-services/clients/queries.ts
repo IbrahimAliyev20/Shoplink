@@ -1,10 +1,10 @@
 import { queryOptions } from "@tanstack/react-query";
 import { getClients, getShowClient } from "./api";
 
-export const getClientsQuery = () => {
+export const getClientsQuery = (page: number) => {
     return queryOptions({
-        queryKey: ["clients"],
-        queryFn: () => getClients(),
+        queryKey: ["clients", page],
+        queryFn: () => getClients(page),
     });
 };
 export const getShowClientQuery = (id: string) => {
