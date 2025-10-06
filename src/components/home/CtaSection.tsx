@@ -22,7 +22,7 @@ export default function CtaSection() {
       backgroundRepeat: 'no-repeat'
     }}>
       {/* Gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-500/70 via-purple-600/70 to-purple-700/70"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-[#B927D6]/70 via-[#B927D6]/700 to-[#B927D6]/70"></div>
       
       {/* Content */}
       <div className="relative z-10">
@@ -44,10 +44,10 @@ export default function CtaSection() {
 
         {/* CTA buttons */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 px-4">
-           <Link href={data?.link_1 || "#"} className="w-full sm:w-auto bg-gray-100 text-gray-900 px-6 sm:px-8 py-3 sm:py-2 rounded-xl font-semibold text-base sm:text-lg hover:bg-white transition-colors duration-300 cursor-pointer">
+           <Link href={data?.link_1 || "#"} className="w-full sm:w-auto bg-gray-100 text-gray-900 px-6 sm:px-8 py-3 sm:py-2 rounded-xl font-medium text-base sm:text-lg hover:bg-white transition-colors duration-300 cursor-pointer">
             {data?.btn_1}
            </Link>
-           <Link href={data?.link_2 || "#"} className="w-full sm:w-auto bg-[#FF13F0] text-white px-6 sm:px-8 py-3 sm:py-2 rounded-xl font-semibold text-base sm:text-lg hover:from-pink-600 hover:to-pink-700 transition-all duration-300 cursor-pointer">
+           <Link href={data?.link_2 || "#"} className="w-full sm:w-auto bg-[#FF13F0] text-white px-6 sm:px-8 py-3 sm:py-2 rounded-xl font-medium text-base sm:text-lg hover:from-pink-600 hover:to-pink-700 transition-all duration-300 cursor-pointer">
             {data?.btn_2}
            </Link>
         </div>

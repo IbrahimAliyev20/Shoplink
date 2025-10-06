@@ -57,7 +57,7 @@ export function Header() {
 
   return (
     <header className="w-full border-b bg-white fixed z-50">
-      <div className="container mx-auto flex h-16 items-center justify-between px-4">
+      <div className="container mx-auto flex h-20 items-center justify-between px-4">
         <Link href="/" className="flex items-center gap-2">
           <Image
             src={data?.logo || "/images/logofooter.png"}

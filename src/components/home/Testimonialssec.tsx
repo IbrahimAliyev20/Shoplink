@@ -36,7 +36,7 @@ export default function TestimonialsSection() {
         </div>
 
         {/* Avatar Grid */}
-        <div className="mb-12">
+        <div className="mb-[36px]">
           <div className="grid grid-cols-6 gap-4 lg:gap-2  ">
             {data?.map((testimonial, index) => (
               <button

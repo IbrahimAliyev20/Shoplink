@@ -59,15 +59,14 @@ export default function ProductsPage() {
         <Button
           variant="default"
           onClick={() => router.push("/dashboard/products/create")}
-          className="bg-pink-500 hover:bg-pink-600 text-white max-sm:w-full max-sm:text-sm max-sm:py-2.5"
+          className="bg-[#ff13f0] hover:bg-[#ff13f0]/90 text-white text-base font-medium cursor-pointer rounded-[16px] px-6 py-3 h-12 w-[200px] flex items-center justify-center gap-4"
         >
           Məhsul əlavə et
         </Button>
       </div>
-
       <Card>
-        <CardContent className="p-6 max-sm:p-4">
-          <div className="flex items-center justify-between space-x-4 max-sm:flex-col max-sm:space-x-0 max-sm:space-y-3 max-sm:items-stretch">
+      <CardContent className="p-6 max-sm:p-4">
+          <div className="flex items-center  space-x-4 max-sm:flex-col max-sm:space-x-0 max-sm:space-y-3 max-sm:items-stretch">
             <div className="min-w-sm relative max-sm:w-full">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4 max-sm:h-3 max-sm:w-3" />
               <Input
@@ -88,9 +87,6 @@ export default function ProductsPage() {
             </Button>
           </div>
         </CardContent>
-      </Card>
-
-      <Card>
         <CardContent className="p-0">
           <div className="overflow-x-auto">
             <div className="max-sm:min-w-[700px]">

@@ -179,29 +179,27 @@ export default function Sidebar({
         <div className="p-4 border-b border-gray-800">
           <div className="flex items-center space-x-3">
             <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 bg-gray-700">
-              {!isLoading && (
-                <Image
-                  src={
-                    !isError && user?.data?.image && user.data.image !== "null"
-                      ? user.data.image
-                      : "/images/Card.svg"
-                  }
-                  alt="User"
-                  width={40}
-                  height={40}
-                  className="rounded-full"
-                  onError={(e) => {
-                    e.currentTarget.src = "/images/Card.svg";
-                  }}
-                />
-              )}
+              <Image
+                src={
+                  !isLoading && !isError && user?.data?.image && user.data.image !== "null"
+                    ? user.data.image
+                    : "/images/Card.svg"
+                }
+                alt="User"
+                width={40}
+                height={40}
+                className="rounded-full"
+                onError={(e) => {
+                  e.currentTarget.src = "/images/Card.svg";
+                }}
+              />
             </div>
 
             {!isCollapsed && (
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium text-white truncate"></p>
                 <p className="text-xs text-gray-400 truncate">
-                  {!isLoading && !isError ? user?.data?.email : "..."}
+                  {user?.data?.email || "..."}
                 </p>
               </div>
             )}
@@ -297,7 +295,7 @@ export default function Sidebar({
           {!isCollapsed ? (
             <div className="flex items-center space-x-2">
               <Globe className="w-[18px] h-[18px] text-[#AF52DE]" />
-              <Link target="_blank" href={`/${store?.slug}`} className="text-xs text-gray-400">
+              <Link target="_blank" href={`/${store?.slug}`} className="text-xs text-white">
                 {store?.name}
               </Link>
             </div>

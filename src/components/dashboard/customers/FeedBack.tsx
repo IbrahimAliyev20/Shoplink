@@ -117,7 +117,7 @@ function FeedBack({ user_id }: { user_id: string }) {
         </h2>
         
         {clientFeedback?.feedback ? (
-          <div className="bg-gray-50 p-4 rounded-lg flex items-start justify-between border border-gray-200 mb-4">
+          <div className="bg-[#fbfdff] p-4 rounded-lg flex items-start justify-between border border-[#F3F2F8] mb-4">
             <p className="text-sm text-gray-700 leading-relaxed pr-2 flex-1">
               {clientFeedback?.feedback}
             </p>

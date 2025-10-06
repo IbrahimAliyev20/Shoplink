@@ -119,7 +119,7 @@ const ReportsPage: React.FC = () => {
 
   return (
     <div className="p-0">
-      <div className="flex justify-between items-center gap-4 mb-6 max-md:flex-col max-md:items-stretch max-md:gap-3 max-md:mb-4">
+      <div className="flex  items-center gap-4 mb-6 max-md:flex-col max-md:items-stretch max-md:gap-3 max-md:mb-4">
         <div className="relative flex-1 max-w-md max-md:max-w-none">
           <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
           <input

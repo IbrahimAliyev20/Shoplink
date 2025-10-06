@@ -78,7 +78,7 @@ export default function HeroCarousel() {
               {data?.title}
             </h1>
 
-            <p className="text-base  text-[#565355] leading-relaxed font-regular">
+            <p className="text-base   text-[#565355] leading-relaxed font-regular">
               {data?.description}
             </p>
 
@@ -106,7 +106,7 @@ export default function HeroCarousel() {
             </Link>
           </div>
 
-          <div className="w-full lg:w-3/5 h-[300px] sm:h-[350px] lg:h-[500px]">
+          <div className="w-full lg:w-3/5 h-[300px] sm:h-[350px] lg:h-[440px]">
             <div className="relative w-full h-full space-y-8">
               <div
                 className="h-[48%] overflow-hidden rounded-2xl relative"
@@ -116,15 +116,14 @@ export default function HeroCarousel() {
                   {data?.images.map((image, index) => (
                     <div
                       key={`top-${index}`}
-                      className="flex-[0_0_60%] min-w-0 px-5"
+                      className="flex-[0_0_60%] min-w-0 px-3"
                     >
-                      <div className="relative h-full overflow-hidden rounded-xl group">
+                      <div className="relative h-[212px] overflow-hidden rounded-xl group">
                         <Image
                           src={image.image || "/placeholder.svg"}
                           alt="Hero Banner"
                           fill
                           className="object-cover transition-transform duration-700 group-hover:scale-110"
-                          sizes="(max-width: 768px) 100vw, 30vw"
                         />
                         <div className="absolute inset-0 bg-gradient-to-br from-purple-500/30 to-pink-500/30 opacity-80" />
                         <div className="absolute inset-0 bg-black/20" />
@@ -132,8 +131,8 @@ export default function HeroCarousel() {
                     </div>
                   ))}
                 </div>
-                <div className="absolute left-0 top-0 w-[250px] sm:w-[200px] lg:w-[350px] h-full bg-gradient-to-r from-white via-white/20 to-transparent pointer-events-none z-10" />
-                <div className="absolute right-0 top-0 w-[250px] sm:w-[200px] lg:w-[350px] h-full bg-gradient-to-l from-white via-white/20 to-transparent pointer-events-none z-10" />
+                <div className="absolute left-0 top-0 w-[150px] sm:w-[100px] lg:w-[250px] h-full bg-gradient-to-r from-white/60 via-white/10 to-transparent pointer-events-none z-10" />
+                <div className="absolute right-0 top-0 w-[150px] sm:w-[100px] lg:w-[250px] h-full bg-gradient-to-l from-white/60 via-white/10 to-transparent pointer-events-none z-10" />
               </div>
 
               <div
@@ -144,15 +143,14 @@ export default function HeroCarousel() {
                   {data?.images.map((image, index) => (
                     <div
                       key={`bottom-${index}`}
-                      className="flex-[0_0_60%] min-w-0 px-5"
+                      className="flex-[0_0_60%] min-w-0 px-3"
                     >
-                      <div className="relative h-full overflow-hidden rounded-xl group">
+                      <div className="relative h-[212px] overflow-hidden rounded-xl group">
                         <Image
                           src={image.image || "/placeholder.svg"}
                           alt="Hero Banner"
                           fill
                           className="object-cover transition-transform duration-700 group-hover:scale-110"
-                          sizes="(max-width: 768px) 100vw, 30vw"
                         />
                         <div className="absolute inset-0 bg-gradient-to-br from-blue-500/30 to-teal-500/30 opacity-80" />
                         <div className="absolute inset-0 bg-black/20" />
@@ -160,8 +158,8 @@ export default function HeroCarousel() {
                     </div>
                   ))}
                 </div>
-                <div className="absolute left-0 top-0 w-[250px] sm:w-[200px] lg:w-[350px] h-full bg-gradient-to-r from-white via-white/20 to-transparent pointer-events-none z-10" />
-                <div className="absolute right-0 top-0 w-[250px] sm:w-[200px] lg:w-[350px] h-full bg-gradient-to-l from-white via-white/20 to-transparent pointer-events-none z-10" />
+                <div className="absolute left-0 top-0 w-[150px] sm:w-[100px] lg:w-[250px] h-full bg-gradient-to-r from-white/60 via-white/10 to-transparent pointer-events-none z-10" />
+                <div className="absolute right-0 top-0 w-[150px] sm:w-[100px] lg:w-[250px] h-full bg-gradient-to-l from-white/60 via-white/10 to-transparent pointer-events-none z-10" />
               </div>
             </div>
           </div>

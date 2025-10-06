@@ -18,20 +18,14 @@ import {
   Tooltip,
 } from "recharts";
 import { DollarSign, User, UserRoundPlus, Activity } from "lucide-react";
-import {
-  monthlyChartData,
-  weeklyChartData,
-  dailyChartData,
-  recentActivities,
-} from "@/utils/static";
+import { recentActivities } from "@/utils/static";
 import LastOrders from "@/components/dashboard/panel/LastOrders";
 import { useQuery } from "@tanstack/react-query";
-import { getStoreStatsQuery } from "@/services/Seller-services/dashboard/queries";
+import {
+  getReportStatsQuery,
+  getStoreStatsQuery,
+} from "@/services/Seller-services/dashboard/queries";
 import { MetricData } from "@/utils/static";
-
-
-
-
 
 type Timeframe = "monthly" | "weekly" | "daily";
 
@@ -41,6 +35,10 @@ const icons = {
   userCheck: <UserRoundPlus className="h-5 w-5 text-gray-500" />,
   zap: <Activity className="h-5 w-5 text-gray-500" />,
 };
+export interface ChartDataPoint {
+  label: string;
+  value: number;
+}
 
 interface RechartsTooltipProps {
   active?: boolean;
@@ -65,6 +63,80 @@ const CustomTooltip = ({ active, payload, label }: RechartsTooltipProps) => {
 export default function DashboardPage() {
   const [timeframe, setTimeframe] = useState<Timeframe>("monthly");
   const { data: storeStats } = useQuery(getStoreStatsQuery());
+  const { data: reportStats } = useQuery(getReportStatsQuery());
+
+  const monthlyChartData: ChartDataPoint[] = useMemo(() => {
+    const currentYear = new Date().getFullYear().toString();
+    const yearData = reportStats?.[currentYear];
+
+    if (!yearData) {
+      return [
+        { label: "Yanvar", value: 0 },
+        { label: "Fevral", value: 0 },
+        { label: "Mart", value: 0 },
+        { label: "Aprel", value: 0 },
+        { label: "May", value: 0 },
+        { label: "İyun", value: 0 },
+        { label: "İyul", value: 0 },
+        { label: "Avqust", value: 0 },
+        { label: "Sentyabr", value: 0 },
+        { label: "Oktyabr", value: 0 },
+        { label: "Noyabr", value: 0 },
+        { label: "Dekabr", value: 0 },
+      ];
+    }
+
+    return [
+      {
+        label: "Yanvar",
+        value: typeof yearData.January === "number" ? yearData.January : 0,
+      },
+      {
+        label: "Fevral",
+        value: typeof yearData.February === "number" ? yearData.February : 0,
+      },
+      {
+        label: "Mart",
+        value: typeof yearData.March === "number" ? yearData.March : 0,
+      },
+      {
+        label: "Aprel",
+        value: typeof yearData.April === "number" ? yearData.April : 0,
+      },
+      {
+        label: "May",
+        value: typeof yearData.May === "number" ? yearData.May : 0,
+      },
+      {
+        label: "İyun",
+        value: typeof yearData.June === "number" ? yearData.June : 0,
+      },
+      {
+        label: "İyul",
+        value: typeof yearData.July === "number" ? yearData.July : 0,
+      },
+      {
+        label: "Avqust",
+        value: typeof yearData.August === "number" ? yearData.August : 0,
+      },
+      {
+        label: "Sentyabr",
+        value: typeof yearData.September === "number" ? yearData.September : 0,
+      },
+      {
+        label: "Oktyabr",
+        value: typeof yearData.October === "number" ? yearData.October : 0,
+      },
+      {
+        label: "Noyabr",
+        value: typeof yearData.November === "number" ? yearData.November : 0,
+      },
+      {
+        label: "Dekabr",
+        value: typeof yearData.December === "number" ? yearData.December : 0,
+      },
+    ];
+  }, [reportStats]);
 
   const dashboardMetrics: MetricData[] = [
     {
@@ -91,14 +163,10 @@ export default function DashboardPage() {
 
   const activeChartData = useMemo(() => {
     switch (timeframe) {
-      case "weekly":
-        return weeklyChartData;
-      case "daily":
-        return dailyChartData;
       default:
         return monthlyChartData;
     }
-  }, [timeframe]);
+  }, [timeframe, monthlyChartData]);
 
   return (
     <div>
@@ -111,12 +179,12 @@ export default function DashboardPage() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-md:grid-cols-2 max-md:gap-3">
           {dashboardMetrics.map((metric, index) => {
-              const cardColors = [
-                { icon: "bg-pink-100", iconColor: "text-pink-600" },
-                { icon: "bg-purple-100", iconColor: "text-purple-600" },
-                { icon: "bg-blue-100", iconColor: "text-blue-600" },
-                { icon: "bg-indigo-100", iconColor: "text-indigo-600" },
-              ];
+            const cardColors = [
+              { icon: "bg-pink-100", iconColor: "text-pink-600" },
+              { icon: "bg-purple-100", iconColor: "text-purple-600" },
+              { icon: "bg-blue-100", iconColor: "text-blue-600" },
+              { icon: "bg-indigo-100", iconColor: "text-indigo-600" },
+            ];
             const colors = cardColors[index % cardColors.length];
 
             return (

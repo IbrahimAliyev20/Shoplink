@@ -23,19 +23,16 @@ export function FaqSection() {
         </TabsList>
         {data?.map((item, index) => (
           <TabsContent key={index} value={item.name}>
-            <Accordion type="single" collapsible defaultValue="item-1" className="w-full">
+            <Accordion type="single" collapsible defaultValue="item-1" className="w-full ">
               {item.faqs.map((faq, index) => (
-                <AccordionItem key={index} value={faq.question} className="border-b-0 py-2">
-                  <AccordionTrigger className="text-left font-medium py-4 sm:py-6 bg-[#f2f9ff] px-3 sm:px-4 text-sm sm:text-base [&>svg]:text-gray-600">{faq.question}</AccordionTrigger>
-                  <AccordionContent className="text-gray-600 space-y-2 bg-[#f2f9ff] px-4 ">{faq.answer}</AccordionContent>
+                <AccordionItem key={index} value={faq.question} className="border-b-0  border-1 border-[#F3F2F8] rounded-[16px] bg-[#FBFDFF] ">
+                  <AccordionTrigger className="text-left font-medium  px-3 sm:px-4 text-sm sm:text-base  ">{faq.question}</AccordionTrigger>
+                  <AccordionContent className="text-gray-600 space-y-2  px-4 ">{faq.answer}</AccordionContent>
                 </AccordionItem>
               ))}
             </Accordion>
           </TabsContent>
         ))}
-
-     
-     
       </Tabs>
     </div>
   )

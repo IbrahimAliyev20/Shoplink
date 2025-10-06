@@ -6,7 +6,7 @@ const StatsSection = () => {
     <section>
       <div>
         {/* Header */}
-        <div className="text-start mb-16">
+        <div className="text-start mb-[48px]">
           <h2 className="text-4xl md:text-[40px] font-semibold text-gray-900 mb-6">
             Shoplink kimlər üçündür?
           </h2>

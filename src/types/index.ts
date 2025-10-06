@@ -263,3 +263,13 @@ export interface ReportStats {
     total: number;
   };
 }
+
+
+export interface Subscribe {
+  id: number;
+  title: string;
+  type: string;
+  price: number;
+  description: string;
+  months: number;
+}

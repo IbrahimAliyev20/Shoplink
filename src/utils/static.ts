@@ -15,10 +15,6 @@ export const PAYMENT_METHODS = [
 
 
 
-export interface ChartDataPoint {
-  label: string 
-  value: number
-}
 
 export interface Activity {
   company: string
@@ -28,35 +24,9 @@ export interface Activity {
 
 
 // Qrafiklər üçün Məlumatlar
-export const monthlyChartData: ChartDataPoint[] = [
-  { label: "İyun", value: 800 },
-  { label: "İyul", value: 1400 },
-  { label: "Avqust", value: 600 },
-  { label: "Sentyabr", value: 1350 },
-  { label: "Oktyabr", value: 900 },
-  { label: "Noyabr", value: 1700 },
-]
 
-export const weeklyChartData: ChartDataPoint[] = [
-  { label: "B.e.", value: 350 },
-  { label: "Ç.a.", value: 400 },
-  { label: "Çər.", value: 300 },
-  { label: "C.a.", value: 500 },
-  { label: "Cümə", value: 450 },
-  { label: "Şən.", value: 600 },
-  { label: "Baz.", value: 550 },
-]
 
-export const dailyChartData: ChartDataPoint[] = [
-  { label: "00:00", value: 10 },
-  { label: "04:00", value: 20 },
-  { label: "08:00", value: 50 },
-  { label: "12:00", value: 80 },
-  { label: "16:00", value: 70 },
-  { label: "20:00", value: 40 },
-]
 
-// Son Fəaliyyətlər üçün Məlumat
 export const recentActivities: Activity[] = [
   { company: "Yeni sifariş qəbul edildi", description: "№#4532", time: "3 Sent 2025 • 10:57" },
   { company: "Sifariş uğurla tamamlandı", description: "№#4529", time: "3 Sent 2025 • 10:57" },

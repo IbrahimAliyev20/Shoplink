@@ -192,7 +192,7 @@ const PersonalInfo = ({ user }: { user: UserData }) => {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 w-full max-md:grid-cols-1">
+          <div className="grid grid-cols-1 md:grid-cols-1 w-full max-md:grid-cols-1">
             <div className="space-y-2 w-full">
               <Label htmlFor="region">Bölgə</Label>
               <Select value={region} onValueChange={setRegion}>

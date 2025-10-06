@@ -42,32 +42,37 @@ export default function QuestionsSec() {
               E-ticarət saytı necə qurulur?
             </h2>
             
-            <div className="space-y-4">
+            <div className="space-y-0">
               {data?.map((q, index) => (
-                <div key={index} className="rounded-lg ">
+                <div key={index} className="border-b border-gray-200 last:border-b-0">
                   <button
                     onClick={() => toggleQuestion(index + 1)}
-                    className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-50 transition-colors duration-200"
+                    className="w-full px-6 py-6 text-left flex items-center justify-between hover:bg-gray-50 transition-colors duration-200"
                   >
-                    <div className="flex items-center gap-4">
-                      <span className="text-lg font-semibold text-gray-900">{index + 1}.</span>
-                      <span className="text-lg font-medium text-gray-900">{q.title}</span>
+                    <div className="flex items-start gap-4 flex-1">
+                      <span className="text-lg font-semibold text-gray-900 flex-shrink-0">{index + 1}.</span>
+                      <span className="text-lg font-medium text-gray-900 text-left">{q.title}</span>
                     </div>
-                    {openQuestion === index + 1 ? (
-                      <ChevronUp className="w-5 h-5 text-gray-500" />
-                    ) : (
-                      <ChevronDown className="w-5 h-5 text-gray-500" />
-                    )}
+                    <div className="flex-shrink-0 ml-4">
+                      <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-xs border border-gray-200">
+                        {openQuestion === index + 1 ? (
+                          <ChevronUp className="w-4 h-4 text-gray-500" />
+                        ) : (
+                          <ChevronDown className="w-4 h-4 text-gray-500" />
+                        )}
+                      </div>
+                    </div>
                   </button>
                   
                   {openQuestion === index + 1 && (
-                    <div className="px-6 pb-4">
+                    <div className="px-6 pb-6">
                       <div className="pl-8 text-gray-600 leading-relaxed">
                         <div className="flex items-start gap-2">
-                          <span className="text-gray-400 mt-1">•</span>
-                          <span>{q.description}</span>
+                          <span className="text-gray-400 mt-1 text-sm">•</span>
+                          <span className="text-sm">{q.description}</span>
                         </div>
                       </div>
+                      <div className="mt-4 h-0.5 bg-[#ff13f0] w-full"></div>
                     </div>
                   )}
                 </div>

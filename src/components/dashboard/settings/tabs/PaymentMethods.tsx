@@ -44,7 +44,7 @@ function PaymentMethods() {
           {paymentMethods.map((method) => (
             <div 
               key={method.id}
-              className="flex items-center justify-between p-4 border border-gray-200 rounded-lg bg-white max-md:p-3"
+              className="flex items-center justify-between p-4 border border-[#F3F2F8] rounded-lg bg-[#FBFDFF] max-md:p-3"
             >
               <div className="flex items-center">
                 <span className="text-gray-900 font-medium max-md:text-sm">
