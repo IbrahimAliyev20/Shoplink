@@ -5,6 +5,7 @@ import {
   loginAction,
   logoutAction,
   registerAction,
+  getUserAction,
 } from "./server-actions";
 import { logout, updatePassword } from "./api";
 import { AuthLoginResponse, AuthRegisterResponse } from "@/types";
@@ -25,18 +26,37 @@ export const useLoginMutation = () => {
   const marketSlug = useParams().market;
 
   return useMutation<AuthLoginResponse, Error, LoginVariables>({
-    mutationFn: ({ email, password }) => loginAction(email, password, marketSlug as string),
-    onSuccess: (data) => {
+    mutationFn: async ({ email, password }) => {
+      const formData = new FormData();
+      formData.append("email", email);
+      formData.append("password", password);
+      if (marketSlug) {
+        formData.append("marketSlug", marketSlug as string);
+      }
+      return loginAction(formData);
+    },
+    onSuccess: async (data) => {
       if (data.message === "successful login" && data.data.user) {
         toast.success("Uğurla daxil oldunuz! Yönləndirilir...");
 
         const userRole = data.data.user.role;
         
         if (userRole.includes('seller')) {
-          router.push('/dashboard');
-        } else if (userRole.includes('user') ) {
+          // For sellers, check if profile is complete
+          try {
+            const userData = await getUserAction();
+            if (userData && userData.complete === 1) {
+              router.push('/dashboard');
+            } else {
+              router.push('/dashboard/shopsetup');
+            }
+          } catch {
+            toast.error("Profil məlumatları yüklənərkən xəta baş verdi.");
+            router.push('/dashboard/shopsetup');
+          }
+        } else if (userRole.includes('user')) {
           router.push(`/${marketSlug}/account`);
-        } 
+        }
         
         router.refresh();
 

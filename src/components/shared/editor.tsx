@@ -75,7 +75,7 @@ export default function RichTextEditor({
   const [imageUrl, setImageUrl] = useState("");
   const [selectedImageFile, setSelectedImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string>("");
-  const [textColor, setTextColor] = useState("#000000");
+  const [textColor, setTextColor] = useState("");
   const [currentHeading, setCurrentHeading] = useState("paragraph");
 
   const editor = useEditor({

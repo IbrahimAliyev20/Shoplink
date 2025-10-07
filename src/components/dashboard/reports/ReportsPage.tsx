@@ -18,6 +18,7 @@ import {
   Search,
   ListFilter,
   X,
+  Trash,
 } from "lucide-react";
 import { Reports } from "@/types";
 import { useQuery } from "@tanstack/react-query";
@@ -25,6 +26,7 @@ import getReportsQuery from "@/services/Seller-services/reports/queries";
 import ReusablePagination from "../ReusablePagination";
 import { LoadingState } from "@/components/shared/LoadingState";
 import { ErrorState } from "@/components/shared/ErrorState";
+import { Input } from "@/components/ui/input";
 
 const ReportsPage: React.FC = () => {
   type SortKey = keyof Reports;
@@ -35,6 +37,35 @@ const ReportsPage: React.FC = () => {
     direction: "asc" | "desc";
   }>({ key: "product", direction: "asc" });
   const [currentPage, setCurrentPage] = useState(1);
+  const [showFilter, setShowFilter] = useState(false);
+  const [activeFilters, setActiveFilters] = useState<string[]>([]);
+
+  // Filter states
+  const [dateFilter, setDateFilter] = useState("");
+  const [categoryFilter, setCategoryFilter] = useState("");
+  const [stockFilter, setStockFilter] = useState("");
+
+  const handleApplyFilter = () => {
+    const newFilters: string[] = [];
+    if (dateFilter) newFilters.push(dateFilter);
+    if (categoryFilter) newFilters.push(categoryFilter);
+    if (stockFilter) newFilters.push(stockFilter);
+    setActiveFilters(newFilters);
+    setShowFilter(false);
+  };
+
+  const handleRemoveFilter = (filterToRemove: string) => {
+    setActiveFilters(
+      activeFilters.filter((filter) => filter !== filterToRemove)
+    );
+  };
+
+  const handleResetFilters = () => {
+    setDateFilter("");
+    setCategoryFilter("");
+    setStockFilter("");
+    setActiveFilters([]);
+  };
 
   const itemsPerPage = 5;
 
@@ -80,11 +111,11 @@ const ReportsPage: React.FC = () => {
   };
 
   const handleViewProject = (project: Reports) => {
-    console.log('View project:', project);
+    console.log("View project:", project);
   };
 
   const handleEditProject = (project: Reports) => {
-    console.log('Edit project:', project);
+    console.log("Edit project:", project);
   };
 
   const SortableHeader: React.FC<{
@@ -94,9 +125,9 @@ const ReportsPage: React.FC = () => {
   }> = ({ sortKey, children, className }) => (
     <TableHead
       onClick={() => requestSort(sortKey)}
-      className={`cursor-pointer hover:bg-gray-50 ${className} max-md:px-2 max-md:py-2`}
+      className={`cursor-pointer hover:bg-gray-50 ${className || ""} max-md:px-2 max-md:py-2 max-md:text-xs`}
     >
-      <div className="flex items-center gap-1 text-gray-500 font-medium max-md:text-xs max-md:gap-0.5">
+      <div className="flex items-center gap-1 text-gray-500 font-medium justify-center max-md:text-xs max-md:gap-0.5">
         {children}
         <ArrowUpDown className="h-4 w-4 max-md:h-3 max-md:w-3" />
       </div>
@@ -118,163 +149,233 @@ const ReportsPage: React.FC = () => {
   }
 
   return (
-    <div className="p-0">
-      <div className="flex  items-center gap-4 mb-6 max-md:flex-col max-md:items-stretch max-md:gap-3 max-md:mb-4">
-        <div className="relative flex-1 max-w-md max-md:max-w-none">
-          <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-          <input
-            type="text"
-            placeholder="Məhsul axtarın"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent max-md:h-10 max-md:text-sm"
-          />
-        </div>
-        <Button
-          variant="outline"
-          className="flex items-center gap-2 border-gray-300 max-md:w-full max-md:justify-center max-md:h-10"
-        >
-          <ListFilter className="h-4 w-4" />
-          <span className="max-md:text-sm">Filter</span>
-        </Button>
-      </div>
+    <div className="bg-gray-50">
+      <div className="bg-white rounded-lg border border-gray-100">
+        <div className="p-6 max-md:p-4">
+          {/* Search and Filter Section */}
+          <div className="flex items-center gap-4 mb-6 max-md:flex-col max-md:items-stretch max-md:gap-3 max-md:mb-4">
+            <div className="relative flex-1 max-w-md max-md:max-w-none">
+              <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 max-md:h-3 max-md:w-3" />
+              <input
+                type="text"
+                placeholder="Məhsul axtarın"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent max-md:h-10 max-md:text-sm"
+              />
+            </div>
+            <div className="relative max-md:w-full">
+              <Button
+                variant="outline"
+                className="flex items-center gap-2 border-gray-300 bg-white text-black hover:bg-gray-50 max-md:w-full max-md:justify-center max-md:h-10"
+                onClick={() => setShowFilter(!showFilter)}
+              >
+                <ListFilter className="h-4 w-4 max-md:h-3 max-md:w-3" />
+                <span className="max-md:text-sm">
+                  Filter{activeFilters.length > 0 && `(${activeFilters.length})`}
+                </span>
+              </Button>
 
-      <div className="border rounded-lg overflow-x-auto bg-white">
-        <Table>
-          <TableHeader>
-            <TableRow className="border-b-gray-200">
-              <TableHead className="text-gray-500 font-medium max-md:px-2 max-md:py-2 max-md:text-xs max-md:min-w-[40px]">
-                №
-              </TableHead>
-              <SortableHeader
-                sortKey="product"
-                className="max-md:min-w-[120px]"
-              >
-                Məhsul
-              </SortableHeader>
-              <SortableHeader sortKey="category" className="max-md:hidden">
-                Kateqoriya
-              </SortableHeader>
-              <SortableHeader
-                sortKey="product_price"
-                className="max-md:min-w-[80px]"
-              >
-                Satış qiyməti
-              </SortableHeader>
-              <SortableHeader sortKey="quantity" className="max-md:hidden">
-                Satılan (ədəd)
-              </SortableHeader>
-              <SortableHeader
-                sortKey="total_price"
-                className="max-md:min-w-[90px]"
-              >
-                Ümumi gəlir
-              </SortableHeader>
-              <SortableHeader sortKey="stock" className="max-md:min-w-[80px]">
-                Stok
-              </SortableHeader>
-              <TableHead className="text-gray-500 font-medium max-md:px-2 max-md:py-2 max-md:text-xs max-md:min-w-[100px]">
-                Əməliyyatlar
-              </TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {paginatedData.map((item, index) => (
-              <TableRow key={index} className="hover:bg-gray-50">
-                <TableCell className="font-medium text-gray-800 max-md:px-2 max-md:py-2 max-md:text-sm">
-                  {(currentPage - 1) * itemsPerPage + index + 1}
-                </TableCell>
-                <TableCell className="max-md:px-2 max-md:py-2">
-                  <div className="flex items-center gap-3 max-md:gap-2">
-                    <Image
-                      src={item.image || "/images/team1.png"}
-                      alt={item.product}
-                      width={32}
-                      height={32}
-                      className="rounded-md max-md:w-6 max-md:h-6"
-                    />
-                    <span className="font-medium text-gray-800 max-md:text-sm">
-                      {item.product}
-                    </span>
-                  </div>
-                </TableCell>
-                <TableCell className="text-gray-600 max-md:hidden">
-                  {item.category}
-                </TableCell>
-                <TableCell className="text-gray-600 max-md:px-2 max-md:py-2 max-md:text-sm">
-                  {item.product_price} AZN
-                </TableCell>
-                <TableCell className="text-gray-600 max-md:hidden">
-                  {item.quantity}
-                </TableCell>
-                <TableCell className="text-gray-600 max-md:px-2 max-md:py-2 max-md:text-sm">
-                  {item.total_price} AZN
-                </TableCell>
-                <TableCell className="max-md:px-2 max-md:py-2">
-                  {item.stock === null || item.stock ===  0 ? (
-                    <div className="flex items-center gap-2 max-md:gap-1">
-                      <span className="text-red-500">
-                        <X className="max-md:h-3 max-md:w-3" />
-                      </span>
-                      <span className="text-red-600 text-sm max-md:text-xs max-md:hidden">
-                        Stokda yoxdur
-                      </span>
-                      <span className="text-red-600 text-xs hidden max-md:inline">
-                        Yox
-                      </span>
+              {/* Filter Dropdown */}
+              {showFilter && (
+                <div className="absolute top-full -left-116 mt-2 w-[680px] bg-white rounded-lg shadow-lg border border-gray-200 z-10 max-md:left-0 max-md:w-full max-md:mt-1">
+                  <div className="p-4 max-md:p-3">
+                    <div className="flex items-center gap-3 mb-4 justify-center max-md:flex-col max-md:gap-2 max-md:mb-3">
+                      <div className="flex-1 max-md:w-full">
+                        <Input
+                          type="text"
+                          placeholder="Tarix"
+                          value={dateFilter}
+                          onChange={(e) => setDateFilter(e.target.value)}
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg max-md:h-9 max-md:text-sm"
+                        />
+                      </div>
+                      <div className="flex-1 max-md:w-full">
+                        <Input
+                          type="text"
+                          placeholder="Kateqoriya"
+                          value={categoryFilter}
+                          onChange={(e) => setCategoryFilter(e.target.value)}
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg max-md:h-9 max-md:text-sm"
+                        />
+                      </div>
+                      <div className="flex-1 max-md:w-full">
+                        <Input
+                          type="text"
+                          placeholder="Stok"
+                          value={stockFilter}
+                          onChange={(e) => setStockFilter(e.target.value)}
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg max-md:h-9 max-md:text-sm"
+                        />
+                      </div>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={handleResetFilters}
+                        className="h-8 w-8 text-gray-500 hover:text-gray-700 max-md:h-7 max-md:w-7"
+                      >
+                        <Trash className="h-4 w-4 max-md:h-3 max-md:w-3" />
+                      </Button>
                     </div>
-                  ) : (
-                    <span className="text-gray-600 max-md:text-sm">
-                      {item.stock}
-                    </span>
-                  )}
-                </TableCell>
-                <TableCell className="max-md:px-2 max-md:py-2">
-                  <div className="flex items-center gap-2 max-md:gap-1">
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="h-8 w-8 text-blue-600 hover:bg-blue-50 rounded-full max-md:h-6 max-md:w-6"
-                      onClick={() => handleViewProject(item)}
-                      title="Ətraflı bax"
-                    >
-                      <Eye className="h-4 w-4 max-md:h-3 max-md:w-3" />
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="h-8 w-8 text-green-600 hover:bg-green-50 rounded-full max-md:h-6 max-md:w-6"
-                      onClick={() => handleEditProject(item)}
-                      title="Redaktə et"
-                    >
-                      <Pencil className="h-4 w-4 max-md:h-3 max-md:w-3" />
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="h-8 w-8 text-red-600 hover:bg-red-50 rounded-full max-md:h-6 max-md:w-6"
-                      onClick={() => {}}
-                      title="Sil"
-                    >
-                      <Trash2 className="h-4 w-4 max-md:h-3 max-md:w-3" />
-                    </Button>
-                  </div>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </div>
 
-      {totalPages > 1 && (
-        <div className="mt-6 flex justify-end max-md:justify-center max-md:mt-4">
-          <ReusablePagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={(page) => setCurrentPage(page)}
-          />
+                    <div className="flex items-center justify-end max-md:justify-center">
+                    <Button
+                      onClick={handleApplyFilter}
+                      className="w-fit bg-[#FF13F0] hover:bg-[#FF13F0]/90 text-white font-medium py-2 px-6 rounded-lg max-md:w-full max-md:h-10"
+                    >
+                      Tətbiq et
+                    </Button>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Active Filters */}
+          {activeFilters.length > 0 && (
+            <div className="flex items-center gap-3 mb-6 max-md:gap-2 max-md:mb-4 max-md:flex-wrap">
+              {activeFilters.map((filter, index) => (
+                <div
+                  key={index}
+                  className="flex items-center gap-2 bg-[#FBFDFF] text-gray-700 px-4 py-2 rounded-md text-sm border border-[#D1D1D6] max-md:px-3 max-md:py-1.5 max-md:text-xs"
+                >
+                  <span className="font-medium max-md:text-xs">{filter}</span>
+                  <button
+                    onClick={() => handleRemoveFilter(filter)}
+                    className="text-gray-500 hover:text-gray-700 ml-1 max-md:ml-0.5"
+                  >
+                    <X className="h-4 w-4 max-md:h-3 max-md:w-3" />
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Table */}
+          <div className="overflow-x-auto max-md:overflow-x-scroll">
+            <Table>
+              <TableHeader>
+                <TableRow className="border-b border-gray-200 text-center">
+                  <TableHead className="text-gray-500 font-medium text-center max-md:px-2 max-md:py-2 max-md:text-xs max-md:min-w-[40px]">№</TableHead>
+                  <SortableHeader sortKey="product" className="text-center max-md:min-w-[120px]">Məhsul</SortableHeader>
+                  <SortableHeader sortKey="category" className="text-center max-md:hidden">Kateqoriya</SortableHeader>
+                  <SortableHeader sortKey="product_price" className="text-center max-md:min-w-[80px]">
+                    Satış qiyməti
+                  </SortableHeader>
+                  <SortableHeader sortKey="quantity" className="text-center max-md:hidden">
+                    Satılan (ədəd)
+                  </SortableHeader>
+                  <SortableHeader sortKey="total_price" className="text-center max-md:min-w-[90px]">
+                    Ümumi gəlir
+                  </SortableHeader>
+                  <SortableHeader sortKey="stock" className="text-center max-md:min-w-[80px]">Stok məlumatı</SortableHeader>
+                  <TableHead className="text-gray-500 font-medium text-center max-md:px-2 max-md:py-2 max-md:text-xs max-md:min-w-[100px]">
+                    Əməliyyatlar
+                  </TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {paginatedData.map((item, index) => (
+                  <TableRow
+                    key={index}
+                    className="border-b border-gray-100 hover:bg-gray-50 text-center"
+                  >
+                    <TableCell className="font-medium text-gray-900 py-4 max-md:px-2 max-md:py-2 max-md:text-sm">
+                      {(currentPage - 1) * itemsPerPage + index + 1}
+                    </TableCell>
+                    <TableCell className="py-4 max-md:px-2 max-md:py-2">
+                      <div className="flex items-center gap-3 max-md:gap-2">
+                        <Image
+                          src={item.image || "/images/team1.png"}
+                          alt={item.product}
+                          width={40}
+                          height={40}
+                          className="rounded-md object-cover max-md:w-6 max-md:h-6"
+                        />
+                        <span className="font-medium text-gray-900 max-md:text-sm">
+                          {item.product}
+                        </span>
+                      </div>
+                    </TableCell>
+                    <TableCell className="text-gray-700 text-center max-md:hidden">
+                      {item.category}
+                    </TableCell>
+                    <TableCell className="text-gray-700 font-medium text-center max-md:px-2 max-md:py-2 max-md:text-sm">
+                      {item.product_price} AZN
+                    </TableCell>
+                    <TableCell className="text-gray-700 text-center max-md:hidden">
+                      {item.quantity}
+                    </TableCell>
+                    <TableCell className="text-gray-700 font-medium text-center max-md:px-2 max-md:py-2 max-md:text-sm">
+                      {item.total_price} AZN
+                    </TableCell>
+                    <TableCell className="py-4 text-center max-md:px-2 max-md:py-2">
+                      {item.stock === null || item.stock === 0 ? (
+                        <div className="flex items-center gap-2 max-md:gap-1">
+                          <X className="w-4 h-4 text-red-500 max-md:h-3 max-md:w-3" />
+                          <span className="text-red-600 text-sm font-medium max-md:text-xs max-md:hidden">
+                            Stokda yoxdur
+                          </span>
+                          <span className="text-red-600 text-xs hidden max-md:inline">
+                            Yox
+                          </span>
+                        </div>
+                      ) : (
+                        <span className="text-gray-700 font-medium max-md:text-sm">
+                          {item.stock}
+                        </span>
+                      )}
+                    </TableCell>
+                    <TableCell className="py-4 max-md:px-2 max-md:py-2">
+                      <div className="flex items-center justify-center gap-2 max-md:gap-1">
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="h-8 w-8 text-blue-600 hover:bg-blue-50 hover:text-blue-700 max-md:h-6 max-md:w-6"
+                          onClick={() => handleViewProject(item)}
+                          title="Ətraflı bax"
+                        >
+                          <Eye className="h-4 w-4 max-md:h-3 max-md:w-3" />
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="h-8 w-8 text-blue-600 hover:bg-blue-50 hover:text-blue-700 max-md:h-6 max-md:w-6"
+                          onClick={() => handleEditProject(item)}
+                          title="Redaktə et"
+                        >
+                          <Pencil className="h-4 w-4 max-md:h-3 max-md:w-3" />
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="h-8 w-8 text-red-600 hover:bg-red-50 hover:text-red-700 max-md:h-6 max-md:w-6"
+                          onClick={() => {}}
+                          title="Sil"
+                        >
+                          <Trash2 className="h-4 w-4 max-md:h-3 max-md:w-3" />
+                        </Button>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+
+          {/* Pagination */}
+          {totalPages > 1 && (
+            <div className="mt-6 flex justify-end max-md:justify-center max-md:mt-4">
+              <ReusablePagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={(page) => setCurrentPage(page)}
+              />
+            </div>
+          )}
         </div>
-      )}
+      </div>
     </div>
   );
 };

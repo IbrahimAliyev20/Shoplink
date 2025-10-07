@@ -71,7 +71,7 @@ function CreateCategory() {
       </h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <fieldset disabled={isPending} className="space-y-6 max-sm:space-y-4">
-          <Card>
+          <Card className="shadow-none border-2 border-[#F3F2F8]">
             <CardHeader className="mb-10 max-sm:mb-6">
               <CardTitle className="text-2xl font-medium max-sm:text-xl max-sm:font-semibold">
                 Əsas məlumatlar
@@ -156,7 +156,7 @@ function CreateCategory() {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="shadow-none border-2 border-[#F3F2F8]">
             <CardHeader className="mb-10 max-sm:mb-6">
               <CardTitle className="text-2xl font-medium max-sm:text-xl max-sm:font-semibold">
                 SEO

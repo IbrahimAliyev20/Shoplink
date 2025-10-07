@@ -8,11 +8,10 @@ import Image from 'next/image';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import RichTextEditor from "@/components/shared/editor";
-import { FileImage, X, Plus } from "lucide-react";
+import {  X, Plus } from "lucide-react";
 
 import { createProductMutation } from '@/services/Seller-services/product/mutations';
 import { categoryQueries } from '@/services/Seller-services/category/queries';
@@ -176,9 +175,10 @@ const CreateProduct = () => {
                     <Label>Əsas şəkil </Label>
                     <input ref={mainImageInputRef} type="file" accept="image/*" className="hidden" onChange={(e) => handleFileSelect(e, 'main')} />
                     {!mainImagePreview ? (
-                        <div onClick={() => mainImageInputRef.current?.click()} className="mt-2 border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-pink-500 transition-colors cursor-pointer">
-                            <FileImage className="mx-auto h-12 w-12 text-gray-400 mb-4" />
-                            <p className="text-sm text-muted-foreground">+ Şəkil əlavə et</p>
+                        <div onClick={() => mainImageInputRef.current?.click()} className="mt-2 border border-gray-100 rounded-lg p-8 text-center  transition-colors cursor-pointer bg-[#FBFDFF]">
+                            <Image src="/images/createimage.svg" alt="Upload icon" width={48} height={48} className="mx-auto mb-4" />
+                            <p className="text-sm text-gray-600 mb-2">Siz .jpeg, .jpg, .png, .webp formatında faylları maksimum 7MB ölçüyə qədər yükləyə bilərsiniz.</p>
+                            <p className="text-sm font-medium text-[#FF13F0]">+ Şəkil əlavə et</p>
                         </div>
                     ) : (
                         <div className="mt-2 relative w-32 h-32 border rounded-md">
@@ -190,9 +190,10 @@ const CreateProduct = () => {
                 <div>
                     <Label>Əlavə şəkillər (Çoxlu seçim)</Label>
                     <input ref={additionalImagesInputRef} type="file" multiple accept="image/*" className="hidden" onChange={(e) => handleFileSelect(e, 'additional')} />
-                     <div onClick={() => additionalImagesInputRef.current?.click()} className="mt-2 border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-pink-500 transition-colors cursor-pointer">
-                        <FileImage className="mx-auto h-12 w-12 text-gray-400 mb-4" />
-                        <p className="text-sm text-muted-foreground">+ Şəkillər əlavə et</p>
+                     <div onClick={() => additionalImagesInputRef.current?.click()} className="mt-2 border border-gray-100 rounded-lg p-8 text-center  transition-colors cursor-pointer bg-[#FBFDFF]">
+                        <Image src="/images/createimage.svg" alt="Upload icon" width={48} height={48} className="mx-auto mb-4" />
+                        <p className="text-sm text-gray-600 mb-2">Siz .jpeg, .jpg, .png, .webp formatında faylları maksimum 7MB ölçüyə qədər yükləyə bilərsiniz.</p>
+                        <p className="text-sm font-medium text-[#FF13F0]">+ Şəkillər əlavə et</p>
                     </div>
                     {additionalImagePreviews.length > 0 && (
                         <div className="flex flex-wrap gap-4 mt-4">
@@ -222,7 +223,7 @@ const CreateProduct = () => {
                       <>
                         {categories && categories.length > 0 ? (
                           <Select onValueChange={field.onChange} value={field.value}>
-                            <SelectTrigger>
+                            <SelectTrigger className="h-10 w-full">
                               <SelectValue placeholder="Kateqoriya seçin" />
                             </SelectTrigger>
                             <SelectContent>
@@ -282,7 +283,7 @@ const CreateProduct = () => {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="meta_description">Səhifə təsviri</Label>
-                <Textarea id="meta_description" placeholder="Səhifə təsviri" className="h-[40px]" {...register("meta_description")} />
+                <Input id="meta_description" placeholder="Səhifə təsviri"  {...register("meta_description")} />
               </div>
             </CardContent>
           </Card>

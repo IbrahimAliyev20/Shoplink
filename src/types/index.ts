@@ -2,19 +2,12 @@
 
 export interface ApiResponse<T> {
   meta: {
-    current_page: number;
-    from: number;
     last_page: number;
-    per_page: number;
-    to: number;
     total: number;
+    per_page: number;
+    current_page: number;
   };
-  links: {
-    first: string;
-    last: string;
-    prev: string;
-    next: string;
-  };
+
   status: string;
   message: string;
   data: T;

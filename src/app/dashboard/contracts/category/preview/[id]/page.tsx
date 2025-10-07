@@ -15,9 +15,10 @@ function PreviewCategory() {
   return (
     <div className="min-h-screen bg-[#FAFAFB] p-6">
       <h1 className="text-[28px] font-medium text-black">{category?.name}</h1>
-      <div className="bg-white rounded-[12px] shadow-sm mb-6 p-8">
+      
+      <div className="bg-white rounded-xl border border-[#F3F2F8] mb-6 p-8">
         <div className="flex justify-between items-start mb-8">
-          <h2 className="text-[28px] font-medium text-black">
+          <h2 className="text-[24px] font-medium text-black">
             Əsas məlumatlar
           </h2>
           <Link
@@ -29,12 +30,12 @@ function PreviewCategory() {
         </div>
 
         <div className="grid grid-cols-2 gap-8">
-          <div className="space-y-8">
+          <div className="space-y-5">
             <div className="text-[17px] text-[#666666]">Kateqoriya adı</div>
             <div className="text-[17px] text-[#666666]">Kateqoriya təsviri</div>
             <div className="text-[17px] text-[#666666]">Məhsul sıralanması</div>
           </div>
-          <div className="space-y-8">
+          <div className="space-y-5">
             <div className="text-[17px] text-black font-medium">
               {category?.name}
             </div>
@@ -49,8 +50,8 @@ function PreviewCategory() {
       </div>
 
       {/* SEO */}
-      <div className="bg-white rounded-[12px] shadow-sm p-8">
-        <div className="flex justify-between items-start mb-6">
+      <div className="bg-white rounded-xl border border-[#F3F2F8] p-8">
+        <div className="flex justify-between items-start mb-2">
           <h2 className="text-[28px] font-medium text-black">SEO</h2>
           <Link
             href={`/dashboard/contracts/category/edit/${id}`}
@@ -65,12 +66,12 @@ function PreviewCategory() {
         </div>
 
         <div className="grid grid-cols-2 gap-8">
-          <div className="space-y-8">
+          <div className="space-y-5">
             <div className="text-[17px] text-[#666666]">Kateqoriya adı</div>
             <div className="text-[17px] text-[#666666]">Kateqoriya təsviri</div>
             <div className="text-[17px] text-[#666666]">Açar sözlər</div>
           </div>
-          <div className="space-y-8">
+          <div className="space-y-5">
             <div className="text-[17px] text-black font-medium">
               {category?.name}
             </div>

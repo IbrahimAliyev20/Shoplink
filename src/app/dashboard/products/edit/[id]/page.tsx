@@ -3,13 +3,14 @@ import RichTextEditor from "@/components/shared/editor";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import React, { useState, useRef, useEffect } from "react";
-import { Image as ImageIcon, Trash2, Replace } from "lucide-react";
+import {  Trash2, RefreshCcw } from "lucide-react";
 import { productQueries } from "@/services/Seller-services/product/queries";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { categoryQueries } from "@/services/Seller-services/category/queries";
 import { useParams, useRouter } from "next/navigation";
 import { updateProductMutation } from "@/services/Seller-services/product/mutations";
 import { toast } from "sonner";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 interface UploadedImage {
   id: number;
@@ -158,7 +159,7 @@ const ProductEdit: React.FC = () => {
       onSubmit={handleSubmit}
       className="mx-auto bg-white p-8 rounded-lg shadow"
     >
-      <h2 className="text-lg font-semibold mb-6">Məhsul redaktəsi</h2>
+      <h2 className="text-lg font-medium mb-6"> {product?.name}</h2>
       <div className="mb-8">
         <h3 className="text-base font-semibold mb-4">Məhsul detalları</h3>
         <div className="grid grid-cols-1 gap-6">
@@ -233,20 +234,23 @@ const ProductEdit: React.FC = () => {
               <label className="block text-sm font-medium mb-2">
                 Kateqoriya
               </label>
-              <select
-                className="w-full border border-gray-200 rounded px-3 py-2"
-                value={formData.category_id}
-                onChange={(e) =>
-                  handleInputChange("category_id", parseInt(e.target.value))
+              <Select
+                value={formData.category_id > 0 ? String(formData.category_id) : undefined}
+                onValueChange={(value) =>
+                  handleInputChange("category_id", parseInt(value))
                 }
-              >
-                <option value={0}>Kateqoriya seçin</option>
-                {categories?.map((category) => (
-                  <option value={category.id} key={category.id}>
-                    {category.name}
-                  </option>
-                ))}
-              </select>
+                >
+                  <SelectTrigger className="h-10 w-full">
+                    <SelectValue placeholder="Kateqoriya seçin" /> 
+                  </SelectTrigger>
+                  <SelectContent>
+                    {categories?.map((category) => (
+                      <SelectItem value={String(category.id)} key={category.id}>
+                        {category.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
             </div>
             <div>
               <label className="block text-sm font-medium mb-2">
@@ -254,7 +258,7 @@ const ProductEdit: React.FC = () => {
               </label>
               <Input
                 placeholder="200"
-                className="w-full border border-gray-200 rounded px-3 py-2"
+                className="w-full border border-gray-200  px-3 py-2 rounded-md"
                 value={formData.stock}
                 onChange={(e) =>
                   handleInputChange("stock", parseInt(e.target.value) || 0)
@@ -264,7 +268,7 @@ const ProductEdit: React.FC = () => {
             </div>
           </div>
           <div>
-            <label className="block text-sm font-medium mb-2">
+            <label className="block text-sm font-medium mb-2 ">
               Məhsulun təsviri
             </label>
             <RichTextEditor
@@ -291,19 +295,14 @@ const ProductEdit: React.FC = () => {
                 className="object-cover w-32 h-32 rounded-xl border border-gray-200"
               />
             )}
-            <div className="bg-white border border-gray-200 rounded-xl p-8 flex flex-col items-center justify-center text-center cursor-pointer hover:border-fuchsia-400 transition-colors">
-              <ImageIcon className="w-10 h-10 text-gray-400 mb-4" />
-              <p className="text-sm text-gray-500 mb-2 max-w-xs">
-                Siz jpeg, .jpg, .png, .webp formatında faylları maksimum 7MB
-                ölçüyə qədər yükləyə bilərsiniz.
+            <div className="w-full bg-[#FBFDFF] border border-gray-100 rounded-lg p-8 flex flex-col items-center justify-center text-center cursor-pointer transition-colors" onClick={triggerMainImageInput}>
+              <Image src="/images/createimage.svg" alt="Upload icon" width={48} height={48} className="mb-4" />
+              <p className="text-sm text-gray-600 mb-2">
+                Siz .jpeg, .jpg, .png, .webp formatında faylları maksimum 7MB ölçüyə qədər yükləyə bilərsiniz.
               </p>
-              <button
-                type="button"
-                className="text-fuchsia-500 font-semibold mt-2 text-sm"
-                onClick={triggerMainImageInput}
-              >
+              <p className="text-sm font-medium text-[#FF13F0]">
                 + Şəkil əlavə et
-              </button>
+              </p>
             </div>
           </div>
         </div>
@@ -319,23 +318,21 @@ const ProductEdit: React.FC = () => {
                 height={128}
                 className="object-cover w-full h-full rounded-xl border border-gray-200"
               />
-              <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-xl flex items-start justify-end p-1.5">
-                <div className="flex items-center gap-1">
-                  <button
-                    type="button"
-                    onClick={() => toast.info(`Dəyişdir: ${image.id}`)}
-                    className="p-1.5 bg-white/80 rounded-md hover:bg-white"
-                  >
-                    <Replace className="w-4 h-4 text-gray-700" />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => toast.error(`Sil: ${image.id}`)}
-                    className="p-1.5 bg-white/80 rounded-md hover:bg-white"
-                  >
-                    <Trash2 className="w-4 h-4 text-red-500" />
-                  </button>
-                </div>
+              <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-xl flex items-start justify-end gap-2 p-2">
+                <button
+                  type="button"
+                  onClick={() => toast.info(`Dəyişdir: ${image.id}`)}
+                  className="p-2 bg-black/80 rounded-full hover:bg-black/90"
+                >
+                  <RefreshCcw className="w-4 h-4 text-white" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => toast.error(`Sil: ${image.id}`)}
+                  className="p-2 bg-black/80 rounded-full hover:bg-black/90"
+                >
+                  <Trash2 className="w-4 h-4 text-white" />
+                </button>
               </div>
             </div>
           ))}
@@ -366,15 +363,15 @@ const ProductEdit: React.FC = () => {
           <button
             type="button"
             onClick={triggerFileInput}
-            className="w-32 h-32 flex flex-col items-center justify-center bg-white rounded-xl border border-gray-200 hover:border-fuchsia-500 transition-colors text-gray-500 hover:text-fuchsia-500"
+            className="w-32 h-32 flex flex-col items-center justify-center bg-gray-50 rounded-lg border border-gray-200 transition-colors text-gray-600 cursor-pointer"
           >
-            <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center mb-2">
-              <span className="text-lg font-medium">+</span>
+            <div className="w-8 h-8 rounded-full bg-white border border-gray-200 flex items-center justify-center mb-2">
+              <span className="text-lg font-medium text-gray-600">+</span>
             </div>
-            <span className="text-sm font-medium">Şəkil əlavə et</span>
+            <span className="text-sm font-medium text-gray-600">Şəkil əlavə et</span>
           </button>
 
-          <input
+          <Input
             type="file"
             ref={fileInputRef}
             onChange={handleFileSelect}
@@ -383,7 +380,7 @@ const ProductEdit: React.FC = () => {
             className="hidden"
           />
 
-          <input
+          <Input
             type="file"
             ref={mainImageInputRef}
             onChange={handleMainImageSelect}
@@ -397,7 +394,7 @@ const ProductEdit: React.FC = () => {
         <button
           type="submit"
           disabled={isPending}
-          className="bg-pink-500 text-white px-6 py-2 rounded-lg font-medium hover:bg-pink-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          className="bg-[#FF13F0] text-white px-6 py-2 rounded-lg font-medium hover:bg-[#FF13F0]/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {isPending ? "Yenilənir..." : "Dəyişiklikləri yadda saxla"}
         </button>

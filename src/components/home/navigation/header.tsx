@@ -16,9 +16,8 @@ export function Header() {
   const { data, isError, error } = useQuery(getSosialOptions());
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [user, setUser] = useState<UserData | null>(null);
+  const [user, setUser] = useState<UserData | null>();
   const [authLoading, setAuthLoading] = useState(true);
-
   useEffect(() => {
     const checkAuth = async () => {
       try {
@@ -154,7 +153,6 @@ export function Header() {
               Əlaqə
             </Link>
 
-            {/* Mobile Authentication Section */}
             {authLoading ? (
               <div className="pt-4 space-y-3">
                 <div className="w-full h-10 bg-gray-200 rounded animate-pulse"></div>

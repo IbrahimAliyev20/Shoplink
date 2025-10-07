@@ -188,21 +188,29 @@ export default function Sidebar({
                 alt="User"
                 width={40}
                 height={40}
-                className="rounded-full"
+                className="rounded-full w-10 h-10 "
                 onError={(e) => {
                   e.currentTarget.src = "/images/Card.svg";
                 }}
               />
             </div>
+            <div>
+              {!isCollapsed && (
+                <p className="text-sm font-medium text-white truncate">
+                  {user?.data?.name || "..."}
+                </p>
+              )}
 
             {!isCollapsed && (
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-white truncate"></p>
                 <p className="text-xs text-gray-400 truncate">
                   {user?.data?.email || "..."}
                 </p>
               </div>
             )}
+            </div>
+
+
           </div>
         </div>
 

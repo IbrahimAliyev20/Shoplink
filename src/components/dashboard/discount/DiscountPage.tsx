@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Edit, Eye, Trash2 } from "lucide-react";
+import { Edit, Eye, Trash2, ArrowUpDown } from "lucide-react";
 import {
   Table,
   TableBody,
@@ -89,8 +89,6 @@ function DiscountPage() {
     toast.success("Promo kod uğurla silindi");
   };
 
-
-
   const handleChangeStatus = (promoCodeId: number) => {
     const formData = new FormData();
     formData.append("id", promoCodeId.toString());
@@ -103,109 +101,131 @@ function DiscountPage() {
     setIsEditModalOpen(true);
   };
 
-  const totalPages = 1;
-  return (
-    <div className="bg-gray-50 min-h-screen">
-      {/* Create Form */}
-      <div className="p-6 bg-white border border-gray-200 rounded-lg mb-8">
-        <h2 className="text-lg font-medium mb-4">Yeni promo kod əlavə et</h2>
-        <div className="flex gap-4 items-center max-sm:flex-col">
-          <Input
-            type="text"
-            placeholder="Promo kodu daxil edin"
-            value={promoCode}
-            onChange={(e) => setPromoCode(e.target.value)}
-            className="bg-gray-100 border-transparent rounded-lg h-12 px-4 flex-grow max-sm:w-full focus:ring-pink-500 focus:border-pink-500"
-          />
-          <Input
-            type="text"
-            placeholder="Endirim faizi"
-            value={discountPercent}
-            onChange={(e) => setDiscountPercent(e.target.value)}
-            className="bg-gray-100 border-transparent rounded-lg h-12 px-4 max-sm:w-full focus:ring-pink-500 focus:border-pink-500"
-          />
-          <Button
-            className="h-12 px-8 bg-pink-500 hover:bg-pink-600 text-white font-medium rounded-lg max-sm:h-10 max-sm:px-4 max-sm:w-full flex-shrink-0"
-            onClick={handleCreatePromocode}
-          >
-            Əlavə et
-          </Button>
-        </div>
-      </div>
+  // Pagination logic
+  const itemsPerPage = 5;
+  const totalItems = promocode?.length || 0;
+  const totalPages = Math.max(1, Math.ceil(totalItems / itemsPerPage));
+  
+  // Get current page data
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentPageData = promocode?.slice(startIndex, endIndex) || [];
 
-      {/* Table */}
-      <div className="border border-gray-200 rounded-lg overflow-hidden bg-white max-sm:overflow-x-auto">
-        <div className="max-sm:min-w-[600px]">
-          <Table>
-            <TableHeader>
-              <TableRow className="bg-gray-50 hover:bg-gray-50">
-                <TableHead className="w-16 text-center font-medium text-gray-700 max-sm:text-xs max-sm:font-normal">
-                  №
-                </TableHead>
-                <TableHead className="text-center font-medium text-gray-700 max-sm:text-xs max-sm:font-normal">
-                  Promokod adı ↑↓
-                </TableHead>
-                <TableHead className="text-center font-medium text-gray-700 max-sm:text-xs max-sm:font-normal">
-                  Endirim dəyəri ↑↓
-                </TableHead>
-                <TableHead className="text-center font-medium text-gray-700 max-sm:text-xs max-sm:font-normal">
-                  Əməliyyatlar
-                </TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {promocode?.map((promocode) => (
-                <TableRow
-                  key={promocode.id}
-                  className="border-b border-gray-100"
-                >
-                  <TableCell className="text-center max-sm:px-2">
-                    <Checkbox
-                      checked={promocode.status === 1}
-                      onCheckedChange={() => handleChangeStatus(promocode.id)}
-                      className="max-sm:w-5 max-sm:h-5"
-                    />
-                  </TableCell>
-                  <TableCell className="text-gray-800 text-center max-sm:text-xs max-sm:px-2">
-                    {promocode.name}
-                  </TableCell>
-                  <TableCell className="text-gray-800 text-center font-medium max-sm:text-xs max-sm:px-2">
-                    {promocode.discount} %
-                  </TableCell>
-                  <TableCell className="text-center max-sm:px-2">
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="w-8 h-8 p-0 hover:bg-gray-100 rounded-full max-sm:w-6 max-sm:h-6"
-                    >
-                      <Eye className="w-5 h-5 text-blue-500 max-sm:w-4 max-sm:h-4" />
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="w-8 h-8 p-0 hover:bg-gray-100 rounded-full max-sm:w-6 max-sm:h-6"
-                      onClick={() => handleEditProduct(promocode.id)}
-                    >
-                      <Edit className="w-5 h-5 text-gray-500 max-sm:w-4 max-sm:h-4" />
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="w-8 h-8 p-0 hover:bg-gray-100 rounded-full max-sm:w-6 max-sm:h-6"
-                      onClick={() => handleDeleteProduct(promocode.id)}
-                    >
-                      <Trash2 className="w-5 h-5 text-red-500 max-sm:w-4 max-sm:h-4" />
-                    </Button>
-                  </TableCell>
+  return (
+    <div className="bg-gray-50">
+      <div className="bg-white rounded-lg border border-gray-100">
+        <div className="p-6">
+          {/* Create Form */}
+          <div className="mb-8">
+            <h2 className="text-2xl font-medium text-gray-900 mb-6">
+              Yeni promo kod əlavə et
+            </h2>
+            <div className="flex justify-between gap-20 items-center max-sm:flex-col max-sm:gap-3">
+              <div className="w-full flex gap-8 items-center max-sm:flex-col max-sm:gap-3">
+                <Input
+                  type="text"
+                  placeholder="Promo kodu daxil edin"
+                  value={promoCode}
+                  onChange={(e) => setPromoCode(e.target.value)}
+                  className="bg-[#F3F2F8] border border-gray-200 rounded-lg h-12 px-4 flex-1 max-sm:w-full focus:ring-pink-500 focus:border-pink-500"
+                />
+                <Input
+                  type="text"
+                  placeholder="Endirim faizi"
+                  value={discountPercent}
+                  onChange={(e) => setDiscountPercent(e.target.value)}
+                  className="bg-[#F3F2F8] border border-gray-200 rounded-lg h-12 px-4 flex-1 max-sm:w-full focus:ring-pink-500 focus:border-pink-500"
+                />
+              </div>
+              <Button
+                className="h-12 px-10 bg-[#FF13F0] hover:bg-[#FF13F0]/90 text-white font-medium rounded-lg max-sm:h-12 max-sm:px-6 max-sm:w-full"
+                onClick={handleCreatePromocode}
+              >
+                Əlavə et
+              </Button>
+            </div>
+          </div>
+
+          {/* Table */}
+          <div className="overflow-x-auto">
+            <Table>
+              <TableHeader>
+                <TableRow className="border-b border-gray-200">
+                  <TableHead className="text-gray-500 font-medium text-center">
+                    №
+                  </TableHead>
+                  <TableHead className="text-black font-medium text-center">
+                    <div className="flex items-center gap-1 justify-center">
+                      Promokod adı
+                      <ArrowUpDown className="h-4 w-4" />
+                    </div>
+                  </TableHead>
+                  <TableHead className="text-black font-medium text-center">
+                    <div className="flex items-center gap-1 justify-center">
+                      Endirim dəyəri
+                      <ArrowUpDown className="h-4 w-4" />
+                    </div>
+                  </TableHead>
+                  <TableHead className="text-black font-medium text-center">
+                    Əməliyyatlar
+                  </TableHead>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+              </TableHeader>
+              <TableBody>
+                {currentPageData.map((promocode ) => (
+                  <TableRow
+                    key={promocode.id}
+                    className="border-b border-gray-100 hover:bg-gray-50"
+                  >
+                    <TableCell className="text-center py-4">
+                      <Checkbox
+                        checked={promocode.status === 1}
+                        onCheckedChange={() => handleChangeStatus(promocode.id)}
+                      />
+                    </TableCell>
+                    <TableCell className="text-gray-900 text-center py-4 font-medium">
+                      {promocode.name}
+                    </TableCell>
+                    <TableCell className="text-gray-900 text-center py-4 font-medium">
+                      {promocode.discount}%
+                    </TableCell>
+                    <TableCell className="text-center py-4">
+                      <div className="flex items-center justify-center gap-2">
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="h-8 w-8 text-blue-600 hover:bg-blue-50 rounded-full"
+                        >
+                          <Eye className="h-4 w-4" />
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="h-8 w-8 text-gray-600 hover:bg-gray-50 rounded-full"
+                          onClick={() => handleEditProduct(promocode.id)}
+                        >
+                          <Edit className="h-4 w-4" />
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="h-8 w-8 text-red-600 hover:bg-red-50 rounded-full"
+                          onClick={() => handleDeleteProduct(promocode.id)}
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
         </div>
       </div>
 
       {totalPages > 1 && (
-        <div className="mt-6 flex justify-end max-sm:justify-center max-sm:mt-4">
+        <div className="mt-6 flex justify-end">
           <ReusablePagination
             currentPage={currentPage}
             totalPages={totalPages}

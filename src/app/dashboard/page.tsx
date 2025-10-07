@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
+import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Select,
@@ -17,7 +18,7 @@ import {
   YAxis,
   Tooltip,
 } from "recharts";
-import { DollarSign, User, UserRoundPlus, Activity } from "lucide-react";
+import { User,  Box, CreditCard, Check, Package } from "lucide-react";
 import { recentActivities } from "@/utils/static";
 import LastOrders from "@/components/dashboard/panel/LastOrders";
 import { useQuery } from "@tanstack/react-query";
@@ -30,10 +31,14 @@ import { MetricData } from "@/utils/static";
 type Timeframe = "monthly" | "weekly" | "daily";
 
 const icons = {
-  dollar: <DollarSign className="h-5 w-5 text-gray-500" />,
-  users: <User className="h-5 w-5 text-gray-500" />,
-  userCheck: <UserRoundPlus className="h-5 w-5 text-gray-500" />,
-  zap: <Activity className="h-5 w-5 text-gray-500" />,
+  dollar: <Image src="/images/moneybag.svg" alt="moneybag" width={20} height={20} className="h-5 w-5 text-gray-500" />,
+  users: <Box className="h-5 w-5 text-gray-500" />,
+  userCheck: <Box className="h-5 w-5 text-gray-500" />,
+  zap: <User className="h-5 w-5 text-gray-500" />,
+  Box: <Package className="h-5 w-5 text-white" />,
+  check: <Check className="h-5 w-5 text-white" />,
+  creditCard: <CreditCard className="h-5 w-5 text-white" />,
+  user: <User className="h-5 w-5 text-white" />,
 };
 export interface ChartDataPoint {
   label: string;
@@ -190,30 +195,30 @@ export default function DashboardPage() {
             return (
               <Card
                 key={index}
-                className="bg-white shadow-none border-gray-200"
+                className="bg-white shadow-none border-gray-100"
               >
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 max-md:p-3">
-                  <CardTitle className="text-sm font-medium text-gray-600 max-md:text-xs max-md:leading-tight">
-                    {metric.title}
-                  </CardTitle>
-                  <div
+                <CardHeader className="flex flex-row items-center gap-5 space-y-0 pb-2 max-md:p-3">
+                <div
                     className={`h-12 w-12 rounded-lg ${colors.icon} flex items-center justify-center max-md:h-8 max-md:w-8 flex-shrink-0`}
                   >
                     <div className={colors.iconColor}>{icons[metric.icon]}</div>
                   </div>
-                </CardHeader>
-                <CardContent className="max-md:p-3 max-md:pt-0">
-                  <div className="text-2xl font-bold text-gray-900 max-md:text-lg">
+                  <CardTitle className="text-sm font-medium text-gray-600 max-md:text-xs max-md:leading-tight">
+                    {metric.title}
+                    <div className="text-xl font-medium text-gray-900 max-md:text-lg">
                     {metric.value}
                   </div>
-                </CardContent>
+                  </CardTitle>
+           
+                </CardHeader>
+         
               </Card>
             );
           })}
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 max-md:gap-4">
-          <Card className="lg:col-span-2 bg-white shadow-none border-gray-200">
+          <Card className="lg:col-span-2 bg-white shadow-none border-gray-100">
             <CardHeader className="flex flex-row items-center justify-between max-md:p-4">
               <CardTitle className="text-lg font-semibold text-gray-900 max-md:text-base">
                 Gəlir qrafiki
@@ -285,7 +290,7 @@ export default function DashboardPage() {
             </CardContent>
           </Card>
 
-          <Card className="lg:col-span-2 bg-white shadow-none border-gray-200">
+          <Card className="lg:col-span-2 bg-white shadow-none border-gray-100">
             <CardHeader className="max-md:p-4">
               <CardTitle className="text-lg font-semibold text-gray-900 max-md:text-base">
                 Son fəaliyyətlər
@@ -295,12 +300,12 @@ export default function DashboardPage() {
               <div className="space-y-4 max-md:space-y-3">
                 {recentActivities.map((activity, index) => {
                   const iconColors = [
-                    "bg-purple-100 text-purple-600",
-                    "bg-green-100 text-green-600",
-                    "bg-green-100 text-green-600",
-                    "bg-blue-100 text-blue-600",
-                    "bg-blue-100 text-blue-600",
-                    "bg-pink-100 text-pink-600",
+                    "bg-[#AF52DE] ",
+                    "bg-[#34C759] ",
+                    "bg-[#34C759] " ,
+                    "bg-[#5856D6] ",
+                    "bg-[#5856D6] ",
+                    "bg-[#FF13F0] ",
                   ];
                   const iconColor = iconColors[index % iconColors.length];
 
@@ -310,9 +315,9 @@ export default function DashboardPage() {
                       className="flex items-start space-x-3 max-md:space-x-2"
                     >
                       <div
-                        className={`w-8 h-8 ${iconColor} rounded-full flex items-center justify-center flex-shrink-0 max-md:w-6 max-md:h-6`}
+                        className={`w-10 h-10 ${iconColor} rounded-full flex items-center justify-center flex-shrink-0 max-md:w-6 max-md:h-6`}
                       >
-                        <div className="w-2 h-2 bg-current rounded-full max-md:w-1.5 max-md:h-1.5"></div>
+                        {icons[activity.icon as keyof typeof icons]}
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="text-sm text-gray-800 font-medium max-md:text-xs max-md:leading-tight">

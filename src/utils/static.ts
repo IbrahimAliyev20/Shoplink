@@ -1,46 +1,64 @@
 export const navigationItems = [
-    { label: "jobs", href: "/jobs" },
-    { label: "companies", href: "/companies" },
-    { label: "categories", href: "/categories" },
-    { label: "cvs", href: "/cvs" },
-    { label: "about", href: "/about" },
-  ]
+  { label: "jobs", href: "/jobs" },
+  { label: "companies", href: "/companies" },
+  { label: "categories", href: "/categories" },
+  { label: "cvs", href: "/cvs" },
+  { label: "about", href: "/about" },
+];
 
 export const PAYMENT_METHODS = [
-  { id: 'cash', name: 'Nağd ödəniş', enabled: true },
+  { id: "cash", name: "Nağd ödəniş", enabled: true },
   // { id: 'epoint', name: 'E-point', enabled: false },
   // { id: 'payriff', name: 'Payriff', enabled: false },
-]
-
-
-
-
+];
 
 export interface Activity {
-  company: string
-  description: string
-  time: string
+  company: string;
+  description: string;
+  time: string;
+  icon: "dollar" | "zap" | "Box" | "creditCard" | "check" | "user";
 }
-
 
 // Qrafiklər üçün Məlumatlar
 
-
-
 export const recentActivities: Activity[] = [
-  { company: "Yeni sifariş qəbul edildi", description: "№#4532", time: "3 Sent 2025 • 10:57" },
-  { company: "Sifariş uğurla tamamlandı", description: "№#4529", time: "3 Sent 2025 • 10:57" },
-  { company: "Sifariş uğurla tamamlandı", description: "№#4529", time: "3 Sent 2025 • 10:57" },
-  { company: "Yeni istifadəçi qeydiyyatı", description: "", time: "3 Sent 2025 • 10:57" },
-  { company: "Yeni istifadəçi qeydiyyatı", description: "", time: "3 Sent 2025 • 10:57" },
-  { company: "Uğurlu ödəniş", description: "₼560.00 kartla ödənildi", time: "" },
-]
-
-
-
-
-
-
+  {
+    company: "Yeni sifariş qəbul edildi",
+    description: "№#4532",
+    time: "3 Sent 2025 • 10:57",
+    icon: "Box",
+  },
+  {
+    company: "Sifariş uğurla tamamlandı",
+    description: "№#4529",
+    time: "3 Sent 2025 • 10:57",
+    icon: "check",
+  },
+  {
+    company: "Sifariş uğurla tamamlandı",
+    description: "№#4529",
+    time: "3 Sent 2025 • 10:57",
+    icon: "check",
+  },
+  {
+    company: "Yeni istifadəçi qeydiyyatı",
+    description: "",
+    time: "3 Sent 2025 • 10:57",
+    icon: "user",
+  },
+  {
+    company: "Yeni istifadəçi qeydiyyatı",
+    description: "",
+    time: "3 Sent 2025 • 10:57",
+    icon: "user",
+  },
+  {
+    company: "Uğurlu ödəniş",
+    description: "₼560.00 kartla ödənildi",
+    time: "",
+    icon: "creditCard",
+  },
+];
 
 export interface ActiveInvestment {
   id: number;
@@ -68,9 +86,22 @@ export interface ActiveInvestment {
 
 export const mockInvestments: ActiveInvestment[] = [
   ...Array.from({ length: 50 }, (_, i) => {
-    const categories = [["Texnologiya"], ["FinTech"], ["E-commerce"], ["SaaS"], ["Təhsil"]];
-    const statuses = ["Uğurlu ödəmə", "Ləğv edildi", "Gözləmədə", "Ödəniş keçməyib", "Tamamlandı", "Aktiv"];
-    
+    const categories = [
+      ["Texnologiya"],
+      ["FinTech"],
+      ["E-commerce"],
+      ["SaaS"],
+      ["Təhsil"],
+    ];
+    const statuses = [
+      "Uğurlu ödəmə",
+      "Ləğv edildi",
+      "Gözləmədə",
+      "Ödəniş keçməyib",
+      "Tamamlandı",
+      "Aktiv",
+    ];
+
     return {
       id: i + 1,
       startup: {
@@ -85,7 +116,8 @@ export const mockInvestments: ActiveInvestment[] = [
       developmentStatus: "İnkişaf prosesi",
       responsibleManager: "Məsul başçısı",
       category: categories[i % categories.length],
-      shortDescription: "Lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet.",
+      shortDescription:
+        "Lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet.",
       teamSize: `${Math.floor(Math.random() * 8) + 2} nəfər`,
       info: "Balansdan ödəniş",
       amount: "2000 AZN",

@@ -7,11 +7,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
 import { useLoginMutation } from '@/services/auth/mutations'
-import { useRouter } from 'next/navigation'
-import { getUserAction } from '@/services/auth/server-actions'
-import { toast } from 'sonner'
 
-// Helper component for floating label effect
 interface FloatingFieldProps {
     id: string
     label: string
@@ -30,14 +26,12 @@ function FloatingField({ id, label, children, className }: FloatingFieldProps) {
     )
 }
 
-// Main Login component
 function Login() {
     const [showPassword, setShowPassword] = useState<boolean>(false)
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     
     const { mutate, isPending } = useLoginMutation();
-    const router = useRouter();
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -46,27 +40,7 @@ function Login() {
             return;
         }
         
-        mutate({ email, password }, {
-            onSuccess: async (data) => {
-                // If the response from the hook is successful...
-                if (data.message === "successful login") {
-                    try {
-                        // We fetch the user data
-                        const userData = await getUserAction();
-                        
-                        // We perform the check here
-                        if (userData && userData.complete === 1) {
-                            router.push("/dashboard");
-                        } else {
-                            router.push("/dashboard/shopsetup");
-                        }
-                    } catch (error) {
-                        toast.error(error instanceof Error ? error.message : "Giriş zamanı xəta baş verdi.");
-                        router.push("/dashboard/shopsetup");
-                    }
-                }
-            }
-        });
+        mutate({ email, password });
     };
 
     return (

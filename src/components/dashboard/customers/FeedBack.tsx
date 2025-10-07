@@ -132,20 +132,20 @@ function FeedBack({ user_id }: { user_id: string }) {
                   <MoreHorizontal size={20} className="text-gray-500" />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
+              <DropdownMenuContent align="end" className="w-48 bg-white rounded-lg shadow-lg border-0 p-1">
                 <DropdownMenuItem 
-                  className="flex items-center gap-2 cursor-pointer"
+                  className="flex items-center gap-3 cursor-pointer px-4 py-3 rounded-md hover:bg-gray-100 focus:bg-gray-100"
                   onClick={() => setIsEditDialogOpen(true)}
                 >
-                  <Pencil size={16} className="text-gray-600" />
-                  <span>Düzəliş et</span>
+                  <Pencil size={16} className="text-gray-700" />
+                  <span className="text-gray-700 font-medium">Düzəliş et</span>
                 </DropdownMenuItem>
                 <DropdownMenuItem 
-                  className="flex items-center gap-2 text-red-600 cursor-pointer focus:text-red-600 focus:bg-red-50"
+                  className="flex items-center gap-3 cursor-pointer px-4 py-3 rounded-md hover:bg-gray-100 focus:bg-gray-100"
                   onClick={handleDeleteFeedback}
                 >
-                  <Trash2 size={16} />
-                  <span>Qeydi sil</span>
+                  <Trash2 size={16} className="text-gray-700" />
+                  <span className="text-gray-700 font-medium">Qeydi sil</span>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

@@ -10,8 +10,6 @@ import ReusablePagination from "@/components/dashboard/ReusablePagination";
 import Link from "next/link";
 import StatusIcons from "./StatusIcons";
 
-
-
 export default function PurchasePage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -41,20 +39,22 @@ export default function PurchasePage() {
   };
 
   return (
-    <div className="space-y-6 bg-white max-sm:space-y-4">
+    <div className=" bg-white ">
       <Card className="border-none shadow-none">
-        <CardContent className="p-6 max-sm:p-4">
-          <div className="flex items-center 
- space-x-4 max-sm:flex-col max-sm:space-x-0 max-sm:space-y-3 max-sm:items-stretch">
+        <CardContent className=" max-sm:p-4">
+          <div
+            className="flex items-center 
+            space-x-4 max-sm:flex-col max-sm:space-x-0 max-sm:space-y-3 max-sm:items-stretch"
+          >
             <div className="min-w-sm relative max-sm:w-full">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4 max-sm:h-3 max-sm:w-3" />
               <Input
                 type="text"
                 placeholder="Sifariş axtarın"
                 value={searchTerm}
                 onChange={handleSearchChange}
-                className="pl-10 max-sm:pl-8 max-sm:h-10 max-sm:text-sm"
+                className="max-sm:pl-8 max-sm:h-10 max-sm:text-sm"
               />
+              <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4 max-sm:h-3 max-sm:w-3" />
             </div>
             <Button
               variant="outline"

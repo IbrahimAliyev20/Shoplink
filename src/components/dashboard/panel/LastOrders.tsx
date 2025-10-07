@@ -9,7 +9,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from '@/components/ui/button';
-import { ArrowUpDown, Eye, Trash2, Pencil } from 'lucide-react';
+import {  Eye, Trash2, Pencil, X } from 'lucide-react';
 import { ActiveInvestment, mockInvestments } from '@/utils/static';
 
 const LastOrders: React.FC = () => {
@@ -82,11 +82,10 @@ const LastOrders: React.FC = () => {
 
 
   const SortableHeader: React.FC<{ sortKey: SortKey; children: React.ReactNode; className?: string }> = ({ sortKey, children, className }) => (
-    <TableHead onClick={() => requestSort(sortKey)} className={`cursor-pointer hover:bg-gray-50 ${className}`}>
-      <div className="flex items-center gap-1 text-gray-500 font-medium">
+    <TableHead onClick={() => requestSort(sortKey)} className={`cursor-pointer hover:bg-gray-50 ${className || ''}`}>
+      <div className="flex gap-1 text-gray-500 font-medium justify-center">
         {children}
-        <ArrowUpDown className="h-4 w-4" />
-      </div>
+        </div>
     </TableHead>
   );
 
@@ -94,92 +93,99 @@ const LastOrders: React.FC = () => {
 
 
   return (
-    <div className="p-0">
-      <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-4 mb-6">
-        <div className="flex items-center justify-between w-full">
-          <h2 className="text-xl font-semibold text-gray-800">Ən son sifarişlər</h2>
-          <button className="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center gap-1">
-            Hamısına bax →
-          </button>
-        </div>
-      </div>
+    <div className="bg-gray-50 ">
+      <div className="bg-white rounded-lg  border border-gray-200">
+        <div className="p-6 pb-4">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-2xl font-medium text-gray-900">Ən son sifarişlər</h2>
+            <button className="text-gray-700 hover:text-gray-900 text-sm font-medium flex items-center gap-1">
+              Hamısına bax →
+            </button>
+          </div>
 
-      <div className="border rounded-lg overflow-x-auto bg-white">
-        <Table>
-          <TableHeader>
-            <TableRow className="border-b-gray-200">
-              <SortableHeader sortKey="id">№</SortableHeader>
-              <SortableHeader sortKey="startup.name">Məhsul</SortableHeader>
-              <SortableHeader sortKey="investmentAmount">Satış qiyməti</SortableHeader>
-              <SortableHeader sortKey="currentValue">Alış qiyməti</SortableHeader>
-              <SortableHeader sortKey="status">Stok məlumatı</SortableHeader>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {sortedAndFilteredData.slice(0, 5).map((item, index) => (
-              <TableRow key={item.id} className="hover:bg-gray-50">
-                <TableCell className="font-medium text-gray-800">
-                  {index + 1}
-                </TableCell>
-                <TableCell>
-                  <div className="flex items-center gap-3">
-                    <Image 
-                      src="/images/team1.png" 
-                      alt="Saat" 
-                      width={32} 
-                      height={32} 
-                      className="rounded-md" 
-                    />
-                    <span className="font-medium text-gray-800">Saat</span>
-                  </div>
-                </TableCell>
-                <TableCell className="text-gray-600">7.000 AZN</TableCell>
-                <TableCell className="text-gray-600">10.000 AZN</TableCell>
-                <TableCell>
-                  {index === 0 || index === 4 ? (
-                    <div className="flex items-center gap-2">
-                      <span className="w-2 h-2 bg-red-500 rounded-full"></span>
-                      <span className="text-red-600 text-sm">Stokda yoxdur</span>
+          <div className="overflow-x-auto">
+            <Table>
+              <TableHeader>
+                <TableRow className="border-b border-gray-200 text-center">
+                  <SortableHeader sortKey="id" className="text-center">№</SortableHeader>
+                  <SortableHeader sortKey="startup.name" className="text-center">Məhsul</SortableHeader>
+                  <SortableHeader sortKey="investmentAmount" className="text-center">Satış qiyməti</SortableHeader>
+                  <SortableHeader sortKey="currentValue" className="text-rigcenterht">Alış qiyməti</SortableHeader>
+                  <SortableHeader sortKey="status" className="text-center">Stok məlumatı</SortableHeader>
+                  <TableHead className="text-center">
+                    <div className="text-gray-500 font-medium">
+                      Əməliyyatlar
                     </div>
-                  ) : (
-                    <span className="text-gray-600">12</span>
-                  )}
-                </TableCell>
-                <TableCell>
-                  <div className="flex items-center gap-2">
-                    <Button 
-                      variant="ghost" 
-                      size="icon" 
-                      className="h-8 w-8 text-blue-600 hover:bg-blue-50 rounded-full"
-                      onClick={() => handleViewProject(item)}
-                      title="Ətraflı bax"
-                    >
-                      <Eye className="h-4 w-4" />
-                    </Button>
-                    <Button 
-                      variant="ghost" 
-                      size="icon" 
-                      className="h-8 w-8 text-green-600 hover:bg-green-50 rounded-full"
-                      onClick={() => handleEditProject(item)}
-                      title="Redaktə et"
-                    >
-                      <Pencil className="h-4 w-4" />
-                    </Button>
-                    <Button 
-                      variant="ghost" 
-                      size="icon" 
-                      className="h-8 w-8 text-red-600 hover:bg-red-50 rounded-full"
-                      onClick={() => handleDeleteProject(item)}
-                      title="Sil"
-                    >
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
-                  </div>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+                  </TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {sortedAndFilteredData.slice(0, 5).map((item, index) => (
+                  <TableRow key={item.id} className="border-b border-gray-100 hover:bg-gray-50">
+                    <TableCell className="font-medium text-gray-900 py-4 text-center">
+                      {index + 1}
+                    </TableCell>
+                    <TableCell className="py-4 text-center">
+                      <div className="flex items-center gap-3">
+                        <Image 
+                          src="/images/team1.png" 
+                          alt="Saat" 
+                          width={40} 
+                          height={40} 
+                          className="rounded-md object-cover" 
+                        />
+                        <span className="font-medium text-gray-900">Saat</span>
+                      </div>
+                    </TableCell>
+                    <TableCell className="text-center text-gray-700 font-medium py-4">7.000 AZN</TableCell>
+                    <TableCell className="text-center text-gray-700 font-medium py-4">10.000 AZN</TableCell>
+                    <TableCell className="py-4 text-center">
+                      {index === 0 || index === 4 ? (
+                        <div className="flex items-center gap-2 justify-center">
+                          <X className="w-4 h-4 text-red-500" />
+                          <span className="text-red-600 text-sm font-medium">Stokda yoxdur</span>
+                        </div>
+                      ) : (
+                        <span className="text-gray-700 font-medium">12</span>
+                      )}
+                    </TableCell>
+                    <TableCell className="py-4 text-center">
+                      <div className="flex items-center justify-center gap-2">
+                        <Button 
+                          variant="ghost" 
+                          size="icon" 
+                          className="h-8 w-8 text-blue-600 hover:bg-blue-50 hover:text-blue-700"
+                          onClick={() => handleViewProject(item)}
+                          title="Ətraflı bax"
+                        >
+                          <Eye className="h-4 w-4" />
+                        </Button>
+                        <Button 
+                          variant="ghost" 
+                          size="icon" 
+                          className="h-8 w-8 text-gray-600 hover:bg-gray-50 hover:text-gray-700"
+                          onClick={() => handleEditProject(item)}
+                          title="Redaktə et"
+                        >
+                          <Pencil className="h-4 w-4" />
+                        </Button>
+                        <Button 
+                          variant="ghost" 
+                          size="icon" 
+                          className="h-8 w-8 text-red-600 hover:bg-red-50 hover:text-red-700"
+                          onClick={() => handleDeleteProject(item)}
+                          title="Sil"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -20,7 +20,6 @@ export default function ClientsPage() {
   const clientsData = clientsResponse?.data || [];
   const meta = clientsResponse?.meta;
 
-  // Axtarış client-side edilir, amma API-dən gələn səhifələnmiş data üzərində
   const filteredClients =
     clientsData.filter(
       (client: ClientsResponse) =>
@@ -35,7 +34,7 @@ export default function ClientsPage() {
 
   if (isLoading) {
     return (
-      <div className="space-y-6 bg-white max-sm:space-y-4">
+      <div className=" bg-white ">
         <Card className="border-none shadow-none">
           <CardContent className="p-6">
             <div className="flex items-center justify-center py-12">
@@ -52,7 +51,7 @@ export default function ClientsPage() {
 
   if (isError) {
     return (
-      <div className="space-y-6 bg-white max-sm:space-y-4">
+      <div className=" bg-white ">
         <Card className="border-none shadow-none">
           <CardContent className="p-6">
             <div className="text-center py-12 space-y-4">
@@ -73,28 +72,26 @@ export default function ClientsPage() {
   }
 
   return (
-    <div className="space-y-6 bg-white max-sm:space-y-4">
+    <div className=" bg-white ">
       <Card className="border-none shadow-none">
-        <CardContent className="p-6 max-sm:p-4">
-          <div className="flex items-center 
- space-x-4 max-sm:flex-col max-sm:space-x-0 max-sm:space-y-3 max-sm:items-stretch">
-            <div className=" relative max-sm:w-full">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4 max-sm:h-3 max-sm:w-3" />
+        <CardContent className="p-4 max-sm:p-4">
+          <div className="flex items-center space-x-4 max-sm:flex-col max-sm:space-x-0 max-sm:space-y-3 max-sm:items-stretch">
+            <div className="relative flex-1 max-w-md max-sm:max-w-none">
+              <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 max-sm:h-3 max-sm:w-3" />
               <Input
                 type="text"
-                placeholder="Müştəri axtarın"
+                placeholder="Məhsul axtarın"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 max-sm:pl-8 max-sm:h-10 max-sm:text-sm"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent max-sm:h-10 max-sm:text-sm"
               />
             </div>
             <Button
               variant="outline"
-              size="sm"
-              className="flex items-center space-x-2 max-sm:w-full max-sm:h-10 max-sm:text-sm max-sm:space-x-1.5"
+              className="flex items-center gap-2 border-gray-300 bg-white text-black hover:bg-gray-50 max-sm:w-full max-sm:justify-center max-sm:h-10"
             >
               <ListFilter className="h-4 w-4 max-sm:h-3 max-sm:w-3" />
-              <span>Filter</span>
+              <span className="max-sm:text-sm">Filter</span>
             </Button>
           </div>
         </CardContent>
@@ -160,6 +157,6 @@ export default function ClientsPage() {
           />
         )}
       </div>
-    </div>
+      </div>
   );
 }

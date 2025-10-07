@@ -7,7 +7,6 @@ import {
   Store, 
   Shield, 
   CreditCard, 
-  Users, 
   HelpCircle
 } from 'lucide-react';
 import { 
@@ -26,7 +25,6 @@ const navItems = [
   { value: 'store', label: 'Mağaza məlumatları', icon: Store },
   { value: 'security', label: 'Təhlükəsizlik', icon: Shield },
   { value: 'payment', label: 'Ödəniş metodları', icon: CreditCard },
-  { value: 'staff', label: 'İşçi heyəti', icon: Users },
   { value: 'support', label: 'Dəstək', icon: HelpCircle },
 ];
 

@@ -35,7 +35,6 @@ export default function TestimonialsSection() {
           </h2>
         </div>
 
-        {/* Avatar Grid */}
         <div className="mb-[36px]">
           <div className="grid grid-cols-6 gap-4 lg:gap-2  ">
             {data?.map((testimonial, index) => (
@@ -51,9 +50,9 @@ export default function TestimonialsSection() {
                 <Image
                   src={testimonial.thumb_image || "/placeholder.svg"}
                   alt={testimonial.name}
-                  width={185}
+                  width={300}
                   height={165}
-                  className="md:w-[185px] md:h-[165px] w-[80px] h-[80px]  object-contain"
+                  className="md:w-[185px] md:h-[165px] w-[80px] h-[80px]  object-cover"
                 />
               </button>
             ))}
@@ -65,7 +64,6 @@ export default function TestimonialsSection() {
           <div>
             <div className="overflow-hidden">
               <div className="flex flex-col lg:flex-row">
-                {/* Image */}
                 <div className="lg:w-1/2">
                 <div className="w-[510px] h-[300px] overflow-hidden rounded-lg">
 
@@ -74,7 +72,7 @@ export default function TestimonialsSection() {
                     alt={activeTestimonial.name}
                     width={510}
                     height={305}
-                    className="w-[510px] h-[300px] object-cover"
+                    className="w-[510px] h-[300px] object-contain"
                   />
                 </div>
                 </div>

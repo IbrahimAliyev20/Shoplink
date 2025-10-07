@@ -38,7 +38,6 @@ interface ApiErrorResponse {
 }
 
 const handleApiError = (error: AxiosError<ApiErrorResponse>): void => {
-  // Network error (no internet connection)
   if (!error.response) {
     if (typeof window !== "undefined") {
       toast.error(
@@ -50,7 +49,6 @@ const handleApiError = (error: AxiosError<ApiErrorResponse>): void => {
 
   const { status, data } = error.response;
 
-  // Only show toasts on client-side
   if (typeof window === "undefined") return;
 
   switch (status) {
@@ -68,7 +66,6 @@ const handleApiError = (error: AxiosError<ApiErrorResponse>): void => {
       break;
 
     case 422:
-      // Validation errors
       if (data?.errors) {
         const firstError = Object.values(data.errors)[0]?.[0];
         toast.error(firstError || "Məlumatlar düzgün deyil.");
@@ -106,6 +103,7 @@ const setupInterceptors = (): void => {
   client.interceptors.request.use(
     (config: InternalAxiosRequestConfig) => {
       const token = getAuthToken();
+      
       if (token && config.headers) {
         config.headers.Authorization = `Bearer ${token}`;
       }
