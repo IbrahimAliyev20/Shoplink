@@ -1,12 +1,10 @@
 'use client'
 
-import React, { useState } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 
 const Support = () => {
-  const [activeTab, setActiveTab] = useState('shopping')
-
   const tabs = [
     { id: 'shopping', label: 'Shopping nədir?' },
     { id: 'management', label: 'Məhsul və Mağaza İdarəetməsi' },
@@ -107,45 +105,34 @@ const Support = () => {
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-6 max-md:space-y-4 max-md:p-4 max-md:pt-0">
-        {/* Tabs */}
-        <div className="flex border-b border-gray-200 max-md:overflow-x-auto">
-          {tabs.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors whitespace-nowrap max-md:px-3 max-md:py-2 max-md:text-xs ${
-                activeTab === tab.id
-                  ? 'border-gray-300 bg-gray-50 text-gray-900'
-                  : 'border-transparent text-gray-500 hover:text-gray-700'
-              }`}
-            >
-              {tab.label}
-            </button>
-          ))}
-        </div>
-
-        {/* FAQ Accordion */}
-        <div className="space-y-4 max-md:space-y-3">
-          <Accordion type="single" collapsible className="w-full">
-            {faqData[activeTab as keyof typeof faqData]?.map((faq) => (
-              <AccordionItem key={faq.id} value={faq.id} className="border border-gray-200 rounded-lg">
-                <AccordionTrigger className="px-4 py-3 hover:no-underline max-md:px-3 max-md:py-2">
-                  <span className="text-left font-medium max-md:text-sm max-md:leading-tight">{faq.question}</span>
-                </AccordionTrigger>
-                <AccordionContent className="px-4 pb-4 max-md:px-3 max-md:pb-3">
-                  <ul className="space-y-2 max-md:space-y-1">
-                    {faq.answer.map((item, idx) => (
-                      <li key={idx} className="text-sm text-gray-600 flex items-start max-md:text-xs">
-                        <span className="w-1.5 h-1.5 bg-gray-400 rounded-full mt-2 mr-2 flex-shrink-0 max-md:w-1 max-md:h-1 max-md:mt-1.5"></span>
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </AccordionContent>
-              </AccordionItem>
+        <Tabs defaultValue="shopping" className="w-full">
+          <TabsList className="max-w-3xl  grid w-full grid-cols-1 sm:grid-cols-3 mb-6 p-0.5 rounded-3xl h-auto">
+            {tabs.map((tab, index) => (
+              <TabsTrigger key={index} value={tab.id} className="rounded-3xl text-xs sm:text-sm py-2 px-3">{tab.label}</TabsTrigger>
             ))}
-          </Accordion>
-        </div>
+          </TabsList>
+          {tabs.map((tab, index) => (
+            <TabsContent key={index} value={tab.id}>
+              <Accordion type="single" collapsible defaultValue="item-1" className="w-full flex flex-col gap-1.5">
+                {faqData[tab.id as keyof typeof faqData]?.map((faq, faqIndex) => (
+                  <AccordionItem key={faqIndex} value={faq.question} className="border-b-0 border-1 border-[#F3F2F8] rounded-xl bg-[#FBFDFF]">
+                    <AccordionTrigger className="text-left font-medium px-2 sm:px-3 text-xs sm:text-sm py-2">{faq.question}</AccordionTrigger>
+                    <AccordionContent className="text-gray-600 space-y-1.5 px-3 pb-2">
+                      <ul className="space-y-1.5">
+                        {faq.answer.map((item, idx) => (
+                          <li key={idx} className="text-xs text-gray-600 flex items-start">
+                            <span className="w-1 h-1 bg-gray-400 rounded-full mt-1.5 mr-2 flex-shrink-0"></span>
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </TabsContent>
+          ))}
+        </Tabs>
       </CardContent>
     </Card>
   )

@@ -117,18 +117,18 @@ const PersonalInfo = ({ user }: { user: UserData }) => {
         <div className="space-y-6 max-md:space-y-4">
           <div className="grid grid-cols-2 gap-6 w-full max-md:grid-cols-1 max-md:gap-4">
             <div className="space-y-2 w-full">
-              <Label htmlFor="name">Ad,soyad</Label>
+              <Label htmlFor="name" className="text-sm font-medium text-gray-900">Ad,soyad</Label>
               <Input
                 id="name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="h-12 rounded-lg w-full max-md:h-10"
+                className="h-12 rounded-xl w-full max-md:h-10 border-gray-300 focus:border-gray-400 focus:ring-1 focus:ring-gray-400"
               />
             </div>
 
             <div className="space-y-2 w-full">
-              <Label htmlFor="phone">Telefon nömrəsi</Label>
-              <div className="flex items-center w-full h-12 border border-gray-300 rounded-lg focus-within:ring-1 transition-all duration-200 max-md:h-10">
+              <Label htmlFor="phone" className="text-sm font-medium text-gray-900">Telefon nömrəsi</Label>
+              <div className="flex items-center w-full h-12 border border-gray-300 rounded-xl focus-within:ring-1 focus-within:ring-gray-400 focus-within:border-gray-400 transition-all duration-200 max-md:h-10">
                 <Select defaultValue="+994">
                   <SelectTrigger className="w-24 h-full bg-transparent border-0 rounded-r-none focus:ring-0 max-md:w-20 max-md:text-sm">
                     <SelectValue />
@@ -148,40 +148,40 @@ const PersonalInfo = ({ user }: { user: UserData }) => {
             </div>
 
             <div className="space-y-2 w-full">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email" className="text-sm font-medium text-gray-900">Email</Label>
               <Input
                 id="email"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="h-12 rounded-lg w-full max-md:h-10 max-md:text-sm"
+                className="h-12 rounded-xl w-full max-md:h-10 max-md:text-sm border-gray-300 focus:border-gray-400 focus:ring-1 focus:ring-gray-400"
               />
             </div>
 
             <div className="space-y-2 w-full">
-              <Label htmlFor="voen">VÖEN</Label>
+              <Label htmlFor="voen" className="text-sm font-medium text-gray-900">VÖEN</Label>
               <Input
                 id="voen"
                 value={voen}
                 onChange={(e) => setVoen(e.target.value)}
-                className="h-12 rounded-lg w-full max-md:h-10 max-md:text-sm"
+                className="h-12 rounded-xl w-full max-md:h-10 max-md:text-sm border-gray-300 focus:border-gray-400 focus:ring-1 focus:ring-gray-400"
               />
             </div>
 
             <div className="space-y-2 w-full">
-              <Label htmlFor="fin">FİN kod</Label>
+              <Label htmlFor="fin" className="text-sm font-medium text-gray-900">FİN kod</Label>
               <Input
                 id="fin"
                 value={fin}
                 onChange={(e) => setFin(e.target.value)}
-                className="h-12 rounded-lg w-full max-md:h-10 max-md:text-sm"
+                className="h-12 rounded-xl w-full max-md:h-10 max-md:text-sm border-gray-300 focus:border-gray-400 focus:ring-1 focus:ring-gray-400"
               />
             </div>
 
             <div className="space-y-2 w-full">
-              <Label htmlFor="membership">Üzvlük tipi</Label>
+              <Label htmlFor="membership" className="text-sm font-medium text-gray-900">Üzvlük tipi</Label>
               <Select value={type} onValueChange={setType}>
-                <SelectTrigger className="h-12 rounded-lg w-full max-md:h-10 max-md:text-sm">
+                <SelectTrigger className="h-12 rounded-xl w-full max-md:h-10 max-md:text-sm border-gray-300 focus:border-gray-400 focus:ring-1 focus:ring-gray-400">
                   <SelectValue placeholder="Üzvlük tipi seçin" />
                 </SelectTrigger>
                 <SelectContent>
@@ -194,9 +194,9 @@ const PersonalInfo = ({ user }: { user: UserData }) => {
 
           <div className="grid grid-cols-1 md:grid-cols-1 w-full max-md:grid-cols-1">
             <div className="space-y-2 w-full">
-              <Label htmlFor="region">Bölgə</Label>
+              <Label htmlFor="region" className="text-sm font-medium text-gray-900">Bölgə</Label>
               <Select value={region} onValueChange={setRegion}>
-                <SelectTrigger className="h-12 rounded-lg w-full max-md:h-10 max-md:text-sm">
+                <SelectTrigger className="h-12 rounded-xl w-full max-md:h-10 max-md:text-sm border-gray-300 focus:border-gray-400 focus:ring-1 focus:ring-gray-400">
                   <SelectValue placeholder="Bölgə seçin" />
                 </SelectTrigger>
                 <SelectContent>

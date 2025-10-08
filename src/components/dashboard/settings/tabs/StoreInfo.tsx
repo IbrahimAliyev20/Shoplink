@@ -124,7 +124,7 @@ const StoreInfo = () => {
                 id="storeName"
                 value={storeName}
                 onChange={(e) => setStoreName(e.target.value)}
-                className="h-12 rounded-lg w-full max-md:h-10 max-md:text-sm"
+                className=" rounded-lg w-full h-11   max-md:text-sm"
                 placeholder="Mağaza adını daxil edin"
                 disabled={isPending}
               />
@@ -147,7 +147,7 @@ const StoreInfo = () => {
               </Select>
             </div>
 
-            <div className="space-y-2 w-full">
+            <div className="col-span-2 space-y-2 w-full">
               <Label htmlFor="currency" className="text-sm font-medium text-gray-700 max-md:text-xs">
                 Valyuta
               </Label>

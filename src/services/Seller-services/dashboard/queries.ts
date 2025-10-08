@@ -1,5 +1,5 @@
 import { queryOptions } from "@tanstack/react-query";
-import { getReportStats, getStoreStats } from "./api";
+import { getLastActivities, getReportStats, getStoreStats } from "./api";
 
 export const getStoreStatsQuery = () => {   
     return queryOptions({
@@ -12,5 +12,12 @@ export const getReportStatsQuery = () => {
     return queryOptions({
         queryKey: ["report-stats"],
         queryFn: getReportStats,
+    });
+};
+
+export const getLastActivitiesQuery = () => {
+    return queryOptions({
+        queryKey: ["last-activities"],
+        queryFn: getLastActivities,
     });
 };

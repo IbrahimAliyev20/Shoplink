@@ -12,53 +12,6 @@ export const PAYMENT_METHODS = [
   // { id: 'payriff', name: 'Payriff', enabled: false },
 ];
 
-export interface Activity {
-  company: string;
-  description: string;
-  time: string;
-  icon: "dollar" | "zap" | "Box" | "creditCard" | "check" | "user";
-}
-
-// Qrafiklər üçün Məlumatlar
-
-export const recentActivities: Activity[] = [
-  {
-    company: "Yeni sifariş qəbul edildi",
-    description: "№#4532",
-    time: "3 Sent 2025 • 10:57",
-    icon: "Box",
-  },
-  {
-    company: "Sifariş uğurla tamamlandı",
-    description: "№#4529",
-    time: "3 Sent 2025 • 10:57",
-    icon: "check",
-  },
-  {
-    company: "Sifariş uğurla tamamlandı",
-    description: "№#4529",
-    time: "3 Sent 2025 • 10:57",
-    icon: "check",
-  },
-  {
-    company: "Yeni istifadəçi qeydiyyatı",
-    description: "",
-    time: "3 Sent 2025 • 10:57",
-    icon: "user",
-  },
-  {
-    company: "Yeni istifadəçi qeydiyyatı",
-    description: "",
-    time: "3 Sent 2025 • 10:57",
-    icon: "user",
-  },
-  {
-    company: "Uğurlu ödəniş",
-    description: "₼560.00 kartla ödənildi",
-    time: "",
-    icon: "creditCard",
-  },
-];
 
 export interface ActiveInvestment {
   id: number;

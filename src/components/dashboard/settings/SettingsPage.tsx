@@ -3,29 +3,28 @@
 import React from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { 
-  User, 
   Store, 
   Shield, 
   CreditCard, 
-  HelpCircle
+  CircleUser,
+  Info
 } from 'lucide-react';
 import { 
   PersonalInfo, 
   StoreInfo, 
   Security, 
   PaymentMethods, 
-  Staff, 
   Support 
 } from './tabs'; 
 import { useQuery } from '@tanstack/react-query';
 import { getUserQuery } from '@/services/auth/queries';
 
 const navItems = [
-  { value: 'personal', label: 'Şəxsi məlumatlar', icon: User },
+  { value: 'personal', label: 'Şəxsi məlumatlar', icon: CircleUser },
   { value: 'store', label: 'Mağaza məlumatları', icon: Store },
   { value: 'security', label: 'Təhlükəsizlik', icon: Shield },
   { value: 'payment', label: 'Ödəniş metodları', icon: CreditCard },
-  { value: 'support', label: 'Dəstək', icon: HelpCircle },
+  { value: 'support', label: 'Dəstək', icon: Info  },
 ];
 
 const SettingsPage =  () => {
@@ -50,9 +49,9 @@ const SettingsPage =  () => {
                     <TabsTrigger
                       key={item.value}
                       value={item.value}
-                      className="bg-white w-full justify-center md:justify-start items-center gap-3 px-4 py-3 text-base font-medium rounded-lg text-gray-600 data-[state=active]:bg-gray-200 data-[state=active]:text-black data-[state=active]:shadow-sm transition-all duration-200 max-md:flex-1 max-md:whitespace-nowrap max-md:text-sm max-md:px-0 max-md:py-0 max-md:gap-2 "
+                      className="bg-white w-full justify-center md:justify-start items-center gap-3 px-4 py-3 text-base font-medium rounded-lg text-gray-600 data-[state=active]:bg-[#F3F2F8]/80 data-[state=active]:text-black data-[state=active]:shadow-sm transition-all duration-200 max-md:flex-1 max-md:whitespace-nowrap max-md:text-sm max-md:px-0 max-md:py-0 max-md:gap-2 "
                     >
-                      <Icon className="h-5 w-5 max-md:h-4 max-md:w-4" />
+                      <Icon className="h-5 w-5 max-md:h-10 max-md:w-10" />
                       <span className="max-md:hidden ">{item.label}</span>
                     </TabsTrigger>
                   );
@@ -73,9 +72,6 @@ const SettingsPage =  () => {
                 </TabsContent>
                 <TabsContent value="payment">
                   <PaymentMethods />
-                </TabsContent>
-                <TabsContent value="staff">
-                  <Staff />
                 </TabsContent>
                 <TabsContent value="support">
                   <Support />

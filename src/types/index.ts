@@ -1,5 +1,6 @@
 
 
+
 export interface ApiResponse<T> {
   meta: {
     last_page: number;
@@ -265,4 +266,12 @@ export interface Subscribe {
   price: number;
   description: string;
   months: number;
+}
+export interface LastActivities {
+  status: string;
+  logs: {
+    message: string;
+    timestamp: string;
+  }[];
+
 }

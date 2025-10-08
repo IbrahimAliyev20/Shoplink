@@ -4,7 +4,10 @@ import React, { useState, useEffect } from "react";
 import ProductList from "./shared/ProductList";
 import FilterPanel from "./FilterModal";
 import { useQuery } from "@tanstack/react-query";
-import { CategoryStore, ProductStoreCategory } from "@/types/storeforusers/types";
+import {
+  CategoryStore,
+  ProductStoreCategory,
+} from "@/types/storeforusers/types";
 import {
   getAllProductsStoreOptions,
   getProductStoreCategoryOptions,
@@ -48,9 +51,10 @@ const TabsMarket: React.FC<TabsMarketProps> = ({ categories, storeSlug }) => {
   }, [searchTerm]);
 
   useEffect(() => {
-    const hasFilters = Object.keys(filters).some(key => 
-      filters[key as keyof ProductFilters] !== undefined && 
-      filters[key as keyof ProductFilters] !== null
+    const hasFilters = Object.keys(filters).some(
+      (key) =>
+        filters[key as keyof ProductFilters] !== undefined &&
+        filters[key as keyof ProductFilters] !== null
     );
     setHasActiveFilters(hasFilters);
   }, [filters]);
@@ -64,12 +68,11 @@ const TabsMarket: React.FC<TabsMarketProps> = ({ categories, storeSlug }) => {
     setHasActiveFilters(false);
   };
 
-  // Determine which query to use based on filters and search
   const shouldUseFilteredQuery = hasActiveFilters && !debouncedSearchTerm;
   const shouldUseSearchQuery = debouncedSearchTerm && !hasActiveFilters;
-  const shouldUseCategoryQuery = !debouncedSearchTerm && !hasActiveFilters && activeTab !== "all";
+  const shouldUseCategoryQuery =
+    !debouncedSearchTerm && !hasActiveFilters && activeTab !== "all";
 
-  // Filtered products query
   const {
     data: filteredProducts = [],
     isLoading: isFilteredLoading,
@@ -79,18 +82,16 @@ const TabsMarket: React.FC<TabsMarketProps> = ({ categories, storeSlug }) => {
     enabled: shouldUseFilteredQuery,
   });
 
-  // Search products query
   const {
     data: searchProducts = [],
     isLoading: isSearchLoading,
     isError: isSearchError,
   } = useQuery({
-    queryKey: ['all-products-store-options', storeSlug, debouncedSearchTerm],
+    queryKey: ["all-products-store-options", storeSlug, debouncedSearchTerm],
     queryFn: () => getAllProductsStore(storeSlug, debouncedSearchTerm),
     enabled: Boolean(shouldUseSearchQuery && debouncedSearchTerm.length > 0),
   });
 
-  // Category products query
   const {
     data: categoryProducts = [],
     isLoading: isCategoryLoading,
@@ -100,39 +101,41 @@ const TabsMarket: React.FC<TabsMarketProps> = ({ categories, storeSlug }) => {
     enabled: Boolean(shouldUseCategoryQuery && !!activeTab),
   });
 
-  // All products query
   const {
     data: allProducts = [],
     isLoading: isAllLoading,
     isError: isAllError,
   } = useQuery({
     ...getAllProductsStoreOptions(storeSlug),
-    enabled: Boolean(!shouldUseFilteredQuery && !shouldUseSearchQuery && !shouldUseCategoryQuery),
+    enabled: Boolean(
+      !shouldUseFilteredQuery &&
+        !shouldUseSearchQuery &&
+        !shouldUseCategoryQuery
+    ),
   });
 
-  // Determine which data to use
-  const products: ProductStoreCategory[] = shouldUseFilteredQuery 
-    ? filteredProducts 
-    : shouldUseSearchQuery 
-    ? searchProducts 
-    : shouldUseCategoryQuery 
-    ? categoryProducts 
+  const products: ProductStoreCategory[] = shouldUseFilteredQuery
+    ? filteredProducts
+    : shouldUseSearchQuery
+    ? searchProducts
+    : shouldUseCategoryQuery
+    ? categoryProducts
     : allProducts;
 
-  const isLoading = shouldUseFilteredQuery 
-    ? isFilteredLoading 
-    : shouldUseSearchQuery 
-    ? isSearchLoading 
-    : shouldUseCategoryQuery 
-    ? isCategoryLoading 
+  const isLoading = shouldUseFilteredQuery
+    ? isFilteredLoading
+    : shouldUseSearchQuery
+    ? isSearchLoading
+    : shouldUseCategoryQuery
+    ? isCategoryLoading
     : isAllLoading;
 
-  const isError = shouldUseFilteredQuery 
-    ? isFilteredError 
-    : shouldUseSearchQuery 
-    ? isSearchError 
-    : shouldUseCategoryQuery 
-    ? isCategoryError 
+  const isError = shouldUseFilteredQuery
+    ? isFilteredError
+    : shouldUseSearchQuery
+    ? isSearchError
+    : shouldUseCategoryQuery
+    ? isCategoryError
     : isAllError;
 
   return (
@@ -183,7 +186,7 @@ const TabsMarket: React.FC<TabsMarketProps> = ({ categories, storeSlug }) => {
             </svg>
           </div>
           <div className="flex items-center gap-2">
-            <button 
+            <button
               onClick={() => setIsFilterOpen(!isFilterOpen)}
               className="flex items-center gap-2 border border-gray-300 rounded-md py-2 px-3 sm:px-4 hover:bg-gray-50 transition w-full sm:w-auto justify-center max-md:h-10 max-md:px-3"
             >
@@ -208,7 +211,6 @@ const TabsMarket: React.FC<TabsMarketProps> = ({ categories, storeSlug }) => {
           </div>
         </div>
 
-        {/* Filter Panel */}
         <FilterPanel
           isOpen={isFilterOpen}
           categories={categories}
@@ -241,5 +243,4 @@ const TabsMarket: React.FC<TabsMarketProps> = ({ categories, storeSlug }) => {
     </div>
   );
 };
-
 export default TabsMarket;

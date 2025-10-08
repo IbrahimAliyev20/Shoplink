@@ -1,11 +1,10 @@
 "use client";
 
 import React, { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Plus, Image as ImageIcon } from 'lucide-react';
 import { toast } from 'sonner';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateStoreMutation } from '@/services/Seller-services/store/update/mutations'; // Düzgün yolu qeyd edin
+import Image from 'next/image';
 
 interface StoreLogoProps {
   storeId?: number;
@@ -23,7 +22,7 @@ const StoreLogo = React.forwardRef<StoreLogoRef, StoreLogoProps>(
     const [storeLogo, setStoreLogo] = useState<File | null>(null);
     const [backgroundImage, setBackgroundImage] = useState<File | null>(null);
 
-    const { mutate: updateStore, isPending } = useMutation({
+    const { mutate: updateStore } = useMutation({
       ...updateStoreMutation(),
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ["all-store-options"] });
@@ -102,35 +101,38 @@ const StoreLogo = React.forwardRef<StoreLogoRef, StoreLogoProps>(
       type: 'logo' | 'background';
     }) => (
       <div className="space-y-4 max-md:space-y-3">
-        <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-gray-400 transition-colors max-md:p-6">
-          <div className="flex flex-col items-center space-y-4 max-md:space-y-3">
-            <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center max-md:w-12 max-md:h-12">
-              <ImageIcon className="w-8 h-8 text-gray-400 max-md:w-6 max-md:h-6" />
+        <div 
+          className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 text-center hover:shadow-md transition-all duration-200 cursor-pointer max-md:p-6"
+          onClick={() => {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.jpeg,.jpg,.png,.webp';
+            input.onchange = (e) => {
+              const file = (e.target as HTMLInputElement).files?.[0];
+              if (file) {
+                onFileSelect(file);
+              }
+            };
+            input.click();
+          }}
+        >
+          <div className="flex flex-col items-center space-y-4 max-md:space-y-3 bg-[#FBFDFF]">
+            <div className=" w-16 h-16 flex items-center justify-center max-md:w-12 max-md:h-12">
+              <Image 
+                src="/images/createimage.svg" 
+                alt="Upload image" 
+                width={64} 
+                height={64}
+                className="w-8 h-8 max-md:w-12 max-md:h-12"
+              />
             </div>
-            <div className="text-center">
-              <p className="text-sm text-gray-600 mb-2 max-md:text-xs max-md:mb-3 max-md:leading-relaxed">
+            <div className="text-center space-y-2">
+              <p className="text-sm text-gray-600 max-md:text-xs max-md:leading-relaxed">
                 Siz .jpeg, .jpg, .png, .webp formatında faylları maksimum 7MB ölçüyə qədər yükləyə bilərsiniz.
               </p>
-              <Button
-                variant="ghost"
-                className="text-pink-500 hover:text-pink-600 font-medium max-md:w-full max-md:h-10"
-                disabled={isPending}
-                onClick={() => {
-                  const input = document.createElement('input');
-                  input.type = 'file';
-                  input.accept = '.jpeg,.jpg,.png,.webp';
-                  input.onchange = (e) => {
-                    const file = (e.target as HTMLInputElement).files?.[0];
-                    if (file) {
-                      onFileSelect(file);
-                    }
-                  };
-                  input.click();
-                }}
-              >
-                <Plus className="w-4 h-4 mr-1 max-md:w-3 max-md:h-3" />
-                <span className="max-md:text-sm">Şəkil əlavə et</span>
-              </Button>
+              <div className="text-pink-500 font-medium text-sm max-md:text-xs">
+                + Şəkil əlavə et
+              </div>
             </div>
           </div>
         </div>
