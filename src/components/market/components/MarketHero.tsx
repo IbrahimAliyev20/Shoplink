@@ -21,7 +21,7 @@ export default function MarketHero({ store }: MarketHeroProps) {
         />
       </div>
 
-      <div className="absolute flex flex-col items-center justify-center gap-5 bottom-0 left-8 sm:left-30 transform translate-y-25 max-md:left-4 max-md:gap-3 max-md:translate-y-20">
+      <div className="absolute flex flex-col items-start justify-center gap-5 bottom-0 left-8 sm:left-30 transform translate-y-25 max-md:left-4 max-md:gap-3 max-md:translate-y-20">
         <Image
           src={store.logo || "/marketimg/herologo.svg"}
           width={128}

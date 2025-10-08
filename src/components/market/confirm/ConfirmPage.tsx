@@ -112,23 +112,6 @@ function ConfirmPage() {
             <form onSubmit={handleSubmit(onSubmit)} className="bg-white rounded-2xl p-6">
               <fieldset disabled={isPending}>
                 <div className="mb-8">
-                  <h2 className="text-lg font-medium text-gray-900 mb-4">
-                    Ödəniş metodu
-                  </h2>
-                  <div className="flex flex-col sm:flex-row sm:items-center gap-y-3 gap-x-12">
-                    <label className="flex items-center gap-4 cursor-pointer">
-                      <input
-                        type="radio"
-                        value="cash"
-                        {...register("paymentMethod")}
-                        className="w-4 h-4 text-pink-500 border-gray-300 focus:ring-pink-500"
-                      />
-                      <span className="text-gray-700">Nağd ödəniş</span>
-                    </label>
-                  </div>
-                </div>
-
-                <div className="mb-8">
                   <h2 className="text-lg font-semibold text-gray-800 mb-4">
                     Şəxsi Məlumat
                   </h2>
@@ -145,25 +128,7 @@ function ConfirmPage() {
                       />
                       {errors.fullName && <p className="text-red-500 text-xs mt-1">{errors.fullName.message}</p>}
                     </div>
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-600 mb-2">
-                        E-mail
-                      </label>
-                      <Input
-                        type="email"
-                        placeholder="E-mail ünvanınızı daxil edin"
-                        {...register("email", { 
-                          required: "E-mail mütləqdir",
-                          pattern: {
-                            value: /^\S+@\S+$/i,
-                            message: "E-mail formatı yanlışdır"
-                          }
-                        })}
-                        className="w-full h-12 rounded-lg border-gray-300"
-                      />
-                      {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>}
-                    </div>
-                    <div className="md:col-span-2">
+                    <div >
                       <label className="block text-sm font-semibold text-gray-600 mb-2">
                         Telefon nömrəsi
                       </label>
@@ -192,6 +157,25 @@ function ConfirmPage() {
                       </div>
                       {errors.phoneNumber && <p className="text-red-500 text-xs mt-1">{errors.phoneNumber.message}</p>}
                     </div>
+                    <div className="md:col-span-2" >
+                      <label className="block text-sm font-semibold text-gray-600 mb-2">
+                        E-mail
+                      </label>
+                      <Input
+                        type="email"
+                        placeholder="E-mail ünvanınızı daxil edin"
+                        {...register("email", { 
+                          required: "E-mail mütləqdir",
+                          pattern: {
+                            value: /^\S+@\S+$/i,
+                            message: "E-mail formatı yanlışdır"
+                          }
+                        })}
+                        className="w-full h-12 rounded-lg border-gray-300"
+                      />
+                      {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>}
+                    </div>
+                    
                   </div>
                 </div>
 

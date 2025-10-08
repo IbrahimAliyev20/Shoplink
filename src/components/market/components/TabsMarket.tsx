@@ -160,8 +160,8 @@ const TabsMarket: React.FC<TabsMarketProps> = ({ categories, storeSlug }) => {
         </div>
       </div>
 
-      <div className="my-6 max-md:my-4">
-        <div className="flex flex-col sm:flex-row gap-4 sm:gap-10 items-start sm:items-center max-md:gap-3">
+      <div className="my-2 max-md:my-4">
+        <div className="flex flex-col sm:flex-row gap-4 sm:gap-5 items-start sm:items-center max-md:gap-3">
           <div className="relative w-full sm:max-w-xs">
             <input
               type="text"

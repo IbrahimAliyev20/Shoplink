@@ -1,7 +1,7 @@
 "use server";
 
 import { cookies } from "next/headers";
-import { AuthLoginResponse, AuthRegisterResponse, UserData } from "@/types";
+import { AuthLoginResponse, AuthRegisterResponse } from "@/types";
 import axios from "axios";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;

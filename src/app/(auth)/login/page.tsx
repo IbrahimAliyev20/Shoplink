@@ -128,7 +128,7 @@ function Login() {
             </Button>
           </form>
 
-          <p className="mt-4 text-sm text-muted-foreground font-semibold">
+          <p className="mt-4 text-sm text-muted-foreground font-semibold text-center">
             Hesabın yoxdur ?{" "}
             <Link
               href={"/register"}

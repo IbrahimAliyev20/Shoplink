@@ -15,7 +15,7 @@ interface AddressItemProps {
 
 function AddressItem({ address, onEdit, onDelete, onSelect }: AddressItemProps) {
   return (
-    <div className="bg-white border rounded-lg p-4 shadow-sm" >
+    <div className="bg-[#fbfdff] border border-[#f3f2f8] rounded-lg p-4" >
       <div className="flex items-start justify-between">
         <div className="flex-1">
           <div className="relative flex items-center gap-2 mb-2">

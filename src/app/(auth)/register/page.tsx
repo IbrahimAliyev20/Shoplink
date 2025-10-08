@@ -229,7 +229,7 @@ function Register() {
                         </form>
                     </Form>
 
-                    <p className='mt-4 text-sm text-muted-foreground font-semibold'>
+                    <p className='mt-4 text-sm text-muted-foreground font-semibold text-center'>
                         Hesabın var?{' '}
                         <Link href='/login' className='text-[#FF13F0] underline-offset-4 hover:underline'>
                             Daxil ol

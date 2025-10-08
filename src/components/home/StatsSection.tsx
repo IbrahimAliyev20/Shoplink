@@ -25,7 +25,7 @@ const StatsSection = () => {
                 alt="Yerli bizneslər"
                 width={405}
                 height={440}
-                className="w-full h-[440px] object-cover rounded-lg mx-auto"
+                className=" w-full   h-[400px] md:h-[440px] object-cover rounded-lg mx-auto"
               />
             </div>
             <h3 className="text-xl font-medium text-gray-900 mb-4">
@@ -44,7 +44,7 @@ const StatsSection = () => {
                 alt="Kiçik bizneslər"
                 width={405}
                 height={440}
-                className="w-full h-[440px] object-cover rounded-lg mx-auto"
+                className="w-full h-[400px] md:h-[440px] object-cover rounded-lg mx-auto"
               />
             </div>
             <h3 className="text-xl font-medium text-gray-900 mb-4">
@@ -64,7 +64,7 @@ const StatsSection = () => {
                 alt="Sosial media satıcıları"
                 width={405}
                 height={440}
-                className="w-full h-[440px] object-cover rounded-lg mx-auto"
+                className="w-full h-[400px] md:h-[440px] object-cover rounded-lg mx-auto"
               />
             </div>
             <h3 className="text-xl font-medium text-gray-900 mb-4">

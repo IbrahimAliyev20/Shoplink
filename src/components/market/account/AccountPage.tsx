@@ -192,8 +192,8 @@ function AccountPage({ user }: { user: UserData }) {
         
         <Dialog open={showLogoutDialog} onOpenChange={setShowLogoutDialog}>
           <DialogContent className="sm:max-w-md max-sm:max-w-[90vw] max-sm:mx-4">
-            <div className="text-center p-6 max-sm:p-4">
-               <div className="w-16 h-16 bg-red-100 rounded-lg flex items-center justify-center mx-auto mb-4 max-sm:w-12 max-sm:h-12 max-sm:mb-3">
+            <div className="text-center ">
+               <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4 max-sm:w-12 max-sm:h-12 max-sm:mb-3">
                  <svg
                     className="w-8 h-8 text-red-600 max-sm:w-6 max-sm:h-6"
                     fill="none"
@@ -208,10 +208,10 @@ function AccountPage({ user }: { user: UserData }) {
                     />
                   </svg>
                </div>
-               <h2 className="text-lg font-semibold text-gray-900 mb-4 max-sm:text-base max-sm:mb-3">
+               <h2 className="text-lg font-medium text-gray-900 mb-10 max-sm:text-base max-sm:mb-3">
                   Hesabdan çıxmaqda əminsiniz?
                </h2>
-               <div className="flex gap-3 justify-center max-sm:flex-col max-sm:gap-2">
+               <div className="  grid grid-cols-2 gap-3">
                   <Button
                     onClick={handleCancelLogout}
                     variant="outline"
