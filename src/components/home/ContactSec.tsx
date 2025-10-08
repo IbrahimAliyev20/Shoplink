@@ -85,56 +85,62 @@ export default function ContactPage() {
 
           <div className="bg-white rounded-2xl shadow-xs p-4 sm:p-6 lg:p-8">
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-              <fieldset className={`mb-2 rounded-xl border transition-all duration-200 ${errors.name ? 'border-red-500' : 'border-gray-300'}`}>
-                <legend className="ml-3 px-1 text-sm text-gray-500">Ad,soyad</legend>
-                <Input
-                  id="name"
-                  type="text"
-                  placeholder="Ad və soyadınızı daxil edin"
-                  {...register("name")}
-                  className="w-full h-10 px-4 py-6 -mt-3 bg-transparent border-none focus:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
-                />
-              </fieldset>
+              <div className="space-y-2">
+                <label htmlFor="name" className="text-sm text-gray-500">Ad,soyad</label>
+                <fieldset className={`rounded-xl border transition-all duration-200 ${errors.name ? 'border-red-500' : 'border-gray-300'}`}>
+                  <Input
+                    id="name"
+                    type="text"
+                    placeholder="Ad və soyadınızı daxil edin"
+                    {...register("name")}
+                    className="w-full h-10 px-4 py-6 -mt-3 bg-transparent border-none focus:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
+                  />
+                </fieldset>
+              </div>
               {errors.name && (
                 <p className="text-sm text-red-600 -mt-4 ml-1">{errors.name.message}</p>
               )}
 
-              <fieldset className={` mb-2 flex items-center rounded-xl border transition-all duration-200 ${errors.phone ? 'border-red-500' : 'border-gray-300'}`}>
-                <legend className="ml-3 px-1 text-sm text-gray-500">Telefon nömrəsi</legend>
-                <div className="flex w-full items-center -mt-3">
-                  <Select
-                    value={countryCode}
-                    onValueChange={(value) => setValue("countryCode", value)}
-                  >
-                    <SelectTrigger className="w-22 h-10 bg-transparent border-none focus:ring-0 focus:ring-offset-0">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="+994">+994</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <Input
-                    id="phone"
-                    type="tel"
-                    placeholder="Telefon nömrənizi daxil edin"
-                    {...register("phone")}
-                    className="flex-1 h-10 px-2 py-6 bg-transparent border-none focus:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
-                  />
-                </div>
-              </fieldset>
+              <div className="space-y-2">
+                <label htmlFor="phone" className="text-sm text-gray-500">Telefon nömrəsi</label>
+                <fieldset className={`flex items-center rounded-xl border transition-all duration-200 ${errors.phone ? 'border-red-500' : 'border-gray-300'}`}>
+                  <div className="flex w-full items-center -mt-3">
+                    <Select
+                      value={countryCode}
+                      onValueChange={(value) => setValue("countryCode", value)}
+                    >
+                      <SelectTrigger className="w-22 h-10 bg-transparent border-none focus:ring-0 focus:ring-offset-0">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="+994">+994</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <Input
+                      id="phone"
+                      type="tel"
+                      placeholder="Telefon nömrənizi daxil edin"
+                      {...register("phone")}
+                      className="flex-1 h-10 px-2 py-6 bg-transparent border-none focus:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
+                    />
+                  </div>
+                </fieldset>
+              </div>
               {errors.phone && (
                 <p className="text-sm text-red-600 -mt-4 ml-1">{errors.phone.message}</p>
               )}
 
-              <fieldset className={`mb-2 rounded-xl border transition-all duration-200 ${errors.message ? 'border-red-500' : 'border-gray-300'}`}>
-                <legend className="ml-3 px-1 text-sm text-gray-500">Mesaj</legend>
-                <Textarea
-                  id="message"
-                  placeholder="Mesajınız"
-                  {...register("message")}
-                  className="w-full min-h-22 px-4 py-6 -mt-3 bg-transparent border-none resize-none focus:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
-                />
-              </fieldset>
+              <div className="space-y-4">
+                <label htmlFor="message" className="text-sm text-gray-500">Mesaj</label>
+                <fieldset className={`rounded-xl border transition-all duration-200 ${errors.message ? 'border-red-500' : 'border-gray-300'}`}>
+                  <Textarea
+                    id="message"
+                    placeholder="Mesajınız"
+                    {...register("message")}
+                    className="w-full min-h-22 px-4 py-6 -mt-3 bg-transparent border-none resize-none focus:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
+                  />
+                </fieldset>
+              </div>
               {errors.message && (
                 <p className="text-sm text-red-600 -mt-4 ml-1">{errors.message.message}</p>
               )}

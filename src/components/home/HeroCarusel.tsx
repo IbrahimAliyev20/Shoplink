@@ -9,7 +9,6 @@ import { getHeroBannerOptions } from "@/services/Home/Hero/queries";
 
 
 export default function HeroCarousel() {
-  // Top carousel (scrolls left - forward direction)
   const [emblaRefTop] = useEmblaCarousel(
     {
       loop: true,
@@ -27,7 +26,6 @@ export default function HeroCarousel() {
     ]
   );
 
-  // Bottom carousel (scrolls right - reverse direction)
   const [emblaRefBottom] = useEmblaCarousel(
     {
       loop: true,
@@ -73,8 +71,8 @@ export default function HeroCarousel() {
     <main className="flex-1">
       <div>
         <div className="flex flex-col lg:flex-row items-center gap-6 lg:gap-12 min-h-[500px] lg:min-h-[600px]">
-          <div className="w-full lg:w-2/5 space-y-4 lg:space-y-6 lg:pr-8">
-            <h1 className="max-w-[300px] text-3xl sm:text-4xl md:text-5xl xl:text-6xl font-semibold text-gray-900 leading-tight">
+          <div className="w-full lg:w-2/5 space-y-4 lg:space-y-6 lg:pr-8 mt-20 md:mt-0">
+            <h1 className="max-w-[300px]  text-3xl sm:text-4xl md:text-5xl xl:text-6xl font-semibold text-gray-900 leading-tight">
               {data?.title}
             </h1>
 

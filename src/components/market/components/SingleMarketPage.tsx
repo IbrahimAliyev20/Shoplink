@@ -45,13 +45,13 @@ function SingleProductPage({ slug }: { slug: string }) {
             thumbImages={thumbImageUrls}
           />
 
-          <div className="flex flex-col justify-between max-md:space-y-6">
+          <div className="flex flex-col justify-around max-md:space-y-6">
             <h1 className="text-[24px] font-medium text-gray-900 leading-snug max-md:text-xl max-md:leading-tight">
               {product.name}
             </h1>
 
        
-            
+            <div className='flex flex-col gap-20 justify-between'>
             <QuantitySelector
               quantity={quantity}
               onQuantityChange={handleQuantityChange}
@@ -68,6 +68,7 @@ function SingleProductPage({ slug }: { slug: string }) {
               activeTab={activeTab}
               onTabChange={setActiveTab}
             />
+            </div>
           </div>
         </div>
         

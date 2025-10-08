@@ -90,10 +90,10 @@ const ShopSetup: React.FC = () => {
 
   return (
     <div className="space-y-8 max-md:space-y-6">
-        <div className="flex items-center justify-start max-md:flex-col max-md:space-y-4">
+        <div className="flex items-center justify-start max-md:overflow-x-auto max-md:pb-2">
         {steps.map((step, index) => (
-          <div key={step.id} className="flex items-center max-md:w-full max-md:justify-center">
-            <div className="flex flex-col items-center max-md:flex-row max-md:items-center max-md:w-full max-md:justify-start max-md:bg-gray-50 max-md:p-3 max-md:rounded-lg">
+          <div key={step.id} className="flex items-center max-md:flex-shrink-0">
+            <div className="flex flex-col items-center max-md:min-w-[120px] max-md:bg-gray-50 max-md:p-3 max-md:rounded-lg max-md:mx-1">
               <div className={`flex items-center justify-center w-12 h-12 rounded-full border-2 max-md:w-10 max-md:h-10 max-md:flex-shrink-0 ${
                 currentStep > step.id 
                   ? 'bg-green-500 border-green-500 text-white' 
@@ -109,9 +109,9 @@ const ShopSetup: React.FC = () => {
                   <span className="text-base font-medium max-md:text-sm">{step.id}</span>
                 )}
               </div>
-              <div className="mt-3 text-center max-md:mt-0 max-md:ml-3 max-md:text-left max-md:flex-1">
+              <div className="mt-3 text-center max-md:mt-2">
                 <p className="text-xs text-gray-500 max-md:text-xs">Addım {step.id}</p>
-                <p className="text-sm font-medium text-gray-900 max-md:text-sm max-md:font-semibold">{step.title}</p>
+                <p className="text-sm font-medium text-gray-900 max-md:text-xs max-md:font-semibold max-md:whitespace-nowrap">{step.title}</p>
               </div>
             </div>
             {index < steps.length - 1 && (

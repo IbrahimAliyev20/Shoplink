@@ -14,10 +14,10 @@ import {
   StoreInfo, 
   Security, 
   PaymentMethods, 
-  Support 
 } from './tabs'; 
 import { useQuery } from '@tanstack/react-query';
 import { getUserQuery } from '@/services/auth/queries';
+import SupportDashboard from './tabs/SupportDashboard';
 
 const navItems = [
   { value: 'personal', label: 'Şəxsi məlumatlar', icon: CircleUser },
@@ -74,7 +74,7 @@ const SettingsPage =  () => {
                   <PaymentMethods />
                 </TabsContent>
                 <TabsContent value="support">
-                  <Support />
+                  <SupportDashboard />
                 </TabsContent>
               </div>
             </div>

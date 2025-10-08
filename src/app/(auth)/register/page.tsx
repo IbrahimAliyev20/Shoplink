@@ -25,10 +25,10 @@ interface FloatingFieldProps {
 function FloatingField({ id, label, children, className }: FloatingFieldProps) {
     return (
         <div className={`relative ${className ?? ''}`}>
-            {children}
-            <Label htmlFor={id} className={'pointer-events-none bg-white absolute left-3 -top-2 px-1 text-xs text-foreground'}>
+            <Label htmlFor={id} className="block text-sm font-medium text-foreground mb-2">
                 {label}
             </Label>
+            {children}
         </div>
     )
 }
@@ -191,8 +191,42 @@ function Register() {
                                                             {...field}
                                                         />
                                                     </FormControl>
-                                                    <button type='button' aria-label='Toggle password' className='absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground' onClick={() => setShowPassword((s) => !s)}>
-                                                        {showPassword ? '🙈' : '👁️'}
+                                                    <button 
+                                                        type='button' 
+                                                        aria-label='Toggle password visibility' 
+                                                        className='absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors' 
+                                                        onClick={() => setShowPassword((s) => !s)}
+                                                    >
+                                                        {showPassword ? (
+                                                            <svg
+                                                                width="20"
+                                                                height="20"
+                                                                viewBox="0 0 24 24"
+                                                                fill="none"
+                                                                stroke="currentColor"
+                                                                strokeWidth="2"
+                                                                strokeLinecap="round"
+                                                                strokeLinejoin="round"
+                                                            >
+                                                                <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
+                                                                <circle cx="12" cy="12" r="3" />
+                                                            </svg>
+                                                        ) : (
+                                                            <svg
+                                                                width="20"
+                                                                height="20"
+                                                                viewBox="0 0 24 24"
+                                                                fill="none"
+                                                                stroke="currentColor"
+                                                                strokeWidth="2"
+                                                                strokeLinecap="round"
+                                                                strokeLinejoin="round"
+                                                            >
+                                                                <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
+                                                                <circle cx="12" cy="12" r="3" />
+                                                                <path d="m2 2 20 20" />
+                                                            </svg>
+                                                        )}
                                                     </button>
                                                 </div>
                                             </FloatingField>

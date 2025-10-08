@@ -26,11 +26,11 @@ interface FloatingFieldProps {
 
 function FloatingField({ id, label, children, className }: FloatingFieldProps) {
     return (
-        <div className={`relative ${className ?? ''}`}>
-            {children}
-            <Label htmlFor={id} className={'pointer-events-none bg-white absolute left-3 -top-2 px-1 text-xs text-foreground'}>
+        <div className={`space-y-2 ${className ?? ''}`}>
+            <Label htmlFor={id} className="text-sm font-medium text-foreground">
                 {label}
             </Label>
+            {children}
         </div>
     )
 }

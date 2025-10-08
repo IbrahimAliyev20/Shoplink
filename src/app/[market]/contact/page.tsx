@@ -51,12 +51,12 @@ function ContactMarket() {
 
 
 <div className="p-8 sm:p-10  shadow-sm bg-white rounded-2xl">
-  <form className="space-y-8">
+  <form className="space-y-5">
     
-    <div className="relative">
+    <div className="space-y-2">
       <label
         htmlFor="fullname"
-        className="absolute -top-2.5 left-3 inline-block bg-white px-1 text-sm font-medium text-gray-600"
+        className="text-sm font-medium text-gray-600"
       >
         Ad,soyad
       </label>
@@ -68,10 +68,10 @@ function ContactMarket() {
       />
     </div>
 
-    <div className="relative">
+    <div className="space-y-2">
        <label
         htmlFor="phone"
-        className="absolute -top-2.5 left-3 inline-block bg-white px-1 text-sm font-medium text-gray-600"
+        className="text-sm font-medium text-gray-600"
       >
         Telefon nömrəsi
       </label>
@@ -91,10 +91,10 @@ function ContactMarket() {
       </div>
     </div>
 
-    <div className="relative">
+    <div className="space-y-2">
        <label
         htmlFor="message"
-        className="absolute -top-2.5 left-3 inline-block bg-white px-1 text-sm font-medium text-gray-600"
+        className="text-sm font-medium text-gray-600"
       >
         Mesaj
       </label>

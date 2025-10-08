@@ -36,7 +36,7 @@ export default function TestimonialsSection() {
         </div>
 
         <div className="mb-[36px]">
-          <div className="grid grid-cols-6 gap-4 lg:gap-2  ">
+          <div className="grid grid-cols-4 md:grid-cols-6 gap-4 lg:gap-2  ">
             {data?.map((testimonial, index) => (
               <button
                 key={index}

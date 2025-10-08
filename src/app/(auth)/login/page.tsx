@@ -18,15 +18,13 @@ interface FloatingFieldProps {
 function FloatingField({ id, label, children, className }: FloatingFieldProps) {
   return (
     <div className={`relative ${className ?? ""}`}>
-      {children}
       <Label
         htmlFor={id}
-        className={
-          "pointer-events-none bg-white absolute left-3 -top-2 px-1 text-xs text-foreground"
-        }
+        className="block text-sm font-medium text-foreground mb-2"
       >
         {label}
       </Label>
+      {children}
     </div>
   );
 }
@@ -101,11 +99,40 @@ function Login() {
                 <button
                   type="button"
                   aria-label="Toggle password visibility"
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
                   onClick={() => setShowPassword((s) => !s)}
                   disabled={isPending}
                 >
-                  {showPassword ? "🙈" : "👁️"}
+                  {showPassword ? (
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
+                      <circle cx="12" cy="12" r="3" />
+                    </svg>
+                  ) : (
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
+                      <circle cx="12" cy="12" r="3" />
+                      <path d="m2 2 20 20" />
+                    </svg>
+                  )}
                 </button>
               </div>
             </FloatingField>
@@ -129,7 +156,7 @@ function Login() {
           </form>
 
           <p className="mt-4 text-sm text-muted-foreground font-semibold text-center">
-            Hesabın yoxdur ?{" "}
+            Hesabın yoxdur ?
             <Link
               href={"/register"}
               className="text-[#FF13F0] underline-offset-4 hover:underline"

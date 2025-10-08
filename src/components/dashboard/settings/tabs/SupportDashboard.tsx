@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 
-const Support = () => {
+const SupportDashboard = () => {
   const tabs = [
     { id: 'shopping', label: 'Shopping nədir?' },
     { id: 'management', label: 'Məhsul və Mağaza İdarəetməsi' },
@@ -138,4 +138,4 @@ const Support = () => {
   )
 }
 
-export default Support
+export default SupportDashboard

@@ -42,7 +42,7 @@ export default function DashboardLayout({
       <div className={`transition-all duration-300 ease-in-out ${
         isMobile ? 'ml-0' : sidebarCollapsed ? 'ml-16' : 'ml-64'
       }`}>
-        <div className="lg:hidden bg-white shadow-sm px-4 py-3 flex items-center justify-between border-b sticky top-0 z-30">
+        <div className="lg:hidden bg-white  px-4 py-3 flex items-center justify-between border-b sticky top-0 z-30">
           <MobileSidebar />
           <h1 className="text-lg font-semibold text-gray-900">Dashboard</h1>
           <div className="w-10" />

@@ -37,23 +37,23 @@ const CartSummary: React.FC<CartSummaryProps> = ({ summary, onCompleteOrder }) =
         {!appliedPromocode ? (
           <div className="flex flex-col space-y-2">
             <span className="text-sm font-medium text-gray-700">Promokod</span>
-            <div className="flex gap-2">
-              <Input
+            <div className="relative">
+              <input
                 type="text"
                 placeholder="Promo kodu yazın"
                 value={promocodeInput}
                 onChange={(e) => setPromocodeInput(e.target.value)}
-                className="flex-1 h-10 rounded-lg"
+                className="w-full h-10 px-4 pr-20 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
                 disabled={isApplyingPromo}
                 onKeyPress={(e) => { if (e.key === 'Enter') handleApplyPromocode() }}
               />
-              <Button
+              <button
                 onClick={handleApplyPromocode}
                 disabled={isApplyingPromo || !promocodeInput.trim()}
-                className="h-10 px-4 bg-pink-500 hover:bg-pink-600 text-white rounded-lg"
+                className="absolute right-1 top-1 h-8 px-3  text-[#FF13F0] text-sm font-medium rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isApplyingPromo ? "Yoxlanılır..." : "Tətbiq et"}
-              </Button>
+              </button>
             </div>
           </div>
         ) : (
