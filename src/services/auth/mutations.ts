@@ -1,12 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useParams, useRouter } from "next/navigation";
 import { toast } from "sonner";
-import {
-  loginAction,
-  logoutAction,
-  registerAction,
-  getUserAction,
-} from "./server-actions";
+import { loginAction, logoutAction, registerAction } from "./server-actions";
 import { logout, updatePassword } from "./api";
 import { AuthLoginResponse, AuthRegisterResponse } from "@/types";
 
@@ -40,26 +35,20 @@ export const useLoginMutation = () => {
         toast.success("Uğurla daxil oldunuz! Yönləndirilir...");
 
         const userRole = data.data.user.role;
-        
-        if (userRole.includes('seller')) {
-          // For sellers, check if profile is complete
-          try {
-            const userData = await getUserAction();
-            if (userData && userData.complete === 1) {
-              router.push('/dashboard');
-            } else {
-              router.push('/dashboard/shopsetup');
-            }
-          } catch {
-            toast.error("Profil məlumatları yüklənərkən xəta baş verdi.");
-            router.push('/dashboard/shopsetup');
+        console.log(userRole + " userRole");
+        console.log(data.data.user + " data.data.user");
+
+        if (userRole.includes("seller")) {
+          if (data.data.user.complete === 1) {
+            router.push("/dashboard");
+          } else {
+            router.push("/dashboard/shopsetup");
           }
-        } else if (userRole.includes('user')) {
+        } else if (userRole.includes("user")) {
           router.push(`/${marketSlug}/account`);
         }
-        
-        router.refresh();
 
+        router.refresh();
       } else {
         toast.error(data.message || "Naməlum xəta baş verdi.");
       }
@@ -69,6 +58,7 @@ export const useLoginMutation = () => {
     },
   });
 };
+
 interface RegisterVariables {
   name: string;
   email: string;

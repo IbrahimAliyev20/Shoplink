@@ -1,15 +1,14 @@
-
 import AccountPage from "@/components/market/account/AccountPage";
-import { getUserAction } from "@/services/auth/server-actions"; 
-import { redirect } from "next/navigation"; 
+import { getUser } from "@/services/auth/api";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 export default async function Account() {
-  
-  const user = await getUserAction();
+  const token = (await cookies()).get("access_token")?.value;
+  const user = await getUser(token || "");
 
-  if (!user) {
-    redirect('/login');
-  }
-
-  return <AccountPage user={user} />;
+if (!user?.data) {
+  redirect("/");
+}
+  return <AccountPage user={user?.data} />;
 }

@@ -3,14 +3,16 @@
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { User, LogOut, Store } from "lucide-react";
-import { getUserAction, logoutAction } from "@/services/auth/server-actions";
+import { logoutAction } from "@/services/auth/server-actions";
 import { UserData } from "@/types";
 import { useRouter } from "next/navigation";
 
-export function UserProfile() {
-  const [user, setUser] = useState<UserData | null>(null);
+interface UserProfileProps {
+  user: UserData;
+}
+
+export function UserProfile({ user }: UserProfileProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [loading, setLoading] = useState(true);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
@@ -25,25 +27,9 @@ export function UserProfile() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const userData = await getUserAction();
-        setUser(userData);
-      } catch (error) {
-        console.error("Failed to fetch user:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchUser();
-  }, []);
-
   const handleLogout = async () => {
     try {
       await logoutAction();
-      setUser(null);
       window.location.href = '/';
     } catch (error) {
       console.error("Logout failed:", error);
@@ -55,17 +41,6 @@ export function UserProfile() {
     setIsDropdownOpen(false);
   };
 
-  if (loading) {
-    return (
-      <div className="hidden md:flex items-center gap-4">
-        <div className="w-8 h-8 bg-gray-200 rounded-full animate-pulse"></div>
-      </div>
-    );
-  }
-
-  if (!user) {
-    return null;
-  }
 
   return (
     <div className="hidden md:flex items-center gap-4 relative">
@@ -117,30 +92,16 @@ export function UserProfile() {
 }
 
 // Mobile version
-export function UserProfileMobile() {
-  const [user, setUser] = useState<UserData | null>(null);
-  const [loading, setLoading] = useState(true);
+interface UserProfileMobileProps {
+  user: UserData;
+}
+
+export function UserProfileMobile({ user }: UserProfileMobileProps) {
   const router = useRouter();
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const userData = await getUserAction();
-        setUser(userData);
-      } catch (error) {
-        console.error("Failed to fetch user:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchUser();
-  }, []);
 
   const handleLogout = async () => {
     try {
       await logoutAction();
-      setUser(null);
       // Force a complete page refresh to clear all state
       window.location.href = '/';
     } catch (error) {
@@ -148,9 +109,6 @@ export function UserProfileMobile() {
     }
   };
 
-  if (loading || !user) {
-    return null;
-  }
 
   return (
     <div className="pt-4 space-y-3 border-t">

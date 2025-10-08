@@ -9,7 +9,8 @@ import { Menu,  X } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { getSosialOptions } from "@/services/Home/Sosial/queries";
 import { UserProfile, UserProfileMobile } from "./UserProfile";
-import { getUserAction } from "@/services/auth/server-actions";
+import { getUser } from "@/services/auth/api";
+import { getAuthToken } from "@/lib/api/client";
 import { UserData } from "@/types";
 
 export function Header() {
@@ -21,9 +22,18 @@ export function Header() {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const userData = await getUserAction();
+        const token = getAuthToken();
+        
+        if (!token) {
+          setUser(null);
+          return;
+        }
+
+        const response = await getUser(token);
+        const userData = response?.data || null;
         setUser(userData);
-      } catch {
+      } catch (error) {
+        console.error("Authentication error:", error);
         setUser(null);
       } finally {
         setAuthLoading(false);
@@ -91,7 +101,7 @@ export function Header() {
             <div className="w-32 h-8 bg-gray-200 rounded animate-pulse"></div>
           </div>
         ) : user ? (
-          <UserProfile />
+          <UserProfile user={user} />
         ) : (
           <div className="hidden md:flex items-center gap-4">
             <Link href="/login" className="text-gray-700 hover:text-gray-900 font-semibold px-6 py-2 border rounded-xl text-sm">
@@ -159,7 +169,7 @@ export function Header() {
                 <div className="w-full h-10 bg-gray-200 rounded animate-pulse"></div>
               </div>
             ) : user ? (
-              <UserProfileMobile />
+              <UserProfileMobile user={user} />
             ) : (
               <div className="pt-4 space-y-3">
                 <Link

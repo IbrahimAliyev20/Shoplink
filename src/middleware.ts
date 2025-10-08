@@ -22,7 +22,7 @@ export default function middleware(request: NextRequest) {
   }
 
   if (isAuthRoute && token) {
-    const dashboardUrl = new URL('/dashboard', request.url);
+    const dashboardUrl = new URL('/', request.url);
     return NextResponse.redirect(dashboardUrl);
   }
 

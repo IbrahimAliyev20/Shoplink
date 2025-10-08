@@ -3,29 +3,30 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { getUserAction } from "@/services/auth/server-actions";
 import { UserData } from "@/types";
 import { toast } from "sonner";
 import { useCart } from "@/contexts/CartContext";
+import { getUser } from "@/services/auth/api";
+import { getAuthToken } from "@/lib/api/client";
 
 
 export default function Header({ marketSlug }: { marketSlug: string }) {
   const [user, setUser] = useState<UserData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const { getCartCount } = useCart();
-  
   const cartCount = getCartCount();
+  
 
   useEffect(() => {
     const checkUserStatus = async () => {
       try {
-        const userData = await getUserAction();
-        setUser(userData);
+        const token = getAuthToken();
+        const userData = await getUser(token || "");
+        setUser(userData?.data);
       } catch (error) {
         toast.error(error instanceof Error ? error.message : "Giriş zamanı xəta baş verdi.");
         setUser(null);
       } finally {
-        
         setIsLoading(false);
       }
     };

@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/select";
 import { toast } from "sonner";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { updateUserMutation } from "@/services/auth/updateUser/mutations"; // Düzgün yolu qeyd edin
+import { updateUserMutation } from "@/services/auth/updateUser/mutations";
 
 interface PersonalInfoData {
   fullName: string;

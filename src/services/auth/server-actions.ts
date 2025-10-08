@@ -18,6 +18,7 @@ export async function loginAction(
     const data = res.data as AuthLoginResponse;
 
     const token = data?.data?.token;
+    
     if (token) {
       (await cookies()).set(TOKEN_COOKIE_NAME, token, {
         httpOnly: false,
@@ -86,31 +87,30 @@ export async function registerAction(
   }
 }
 
-export async function getUserAction(): Promise<UserData | null> {
-  try {
-    const cookieStore = await cookies();
-    const token = cookieStore.get(TOKEN_COOKIE_NAME)?.value;
+// export async function getUserAction(): Promise<UserData | null> {
+//   try {
+//     const cookieStore = await cookies();
+//     const token = cookieStore.get(TOKEN_COOKIE_NAME)?.value;
+//     console.log(token);
+//     if (!token) {
+//       return null;
+//     }
 
-    if (!token) {
-      return null;
-    }
+//     const res = await fetch(`${API_BASE_URL}user/get-user`, {
+//       method: "GET",
+//       headers: {
+//         Authorization: `Bearer ${token}`,
+//         "Content-Type": "application/json",
+//       },
+//       cache: "no-store",
+//     });
 
-    const res = await fetch(`${API_BASE_URL}user/get-user`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-      cache: "no-store",
-    });
-
-    if (!res.ok) {
-      return null;
-    }
-
-    const data = await res.json();
-    return data?.data || null;
-  } catch {
-    return null;
-  }
-}
+    
+//     const data = await res.json();
+//     console.log(data);
+//     return data?.data || null;
+//   } catch (error) {
+//     console.error("getUserAction: Error occurred:", error);
+//     return null;
+//   }
+// }

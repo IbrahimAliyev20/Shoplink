@@ -24,7 +24,7 @@ function AccountPage({ user }: { user: UserData }) {
 
   const handleLogout = async () => {
     try {
-      await logoutAction();
+      await logoutAction ();
       router.push(`/${marketSlug}`);
     } catch {
       toast.error("Logout failed. Please try again.");
@@ -43,7 +43,6 @@ function AccountPage({ user }: { user: UserData }) {
             <div className="lg:col-span-1">
               <div className="bg-white rounded-2xl p-6 shadow-sm max-sm:p-4 max-sm:rounded-xl">
                 <TabsList className="grid w-full grid-cols-1 h-auto bg-transparent p-0 gap-2 max-sm:gap-1.5">
-                  {/* ...qalan kod olduğu kimi qalır... */}
                   <TabsTrigger
                     value="personal"
                     className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left justify-start data-[state=active]:bg-purple-50 data-[state=active]:text-purple-700 data-[state=active]:border data-[state=active]:border-purple-200 max-sm:px-3 max-sm:py-2.5 max-sm:gap-2"

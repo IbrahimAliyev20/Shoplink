@@ -33,9 +33,13 @@ const getUser = async (token: string) => {
   const response = await get<ApiResponse<UserData>>(`user/get-user`, {
     headers: {
       Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
     },
+
   });
+  
   return response;
+
 };
 
 
