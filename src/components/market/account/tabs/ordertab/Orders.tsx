@@ -6,13 +6,13 @@ import OrderDetails from "./OrderDetails";
 import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
 import { getUserOrderQuery } from "@/services/User-services/orderforusers/queries";
-import { StoreOrder } from "@/types";
 import StatusIcons from "@/components/dashboard/allproducts/purchase/StatusIcons";
 
 function Orders() {
   const [selectedOrderId, setSelectedOrderId] = useState<string | null>(null);
 
   const { data: orders, isLoading, isError } = useQuery(getUserOrderQuery());
+  console.log(orders)
 
   if (selectedOrderId) {
     return (
@@ -45,7 +45,7 @@ function Orders() {
         </div>
       ) : (
         <div className="space-y-4 max-sm:space-y-3">
-          {orders.map((order: StoreOrder) => (
+          {orders.map((order) => (
             <div
               key={order.id}
               className="bg-white rounded-lg shadow-sm border border-gray-100 p-6 max-sm:p-4"
@@ -55,8 +55,8 @@ function Orders() {
                   <Image
                     width={80}
                     height={80}
-                    src={"/marketimg/sport.png"}
-                    alt={order.detail[0]?.product || "Məhsul"}
+                    src={order.detail.image || ""}
+                    alt={order.detail.product || "Məhsul"}
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -64,11 +64,11 @@ function Orders() {
                 <div className="flex-1 flex justify-between items-start max-sm:flex-col max-sm:gap-3 max-sm:w-full">
                   <div className="flex-1 max-sm:text-center max-sm:w-full">
                     <h3 className="text-lg font-semibold text-gray-900 mb-1 max-sm:text-base max-sm:mb-2">
-                      {order.detail[0]?.product}
+                      {order.detail.product}
                     </h3>
                     <div className="space-y-1 text-sm text-gray-600 max-sm:text-xs max-sm:space-y-1">
                       <p className="max-sm:flex max-sm:justify-between">
-                        <span>{order.detail.length} məhsul :</span>
+                        <span>{order.detail.quantity} məhsul :</span>
                         <span className="max-sm:font-medium">
                           {order.total_price} AZN
                         </span>

@@ -9,15 +9,10 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 
 function SupportMarket() {
   const [activeTab, setActiveTab] = useState(0);
-  const [expandedItems, setExpandedItems] = useState<number[]>([]);
 
   const { data: faqsData, isLoading, error } = useQuery(getFaqsOptions());
 
-  const toggleExpanded = (index: number) => {
-    setExpandedItems((prev) =>
-      prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
-    );
-  };
+
 
   const getCurrentFaqs = () => {
     const dataToUse = faqsData && faqsData.length > 0 ? faqsData : [];

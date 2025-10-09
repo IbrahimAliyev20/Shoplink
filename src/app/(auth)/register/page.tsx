@@ -5,13 +5,11 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
-import { toast } from 'sonner'
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { registerAction } from '@/services/auth/server-actions'
-import { useRouter } from 'next/navigation'
+import { useRegisterMutation } from '@/services/auth/mutations' // Path'i projene göre uyarla, örneğin '@/services/auth/mutations'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -48,7 +46,7 @@ type RegisterFormValues = z.infer<typeof RegisterSchema>
 
 function Register() {
     const [showPassword, setShowPassword] = useState<boolean>(false)
-    const router = useRouter()
+    const { mutate: registerMutate, isPending } = useRegisterMutation()
 
     const form = useForm<RegisterFormValues>({
         resolver: zodResolver(RegisterSchema),
@@ -64,28 +62,15 @@ function Register() {
     })
 
     async function onSubmit(values: RegisterFormValues) {
-        try {
-          const formData = new FormData();
-      
-          formData.append('store_name', values.store_name);
-          formData.append('name', values.name);
-          formData.append('phone', values.phone);
-          formData.append('email', values.email);
-          formData.append('password', values.password);
-          
-          const res = await registerAction(formData);
-      
-          if (res?.status === "success") {
-            toast.success("Qeydiyyat uğurludur");
-            router.push('/login');
-          } else {
-            toast.error(res.message || "Qeydiyyat uğursuz oldu");
-          }
-        } catch (error: unknown) {
-          const message = error instanceof Error ? error.message : "Qeydiyyat uğursuz oldu";
-          toast.error(message);
-        }
-      }
+        registerMutate({
+            name: values.name,
+            email: values.email,
+            password: values.password,
+            phone: values.phone,
+            store_name_or_id: values.store_name,
+            isMarketRegistration: false,
+        })
+    }
 
     return (
         <section className='bg-[#FBFDFF] min-h-screen flex items-center justify-center py-12'>
@@ -106,7 +91,7 @@ function Register() {
                                                 <Input
                                                     placeholder='Mağaza adını daxil edin'
                                                     className='peer h-12 rounded-lg border-[#AEAEB2] focus:outline-none focus-visible:ring-0'
-                                                    disabled={form.formState.isSubmitting}
+                                                    disabled={isPending || form.formState.isSubmitting}
                                                     {...field}
                                                 />
                                             </FormControl>
@@ -127,6 +112,7 @@ function Register() {
                                                     <Input
                                                         placeholder='Ad və soyadınızı daxil edin'
                                                         className='peer h-12 rounded-lg border-[#AEAEB2] focus:outline-none focus-visible:ring-0'
+                                                        disabled={isPending || form.formState.isSubmitting}
                                                         {...field}
                                                     />
                                                 </FormControl>
@@ -146,6 +132,7 @@ function Register() {
                                                         type='tel'
                                                         placeholder='Telefon nömrənizi daxil edin'
                                                         className='peer h-12 rounded-lg border-[#AEAEB2] focus:outline-none focus-visible:ring-0'
+                                                        disabled={isPending || form.formState.isSubmitting}
                                                         {...field}
                                                     />
                                                 </FormControl>
@@ -168,6 +155,7 @@ function Register() {
                                                         type='email'
                                                         placeholder='E-poçt ünvanınızı daxil edin'
                                                         className='peer h-12 rounded-lg border-[#AEAEB2] focus:outline-none focus-visible:ring-0'
+                                                        disabled={isPending || form.formState.isSubmitting}
                                                         {...field}
                                                     />
                                                 </FormControl>
@@ -188,6 +176,7 @@ function Register() {
                                                             type={showPassword ? 'text' : 'password'}
                                                             placeholder='Şifrənizi daxil edin'
                                                             className='peer h-12 rounded-lg pr-10 border-[#AEAEB2] focus:outline-none focus-visible:ring-0'
+                                                            disabled={isPending || form.formState.isSubmitting}
                                                             {...field}
                                                         />
                                                     </FormControl>
@@ -245,6 +234,7 @@ function Register() {
                                             <Checkbox
                                                 checked={field.value}
                                                 onCheckedChange={field.onChange}
+                                                disabled={isPending || form.formState.isSubmitting}
                                             />
                                         </FormControl>
                                         <div className="space-y-1 leading-none">
@@ -257,8 +247,8 @@ function Register() {
                                 )}
                             />
 
-                            <Button type="submit" className='mt-2 h-12 rounded-full bg-[#FF13F0]' disabled={form.formState.isSubmitting}>
-                                {form.formState.isSubmitting ? "Gözləyin..." : "Hesab yarat"}
+                            <Button type="submit" className='mt-2 h-12 rounded-full bg-[#FF13F0] hover:bg-[#FF13F0]/90' disabled={isPending || form.formState.isSubmitting}>
+                                {isPending || form.formState.isSubmitting ? "Gözləyin..." : "Hesab yarat"}
                             </Button>
                         </form>
                     </Form>

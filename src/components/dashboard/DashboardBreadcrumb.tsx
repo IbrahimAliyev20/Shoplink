@@ -21,7 +21,7 @@ const dashboardRouteMap: Record<string, string> = {
   discounts: "Endirimlər",
   reports: "Hesabatlar",
   settings: "Tənzimlənmələr",
-  subscription: "Abunəlik",
+  // subscription: "Abunəlik",
 
   create: "Məhsul yarat",
   edit: "Redaktə et",

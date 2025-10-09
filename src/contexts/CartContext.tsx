@@ -38,7 +38,14 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   useEffect(() => {
     const savedCart = localStorage.getItem("shoplink-cart");
-    if (savedCart) setCartItems(JSON.parse(savedCart));
+    if (savedCart) {
+      const parsedCart = JSON.parse(savedCart);
+      const migratedCart = parsedCart.map((item: CartItem) => ({
+        ...item,
+        stock: item.stock || 999
+      }));
+      setCartItems(migratedCart);
+    }
   }, []);
 
   useEffect(() => {
@@ -73,19 +80,32 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
   
   const addToCart = (product: Product, quantity: number = 1) => {
+    const productStock = product.detail.stock || 0;
+    
     setCartItems((prev) => {
       const existingItem = prev.find((item) => item.id === product.id);
+      
       if (existingItem) {
+        const newTotalQuantity = existingItem.quantity + quantity;
+        if (newTotalQuantity > productStock) {
+          toast.error(`Maksimum ${productStock} ədəd əlavə edə bilərsiniz. Səbətdə ${existingItem.quantity} ədəd var.`);
+          return prev;
+        }
         return prev.map((item) =>
-          item.id === product.id ? { ...item, quantity: item.quantity + quantity } : item
+          item.id === product.id ? { ...item, quantity: newTotalQuantity } : item
         );
       } else {
+        if (quantity > productStock) {
+          toast.error(`Maksimum ${productStock} ədəd əlavə edə bilərsiniz.`);
+          return prev;
+        }
         const newItem: CartItem = {
           id: product.id,
           name: product.name,
           price: parseFloat(product.detail.sales_price || "0"),
           quantity,
           image: product.thumb_image || "/placeholder.png",
+          stock: productStock,
         };
         return [...prev, newItem];
       }
@@ -96,9 +116,17 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const updateQuantity = (id: number, change: number) => {
     setCartItems((prev) =>
-      prev.map((item) =>
-        item.id === id ? { ...item, quantity: Math.max(1, item.quantity + change) } : item
-      )
+      prev.map((item) => {
+        if (item.id === id) {
+          const newQuantity = item.quantity + change;
+          if (newQuantity > item.stock) {
+            toast.error(`Maksimum ${item.stock} ədəd əlavə edə bilərsiniz.`);
+            return item;
+          }
+          return { ...item, quantity: Math.max(1, newQuantity) };
+        }
+        return item;
+      })
     );
   };
 

@@ -49,13 +49,14 @@ function SingleProductPage({ slug }: { slug: string }) {
             <h1 className="text-[24px] font-medium text-gray-900 leading-snug max-md:text-xl max-md:leading-tight">
               {product.name}
             </h1>
-
+   
        
             <div className='flex flex-col gap-20 justify-between'>
             <QuantitySelector
               quantity={quantity}
               onQuantityChange={handleQuantityChange}
               price={product.detail.sales_price || "0"}
+              stock= {product.detail.stock}
             />
 
             <ProductActions

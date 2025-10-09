@@ -10,32 +10,32 @@ import Testimonialssec from "@/components/home/Testimonialssec";
 
 export default  function Home() {
   return (
-    <div>
-      <div className="container mx-auto py-6 sm:py-8 md:py-18 px-4 sm:px-6 lg:px-8" >
+    <div >
+      <div className="container mx-auto  py-8 md:py-16 px-4 sm:px-6 lg:px-8" >
         <HeroCarousel />
       </div>
-      <div className="container mx-auto py-6 sm:py-8 md:py-18 px-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto  py-8 md:py-16 px-4 sm:px-6 lg:px-8">
         <StatsSection />
       </div>
-      <div className="container mx-auto py-6 sm:py-8 md:py-18 px-4 sm:px-6 lg:px-8" id="about">
+      <div className="container mx-auto  py-8 md:py-16 px-4 sm:px-6 lg:px-8" id="about">
         <ShoplinkInfo />
       </div>
-      <div className="container mx-auto py-6 sm:py-8 md:py-18 px-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto  py-8 md:py-16 px-4 sm:px-6 lg:px-8">
         <Advantages />
       </div>
       <div >
         <CtaSection />
       </div>
-      <div className="container mx-auto py-6 sm:py-8 md:py-18 px-4 sm:px-6 lg:px-8" id="features">
+      <div className="container mx-auto  py-8 md:py-16 px-4 sm:px-6 lg:px-8" id="features">
         <QuestionsSec />
       </div>
-      <div className="container mx-auto py-6 sm:py-8 md:py-18 px-4 sm:px-6 lg:px-8" id="pricing">
+      <div className="container mx-auto  py-8 md:py-16 px-4 sm:px-6 lg:px-8" id="pricing">
         <Testimonialssec />
       </div>
-      <div className="container mx-auto py-6 sm:py-8 md:py-18 px-4 sm:px-6 lg:px-8" id="contact">
+      <div className="container mx-auto py-8 md:pt-16 px-4 sm:px-6 lg:px-8" id="contact">
         <ContactPage />
       </div>
-      <div className="container mx-auto py-6 sm:py-8 md:py-18 px-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto  py-8 md:pb-14 px-4 sm:px-6 lg:px-8">
         <FaqSection />
       </div>
     </div>

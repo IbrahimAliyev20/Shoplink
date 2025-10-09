@@ -36,7 +36,8 @@ const CartItem: React.FC<CartItemProps> = ({
             <div className="flex items-center gap-3 max-md:gap-2">
               <button
                 onClick={() => onQuantityChange(item.id, 1)}
-                className="w-8 h-8 border border-gray-300 rounded-full flex items-center justify-center text-gray-600 hover:bg-gray-50 transition-colors max-md:w-7 max-md:h-7 max-md:text-sm"
+                className="w-8 h-8 border border-gray-300 rounded-full flex items-center justify-center text-gray-600 hover:bg-gray-50 transition-colors max-md:w-7 max-md:h-7 max-md:text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                disabled={item.quantity >= item.stock}
               >
                 +
               </button>

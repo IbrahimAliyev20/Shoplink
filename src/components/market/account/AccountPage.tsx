@@ -25,7 +25,8 @@ function AccountPage({ user }: { user: UserData }) {
   const handleLogout = async () => {
     try {
       await logoutAction ();
-      router.push(`/${marketSlug}`);
+      router.push(`/${marketSlug}/login`);
+      
     } catch {
       toast.error("Logout failed. Please try again.");
     }

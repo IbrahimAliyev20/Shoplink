@@ -125,71 +125,95 @@ export function Header() {
       </div>
 
       {isMobileMenuOpen && (
-        <div className="md:hidden border-t bg-white">
-          <nav className="container mx-auto px-4 py-4 space-y-4">
-            <Link
-              href="/"
-              className="block text-gray-700 hover:text-gray-900 transition-colors py-2"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Ana səhifə
-            </Link>
-            <Link
-              href="/#about"
-              className="block text-gray-700 hover:text-gray-900 transition-colors py-2"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Shoplink nədir?
-            </Link>
-            <Link
-              href="/#pricing"
-              className="block text-gray-700 hover:text-gray-900 transition-colors py-2"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Qiymətlər
-            </Link>
-            <Link
-              href="/#features"
-              className="block text-gray-700 hover:text-gray-900 transition-colors py-2"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Xüsusiyyətlər
-            </Link>
-            <Link
-              href="/#contact"
-              className="block text-gray-700 hover:text-gray-900 transition-colors py-2"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Əlaqə
-            </Link>
+        <div className="md:hidden fixed inset-0 z-50 bg-white">
+          <div className="flex flex-col h-full">
+            {/* Header with logo and close button */}
+            <div className="flex items-center justify-between p-4 border-b">
+              <Link href="/" className="flex items-center gap-2" onClick={() => setIsMobileMenuOpen(false)}>
+                <Image
+                  src={data?.logo || "/images/logofooter.png"}
+                  alt="Logo"
+                  width={120}
+                  height={32}
+                />
+              </Link>
+              <button
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="p-2"
+                aria-label="Close mobile menu"
+              >
+                <X size={24} />
+              </button>
+            </div>
 
-            {authLoading ? (
-              <div className="pt-4 space-y-3">
-                <div className="w-full h-10 bg-gray-200 rounded animate-pulse"></div>
-                <div className="w-full h-10 bg-gray-200 rounded animate-pulse"></div>
-              </div>
-            ) : user ? (
-              <UserProfileMobile user={user} />
-            ) : (
-              <div className="pt-4 space-y-3">
-                <Link
-                  href="/login"
-                  className="block text-center text-gray-700 hover:text-gray-900 font-semibold px-6 py-3 border rounded-xl"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Giriş
-                </Link>
-                <Link
-                  href="/register"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  <Button className="w-full rounded-[14px] px-6 py-3 bg-gray-900 text-white hover:bg-gray-800 cursor-pointer">
-                    E-ticarət saytını aç
-                  </Button>
-                </Link>
-              </div>
-            )}
-          </nav>
+            {/* Navigation menu */}
+            <nav className="flex-1 px-4 py-6 space-y-4">
+              <Link
+                href="/"
+                className="block text-gray-700 hover:text-gray-900 transition-colors py-3 text-lg"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Ana səhifə
+              </Link>
+              <Link
+                href="/#about"
+                className="block text-gray-700 hover:text-gray-900 transition-colors py-3 text-lg"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Shoplink nədir?
+              </Link>
+              <Link
+                href="/#pricing"
+                className="block text-gray-700 hover:text-gray-900 transition-colors py-3 text-lg"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Qiymətlər
+              </Link>
+              <Link
+                href="/#features"
+                className="block text-gray-700 hover:text-gray-900 transition-colors py-3 text-lg"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Xüsusiyyətlər
+              </Link>
+              <Link
+                href="/#contact"
+                className="block text-gray-700 hover:text-gray-900 transition-colors py-3 text-lg"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Əlaqə
+              </Link>
+
+              {authLoading ? (
+                <div className="pt-6 space-y-3">
+                  <div className="w-full h-12 bg-gray-200 rounded animate-pulse"></div>
+                  <div className="w-full h-12 bg-gray-200 rounded animate-pulse"></div>
+                </div>
+              ) : user ? (
+                <div className="pt-6">
+                  <UserProfileMobile user={user} />
+                </div>
+              ) : (
+                <div className="pt-6 space-y-3">
+                  <Link
+                    href="/login"
+                    className="block text-center text-gray-700 hover:text-gray-900 font-semibold px-6 py-4 border rounded-xl text-lg"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    Giriş
+                  </Link>
+                  <Link
+                    href="/register"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    <Button className="w-full rounded-[14px] px-6 py-4 bg-gray-900 text-white hover:bg-gray-800 cursor-pointer text-lg">
+                      E-ticarət saytını aç
+                    </Button>
+                  </Link>
+                </div>
+              )}
+            </nav>
+          </div>
         </div>
       )}
     </header>

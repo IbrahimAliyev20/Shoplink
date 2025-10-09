@@ -33,15 +33,13 @@ export interface AuthRegisterResponse {
   status: string;
   message: string;
   data?: {
-      token: string;
-      user: {
-          id: number;
-          name: string;
-          email: string;
-          phone: string;
-          store_name: string;
-          store_id: string;
-      };
+  access_token: string;
+  email: string;
+  name: string;
+  phone: string;
+  token_type: string;
+  role: string[];
+  complete: number;
   };
   remark: string;
   messages: {
@@ -160,18 +158,16 @@ export interface StoreOrder {
     total_price: number;
     status: number;
     promocode?: string | null;
-    detail: [
-        {
-            quantity: string,
-            product: string,
-            product_price: number,
-            total_price: number
-        },
-     
-    ]
+    detail: TrackNumberDetail
 
 }
-
+export interface TrackNumberDetail {
+  quantity: string;
+  product: string;
+  product_price: number;
+  total_price: number;
+  image: string;
+}
 
 
 export interface ClientsResponse {

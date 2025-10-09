@@ -6,12 +6,14 @@ interface QuantitySelectorProps {
   quantity: number
   onQuantityChange: (change: number) => void
   price: string
+  stock: number
 }
 
 const QuantitySelector: React.FC<QuantitySelectorProps> = ({
   quantity,
   onQuantityChange,
-  price
+  price,
+  stock
 }) => {
   return (
     <div className="flex items-center justify-between pt-4 max-md:pt-3">
@@ -20,6 +22,7 @@ const QuantitySelector: React.FC<QuantitySelectorProps> = ({
           onClick={() => onQuantityChange(-1)}
           className="w-11 h-11 border border-gray-300 rounded-full flex items-center justify-center text-xl text-gray-600 hover:bg-gray-100 transition max-md:w-9 max-md:h-9 max-md:text-lg"
           aria-label="Miqdarı azalt"
+          disabled={quantity <= 1}
         >
           &ndash;
         </button>
@@ -30,6 +33,7 @@ const QuantitySelector: React.FC<QuantitySelectorProps> = ({
           onClick={() => onQuantityChange(1)}
           className="w-11 h-11 border border-gray-300 rounded-full flex items-center justify-center text-xl text-gray-600 hover:bg-gray-100 transition max-md:w-9 max-md:h-9 max-md:text-lg"
           aria-label="Miqdarı artır"
+          disabled={stock <= quantity}
         >
           +
         </button>

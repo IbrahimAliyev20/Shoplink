@@ -19,20 +19,20 @@ function Tabs({
 }
 
 function TabsList({
-  className,
-  ...props
-}: React.ComponentProps<typeof TabsPrimitive.List>) {
-  return (
-    <TabsPrimitive.List
-      data-slot="tabs-list"
-      className={cn(
-        "bg-muted text-muted-foreground inline-flex h-9 w-fit items-center justify-center rounded-lg p-[1px]",
-        className
-      )}
-      {...props}
-    />
-  )
-}
+    className,
+    ...props
+  }: React.ComponentProps<typeof TabsPrimitive.List>) {
+    return (
+      <TabsPrimitive.List
+        data-slot="tabs-list"
+        className={cn(
+          "bg-muted text-muted-foreground inline-flex h-9 w-fit items-center justify-start rounded-lg p-[1px]", // <-- justify-center -> justify-start
+          className
+        )}
+        {...props}
+      />
+    )
+  }
 
 function TabsTrigger({
   className,

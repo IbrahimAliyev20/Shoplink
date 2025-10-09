@@ -1,10 +1,11 @@
 "use client"
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import { useQuery } from '@tanstack/react-query';
 import { getAboutOptions } from '@/services/Home/About/queries';
 
 const ShoplinkInfo = () => {
+  const [isExpanded, setIsExpanded] = useState(false);
   const { data, isLoading, isError, error } = useQuery(getAboutOptions());
   if (isLoading) {
     return <div>Loading...</div>;
@@ -22,11 +23,31 @@ const ShoplinkInfo = () => {
             </h2>
             
             <div className="space-y-4 text-gray-600 leading-relaxed text-sm sm:text-base">
-            <p dangerouslySetInnerHTML={{ __html: data?.description || '' }} />
+              {/* Desktop: Full text always visible */}
+              <div className="hidden lg:block">
+                <p dangerouslySetInnerHTML={{ __html: data?.description || '' }} />
+              </div>
+              
+              {/* Mobile: Text with line clamp and expand/collapse */}
+              <div className="lg:hidden">
+                <div 
+                  className={`overflow-hidden transition-all duration-300 ${
+                    isExpanded ? '' : 'line-clamp-7'
+                  }`}
+                >
+                  <p dangerouslySetInnerHTML={{ __html: data?.description || '' }} />
+                </div>
+                
+                <button
+                  onClick={() => setIsExpanded(!isExpanded)}
+                  className="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-200 mt-2"
+                >
+                  {isExpanded ? 'Daha az göstər' : 'Daha çox'}
+                </button>
+              </div>
             </div>
           </div>
 
-          {/* Right Content - Pricing Card */}
           <div className="lg:pl-8">
           <Image 
           src={data?.image || ''} 

@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   Monitor,
   Package,
@@ -16,7 +16,7 @@ import {
   PanelRightOpen,
   LayoutGrid,
   Globe,
-  CreditCard,
+  LogOut,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -24,6 +24,8 @@ import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
 import { getAllStoreQuery } from "@/services/Seller-services/store/allstore/queries";
 import { getUserQuery } from "@/services/auth/queries";
+import { logoutAction } from "@/services/auth/server-actions";
+import { toast } from "sonner";
 
 interface SidebarProps {
   className?: string;
@@ -81,12 +83,12 @@ const menuItems = [
     icon: Bolt,
     href: "/dashboard/settings",
   },
-  {
-    id: "abuneler",
-    label: "Abunəlik",
-    icon: CreditCard,
-    href: "/dashboard/subscription",
-  },
+  // {
+  //   id: "abuneler",
+  //   label: "Abunəlik",
+  //   icon: CreditCard,
+  //   href: "/dashboard/subscription",
+  // },
 ];
 
 export default function Sidebar({
@@ -97,14 +99,38 @@ export default function Sidebar({
   const pathname = usePathname();
   const [internalIsCollapsed, setInternalIsCollapsed] = useState(false);
   const [expandedItems, setExpandedItems] = useState<string[]>(["mehsullar"]);
+  const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
+  const userDropdownRef = useRef<HTMLDivElement>(null);
   const { data: store } = useQuery(getAllStoreQuery());
 
   const { data: user, isLoading, isError } = useQuery(getUserQuery());
-
+  const router = useRouter();
   const isCollapsed =
     externalIsCollapsed !== undefined
       ? externalIsCollapsed
       : internalIsCollapsed;
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (userDropdownRef.current && !userDropdownRef.current.contains(event.target as Node)) {
+        setIsUserDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const handleLogout = async () => {
+    try {
+      await logoutAction ();
+      router.push(`/dashboard`);
+      toast.success("Çıxış edildi");
+      
+    } catch {
+      toast.error("Logout failed. Please try again.");
+    }
+  };
 
   const toggleCollapsed = () => {
     const newCollapsed = !isCollapsed;
@@ -145,7 +171,7 @@ export default function Sidebar({
         className
       )}
     >
-      <div className="flex h-full flex-col ">
+      <div className="flex h-full flex-col justify-between ">
         <div className="flex items-center justify-between p-4 border-b border-gray-800">
           <div
             className={cn(
@@ -177,40 +203,63 @@ export default function Sidebar({
         </div>
 
         <div className="p-4 border-b border-gray-800">
-          <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 bg-gray-700">
-              <Image
-                src={
-                  !isLoading && !isError && user?.data?.image && user.data.image !== "null"
-                    ? user.data.image
-                    : "/images/Card.svg"
-                }
-                alt="User"
-                width={40}
-                height={40}
-                className="rounded-full w-10 h-10 "
-                onError={(e) => {
-                  e.currentTarget.src = "/images/Card.svg";
-                }}
-              />
-            </div>
-            <div>
-              {!isCollapsed && (
-                <p className="text-sm font-medium text-white truncate">
-                  {user?.data?.name || "..."}
-                </p>
-              )}
-
-            {!isCollapsed && (
+          <div className="relative" ref={userDropdownRef}>
+            <div 
+              className="flex items-center space-x-3 cursor-pointer hover:bg-gray-800 rounded-lg p-2 -m-2 transition-colors"
+              onClick={() => setIsUserDropdownOpen(!isUserDropdownOpen)}
+            >
+              <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 bg-gray-700">
+                <Image
+                  src={
+                    !isLoading && !isError && user?.data?.image && user.data.image !== "null"
+                      ? user.data.image
+                      : "/images/Card.svg"
+                  }
+                  alt="User"
+                  width={40}
+                  height={40}
+                  className="rounded-full w-10 h-10 "
+                  onError={(e) => {
+                    e.currentTarget.src = "/images/Card.svg";
+                  }}
+                />
+              </div>
               <div className="flex-1 min-w-0">
-                <p className="text-xs text-gray-400 truncate">
-                  {user?.data?.email || "..."}
-                </p>
+                {!isCollapsed && (
+                  <p className="text-sm font-medium text-white truncate">
+                    {user?.data?.name || "..."}
+                  </p>
+                )}
+                {!isCollapsed && (
+                  <p className="text-xs text-gray-400 truncate">
+                    {user?.data?.email || "..."}
+                  </p>
+                )}
+              </div>
+              {!isCollapsed && (
+                <ChevronDown 
+                  className={cn(
+                    "h-4 w-4 text-gray-400 transition-transform duration-200",
+                    isUserDropdownOpen && "rotate-180"
+                  )} 
+                />
+              )}
+            </div>
+
+            {/* Dropdown Menu */}
+            {isUserDropdownOpen && !isCollapsed && (
+              <div className="absolute top-full left-0 right-0 mt-2 bg-gray-800 border border-gray-700 rounded-lg shadow-lg z-50">
+                <div className="py-2">
+                  <button
+                    onClick={handleLogout}
+                    className="w-full flex items-center space-x-3 px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition-colors"
+                  >
+                    <LogOut className="h-4 w-4" />
+                    <span>Çıxış et</span>
+                  </button>
+                </div>
               </div>
             )}
-            </div>
-
-
           </div>
         </div>
 

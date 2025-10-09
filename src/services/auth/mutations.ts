@@ -16,8 +16,18 @@ interface UpdatePasswordVariables {
   password: string;
 }
 
+interface RegisterVariables {
+  name: string;
+  email: string;
+  password: string;
+  phone: string;
+  store_name_or_id: string;
+  isMarketRegistration: boolean;
+}
+
 export const useLoginMutation = () => {
   const router = useRouter();
+  const queryClient = useQueryClient();
   const marketSlug = useParams().market;
 
   return useMutation<AuthLoginResponse, Error, LoginVariables>({
@@ -34,21 +44,18 @@ export const useLoginMutation = () => {
       if (data.message === "successful login" && data.data.user) {
         toast.success("Uğurla daxil oldunuz! Yönləndirilir...");
 
-        const userRole = data.data.user.role;
-        console.log(userRole + " userRole");
-        console.log(data.data.user + " data.data.user");
+        await queryClient.invalidateQueries({ queryKey: ["user"] });
 
-        if (userRole.includes("seller")) {
-          if (data.data.user.complete === 1) {
+        const user = data.data.user;
+        if (user.role.includes("seller")) {
+          if (user.complete === 1) {
             router.push("/dashboard");
           } else {
             router.push("/dashboard/shopsetup");
           }
-        } else if (userRole.includes("user")) {
+        } else if (user.role.includes("user")) {
           router.push(`/${marketSlug}/account`);
         }
-
-        router.refresh();
       } else {
         toast.error(data.message || "Naməlum xəta baş verdi.");
       }
@@ -59,15 +66,11 @@ export const useLoginMutation = () => {
   });
 };
 
-interface RegisterVariables {
-  name: string;
-  email: string;
-  password: string;
-  phone: string;
-  store_name_or_id: string;
-  isMarketRegistration: boolean;
-}
 export const useRegisterMutation = () => {
+  const router = useRouter();
+  const queryClient = useQueryClient();
+  const marketSlug = useParams().market;
+
   return useMutation<AuthRegisterResponse, Error, RegisterVariables>({
     mutationFn: async (variables) => {
       const formData = new FormData();
@@ -79,7 +82,35 @@ export const useRegisterMutation = () => {
         variables.isMarketRegistration ? "store_id" : "store_name",
         variables.store_name_or_id
       );
+      if (marketSlug) {
+        formData.append("marketSlug", marketSlug as string);
+      }
       return registerAction(formData);
+    },
+    onSuccess: async (data) => {
+      if (data.status === "success" && data.data?.role) {
+        toast.success("Qeydiyyat uğurludur!");
+
+        await queryClient.invalidateQueries({ queryKey: ["user"] });
+
+        const userRole = data.data.role;
+        const complete = data.data.complete;
+
+        if (userRole.includes("seller")) {
+          if (complete === 1) {
+            router.push("/dashboard");
+          } else {
+            router.push("/dashboard/shopsetup");
+          }
+        } else if (userRole.includes("user")) {
+          router.push(marketSlug ? `/${marketSlug}/account` : "/account");
+        }
+      } else {
+        toast.error(data.message || "Qeydiyyat uğursuz oldu.");
+      }
+    },
+    onError: () => { 
+        toast.error("Qeydiyyat zamanı xəta baş verdi.");
     },
   });
 };
@@ -95,7 +126,6 @@ export const useLogoutMutation = () => {
         logoutAction();
         queryClient.invalidateQueries({ queryKey: ["user"] });
         router.push("/");
-        router.refresh();
         toast.success("Hesabdan çıxış oldu");
       }
     },

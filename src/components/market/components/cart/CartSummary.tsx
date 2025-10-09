@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import { CartSummary as CartSummaryType } from "@/components/market/data/cart"; // Düzgün yolu qeyd edin
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/contexts/CartContext";
 import { toast } from "sonner";

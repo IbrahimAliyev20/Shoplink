@@ -17,7 +17,6 @@ function OrderDetails({ orderId, onBack }: OrderDetailsProps) {
     getSingleUserOrderQuery(orderId || "")
   );
 
-  // Status nömrəsini mətnə çevirən funksiya
   const getStatusText = (status: number) => {
     const statusMap: { [key: number]: string } = {
       0: "Gözləyir", 1: "İşlənir", 2: "Göndərilib", 3: "Çatdırıldı", 4: "Ləğv edilib"
@@ -51,22 +50,21 @@ function OrderDetails({ orderId, onBack }: OrderDetailsProps) {
         <div className="flex items-start gap-4 max-sm:flex-col max-sm:gap-3">
           <div className="w-24 h-24 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0 max-sm:w-20 max-sm:h-20 max-sm:mx-auto">
             <Image
-              src="/marketimg/sport.png" // Statik şəkil
-              alt={order.detail[0]?.product || "Məhsul"}
+              src="/marketimg/sport.png"
+              alt={order.detail.product || "Məhsul"}
               width={96} height={96}
               className="w-full h-full object-cover"
             />
           </div>
           <div className="flex-1 max-sm:text-center">
             <h2 className="text-xl font-semibold text-gray-900 mb-1 max-sm:text-lg max-sm:mb-2">
-              {order.detail[0]?.product || "Məhsul adı"}
+              {order.detail.product || "Məhsul adı"}
             </h2>
             <div className="grid grid-cols-3 gap-8 text-sm max-sm:grid-cols-1 max-sm:gap-2 max-sm:space-y-1">
               <div className="max-sm:flex max-sm:justify-between">
-                <span className="text-gray-600">{order.detail.length} məhsul :</span>
+                <span className="text-gray-600">{order.detail.quantity} məhsul :</span>
                 <span className="ml-2 font-medium max-sm:ml-0">{order.total_price} AZN</span>
               </div>
-              {/* Tarix yoxdur */}
               <div className="max-sm:flex max-sm:justify-between">
                 <span className="text-gray-600">Sifariş ID :</span>
                 <span className="ml-2 font-medium max-sm:ml-0">#{order.id}</span>
@@ -95,7 +93,6 @@ function OrderDetails({ orderId, onBack }: OrderDetailsProps) {
         </div>
       </div>
       
-      {/* Qeyd: API-də ödəniş detalları olmadığı üçün statik saxlanılıb */}
       <div className="bg-white rounded-lg border p-6 max-sm:p-4">
           <h3 className="text-lg font-semibold text-gray-900 mb-6 max-sm:text-base max-sm:mb-4">
             Ödəniş Detalları
