@@ -24,7 +24,7 @@ function ActionButtonsSection({ marketSlug, isPending }: ActionButtonsSectionPro
       </Button>
       <Button
         type="submit"
-        className="flex-1 h-12 bg-[#FF13F0] hover:bg-pink-500 text-white rounded-[16px]"
+        className="flex-1 h-12 bg-[#E23359] hover:bg-[#E23359] text-white rounded-[16px]"
       >
         {isPending ? "Təsdiqlənir..." : "Təsdiqlə"}
       </Button>

@@ -127,7 +127,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
         {/* Apply Button */}
         <button
           onClick={handleApply}
-          className="bg-pink-500 hover:bg-pink-600 text-white px-6 py-2 rounded-lg font-medium transition-colors text-sm"
+          className="bg-[#E23359] hover:bg-[#E23359]/90 text-white px-6 py-2 rounded-lg font-medium transition-colors text-sm"
         >
           Tətbiq et
         </button>

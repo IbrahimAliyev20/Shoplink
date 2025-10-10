@@ -59,7 +59,7 @@ const Security = () => {
             </div>
           </div>
           <div className="flex justify-end max-md:justify-center">
-          <Button className="bg-[#FF13F0] hover:bg-purple-700 cursor-pointer rounded-[16px] max-md:w-full max-md:h-10"
+          <Button className="bg-[#E23359] hover:bg-purple-700 cursor-pointer rounded-[16px] max-md:w-full max-md:h-10"
            onClick={() => updatePassword({ old_password: currentPassword, password: newPassword, password_confirmation: newPassword })} disabled={!currentPassword || !newPassword}>
             Dəyişiklikləri yadda saxla
           </Button>

@@ -138,7 +138,7 @@ const CreateCategoryModal: React.FC<CreateCategoryModalProps> = ({ isOpen, onClo
 
             <div className="flex justify-end gap-4 pt-2"> {/* Dəyişiklik: pt-4 -> pt-2 */}
               <Button type="button" variant="outline" onClick={() => { reset(); onClose(); }} disabled={isPending}>Ləğv et</Button>
-              <Button type="submit" className="bg-[#FF13F0] hover:bg-[#FF13F0]/90 text-white" disabled={isPending}>
+              <Button type="submit" className="bg-[#E23359] hover:bg-[#E23359]/90 text-white" disabled={isPending}>
                 {isPending ? "Yaradılır..." : "Yadda saxla"}
               </Button>
             </div>

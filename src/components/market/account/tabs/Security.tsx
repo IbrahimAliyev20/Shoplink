@@ -52,7 +52,7 @@ const Security = () => {
             </div>
           </div>
           <div className="flex justify-end max-sm:justify-center">
-            <Button className="bg-[#FF13F0] hover:bg-purple-700 cursor-pointer rounded-[16px] max-sm:w-full max-sm:text-sm max-sm:py-2.5">
+            <Button className="bg-[#E23359] hover:bg-purple-700 cursor-pointer rounded-[16px] max-sm:w-full max-sm:text-sm max-sm:py-2.5">
               Dəyişiklikləri yadda saxla
             </Button>
           </div>

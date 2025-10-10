@@ -128,7 +128,7 @@ const LastOrders: React.FC = () => {
                     <TableCell className="py-4 text-center">
                       <div className="flex items-center gap-3">
                         <Image 
-                          src="/images/team1.png" 
+                          src="/images/team1.webp" 
                           alt="Saat" 
                           width={40} 
                           height={40} 

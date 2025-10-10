@@ -142,7 +142,7 @@ const ShopSetup: React.FC = () => {
 
         <Button
           onClick={handleNext}
-          className="bg-[#ff13f0] hover:bg-[#ff42f3] text-white px-8 max-md:w-full max-md:h-12 max-md:order-1"
+          className="bg-[#E23359] hover:bg-[#ff42f3] text-white px-8 max-md:w-full max-md:h-12 max-md:order-1"
         >
           {currentStep === 3 ? "Təsdiqlə" : "Davam et"}
         </Button>

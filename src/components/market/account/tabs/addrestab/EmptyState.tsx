@@ -20,7 +20,7 @@ function EmptyState({ onAddNew }: EmptyStateProps) {
       </p>
       <Button 
         onClick={onAddNew}
-        className='bg-pink-500 hover:bg-pink-600 cursor-pointer text-white px-30 py-6 rounded-[16px] text-base font-medium '
+        className='bg-[#E23359] hover:bg-[#E23359]/90 cursor-pointer text-white px-30 py-6 rounded-[16px] text-base font-medium '
       >
         Ünvan əlavə et
       </Button>

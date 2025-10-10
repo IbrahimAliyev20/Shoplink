@@ -394,7 +394,7 @@ const ProductEdit: React.FC = () => {
         <button
           type="submit"
           disabled={isPending}
-          className="bg-[#FF13F0] text-white px-6 py-2 rounded-lg font-medium hover:bg-[#FF13F0]/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          className="bg-[#E23359] text-white px-6 py-2 rounded-lg font-medium hover:bg-[#E23359]/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {isPending ? "Yenilənir..." : "Dəyişiklikləri yadda saxla"}
         </button>

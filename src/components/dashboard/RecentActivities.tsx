@@ -17,7 +17,7 @@ export default function RecentActivities({ activities }: RecentActivitiesProps) 
     "bg-[#34C759]",
     "bg-[#5856D6]",
     "bg-[#5856D6]",
-    "bg-[#FF13F0]",
+    "bg-[#E23359]",
   ];
 
   return (

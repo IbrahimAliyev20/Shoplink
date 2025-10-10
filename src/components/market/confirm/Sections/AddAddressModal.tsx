@@ -216,7 +216,7 @@ function AddAddressModal({ isOpen, onClose }: AddAddressModalProps) {
                 <Button
                   type="submit"
                   disabled={isPending}
-                  className="flex-1 h-12 bg-[#FF13F0] hover:bg-[#E011D1] text-white rounded-xl"
+                  className="flex-1 h-12 bg-[#E23359] hover:bg-[#E011D1] text-white rounded-xl"
                 >
                   {isPending ? "Yadda saxlanılır..." : "Yadda saxla"}
                 </Button>

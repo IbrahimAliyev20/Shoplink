@@ -49,7 +49,7 @@ const CartSummary: React.FC<CartSummaryProps> = ({ summary, onCompleteOrder }) =
               <button
                 onClick={handleApplyPromocode}
                 disabled={isApplyingPromo || !promocodeInput.trim()}
-                className="absolute right-1 top-1 h-8 px-3  text-[#FF13F0] text-sm font-medium rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="absolute right-1 top-1 h-8 px-3  text-[#E23359] text-sm font-medium rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isApplyingPromo ? "Yoxlanılır..." : "Tətbiq et"}
               </button>
@@ -85,7 +85,7 @@ const CartSummary: React.FC<CartSummaryProps> = ({ summary, onCompleteOrder }) =
       </div>
       <button
         onClick={onCompleteOrder}
-        className="w-full bg-[#FF13F0] text-white py-2 rounded-xl font-semibold text-lg hover:bg-pink-500 transition-colors cursor-pointer"
+        className="w-full bg-[#E23359] text-white py-2 rounded-xl font-semibold text-lg hover:bg-[#E23359]/90 transition-colors cursor-pointer"
       >
         Sifarişi tamamla
       </button>

@@ -31,7 +31,7 @@ export default function TestimonialsSection() {
         {/* Header */}
         <div className="text-start mb-12 max-w-lg">
           <h2 className="text-3xl lg:text-[40px] font-medium text-gray-900 mb-4">
-            <span className="text-purple-600">Shoplink</span> icmasının satıcıları ilə tanış olun!
+            <span className="text-[#E23359]">Shoplink</span> icmasının satıcıları ilə tanış olun!
           </h2>
         </div>
 
@@ -85,7 +85,7 @@ export default function TestimonialsSection() {
 
                   <div className="space-y-2">
                     <h3 className="text-xl font-semibold text-gray-900">{activeTestimonial.name}</h3>
-                    <p className="text-purple-600 font-medium">{activeTestimonial.link}</p>
+                    <p className="text-[#E23359] font-medium">{activeTestimonial.link}</p>
                   </div>
                 </div>
               </div>

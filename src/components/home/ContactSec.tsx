@@ -70,7 +70,7 @@ export default function ContactPage() {
             <div className="space-y-4 lg:space-y-6">
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-medium text-gray-900 leading-tight">
                 Sualınız var? <br />
-                Biz <span className="text-pink-500">buradayıq</span>
+                Biz <span className="text-[#E23359]">buradayıq</span>
               </h1>
               <p className="text-gray-600 text-base sm:text-lg leading-relaxed max-w-md">
                 Sualınız, təklifiniz və ya sadəcə paylaşmaq istədiyiniz fikriniz varsa, formu doldurun — komanda

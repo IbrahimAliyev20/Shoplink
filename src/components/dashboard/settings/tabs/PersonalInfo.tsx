@@ -211,7 +211,7 @@ const PersonalInfo = ({ user }: { user: UserData }) => {
 
         <div className="flex justify-end max-md:justify-center">
           <Button
-            className="bg-[#FF13F0] hover:bg-purple-700 cursor-pointer rounded-[16px] max-md:w-full max-md:h-10"
+            className="bg-[#E23359] hover:bg-purple-700 cursor-pointer rounded-[16px] max-md:w-full max-md:h-10"
             onClick={handleSaveChanges}
             disabled={isPending}
           >

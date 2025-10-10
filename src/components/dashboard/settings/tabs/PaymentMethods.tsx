@@ -34,7 +34,7 @@ function PaymentMethods() {
           <CardTitle className="text-2xl font-medium max-md:text-xl">
             Ödəniş metodları
           </CardTitle>
-          <Button className="bg-[#FF13F0] hover:bg-purple-700 cursor-pointer rounded-[10px] max-md:w-full max-md:h-10">
+          <Button className="bg-[#E23359] hover:bg-purple-700 cursor-pointer rounded-[10px] max-md:w-full max-md:h-10">
             Əlavə et
           </Button>
         </div>

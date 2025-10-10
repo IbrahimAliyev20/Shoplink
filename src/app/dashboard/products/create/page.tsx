@@ -476,7 +476,7 @@ const CreateProduct = () => {
             </Button>
             <Button
               type="submit"
-              className="bg-[#FF13F0] hover:bg-[#FF13F0]/90 text-white px-8 cursor-pointer"
+              className="bg-[#E23359] hover:bg-[#E23359]/90 text-white px-8 cursor-pointer"
               size="lg"
               disabled={isPending}
             >

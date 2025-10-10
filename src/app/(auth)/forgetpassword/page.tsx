@@ -352,7 +352,7 @@ function ForgetPassword() {
               <Button
                 type="submit"
                 disabled={forgetPasswordMutation.isPending}
-                className="mt-2 h-12 rounded-full bg-[#FF13F0] hover:bg-[#FF13F0]/90"
+                className="mt-2 h-12 rounded-full bg-[#E23359] hover:bg-[#E23359]/90"
               >
                 {forgetPasswordMutation.isPending
                   ? "Göndərilir..."
@@ -396,7 +396,7 @@ function ForgetPassword() {
                   disabled={
                     verifyCodeMutation.isPending || otpCode.length !== 6
                   }
-                  className="w-full h-12 rounded-full bg-[#FF13F0] hover:bg-[#FF13F0]/90"
+                  className="w-full h-12 rounded-full bg-[#E23359] hover:bg-[#E23359]/90"
                 >
                   {verifyCodeMutation.isPending ? "Yoxlanılır..." : "Təsdiq et"}
                 </Button>
@@ -457,7 +457,7 @@ function ForgetPassword() {
               <Button
                 type="submit"
                 disabled={resetPasswordMutation.isPending}
-                className="mt-2 h-12 rounded-full bg-[#FF13F0] hover:bg-[#FF13F0]/90"
+                className="mt-2 h-12 rounded-full bg-[#E23359] hover:bg-[#E23359]/90"
               >
                 {resetPasswordMutation.isPending
                   ? "Yadda saxlanılır..."
@@ -483,7 +483,7 @@ function ForgetPassword() {
 
               <Button
                 onClick={() => router.push("/login")}
-                className="w-full h-12 rounded-full bg-[#FF13F0] hover:bg-[#FF13F0]/90"
+                className="w-full h-12 rounded-full bg-[#E23359] hover:bg-[#E23359]/90"
               >
                 Daxil ol
               </Button>

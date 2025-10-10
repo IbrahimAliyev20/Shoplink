@@ -94,7 +94,7 @@ function AddressSelectionSection({
                     <div
                       className={`w-5 h-5 rounded-full border-2 cursor-pointer flex-shrink-0 flex items-center justify-center mt-1 ${
                         selectedAddress?.id === address.id
-                          ? "border-pink-500 bg-pink-500"
+                          ? "border-[#E23359] bg-[#E23359]"
                           : "border-gray-300"
                       }`}
                       onClick={() => {

@@ -27,9 +27,9 @@ export default function QuestionsSec() {
       
     <div className="grid lg:grid-cols-7 gap-12 items-center">
           {/* Left side - Image */}
-     <div className="lg:col-span-3" >
+     <div className="lg:col-span-3 px-[31px] py-[53px]  bg-[#E23359] rounded-xl" >
      <Image 
-      src="/images/Card.svg" 
+      src="/images/bannergif.gif" 
       alt="Questions" 
       width={500} 
       height={500} 
@@ -72,7 +72,7 @@ export default function QuestionsSec() {
                           <span className="text-sm">{q.description}</span>
                         </div>
                       </div>
-                      <div className="mt-4 h-0.5 bg-[#ff13f0] w-full"></div>
+                      <div className="mt-4 h-0.5 bg-[#E23359] w-full"></div>
                     </div>
                   )}
                 </div>

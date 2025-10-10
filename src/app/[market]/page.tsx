@@ -45,7 +45,7 @@ async function MarketHome({ params }: MarketHomePageProps) {
           </p>
           <Link 
             href="/" 
-            className="bg-pink-500 text-white px-6 py-3 rounded-lg font-medium hover:bg-pink-600 transition-colors"
+            className="bg-[#E23359] text-white px-6 py-3 rounded-lg font-medium hover:bg-[#E23359]/90 transition-colors"
           >
             Ana səhifəyə qayıt
           </Link>

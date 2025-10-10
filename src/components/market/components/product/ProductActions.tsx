@@ -47,7 +47,7 @@ const ProductActions: React.FC<ProductActionsProps> = ({
       <Button
         variant="default"
         onClick={handleAddToCart}
-        className="w-full py-5 bg-pink-500 text-white rounded-xl font-semibold hover:bg-pink-600 transition-colors text-base max-md:py-3 max-md:text-sm max-md:rounded-lg max-md:order-1"
+        className="w-full py-5 bg-[#E23359] text-white rounded-xl font-semibold hover:bg-[#E23359]/90 transition-colors text-base max-md:py-3 max-md:text-sm max-md:rounded-lg max-md:order-1"
       >
         Səbətə at
       </Button>

@@ -216,8 +216,8 @@ function CreateCategory() {
             </Button>
             <Button
               type="submit"
-              className="px-6 bg-pink-500 hover:bg-pink-600 text-white rounded-xl max-sm:px-6 max-sm:py-2.5 max-sm:text-sm max-sm:w-full"
-            >
+              className="px-6 bg-[#E23359] hover:bg-[#E23359]/90 text-white rounded-xl max-sm:px-6 max-sm:py-2.5 max-sm:text-sm max-sm:w-full"
+            > 
               {isPending ? "Saxlanılır..." : "Yadda saxla"}
             </Button>
           </div>

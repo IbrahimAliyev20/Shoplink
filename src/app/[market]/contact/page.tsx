@@ -108,7 +108,7 @@ function ContactMarket() {
     <Button
       variant="default"
       type="submit"
-      className="w-full rounded-xl bg-[#FF13F0] hover:bg-[#FF13F0]/90   px-6 py-4 text-base font-medium text-white cursor-pointer"
+      className="w-full rounded-xl bg-[#E23359] hover:bg-[#E23359]/90   px-6 py-4 text-base font-medium text-white cursor-pointer"
     >
       Mesaj göndər
     </Button>

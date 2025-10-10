@@ -5,7 +5,6 @@ const StatsSection = () => {
   return (
     <section>
       <div>
-        {/* Header */}
         <div className="text-start mb-[48px]">
           <h2 className="text-4xl md:text-[40px] font-semibold text-gray-900 mb-6">
             Shoplink kimlər üçündür?
@@ -21,7 +20,7 @@ const StatsSection = () => {
           <div className="text-start">
             <div className="mb-2">
               <Image
-                src="/images/team1.png"
+                src="/images/team1.webp"
                 alt="Yerli bizneslər"
                 width={405}
                 height={440}
@@ -40,7 +39,7 @@ const StatsSection = () => {
           <div className="text-start">
             <div className="mb-2">
               <Image
-                src="/images/team2.jpg"
+                src="/images/team2.webp"
                 alt="Kiçik bizneslər"
                 width={405}
                 height={440}
@@ -60,7 +59,7 @@ const StatsSection = () => {
           <div className="text-start">
             <div className="mb-2">
               <Image
-                src="/images/team3.jpg"
+                src="/images/team3.webp"
                 alt="Sosial media satıcıları"
                 width={405}
                 height={440}

@@ -247,7 +247,7 @@ function Register() {
                                 )}
                             />
 
-                            <Button type="submit" className='mt-2 h-12 rounded-full bg-[#FF13F0] hover:bg-[#FF13F0]/90' disabled={isPending || form.formState.isSubmitting}>
+                            <Button type="submit" className='mt-2 h-12 rounded-full bg-[#E23359] hover:bg-[#E23359]/90' disabled={isPending || form.formState.isSubmitting}>
                                 {isPending || form.formState.isSubmitting ? "Gözləyin..." : "Hesab yarat"}
                             </Button>
                         </form>
@@ -255,7 +255,7 @@ function Register() {
 
                     <p className='mt-4 text-sm text-muted-foreground font-semibold text-center'>
                         Hesabın var?{' '}
-                        <Link href='/login' className='text-[#FF13F0] underline-offset-4 hover:underline'>
+                        <Link href='/login' className='text-[#E23359] underline-offset-4 hover:underline'>
                             Daxil ol
                         </Link>
                     </p>

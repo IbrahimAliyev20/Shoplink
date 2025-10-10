@@ -136,7 +136,7 @@ function AddressForm({
             <div className="flex items-center justify-end">
               <Button
                 type="submit"
-                className="bg-pink-500 hover:bg-pink-600 text-white rounded-[16px] px-8 py-5"
+                className="bg-[#E23359] hover:bg-[#E23359]/90 text-white rounded-[16px] px-8 py-5"
                 disabled={isLoading}
               >
                 {isLoading ? "Yadda saxlanılır..." : "Yadda saxla"}

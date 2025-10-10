@@ -7,7 +7,7 @@ export const STATIC_IMAGES = {
   // Brand logos
   logo: '/images/Logo.svg',
   logoFooter: '/images/logofooter.png',
-  shoplinkInfo: '/images/shoplink-info.svg',
+  shoplinkInfo: '/images/shoplinkinfo.webp',
   
   // Advantages
   advantages: {
@@ -41,9 +41,9 @@ export const STATIC_IMAGES = {
   
   // Team members
   team: {
-    team1: '/images/team1.png',
-    team2: '/images/team2.jpg',
-    team3: '/images/team3.jpg',
+    team1: '/images/team1.webp',
+    team2: '/images/team2.webp',
+    team3: '/images/team3.webp',
     team4: '/images/team4.jpg',
     team5: '/images/team5.jpg',
   },

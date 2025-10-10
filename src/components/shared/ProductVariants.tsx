@@ -75,7 +75,7 @@ const ProductVariants = ({ variants, setVariants }: ProductVariantsProps) => {
           <Button
             type="button"
             onClick={() => setIsModalOpen(true)}
-            className="bg-[#FF13F0] hover:bg-[#FF13F0]/90 text-white cursor-pointer"
+            className="bg-[#E23359] hover:bg-[#E23359]/90 text-white cursor-pointer"
           >
             Variant əlavə et
           </Button>

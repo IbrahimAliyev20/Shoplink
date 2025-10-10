@@ -38,7 +38,7 @@ export default function Category() {
         <Link href="/dashboard/contracts/category/create">
           <Button
             variant="default"
-            className="bg-pink-500 hover:bg-pink-600 text-white max-sm:w-full max-sm:text-sm max-sm:py-2.5 max-sm:flex max-sm:items-center max-sm:justify-center max-sm:space-x-2"
+            className="bg-[#E23359] hover:bg-[#E23359]/90 text-white max-sm:w-full max-sm:text-sm max-sm:py-2.5 max-sm:flex max-sm:items-center max-sm:justify-center max-sm:space-x-2"
           >
             <Plus className="h-4 w-4 max-sm:h-3 max-sm:w-3" />
             <span>Kateqoriya əlavə et</span>

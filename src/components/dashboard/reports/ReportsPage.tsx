@@ -236,7 +236,7 @@ const ReportsPage: React.FC = () => {
                     <div className="flex items-center justify-end max-md:justify-center">
                       <Button
                         onClick={handleApplyFilter}
-                        className="w-fit bg-[#FF13F0] hover:bg-[#FF13F0]/90 text-white font-medium py-2 px-6 rounded-lg max-md:w-full max-md:h-10"
+                        className="w-fit bg-[#E23359] hover:bg-[#E23359]/90 text-white font-medium py-2 px-6 rounded-lg max-md:w-full max-md:h-10"
                       >
                         Tətbiq et
                       </Button>
@@ -330,7 +330,7 @@ const ReportsPage: React.FC = () => {
                     <TableCell className="py-4 max-md:px-2 max-md:py-2">
                       <div className="flex items-center gap-3 max-md:gap-2">
                         <Image
-                          src={item.image || "/images/team1.png"}
+                          src={item.image || "/images/team1.webp"}
                           alt={item.product}
                           width={40}
                           height={40}

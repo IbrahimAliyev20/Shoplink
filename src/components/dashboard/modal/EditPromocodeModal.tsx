@@ -150,7 +150,7 @@ function EditPromocodeModal({
             Ləğv et
           </Button>
           <Button
-            className="bg-pink-500 hover:bg-pink-600 text-white disabled:opacity-50"
+            className="bg-[#E23359] hover:bg-[#E23359]/90 text-white disabled:opacity-50"
             onClick={handleSave}
             disabled={isPending}
           >

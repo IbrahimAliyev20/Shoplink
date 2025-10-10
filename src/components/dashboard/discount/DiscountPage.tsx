@@ -138,7 +138,7 @@ function DiscountPage() {
                 />
               </div>
               <Button
-                className="h-12 px-10 bg-[#FF13F0] hover:bg-[#FF13F0]/90 text-white font-medium rounded-lg max-sm:h-12 max-sm:px-6 max-sm:w-full"
+                className="h-12 px-10 bg-[#E23359] hover:bg-[#E23359]/90 text-white font-medium rounded-lg max-sm:h-12 max-sm:px-6 max-sm:w-full"
                 onClick={handleCreatePromocode}
               >
                 Əlavə et
