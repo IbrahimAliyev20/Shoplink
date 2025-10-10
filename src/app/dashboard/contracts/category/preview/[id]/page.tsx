@@ -14,9 +14,9 @@ function PreviewCategory() {
   });
   return (
     <div className="min-h-screen bg-[#FAFAFB] p-6">
-      <h1 className="text-[28px] font-medium text-black">{category?.name}</h1>
+      <h1 className="text-[28px] font-medium text-black mb-6">{category?.name}</h1>
       
-      <div className="bg-white rounded-xl border border-[#F3F2F8] mb-6 p-8">
+      <div className="bg-white rounded-2xl border border-[#F3F2F8] mb-3 p-8 ">
         <div className="flex justify-between items-start mb-8">
           <h2 className="text-[24px] font-medium text-black">
             Əsas məlumatlar
@@ -50,7 +50,7 @@ function PreviewCategory() {
       </div>
 
       {/* SEO */}
-      <div className="bg-white rounded-xl border border-[#F3F2F8] p-8">
+      <div className="bg-white rounded-2xl border border-[#F3F2F8] p-8">
         <div className="flex justify-between items-start mb-2">
           <h2 className="text-[28px] font-medium text-black">SEO</h2>
           <Link

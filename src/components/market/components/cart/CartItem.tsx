@@ -16,7 +16,7 @@ const CartItem: React.FC<CartItemProps> = ({
   onRemove
 }) => {
   return (
-    <div className="bg-white rounded-lg p-4 border border-gray-200 max-md:p-3 max-md:rounded-md">
+    <div className="bg-white rounded-lg p-4 border border-[#F3F2F8] max-md:p-3 max-md:rounded-md">
       <div className="flex justify-between items-center w-full max-md:flex-col max-md:items-start max-md:gap-3">
         <div className="flex items-center gap-4 max-md:w-full max-md:gap-3">
           <div className="flex-shrink-0">

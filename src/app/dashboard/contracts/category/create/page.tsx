@@ -87,7 +87,7 @@ function CreateCategory() {
                     id="categoryName"
                     placeholder="Kateqoriya adı"
                     {...register("name", { required: "Ad mütləqdir" })}
-                    className="max-sm:h-10 max-sm:text-sm"
+                    className="max-sm:h-10 max-sm:text-sm py-5.5"
                   />
                   {errors.name && (
                     <p className="text-xs text-red-600 mt-1">
@@ -108,7 +108,7 @@ function CreateCategory() {
                     {...register("description", {
                       required: "Təsvir mütləqdir",
                     })}
-                    className="max-sm:h-10 max-sm:text-sm"
+                    className="max-sm:h-10 max-sm:text-sm py-5.5"
                   />
                   {errors.description && (
                     <p className="text-xs text-red-600 mt-1">
@@ -130,7 +130,7 @@ function CreateCategory() {
                         onValueChange={field.onChange}
                         value={field.value}
                       >
-                        <SelectTrigger className="w-full max-sm:h-10 max-sm:text-sm">
+                        <SelectTrigger className="w-full max-sm:h-10 max-sm:text-sm py-5.5">
                           <SelectValue placeholder="Seçin" />
                         </SelectTrigger>
                         <SelectContent>
@@ -176,7 +176,7 @@ function CreateCategory() {
                     id="meta_keywords"
                     placeholder="Kateqoriya adı"
                     {...register("meta_keywords")}
-                    className="max-sm:h-10 max-sm:text-sm"
+                    className="max-sm:h-10 max-sm:text-sm py-5.5"
                   />
                 </div>
                 <div className="space-y-2 max-sm:space-y-1.5">
@@ -187,7 +187,7 @@ function CreateCategory() {
                     id="meta_description"
                     placeholder="Kateqoriya təsviri"
                     {...register("meta_description")}
-                    className="max-sm:h-10 max-sm:text-sm"
+                    className="max-sm:h-10 max-sm:text-sm py-5.5"
                   />
                 </div>
                 <div className="col-span-2   space-y-2 max-sm:space-y-1.5">
@@ -198,7 +198,7 @@ function CreateCategory() {
                     id="meta_title"
                     placeholder="Kateqoriya adı"
                     {...register("meta_title")}
-                    className="max-sm:h-10 max-sm:text-sm"
+                    className="max-sm:h-10 max-sm:text-sm py-5.5"
                   />
                 </div>
               </div>

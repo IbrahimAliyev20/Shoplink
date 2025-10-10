@@ -33,7 +33,7 @@ const ProductImageGallery: React.FC<ProductImageGalleryProps> = ({
   return (
     <div className="space-y-5 max-md:space-y-4">
       {/* Main Image */}
-      <div className="w-full h-[500px] border border-gray-200 rounded-xl aspect-square flex items-center justify-center p-4 max-md:w-full max-md:h-80 max-md:p-3 max-md:rounded-lg">
+      <div className="w-full h-[500px] border border-[#F3F2F8] rounded-xl aspect-square flex items-center justify-center p-4 max-md:w-full max-md:h-80 max-md:p-3 max-md:rounded-lg">
         <Image
           src={images[currentImageIndex]}
           alt={`${productName} - Görünüş ${currentImageIndex + 1} / ${images.length}`}
@@ -65,7 +65,7 @@ const ProductImageGallery: React.FC<ProductImageGalleryProps> = ({
                 className={`flex-shrink-0 w-20 h-20 rounded-md border-2 overflow-hidden transition max-md:w-16 max-md:h-16 max-md:rounded-sm ${
                   currentImageIndex === index
                     ? 'border-pink-500'
-                    : 'border-gray-200 hover:border-gray-400'
+                    : 'border-[#F3F2F8] hover:border-gray-400'
                 }`}
                 aria-label={`${productName} görünüş ${index + 1}`}
               >

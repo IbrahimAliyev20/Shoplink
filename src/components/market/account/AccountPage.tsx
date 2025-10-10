@@ -46,7 +46,7 @@ function AccountPage({ user }: { user: UserData }) {
                 <TabsList className="grid w-full grid-cols-1 h-auto bg-transparent p-0 gap-2 max-sm:gap-1.5">
                   <TabsTrigger
                     value="personal"
-                    className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left justify-start text-[#565355] data-[state=active]:bg-[#F3F2F8] data-[state=active]:text-[#242123] max-sm:px-3 max-sm:py-2.5 max-sm:gap-2"
+                    className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left justify-start text-[#565355] data-[state=active]:bg-[#F2F4F8] data-[state=active]:text-[#242123] max-sm:px-3 max-sm:py-2.5 max-sm:gap-2"
                   >
                     <CircleUser className="w-5 h-5 max-sm:w-4 max-sm:h-4" />
                     <span className="font-medium max-sm:text-sm">

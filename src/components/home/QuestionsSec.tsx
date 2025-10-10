@@ -44,17 +44,17 @@ export default function QuestionsSec() {
             
             <div className="space-y-0">
               {data?.map((q, index) => (
-                <div key={index} className="border-b border-gray-200 last:border-b-0">
+                <div key={index} className="border-b border-[#F3F2F8] last:border-b-0">
                   <button
                     onClick={() => toggleQuestion(index + 1)}
-                    className="w-full px-6 py-6 text-left flex items-center justify-between hover:bg-gray-50 transition-colors duration-200"
+                    className="w-full px-6 py-6 text-left flex items-center justify-between transition-colors duration-200 cursor-pointer"
                   >
                     <div className="flex items-start gap-4 flex-1">
                       <span className="text-lg font-semibold text-gray-900 flex-shrink-0">{index + 1}.</span>
                       <span className="text-lg font-medium text-gray-900 text-left">{q.title}</span>
                     </div>
                     <div className="flex-shrink-0 ml-4">
-                      <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-xs border border-gray-200">
+                      <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-xs border border-[#F3F2F8]">
                         {openQuestion === index + 1 ? (
                           <ChevronUp className="w-4 h-4 text-gray-500" />
                         ) : (

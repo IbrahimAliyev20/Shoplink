@@ -18,43 +18,44 @@ const ShopSetup: React.FC = () => {
   const { data: userData } = useQuery(getUserQuery());
   const storeId = storeData?.id;
   const router = useRouter();
-  
+
   const accountCompletionRef = useRef<AccountCompletionRef>(null);
   const storeLogoRef = useRef<StoreLogoRef>(null);
-  
+
   const handleStepComplete = () => {
     setCurrentStep(currentStep + 1);
   };
 
   const steps = [
-    { 
-      id: 1, 
-      title: 'Hesabı tamamla', 
+    {
+      id: 1,
+      title: 'Hesabı tamamla',
       component: () => userData?.data ? (
-        <AccountCompletion 
+        <AccountCompletion
           ref={accountCompletionRef}
-          user={userData.data} 
+          user={userData.data}
           onStepComplete={handleStepComplete}
         />
       ) : <div>Loading...</div>
     },
-    { 
-      id: 2, 
-      title: 'Mağaza dizaynı', 
+    {
+      id: 2,
+      title: 'Mağaza dizaynı',
       component: () => (
-        <StoreLogo 
+        <StoreLogo
           ref={storeLogoRef}
-          storeId={storeId} 
+          storeId={storeId}
           onStepComplete={handleStepComplete}
         />
       )
     },
-    { 
-      id: 3, 
-      title: 'Ödəniş metodu', 
+    {
+      id: 3,
+      title: 'Ödəniş metodu',
       component: () => <PaymentMethod />
     },
   ];
+
   const handleNext = () => {
     if (currentStep === 1) {
       if (accountCompletionRef.current) {
@@ -90,15 +91,16 @@ const ShopSetup: React.FC = () => {
 
   return (
     <div className="space-y-8 max-md:space-y-6">
-        <div className="flex items-center justify-start max-md:overflow-x-auto max-md:pb-2">
+      {/* BAŞLANĞIC: DÜZƏLİŞ EDİLMİŞ HİSSƏ */}
+      <div className="flex items-center justify-start max-md:overflow-x-auto max-md:pb-2">
         {steps.map((step, index) => (
-          <div key={step.id} className="flex items-center max-md:flex-shrink-0">
+          <div key={step.id} className="flex items-start  max-md:flex-shrink-0"> {/* items-center -> items-start olaraq dəyişdirildi */}
             <div className="flex flex-col items-center max-md:min-w-[120px] max-md:bg-gray-50 max-md:p-3 max-md:rounded-lg max-md:mx-1">
               <div className={`flex items-center justify-center w-12 h-12 rounded-full border-2 max-md:w-10 max-md:h-10 max-md:flex-shrink-0 ${
-                currentStep > step.id 
-                  ? 'bg-green-500 border-green-500 text-white' 
-                  : currentStep === step.id 
-                  ? ' border-green-500 text-white' 
+                currentStep > step.id
+                  ? 'bg-green-500 border-green-500 text-white'
+                  : currentStep === step.id
+                  ? ' border-green-500 text-white'
                   : 'border-gray-300  text-gray-400'
               }`}>
                 {currentStep > step.id ? (
@@ -115,21 +117,20 @@ const ShopSetup: React.FC = () => {
               </div>
             </div>
             {index < steps.length - 1 && (
-              <div className={`w-24 h-0.5 mx-6 max-md:hidden ${
+              <div className={`w-24 h-0.5 mx-6 max-md:hidden mt-5 ${ /* mt-[23px] əlavə edildi */
                 currentStep > step.id ? 'bg-green-500' : 'bg-gray-300'
               }`} />
             )}
           </div>
         ))}
       </div>
+      {/* SON: DÜZƏLİŞ EDİLMİŞ HİSSƏ */}
 
-      <div className="bg-white rounded-lg border p-8 max-md:p-4 max-md:rounded-lg">
+      <div className="bg-white rounded-xl border border-[#f3f2f8] p-8 max-md:p-4 max-md:rounded-lg">
         {CurrentComponent && <CurrentComponent />}
       </div>
 
-      
-        
-        <div className="flex justify-end gap-3 max-md:flex-col max-md:gap-3">
+      <div className="flex justify-end gap-3 max-md:flex-col max-md:gap-3">
         <Button
           variant="ghost"
           onClick={handleBack}
@@ -138,15 +139,15 @@ const ShopSetup: React.FC = () => {
         >
           Geri
         </Button>
-          
-          <Button
-            onClick={handleNext}
-            className="bg-[#ff13f0] hover:bg-[#ff42f3] text-white px-8 max-md:w-full max-md:h-12 max-md:order-1"
-          >
-            {currentStep === 3 ? "Təsdiqlə" : "Davam et"}
-          </Button>
-        </div>
+
+        <Button
+          onClick={handleNext}
+          className="bg-[#ff13f0] hover:bg-[#ff42f3] text-white px-8 max-md:w-full max-md:h-12 max-md:order-1"
+        >
+          {currentStep === 3 ? "Təsdiqlə" : "Davam et"}
+        </Button>
       </div>
+    </div>
   );
 };
 

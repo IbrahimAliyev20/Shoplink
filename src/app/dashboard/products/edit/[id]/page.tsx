@@ -168,7 +168,7 @@ const ProductEdit: React.FC = () => {
               Məhsulun adı
             </label>
             <Input
-              className="w-full border border-gray-200 rounded px-3 py-2"
+              className="w-full border border-[#F3F2F8] rounded px-3 py-2"
               value={formData.name}
               onChange={(e) => handleInputChange("name", e.target.value)}
             />
@@ -181,7 +181,7 @@ const ProductEdit: React.FC = () => {
               <div className="relative">
                 <Input
                   placeholder="7000"
-                  className="w-full rounded-xl border border-gray-200 py-4 px-4 text-base shadow "
+                  className="w-full rounded-sm border border-[#F3F2F8] py-5.5 px-4 text-base  "
                   value={formData.sales_price}
                   onChange={(e) =>
                     handleInputChange("sales_price", e.target.value || "0")
@@ -199,7 +199,7 @@ const ProductEdit: React.FC = () => {
               <div className="relative">
                 <Input
                   placeholder="0"
-                  className="w-full rounded-xl border border-gray-200 py-4 px-4 text-base shadow "
+                  className="w-full rounded-sm border border-[#F3F2F8] py-5.5 px-4 text-base  "
                   value={formData.discount_price}
                   onChange={(e) =>
                     handleInputChange("discount_price", e.target.value || "0")
@@ -217,7 +217,7 @@ const ProductEdit: React.FC = () => {
               <div className="relative">
                 <Input
                   placeholder="10.000"
-                  className="w-full rounded-xl border border-gray-200 py-4 px-4 text-base shadow "
+                  className="w-full rounded-sm border border-[#F3F2F8] py-5.5 px-4 text-base  "
                   value={formData.purchase_price}
                   onChange={(e) =>
                     handleInputChange("purchase_price", e.target.value || "0")
@@ -258,7 +258,7 @@ const ProductEdit: React.FC = () => {
               </label>
               <Input
                 placeholder="200"
-                className="w-full border border-gray-200  px-3 py-2 rounded-md"
+                className="w-full border border-[#F3F2F8]  px-3 py-5.5 rounded-md "
                 value={formData.stock}
                 onChange={(e) =>
                   handleInputChange("stock", parseInt(e.target.value) || 0)
@@ -292,7 +292,7 @@ const ProductEdit: React.FC = () => {
                 alt="Product main image"
                 width={128}
                 height={128}
-                className="object-cover w-32 h-32 rounded-xl border border-gray-200"
+                className="object-cover w-32 h-32 rounded-xl border border-[#F3F2F8]"
               />
             )}
             <div className="w-full bg-[#FBFDFF] border border-gray-100 rounded-lg p-8 flex flex-col items-center justify-center text-center cursor-pointer transition-colors" onClick={triggerMainImageInput}>
@@ -316,7 +316,7 @@ const ProductEdit: React.FC = () => {
                 alt="Product image"
                 width={128}
                 height={128}
-                className="object-cover w-full h-full rounded-xl border border-gray-200"
+                className="object-cover w-full h-full rounded-xl border border-[#F3F2F8]"
               />
               <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-xl flex items-start justify-end gap-2 p-2">
                 <button
@@ -344,7 +344,7 @@ const ProductEdit: React.FC = () => {
                 alt="New product image"
                 width={128}
                 height={128}
-                className="object-cover w-full h-full rounded-xl border border-gray-200"
+                className="object-cover w-full h-full rounded-xl border border-[#F3F2F8]"
               />
               <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-xl flex items-start justify-end p-1.5">
                 <div className="flex items-center gap-1">
@@ -363,9 +363,9 @@ const ProductEdit: React.FC = () => {
           <button
             type="button"
             onClick={triggerFileInput}
-            className="w-32 h-32 flex flex-col items-center justify-center bg-gray-50 rounded-lg border border-gray-200 transition-colors text-gray-600 cursor-pointer"
+            className="w-32 h-32 flex flex-col items-center justify-center bg-gray-50 rounded-lg border border-[#F3F2F8] transition-colors text-gray-600 cursor-pointer"
           >
-            <div className="w-8 h-8 rounded-full bg-white border border-gray-200 flex items-center justify-center mb-2">
+            <div className="w-8 h-8 rounded-full bg-white border border-[#F3F2F8] flex items-center justify-center mb-2">
               <span className="text-lg font-medium text-gray-600">+</span>
             </div>
             <span className="text-sm font-medium text-gray-600">Şəkil əlavə et</span>

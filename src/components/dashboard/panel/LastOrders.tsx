@@ -94,7 +94,7 @@ const LastOrders: React.FC = () => {
 
   return (
     <div className="bg-gray-50 ">
-      <div className="bg-white rounded-lg  border border-gray-200">
+      <div className="bg-white rounded-xl  border border-[#F3F2F8]">
         <div className="p-6 pb-4">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-2xl font-medium text-gray-900">Ən son sifarişlər</h2>
@@ -106,7 +106,7 @@ const LastOrders: React.FC = () => {
           <div className="overflow-x-auto">
             <Table>
               <TableHeader>
-                <TableRow className="border-b border-gray-200 text-center">
+                <TableRow className="border-b border-[#F3F2F8] text-center">
                   <SortableHeader sortKey="id" className="text-center">№</SortableHeader>
                   <SortableHeader sortKey="startup.name" className="text-center">Məhsul</SortableHeader>
                   <SortableHeader sortKey="investmentAmount" className="text-center">Satış qiyməti</SortableHeader>

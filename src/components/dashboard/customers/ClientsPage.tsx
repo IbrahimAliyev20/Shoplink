@@ -39,7 +39,7 @@ export default function ClientsPage() {
           <CardContent className="p-6">
             <div className="flex items-center justify-center py-12">
               <div className="text-center space-y-3">
-                <div className="animate-spin w-8 h-8 border-4 border-gray-200 border-t-pink-500 rounded-full mx-auto" />
+                <div className="animate-spin w-8 h-8 border-4 border-[#F3F2F8] border-t-pink-500 rounded-full mx-auto" />
                 <p className="text-gray-500">Müştərilər yüklənir...</p>
               </div>
             </div>
@@ -72,7 +72,7 @@ export default function ClientsPage() {
   }
 
   return (
-    <div className=" bg-white ">
+    <div className=" bg-white rounded-lg border border-[#F3F2F8] ">
       <Card className="border-none shadow-none">
         <CardContent className="p-4 max-sm:p-4">
           <div className="flex items-center space-x-4 max-sm:flex-col max-sm:space-x-0 max-sm:space-y-3 max-sm:items-stretch">
@@ -83,12 +83,12 @@ export default function ClientsPage() {
                 placeholder="Məhsul axtarın"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent max-sm:h-10 max-sm:text-sm"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent max-sm:h-10 max-sm:text-sm py-5.5"
               />
             </div>
             <Button
               variant="outline"
-              className="flex items-center gap-2 border-gray-300 bg-white text-black hover:bg-gray-50 max-sm:w-full max-sm:justify-center max-sm:h-10"
+              className="flex items-center gap-2 border-gray-300 bg-white text-black hover:bg-gray-50 max-sm:w-full max-sm:justify-center max-sm:h-10 py-5.5"
             >
               <ListFilter className="h-4 w-4 max-sm:h-3 max-sm:w-3" />
               <span className="max-sm:text-sm">Filter</span>
@@ -103,7 +103,7 @@ export default function ClientsPage() {
             <div className="max-sm:min-w-[800px]">
               <table className="w-full">
                 <thead>
-                  <tr className="border-b border-gray-200">
+                  <tr className="border-b border-[#F3F2F8]">
                     <th className="text-left py-4 px-6 text-sm font-medium text-gray-500">№</th>
                     <th className="text-left py-4 px-6 text-sm font-medium text-gray-500">Müştəri</th>
                     <th className="text-left py-4 px-6 text-sm font-medium text-gray-500">Email</th>
@@ -117,7 +117,7 @@ export default function ClientsPage() {
                   {filteredClients.map((client) => (
                     <tr
                       key={client.id}
-                      className="border-b border-gray-200 hover:bg-gray-50"
+                      className="border-b border-[#F3F2F8] hover:bg-gray-50"
                     >
                       <td className="py-4 px-6 text-sm text-gray-900">{client.id}</td>
                       <td className="py-4 px-6">

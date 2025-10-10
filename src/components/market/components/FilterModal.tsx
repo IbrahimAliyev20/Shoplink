@@ -50,7 +50,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="bg-white rounded-lg border border-gray-200 p-4 mt-2 shadow-sm">
+    <div className="bg-white rounded-lg border border-[#F3F2F8] p-4 mt-2 shadow-sm">
       <div className="flex flex-wrap gap-4 items-end">
         {/* Category Dropdown */}
         <div className="relative min-w-[140px]">
@@ -134,7 +134,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
       </div>
 
       {/* Price Range */}
-      <div className="mt-4 pt-4 border-t border-gray-200">
+      <div className="mt-4 pt-4 border-t border-[#F3F2F8]">
         <label className="block text-sm font-medium text-gray-700 mb-3">
           Qiymət aralığı
         </label>

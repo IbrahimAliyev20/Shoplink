@@ -13,8 +13,8 @@ interface AddressListProps {
 
 function AddressList({ addresses, onAddNew, onEdit, onDelete, onSelect }: AddressListProps) {
   return (
-    <div className="p-4">
-      <div className="space-y-4">
+    <div className="p-2">
+      <div className="space-y-2">
         {addresses.map((address) => (
           <AddressItem
             key={address.id}

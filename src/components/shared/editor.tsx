@@ -276,7 +276,7 @@ export default function RichTextEditor({
   return (
     <div className={`border rounded-lg ${className}`}>
       {/* Toolbar */}
-      <div className="flex flex-wrap gap-1 border-b border-gray-200 p-2">
+      <div className="flex flex-wrap gap-1 border-b border-[#F3F2F8] p-2">
         {/* Heading Selector */}
         <Select value={currentHeading} onValueChange={setHeading}>
           <SelectTrigger className="w-32">

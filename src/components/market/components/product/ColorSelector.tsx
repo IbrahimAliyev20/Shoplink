@@ -31,7 +31,7 @@
 //             className={`w-[90px] h-[90px] rounded-md border-2 p-1 overflow-hidden transition max-md:w-16 max-md:h-16 max-md:rounded-sm ${
 //               selectedColor === color.id
 //                 ? 'border-pink-500'
-//                 : 'border-gray-200 hover:border-gray-400'
+//                 : 'border-[#F3F2F8] hover:border-gray-400'
 //             }`}
 //           >
 //             <Image

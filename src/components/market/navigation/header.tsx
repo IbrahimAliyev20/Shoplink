@@ -35,7 +35,7 @@ export default function Header({ marketSlug }: { marketSlug: string }) {
   }, []); 
 
   return (
-    <header className="bg-white border-b border-gray-200">
+    <header className="bg-white border-b border-[#F3F2F8]">
       <nav className="container mx-auto px-4 ">
         <div className="flex items-center justify-between h-16">
           

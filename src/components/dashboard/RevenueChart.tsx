@@ -47,7 +47,7 @@ interface RevenueChartProps {
 
 export default function RevenueChart({ chartData, timeframe, onTimeframeChange }: RevenueChartProps) {
   return (
-    <Card className="bg-white shadow-none border-gray-100 h-[420px] max-md:h-[350px]">
+    <Card className="bg-white shadow-none border-gray-100 h-[420px] max-md:h-[350px]  ">
       <CardHeader className="flex flex-row items-center justify-between max-md:p-4">
         <CardTitle className="text-lg font-medium text-gray-900 max-md:text-base">
           Gəlir qrafiki
@@ -66,7 +66,7 @@ export default function RevenueChart({ chartData, timeframe, onTimeframeChange }
           </SelectContent>
         </Select>
       </CardHeader>
-      <CardContent className="h-[350px] w-full p-4 max-md:h-[250px] max-md:p-2">
+      <CardContent className="h-[350px] w-full  max-md:h-[250px]">
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart
             data={chartData}

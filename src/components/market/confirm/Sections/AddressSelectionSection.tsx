@@ -62,11 +62,11 @@ function AddressSelectionSection({
           </div>
 
           {isAddressDropdownOpen && (
-            <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-10 max-h-96 overflow-y-auto">
+            <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-[#F3F2F8] rounded-lg shadow-lg z-10 max-h-96 overflow-y-auto">
               {addresses.map((address) => (
                 <div
                   key={address.id}
-                  className="p-4 border-b border-gray-100 last:border-b-0"
+                  className="p-4 "
                 >
                   <div className="flex justify-between items-center mb-3">
                     <h3 className="font-medium text-gray-900">
@@ -111,7 +111,7 @@ function AddressSelectionSection({
               ))}
 
               <div
-                className="p-4 border-t border-gray-200 cursor-pointer hover:bg-gray-50 flex items-center space-x-2"
+                className="p-4 border-t border-[#F3F2F8] cursor-pointer hover:bg-gray-50 flex items-center space-x-2"
                 onClick={() => {
                   setIsAddressDropdownOpen(false);
                   setIsAddAddressModalOpen(true);

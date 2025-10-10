@@ -20,16 +20,27 @@ import {
   X,
   Trash,
 } from "lucide-react";
-import { Reports } from "@/types";
+import { Report } from "@/types";
 import { useQuery } from "@tanstack/react-query";
 import getReportsQuery from "@/services/Seller-services/reports/queries";
 import ReusablePagination from "../ReusablePagination";
 import { LoadingState } from "@/components/shared/LoadingState";
 import { ErrorState } from "@/components/shared/ErrorState";
 import { Input } from "@/components/ui/input";
+import { ReportFilterParams } from "@/services/Seller-services/reports/api";
 
 const ReportsPage: React.FC = () => {
-  type SortKey = keyof Reports;
+  type SortKey = keyof Report;
+
+  // Inputlar üçün istifadə olunan state-lər
+  const [dateFilter, setDateFilter] = useState("");
+  const [categoryFilter, setCategoryFilter] = useState("");
+  const [stockFilter, setStockFilter] = useState("");
+
+  // API sorğusuna göndəriləcək AKTİV filterlər üçün state
+  const [activeApiFilters, setActiveApiFilters] = useState<ReportFilterParams>(
+    {}
+  );
 
   const [searchTerm, setSearchTerm] = useState("");
   const [sortConfig, setSortConfig] = useState<{
@@ -38,63 +49,75 @@ const ReportsPage: React.FC = () => {
   }>({ key: "product", direction: "asc" });
   const [currentPage, setCurrentPage] = useState(1);
   const [showFilter, setShowFilter] = useState(false);
-  const [activeFilters, setActiveFilters] = useState<string[]>([]);
 
-  // Filter states
-  const [dateFilter, setDateFilter] = useState("");
-  const [categoryFilter, setCategoryFilter] = useState("");
-  const [stockFilter, setStockFilter] = useState("");
+  const itemsPerPage = 5;
+
+  const {
+    data: reportsData,
+    isLoading,
+    error,
+  } = useQuery(getReportsQuery(activeApiFilters));
 
   const handleApplyFilter = () => {
-    const newFilters: string[] = [];
-    if (dateFilter) newFilters.push(dateFilter);
-    if (categoryFilter) newFilters.push(categoryFilter);
-    if (stockFilter) newFilters.push(stockFilter);
-    setActiveFilters(newFilters);
-    setShowFilter(false);
-  };
+    const newFilters: ReportFilterParams = {};
+    if (dateFilter) newFilters.created_at = dateFilter;
+    if (categoryFilter) newFilters.category_id = categoryFilter;
+    if (stockFilter) newFilters.stock = stockFilter;
 
-  const handleRemoveFilter = (filterToRemove: string) => {
-    setActiveFilters(
-      activeFilters.filter((filter) => filter !== filterToRemove)
-    );
+    setActiveApiFilters(newFilters);
+    setCurrentPage(1); // Filter tətbiq ediləndə ilk səhifəyə qayıt
+    setShowFilter(false);
   };
 
   const handleResetFilters = () => {
     setDateFilter("");
     setCategoryFilter("");
     setStockFilter("");
-    setActiveFilters([]);
+    setActiveApiFilters({});
+    setCurrentPage(1);
   };
 
-  const itemsPerPage = 5;
+  const handleRemoveFilter = (keyToRemove: keyof ReportFilterParams) => {
+    const newFilters = { ...activeApiFilters };
+    delete newFilters[keyToRemove];
+    setActiveApiFilters(newFilters);
 
-  // Fetch data from API
-  const { data: reportsData, isLoading, error } = useQuery(getReportsQuery());
+    if (keyToRemove === "created_at") setDateFilter("");
+    if (keyToRemove === "category_id") setCategoryFilter("");
+    if (keyToRemove === "stock") setStockFilter("");
+  };
 
-  const sortedAndFilteredData = useMemo(() => {
+  const activeFiltersForDisplay = useMemo(() => {
+    const filters = [];
+    if (activeApiFilters.created_at)
+      filters.push({ key: "created_at", value: activeApiFilters.created_at });
+    if (activeApiFilters.category_id)
+      filters.push({ key: "category_id", value: activeApiFilters.category_id });
+    if (activeApiFilters.stock)
+      filters.push({ key: "stock", value: activeApiFilters.stock });
+    return filters;
+  }, [activeApiFilters]);
+
+  const sortedAndSearchedData = useMemo(() => {
     if (!reportsData) return [];
 
-    const filtered = reportsData.filter(
+    const searched = reportsData.filter(
       (item) =>
         item.product.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.product_price.toString().includes(searchTerm) ||
-        item.total_price.toString().includes(searchTerm) ||
-        item.quantity.toLowerCase().includes(searchTerm.toLowerCase())
+        item.category?.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
-    return filtered.sort((a, b) => {
+    return [...searched].sort((a, b) => {
       const key = sortConfig.key;
       const direction = sortConfig.direction === "asc" ? 1 : -1;
+      const aValue = a[key] as string | number | null;
+      const bValue = b[key] as string | number | null;
 
-      const aValue: string | number = a[key] as string | number;
-      const bValue: string | number = b[key] as string | number;
+      if (aValue === null) return 1 * direction;
+      if (bValue === null) return -1 * direction;
 
       if (typeof aValue === "string" && typeof bValue === "string") {
-        return direction === 1
-          ? aValue.localeCompare(bValue)
-          : bValue.localeCompare(aValue);
+        return aValue.localeCompare(bValue) * direction;
       }
 
       if (aValue < bValue) return -1 * direction;
@@ -110,13 +133,10 @@ const ReportsPage: React.FC = () => {
     setCurrentPage(1);
   };
 
-  const handleViewProject = (project: Reports) => {
+  const handleViewProject = (project: Report) =>
     console.log("View project:", project);
-  };
-
-  const handleEditProject = (project: Reports) => {
+  const handleEditProject = (project: Report) =>
     console.log("Edit project:", project);
-  };
 
   const SortableHeader: React.FC<{
     sortKey: SortKey;
@@ -125,7 +145,9 @@ const ReportsPage: React.FC = () => {
   }> = ({ sortKey, children, className }) => (
     <TableHead
       onClick={() => requestSort(sortKey)}
-      className={`cursor-pointer hover:bg-gray-50 ${className || ""} max-md:px-2 max-md:py-2 max-md:text-xs`}
+      className={`cursor-pointer hover:bg-gray-50 ${
+        className || ""
+      } max-md:px-2 max-md:py-2 max-md:text-xs`}
     >
       <div className="flex items-center gap-1 text-gray-500 font-medium justify-center max-md:text-xs max-md:gap-0.5">
         {children}
@@ -134,25 +156,19 @@ const ReportsPage: React.FC = () => {
     </TableHead>
   );
 
-  const totalPages = Math.ceil(sortedAndFilteredData.length / itemsPerPage);
-  const paginatedData = sortedAndFilteredData.slice(
+  const totalPages = Math.ceil(sortedAndSearchedData.length / itemsPerPage);
+  const paginatedData = sortedAndSearchedData.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
 
-  if (isLoading) {
-    return <LoadingState />;
-  }
-
-  if (error) {
-    return <ErrorState />;
-  }
+  if (isLoading) return <LoadingState />;
+  if (error) return <ErrorState />;
 
   return (
     <div className="bg-gray-50">
       <div className="bg-white rounded-lg border border-gray-100">
         <div className="p-6 max-md:p-4">
-          {/* Search and Filter Section */}
           <div className="flex items-center gap-4 mb-6 max-md:flex-col max-md:items-stretch max-md:gap-3 max-md:mb-4">
             <div className="relative flex-1 max-w-md max-md:max-w-none">
               <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 max-md:h-3 max-md:w-3" />
@@ -172,18 +188,18 @@ const ReportsPage: React.FC = () => {
               >
                 <ListFilter className="h-4 w-4 max-md:h-3 max-md:w-3" />
                 <span className="max-md:text-sm">
-                  Filter{activeFilters.length > 0 && `(${activeFilters.length})`}
+                  Filter
+                  {activeFiltersForDisplay.length > 0 &&
+                    `(${activeFiltersForDisplay.length})`}
                 </span>
               </Button>
-
-              {/* Filter Dropdown */}
               {showFilter && (
-                <div className="absolute top-full -left-116 mt-2 w-[680px] bg-white rounded-lg shadow-lg border border-gray-200 z-10 max-md:left-0 max-md:w-full max-md:mt-1">
+                <div className="absolute top-full -left-116 mt-2 w-[680px] bg-white rounded-lg shadow-lg border border-[#F3F2F8] z-10 max-md:left-0 max-md:w-full max-md:mt-1">
                   <div className="p-4 max-md:p-3">
                     <div className="flex items-center gap-3 mb-4 justify-center max-md:flex-col max-md:gap-2 max-md:mb-3">
                       <div className="flex-1 max-md:w-full">
                         <Input
-                          type="text"
+                          type="date"
                           placeholder="Tarix"
                           value={dateFilter}
                           onChange={(e) => setDateFilter(e.target.value)}
@@ -193,7 +209,7 @@ const ReportsPage: React.FC = () => {
                       <div className="flex-1 max-md:w-full">
                         <Input
                           type="text"
-                          placeholder="Kateqoriya"
+                          placeholder="Kateqoriya ID"
                           value={categoryFilter}
                           onChange={(e) => setCategoryFilter(e.target.value)}
                           className="w-full px-3 py-2 border border-gray-300 rounded-lg max-md:h-9 max-md:text-sm"
@@ -217,14 +233,13 @@ const ReportsPage: React.FC = () => {
                         <Trash className="h-4 w-4 max-md:h-3 max-md:w-3" />
                       </Button>
                     </div>
-
                     <div className="flex items-center justify-end max-md:justify-center">
-                    <Button
-                      onClick={handleApplyFilter}
-                      className="w-fit bg-[#FF13F0] hover:bg-[#FF13F0]/90 text-white font-medium py-2 px-6 rounded-lg max-md:w-full max-md:h-10"
-                    >
-                      Tətbiq et
-                    </Button>
+                      <Button
+                        onClick={handleApplyFilter}
+                        className="w-fit bg-[#FF13F0] hover:bg-[#FF13F0]/90 text-white font-medium py-2 px-6 rounded-lg max-md:w-full max-md:h-10"
+                      >
+                        Tətbiq et
+                      </Button>
                     </div>
                   </div>
                 </div>
@@ -232,17 +247,20 @@ const ReportsPage: React.FC = () => {
             </div>
           </div>
 
-          {/* Active Filters */}
-          {activeFilters.length > 0 && (
+          {activeFiltersForDisplay.length > 0 && (
             <div className="flex items-center gap-3 mb-6 max-md:gap-2 max-md:mb-4 max-md:flex-wrap">
-              {activeFilters.map((filter, index) => (
+              {activeFiltersForDisplay.map((filter) => (
                 <div
-                  key={index}
+                  key={filter.key}
                   className="flex items-center gap-2 bg-[#FBFDFF] text-gray-700 px-4 py-2 rounded-md text-sm border border-[#D1D1D6] max-md:px-3 max-md:py-1.5 max-md:text-xs"
                 >
-                  <span className="font-medium max-md:text-xs">{filter}</span>
+                  <span className="font-medium max-md:text-xs">
+                    {filter.value}
+                  </span>
                   <button
-                    onClick={() => handleRemoveFilter(filter)}
+                    onClick={() =>
+                      handleRemoveFilter(filter.key as keyof ReportFilterParams)
+                    }
                     className="text-gray-500 hover:text-gray-700 ml-1 max-md:ml-0.5"
                   >
                     <X className="h-4 w-4 max-md:h-3 max-md:w-3" />
@@ -252,24 +270,49 @@ const ReportsPage: React.FC = () => {
             </div>
           )}
 
-          {/* Table */}
           <div className="overflow-x-auto max-md:overflow-x-scroll">
             <Table>
               <TableHeader>
-                <TableRow className="border-b border-gray-200 text-center">
-                  <TableHead className="text-gray-500 font-medium text-center max-md:px-2 max-md:py-2 max-md:text-xs max-md:min-w-[40px]">№</TableHead>
-                  <SortableHeader sortKey="product" className="text-center max-md:min-w-[120px]">Məhsul</SortableHeader>
-                  <SortableHeader sortKey="category" className="text-center max-md:hidden">Kateqoriya</SortableHeader>
-                  <SortableHeader sortKey="product_price" className="text-center max-md:min-w-[80px]">
+                <TableRow className="border-b border-[#F3F2F8] text-center">
+                  <TableHead className="text-gray-500 font-medium text-center max-md:px-2 max-md:py-2 max-md:text-xs max-md:min-w-[40px]">
+                    №
+                  </TableHead>
+                  <SortableHeader
+                    sortKey="product"
+                    className="text-center max-md:min-w-[120px]"
+                  >
+                    Məhsul
+                  </SortableHeader>
+                  <SortableHeader
+                    sortKey="category"
+                    className="text-center max-md:hidden"
+                  >
+                    Kateqoriya
+                  </SortableHeader>
+                  <SortableHeader
+                    sortKey="product_price"
+                    className="text-center max-md:min-w-[80px]"
+                  >
                     Satış qiyməti
                   </SortableHeader>
-                  <SortableHeader sortKey="quantity" className="text-center max-md:hidden">
+                  <SortableHeader
+                    sortKey="quantity"
+                    className="text-center max-md:hidden"
+                  >
                     Satılan (ədəd)
                   </SortableHeader>
-                  <SortableHeader sortKey="total_price" className="text-center max-md:min-w-[90px]">
+                  <SortableHeader
+                    sortKey="total_price"
+                    className="text-center max-md:min-w-[90px]"
+                  >
                     Ümumi gəlir
                   </SortableHeader>
-                  <SortableHeader sortKey="stock" className="text-center max-md:min-w-[80px]">Stok məlumatı</SortableHeader>
+                  <SortableHeader
+                    sortKey="stock"
+                    className="text-center max-md:min-w-[80px]"
+                  >
+                    Stok məlumatı
+                  </SortableHeader>
                   <TableHead className="text-gray-500 font-medium text-center max-md:px-2 max-md:py-2 max-md:text-xs max-md:min-w-[100px]">
                     Əməliyyatlar
                   </TableHead>
@@ -312,7 +355,7 @@ const ReportsPage: React.FC = () => {
                     </TableCell>
                     <TableCell className="py-4 text-center max-md:px-2 max-md:py-2">
                       {item.stock === null || item.stock === 0 ? (
-                        <div className="flex items-center gap-2 max-md:gap-1">
+                        <div className="flex items-center justify-center gap-2 max-md:gap-1">
                           <X className="w-4 h-4 text-red-500 max-md:h-3 max-md:w-3" />
                           <span className="text-red-600 text-sm font-medium max-md:text-xs max-md:hidden">
                             Stokda yoxdur
@@ -364,7 +407,6 @@ const ReportsPage: React.FC = () => {
             </Table>
           </div>
 
-          {/* Pagination */}
           {totalPages > 1 && (
             <div className="mt-6 flex justify-end max-md:justify-center max-md:mt-4">
               <ReusablePagination

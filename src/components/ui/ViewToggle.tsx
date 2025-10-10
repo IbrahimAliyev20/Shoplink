@@ -21,7 +21,7 @@ export const ViewToggle: React.FC<ViewToggleProps> = ({
         className={`p-2 border rounded-md transition-colors ${
           activeView === "list"
             ? "bg-green-100 border-green-500"
-            : "border-gray-200 hover:bg-gray-100"
+            : "border-[#F3F2F8] hover:bg-gray-100"
         }`}
         aria-label="Siyahı görünüşü"
       >
@@ -36,7 +36,7 @@ export const ViewToggle: React.FC<ViewToggleProps> = ({
         className={`p-2 border rounded-md transition-colors ${
           activeView === "grid"
             ? "bg-green-100 border-green-500"
-            : "border-gray-200 hover:bg-gray-100"
+            : "border-[#F3F2F8] hover:bg-gray-100"
         }`}
         aria-label="Cədvəl görünüşü"
       >

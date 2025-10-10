@@ -12,7 +12,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, storeSlug }) => {
     <Link href={`/${storeSlug}/${product.slug}`} className="block">
       <div className="group cursor-pointer">
         <div className=" rounded-2xl">
-          <div className="border border-gray-200 w-full mb-3 sm:mb-4 rounded-2xl overflow-hidden aspect-square">
+          <div className="border border-[#F3F2F8] w-full mb-3 sm:mb-4 rounded-2xl overflow-hidden aspect-square">
             <Image
               src={product.thumb_image}
               alt={`${product.name} - ${product.detail.sales_price || "0"} AZN məhsul şəkli`}

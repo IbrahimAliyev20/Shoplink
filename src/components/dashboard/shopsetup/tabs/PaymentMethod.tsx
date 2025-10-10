@@ -21,7 +21,7 @@ const PaymentMethod: React.FC = () => {
             id="cash-payment"
             checked={cashPayment}
             onCheckedChange={(checked) => setCashPayment(checked as boolean)}
-            className="max-md:scale-90"
+            className="max-md:scale-90" 
           />
           <label htmlFor="cash-payment" className="text-sm font-medium text-gray-700 max-md:text-xs">
             Nağd ödəniş

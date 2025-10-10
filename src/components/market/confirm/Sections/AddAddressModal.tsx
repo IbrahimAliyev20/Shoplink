@@ -208,7 +208,7 @@ function AddAddressModal({ isOpen, onClose }: AddAddressModalProps) {
                   type="button"
                   variant="outline"
                   onClick={handleClose}
-                  className="flex-1 h-12 rounded-lg bg-white border-gray-300 text-gray-700 hover:bg-gray-50"
+                  className="flex-1 h-12 rounded-xl bg-white border-[#F3F2F8] text-gray-700 hover:bg-gray-50"
                   disabled={isPending}
                 >
                   Ləğv et
@@ -216,7 +216,7 @@ function AddAddressModal({ isOpen, onClose }: AddAddressModalProps) {
                 <Button
                   type="submit"
                   disabled={isPending}
-                  className="flex-1 h-12 bg-[#FF13F0] hover:bg-[#E011D1] text-white rounded-lg"
+                  className="flex-1 h-12 bg-[#FF13F0] hover:bg-[#E011D1] text-white rounded-xl"
                 >
                   {isPending ? "Yadda saxlanılır..." : "Yadda saxla"}
                 </Button>

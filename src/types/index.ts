@@ -158,7 +158,7 @@ export interface StoreOrder {
     total_price: number;
     status: number;
     promocode?: string | null;
-    detail: TrackNumberDetail
+    detail: TrackNumberDetail[]
 
 }
 export interface TrackNumberDetail {
@@ -218,13 +218,13 @@ export interface OrderPayload {
 }
 
 
-export interface Reports {
+export interface Report {
   quantity: string;
   product: string;
   product_price: number;
   total_price: number;
   image: string;
-  category: string;
+  category: string | null;
   stock: number | null;
 }
 

@@ -4,7 +4,7 @@ import React from 'react';
 
 export default function Footer ({ marketSlug }: { marketSlug: string })  {
   return (
-    <footer className="bg-white border-t border-gray-200">
+    <footer className="bg-white border-t border-[#F3F2F8]">
       <div className="container mx-auto flex flex-col items-center gap-4 px-4 py-4">
         
         <Image 

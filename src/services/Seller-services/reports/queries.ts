@@ -1,10 +1,11 @@
 import { queryOptions } from "@tanstack/react-query";
-import { getReports } from "./api";
+import { getReports, ReportFilterParams } from "./api";
 
-const getReportsQuery = () => {
+const getReportsQuery = (filters: ReportFilterParams) => {
     return queryOptions({
-        queryKey: ["reports"],
-        queryFn: getReports,
+        queryKey: ["reports", filters],
+        
+        queryFn: () => getReports(filters),
     });
 };
 

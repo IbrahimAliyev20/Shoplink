@@ -151,7 +151,7 @@ function LoginMarketUser() {
             <Button
               type="submit"
               disabled={isPending}
-              className="mt-2 h-12 rounded-full bg-[#FF13F0]"
+              className="mt-2 h-12 rounded-full bg-[#FF13F0] hover:bg-[#E011D1]"
             >
               {isPending ? "Yoxlanılır..." : "Daxil ol"}
             </Button>

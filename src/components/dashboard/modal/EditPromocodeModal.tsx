@@ -128,7 +128,7 @@ function EditPromocodeModal({
               placeholder="Promokod adı"
               value={promoCode}
               onChange={(e) => setPromoCode(e.target.value)}
-              className="w-full"
+              className="w-full py-5.5"
             />
           </div>
           <div>
@@ -140,12 +140,12 @@ function EditPromocodeModal({
               placeholder="Endirim faizi"
               value={discountPercent}
               onChange={(e) => setDiscountPercent(e.target.value)}
-              className="w-full"
+              className="w-full py-5.5"
             />
           </div>
         </div>
 
-        <div className="flex justify-end gap-4 mt-6">
+        <div className="grid  grid-cols-2 gap-4 mt-6">
           <Button variant="outline" onClick={onClose} disabled={isPending}>
             Ləğv et
           </Button>

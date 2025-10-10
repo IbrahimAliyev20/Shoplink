@@ -199,7 +199,7 @@ function Register() {
                                 )}
                             />
 
-                            <Button type="submit" className='mt-2 h-12 rounded-full bg-[#FF13F0]' disabled={isPending || form.formState.isSubmitting}>
+                            <Button type="submit" className='mt-2 h-12 rounded-full bg-[#FF13F0] hover:bg-[#E011D1]' disabled={isPending || form.formState.isSubmitting}>
                                 {isPending || form.formState.isSubmitting ? "Gözləyin..." : "Hesab yarat"}
                             </Button>
                         </form>

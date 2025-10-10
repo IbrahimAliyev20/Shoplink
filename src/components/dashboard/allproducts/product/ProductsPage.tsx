@@ -99,7 +99,7 @@ export default function ProductsPage() {
           <div className="overflow-x-auto">
             <Table>
               <TableHeader>
-                <TableRow className="border-b border-gray-200">
+                <TableRow className="border-b border-[#F3F2F8]">
                   <TableHead className="text-gray-500 font-medium text-center">№</TableHead>
                   <TableHead className="text-gray-500 font-medium text-center">
                     <div className="flex items-center gap-1 justify-center">
@@ -141,7 +141,7 @@ export default function ProductsPage() {
                       <TableCell className="py-4">
                         <div className="flex items-center gap-3 ">
                           <Image
-                            src="/images/team1.png"
+                            src={product.thumb_image}
                             alt={product.name}
                             width={40}
                             height={40}

@@ -14,6 +14,7 @@ import {
   getFilteredProductsStoreOptions,
 } from "@/services/User-services/StoreForUsers/queries";
 import { getAllProductsStore } from "@/services/User-services/StoreForUsers/api";
+import { Input } from "@/components/ui/input";
 
 interface ProductFilters {
   category_id?: number;
@@ -140,7 +141,7 @@ const TabsMarket: React.FC<TabsMarketProps> = ({ categories, storeSlug }) => {
 
   return (
     <div>
-      <div className="border-b border-gray-200 mb-6 max-md:mb-4">
+      <div className="border-b border-[#F3F2F8] mb-6 max-md:mb-4">
         <div className="flex overflow-x-auto scrollbar-hide max-md:pb-1">
           <div className="flex min-w-max space-x-4 sm:space-x-8 max-md:space-x-6">
             {allTabs.map((tab) => (
@@ -163,10 +164,10 @@ const TabsMarket: React.FC<TabsMarketProps> = ({ categories, storeSlug }) => {
       <div className="my-2 max-md:my-4">
         <div className="flex flex-col sm:flex-row gap-4 sm:gap-5 items-start sm:items-center max-md:gap-3">
           <div className="relative w-full sm:max-w-xs">
-            <input
+            <Input
               type="text"
               placeholder="Məhsul axtarın"
-              className="border border-gray-300 rounded-md py-2 px-4 w-full focus:outline-none text-sm max-md:py-2.5 max-md:px-3 max-md:text-sm max-md:h-10"
+              className="border border-gray-300 rounded-md py-5.5 px-4 w-full focus:outline-none text-sm max-md:py-2.5 max-md:px-3 max-md:text-sm max-md:h-10"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
@@ -188,7 +189,7 @@ const TabsMarket: React.FC<TabsMarketProps> = ({ categories, storeSlug }) => {
           <div className="flex items-center gap-2">
             <button
               onClick={() => setIsFilterOpen(!isFilterOpen)}
-              className="flex items-center gap-2 border border-gray-300 rounded-md py-2 px-3 sm:px-4 hover:bg-gray-50 transition w-full sm:w-auto justify-center max-md:h-10 max-md:px-3"
+              className="flex items-center gap-2 border border-gray-300 rounded-md py-3 px-3 sm:px-4 hover:bg-gray-50 transition w-full sm:w-auto justify-center max-md:h-10 max-md:px-3"
             >
               <svg
                 className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600 max-md:w-4 max-md:h-4"

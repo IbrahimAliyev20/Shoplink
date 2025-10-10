@@ -127,14 +127,14 @@ function DiscountPage() {
                   placeholder="Promo kodu daxil edin"
                   value={promoCode}
                   onChange={(e) => setPromoCode(e.target.value)}
-                  className="bg-[#F3F2F8] border border-gray-200 rounded-lg h-12 px-4 flex-1 max-sm:w-full focus:ring-pink-500 focus:border-pink-500"
+                  className="bg-[#F3F2F8] border border-[#F3F2F8] rounded-lg h-12 px-4 flex-1 max-sm:w-full focus:ring-pink-500 focus:border-pink-500"
                 />
                 <Input
                   type="text"
                   placeholder="Endirim faizi"
                   value={discountPercent}
                   onChange={(e) => setDiscountPercent(e.target.value)}
-                  className="bg-[#F3F2F8] border border-gray-200 rounded-lg h-12 px-4 flex-1 max-sm:w-full focus:ring-pink-500 focus:border-pink-500"
+                  className="bg-[#F3F2F8] border border-[#F3F2F8] rounded-lg h-12 px-4 flex-1 max-sm:w-full focus:ring-pink-500 focus:border-pink-500"
                 />
               </div>
               <Button
@@ -150,7 +150,7 @@ function DiscountPage() {
           <div className="overflow-x-auto">
             <Table>
               <TableHeader>
-                <TableRow className="border-b border-gray-200">
+                <TableRow className="border-b border-[#F3F2F8]">
                   <TableHead className="text-gray-500 font-medium text-center">
                     №
                   </TableHead>

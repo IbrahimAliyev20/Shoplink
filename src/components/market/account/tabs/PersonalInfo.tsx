@@ -96,7 +96,7 @@ function PersonalInfo({ user }: { user: { name: string; email: string; phone?: s
               type="text"
               value={personalInfo.fullName}
               onChange={(e) => handleInputChange("fullName", e.target.value)}
-              className="w-full h-12 rounded-lg border-gray-300 max-sm:h-10 max-sm:text-sm"
+              className="w-full h-12 rounded-lg border-[#F3F2F8] max-sm:h-10 max-sm:text-sm"
               disabled={isPending}
             />
           </div>
@@ -124,7 +124,7 @@ function PersonalInfo({ user }: { user: { name: string; email: string; phone?: s
                 type="tel"
                 value={personalInfo.phoneNumber}
                 onChange={(e) => handleInputChange("phoneNumber", e.target.value)}
-                className="flex-1 h-full bg-transparent border-0 rounded-l-none max-sm:text-sm"
+                className="flex-1 h-full bg-transparent border-0 border-[#F3F2F8] rounded-l-none max-sm:text-sm"
                 disabled={isPending}
               />
             </div>
@@ -139,7 +139,7 @@ function PersonalInfo({ user }: { user: { name: string; email: string; phone?: s
             type="email"
             value={personalInfo.email}
             onChange={(e) => handleInputChange("email", e.target.value)}
-            className="w-full h-12 rounded-lg border-gray-300 max-sm:h-10 max-sm:text-sm"
+            className="w-full h-12 rounded-lg border-[#F3F2F8] max-sm:h-10 max-sm:text-sm"
             disabled={isPending}
           />
         </div>

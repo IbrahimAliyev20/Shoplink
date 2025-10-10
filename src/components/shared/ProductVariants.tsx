@@ -115,7 +115,7 @@ const ProductVariants = ({ variants, setVariants }: ProductVariantsProps) => {
       {isModalOpen && (
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl w-full max-w-lg mx-auto flex flex-col">
-            <div className="relative p-6 border-b border-gray-200">
+            <div className="relative p-6 border-b border-[#F3F2F8]">
               <button
                 onClick={() => setIsModalOpen(false)}
                 className="absolute top-6 right-6 p-1 hover:bg-gray-100 rounded-full"
@@ -205,7 +205,7 @@ const ProductVariants = ({ variants, setVariants }: ProductVariantsProps) => {
                     <label className="text-sm font-medium text-gray-700">
                       Uyğun məhsulun şəklini seçin
                     </label>
-                    <div className="mt-2 border-2 border-dashed border-gray-200 rounded-lg p-8 text-center hover:border-fuchsia-500 transition-colors cursor-pointer">
+                    <div className="mt-2 border-2 border-dashed border-[#F3F2F8] rounded-lg p-8 text-center hover:border-fuchsia-500 transition-colors cursor-pointer">
                       <ImageIcon className="mx-auto h-10 w-10 text-gray-400 mb-4" />
                       <p className="text-sm text-gray-500 mb-2">Fayl seçin</p>
                       <input
@@ -240,7 +240,7 @@ const ProductVariants = ({ variants, setVariants }: ProductVariantsProps) => {
                 </div>
               )}
             </div>
-            <div className="flex gap-4 p-6 border-t border-gray-200 bg-gray-50/50 rounded-b-2xl">
+            <div className="flex gap-4 p-6 border-t border-[#F3F2F8] bg-gray-50/50 rounded-b-2xl">
               <Button
                 type="button"
                 variant="outline"

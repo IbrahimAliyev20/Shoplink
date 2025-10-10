@@ -102,7 +102,7 @@ const StoreLogo = React.forwardRef<StoreLogoRef, StoreLogoProps>(
     }) => (
       <div className="space-y-4 max-md:space-y-3">
         <div 
-          className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 text-center hover:shadow-md transition-all duration-200 cursor-pointer max-md:p-6"
+          className="bg-[#FBFDFF] rounded-xl  border border-[#f3f2f8] p-8 text-center hover:shadow-md transition-all duration-200 cursor-pointer max-md:p-6"
           onClick={() => {
             const input = document.createElement('input');
             input.type = 'file';

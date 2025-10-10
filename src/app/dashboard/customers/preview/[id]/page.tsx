@@ -12,8 +12,8 @@ function PreviewClient() {
     return (
         <div className="bg-white p-6 sm:p-8 rounded-lg font-sans w-full">
             <div className='max-w-3xl mx-start'>
-                <div className=" pb-6 mb-6 border-b border-gray-200">
-                    <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
+                <div className=" pb-6 mb-6 border-b border-[#F3F2F8]">
+                    <h1 className="text-2xl sm:text-3xl font-semibold text-gray-900">
                         {data?.name}
                     </h1>
                 </div>

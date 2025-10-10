@@ -16,7 +16,7 @@ const ProductTabs: React.FC<ProductTabsProps> = ({
 }) => {
   return (
     <div className="pt-4 max-md:pt-3">
-      <div className="w-full flex border-b border-gray-200">
+      <div className="w-full flex border-b border-[#F3F2F8]">
         <button
           onClick={() => onTabChange("details")}
           className={`w-full px-1 pb-2 mr-8 text-base font-medium border-b-2 transition-colors max-md:text-sm max-md:mr-4 max-md:pb-3 ${

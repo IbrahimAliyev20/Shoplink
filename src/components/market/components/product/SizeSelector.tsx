@@ -24,7 +24,7 @@
 //             className={`w-16 h-17 border rounded-md text-sm font-medium transition-colors max-md:w-12 max-md:h-12 max-md:text-xs max-md:rounded-sm ${
 //               selectedSize === size
 //                 ? 'border-black bg-white text-black'
-//                 : 'border-gray-200 text-gray-700 hover:border-gray-400'
+//                 : 'border-[#F3F2F8] text-gray-700 hover:border-gray-400'
 //             }`}
 //           >
 //             {size}

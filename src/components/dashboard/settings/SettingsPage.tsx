@@ -39,17 +39,17 @@ const SettingsPage =  () => {
         </div>
 
         <Tabs defaultValue="personal" orientation="vertical" className="w-full max-md:orientation-horizontal">
-          <div className="grid grid-cols-1 lg:grid-cols-4 h-full max-md:grid-cols-1 ">
+          <div className="grid grid-cols-1 lg:grid-cols-4  h-full max-md:grid-cols-1 ">
             
-            <div className="col-span-1 w-full lg:w-64 flex-shrink-0 h-full bg-white max-md:order-2 max-md:fixed max-md:bottom-0 max-md:left-0 max-md:right-0 max-md:z-50 max-md:w-full max-md:bg-white max-md:h-16 max-md:shadow-[0_-4px_12px_rgba(0,0,0,0.06)]">
-              <TabsList className="w-full h-auto flex flex-col items-start justify-start p-2 rounded-xl bg-white max-md:flex-row max-md:items-center max-md:justify-between max-md:overflow-x-auto max-md:p-0 max-md:rounded-none max-md:border-t max-md:h-16 max-md:gap-0">
+            <div className="rounded-xl col-span-1 w-full lg:w-69 flex-shrink-0 h-full bg-white max-md:order-2 max-md:fixed max-md:bottom-0 max-md:left-0 max-md:right-0 max-md:z-50 max-md:w-full max-md:bg-white max-md:h-16 max-md:shadow-[0_-4px_12px_rgba(0,0,0,0.06)] border border-[#F3F2F8]">
+              <TabsList className="w-full h-auto flex flex-col items-start justify-start p-4 rounded-xl bg-white max-md:flex-row max-md:items-center max-md:justify-between max-md:overflow-x-auto max-md:p-0 max-md:rounded-none max-md:border-t max-md:h-16 gap-1">
                 {navItems.map((item) => {
                   const Icon = item.icon;
                   return (
                     <TabsTrigger
                       key={item.value}
                       value={item.value}
-                      className="bg-white w-full justify-center md:justify-start items-center gap-3 px-4 py-3 text-base font-medium rounded-lg text-gray-600 data-[state=active]:bg-[#F3F2F8]/80 data-[state=active]:text-black data-[state=active]:shadow-sm transition-all duration-200 max-md:flex-1 max-md:whitespace-nowrap max-md:text-sm max-md:px-0 max-md:py-0 max-md:gap-2 "
+                      className="bg-white w-full justify-center md:justify-start items-center gap-3 px-4 py-3 text-base font-medium rounded-lg text-gray-600 data-[state=active]:bg-[#F2F4F8]/80 data-[state=active]:text-black data-[state=active]:shadow-sm transition-all duration-200 max-md:flex-1 max-md:whitespace-nowrap max-md:text-sm max-md:px-0 max-md:py-0 max-md:gap-2 "
                     >
                       <Icon className="h-5 w-5 max-md:h-10 max-md:w-10" />
                       <span className="max-md:hidden ">{item.label}</span>

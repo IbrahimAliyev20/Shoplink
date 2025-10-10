@@ -68,9 +68,7 @@ const AccountCompletion = React.forwardRef<AccountCompletionRef, AccountCompleti
           <h2 className="text-2xl font-medium text-gray-900 mb-2 max-md:text-xl max-md:mb-3">
             Hesabı Tamamla
           </h2>
-          <p className="text-gray-600 text-sm">
-            Mağazanızı aktiv etmək üçün aşağıdakı məlumatları doldurun.
-          </p>
+     
         </div>
 
         <form className="space-y-6 max-md:space-y-4">

@@ -106,7 +106,7 @@ const SupportDashboard = () => {
       </CardHeader>
       <CardContent className="space-y-6 max-md:space-y-4 max-md:p-4 max-md:pt-0">
         <Tabs defaultValue="shopping" className="w-full">
-          <TabsList className="max-w-3xl  grid w-full grid-cols-1 sm:grid-cols-3 mb-6 p-0.5 rounded-3xl h-auto">
+          <TabsList className="max-w-3xl  grid w-full grid-cols-1 sm:grid-cols-3 mb-6 p-0.5 rounded-3xl h-auto bg-[#F2F4F8]">
             {tabs.map((tab, index) => (
               <TabsTrigger key={index} value={tab.id} className="rounded-3xl text-xs sm:text-sm py-2 px-3">{tab.label}</TabsTrigger>
             ))}

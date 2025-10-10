@@ -39,7 +39,7 @@ export default function PurchasePage() {
   };
 
   return (
-    <div className=" bg-white ">
+    <div className=" bg-white rounded-lg border border-[#F3F2F8] ">
       <Card className="border-none shadow-none">
         <CardContent className=" max-sm:p-4">
           <div
@@ -52,14 +52,14 @@ export default function PurchasePage() {
                 placeholder="Sifariş axtarın"
                 value={searchTerm}
                 onChange={handleSearchChange}
-                className="max-sm:pl-8 max-sm:h-10 max-sm:text-sm"
+                className="max-sm:pl-8 max-sm:h-10 max-sm:text-sm py-5.5"
               />
               <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4 max-sm:h-3 max-sm:w-3" />
             </div>
             <Button
               variant="outline"
               size="sm"
-              className="flex items-center space-x-2 max-sm:w-full max-sm:h-10 max-sm:text-sm max-sm:space-x-1.5"
+              className="flex items-center space-x-2 max-sm:w-full max-sm:h-10 max-sm:text-sm max-sm:space-x-1.5 py-5.5"
             >
               <ListFilter className="h-4 w-4 max-sm:h-3 max-sm:w-3" />
               <span>Filter</span>
@@ -74,7 +74,7 @@ export default function PurchasePage() {
             <div className="max-sm:min-w-[600px]">
               <table className="w-full">
                 <thead>
-                  <tr className="border-b border-gray-200">
+                  <tr className="border-b border-[#F3F2F8]">
                     <th className="text-left py-4 px-6 text-sm font-medium text-gray-500 max-sm:py-3 max-sm:px-4 max-sm:text-xs">
                       Sifariş №
                     </th>
@@ -96,7 +96,7 @@ export default function PurchasePage() {
                   {paginatedOrders.map((product) => (
                     <tr
                       key={product.id}
-                      className="border-b border-gray-200 hover:bg-gray-50"
+                      className="border-b border-[#F3F2F8] hover:bg-gray-50"
                     >
                       <td className="py-4 px-6 text-sm text-gray-900 max-sm:py-3 max-sm:px-4 max-sm:text-xs">
                         {product.id}

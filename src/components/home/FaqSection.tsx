@@ -19,7 +19,7 @@ export function FaqSection() {
   return (
     <div className="w-full max-w-6xl px-4 sm:px-6 lg:px-0 mx-auto py-6">
       <Tabs defaultValue="shopping" className="w-full">
-        <TabsList className="max-w-4xl mx-auto flex w-full overflow-x-auto sm:grid sm:grid-cols-3 mb-8 p-1 rounded-4xl h-auto scrollbar-hide">
+        <TabsList className="max-w-4xl mx-auto flex w-full overflow-x-auto sm:grid sm:grid-cols-3 mb-8 p-1 rounded-4xl h-auto scrollbar-hide bg-[#f2f4f8]">
          {data?.map((item, index) => (
           <TabsTrigger key={index} value={item.name} className="rounded-4xl text-sm sm:text-base py-3 px-4 whitespace-nowrap">{item.name}</TabsTrigger>
          ))}
