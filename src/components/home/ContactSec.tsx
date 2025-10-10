@@ -93,18 +93,18 @@ export default function ContactPage() {
                     type="text"
                     placeholder="Ad və soyadınızı daxil edin"
                     {...register("name")}
-                    className="w-full h-10 px-4 py-6 -mt-3 bg-transparent border-none focus:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
+                    className="w-full h-10 px-4 py-6  bg-transparent border-none focus:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
                   />
                 </fieldset>
               </div>
               {errors.name && (
-                <p className="text-sm text-red-600 -mt-4 ml-1">{errors.name.message}</p>
+                <p className="text-sm text-red-600  ml-1">{errors.name.message}</p>
               )}
 
               <div className="space-y-2">
                 <label htmlFor="phone" className="text-sm text-gray-500">Telefon nömrəsi</label>
                 <fieldset className={`flex items-center rounded-xl border transition-all duration-200 ${errors.phone ? 'border-red-500' : 'border-gray-300'}`}>
-                  <div className="flex w-full items-center -mt-3">
+                  <div className="flex w-full items-center ">
                     <Select
                       value={countryCode}
                       onValueChange={(value) => setValue("countryCode", value)}

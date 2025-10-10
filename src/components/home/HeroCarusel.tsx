@@ -70,7 +70,7 @@ export default function HeroCarousel() {
   return (
     <main className="flex-1">
       <div>
-        <div className="flex flex-col lg:flex-row items-center gap-6 lg:gap-12 min-h-[500px] lg:min-h-[600px]">
+        <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-12 min-h-[500px] lg:min-h-[600px]">
           <div className="w-full lg:w-2/5 space-y-4 lg:space-y-6 lg:pr-8 mt-20 md:mt-0">
             <h1 className="max-w-[300px]  text-3xl sm:text-4xl md:text-5xl xl:text-6xl font-semibold text-gray-900 leading-tight">
               {data?.title}
@@ -105,7 +105,7 @@ export default function HeroCarousel() {
           </div>
 
           <div className="w-full lg:w-3/5 h-[300px] sm:h-[350px] lg:h-[440px]">
-            <div className="relative w-full h-full space-y-8">
+            <div className="relative w-full h-full space-y-0 md:space-y-8">
               <div
                 className="h-[48%] overflow-hidden rounded-2xl relative"
                 ref={emblaRefTop}
@@ -116,7 +116,7 @@ export default function HeroCarousel() {
                       key={`top-${index}`}
                       className="flex-[0_0_60%] min-w-0 px-3"
                     >
-                      <div className="relative h-[212px] overflow-hidden rounded-xl group">
+                      <div className="relative h-[120px] md:h-[212px] overflow-hidden rounded-xl group">
                         <Image
                           src={image.image || "/placeholder.svg"}
                           alt="Hero Banner"
@@ -143,7 +143,7 @@ export default function HeroCarousel() {
                       key={`bottom-${index}`}
                       className="flex-[0_0_60%] min-w-0 px-3"
                     >
-                      <div className="relative h-[212px] overflow-hidden rounded-xl group">
+                      <div className="relative h-[120px] md:h-[212px] overflow-hidden rounded-xl group">
                         <Image
                           src={image.image || "/placeholder.svg"}
                           alt="Hero Banner"

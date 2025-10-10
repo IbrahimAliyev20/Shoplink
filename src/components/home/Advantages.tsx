@@ -30,7 +30,7 @@ const Advantages = () => {
           
           {data?.map((item , index) => (
               <div key={index} className="rounded-3xl flex flex-col bg-[#FBFDFF] p-6 border-1 border-[#E5E5EA]">
-              <h3 className="text-xl font-bold text-gray-900 mb-3">{item.title}</h3>
+              <h3 className="text-xl font-medium text-gray-900 mb-3">{item.title}</h3>
               <p className="text-gray-600 text-sm leading-relaxed">{item.description}</p>
               <Image src={item.image} alt={item.title} width={300} height={200} />
             </div>

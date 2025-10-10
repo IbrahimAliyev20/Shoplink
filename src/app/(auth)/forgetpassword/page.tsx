@@ -24,16 +24,11 @@ interface FloatingFieldProps {
 
 function FloatingField({ id, label, children, className }: FloatingFieldProps) {
   return (
-    <div className={`relative ${className ?? ""}`}>
-      {children}
-      <Label
-        htmlFor={id}
-        className={
-          "pointer-events-none bg-white absolute left-3 -top-2 px-1 text-xs text-foreground"
-        }
-      >
+    <div className={`space-y-2 ${className ?? ""}`}>
+      <Label htmlFor={id} className="text-sm font-medium text-gray-700">
         {label}
       </Label>
+      {children}
     </div>
   );
 }
@@ -253,7 +248,6 @@ function ForgetPassword() {
           if (data.status === "success") {
             setCurrentStep("success");
           } else {
-            // Məsələn, "Invalid verification code" xətasını burada göstərəcək
             toast.error(data.message || "Xəta baş verdi");
           }
         },
@@ -289,7 +283,6 @@ function ForgetPassword() {
     }
   };
 
-  const canGoBack = currentStep !== "email" && currentStep !== "success";
 
   return (
     <section className="bg-[#FBFDFF] h-screen flex items-center justify-center">
@@ -312,20 +305,22 @@ function ForgetPassword() {
                 height={45}
               />
 
-              <div className="flex items-center mt-8 mb-10">
-                {canGoBack && (
-                  <button
-                    onClick={() => {
-                      if (currentStep === "otp") setCurrentStep("email");
-                      else if (currentStep === "password")
-                        setCurrentStep("otp");
-                    }}
-                    className="mr-4 p-1 hover:bg-gray-100 rounded"
-                  >
-                    <ArrowLeft size={20} />
-                  </button>
-                )}
-                <h1 className="text-2xl font-semibold">{getStepTitle()}</h1>
+              <div className="flex items-center gap-4 mt-8 mb-10">
+                <button
+                  onClick={() => {
+                    if (currentStep === "email") {
+                      router.back();
+                    } else if (currentStep === "otp") {
+                      setCurrentStep("email");
+                    } else if (currentStep === "password") {
+                      setCurrentStep("otp");
+                    }
+                  }}
+                  className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                >
+                  <ArrowLeft size={20} />
+                </button>
+                <h1 className="text-2xl font-medium">{getStepTitle()}</h1>
               </div>
             </>
           )}

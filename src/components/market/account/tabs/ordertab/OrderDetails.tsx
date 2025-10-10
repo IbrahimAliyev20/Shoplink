@@ -28,12 +28,6 @@ function OrderDetails({ orderId, onBack }: OrderDetailsProps) {
     return <div>Sifariş tapılmadı və ya xəta baş verdi.</div>;
   }
 
-  const formattedDate = new Date(order.id || "date").toLocaleDateString(
-    "az-AZ",
-    {}
-  );
-  console.log(order)
-
   return (
     <div className="min-h-screen p-4 bg-white">
       <div className="flex items-center gap-4 mb-6">

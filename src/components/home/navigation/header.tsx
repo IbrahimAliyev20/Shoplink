@@ -128,7 +128,7 @@ export function Header() {
         <div className="md:hidden fixed inset-0 z-50 bg-white">
           <div className="flex flex-col h-full">
             {/* Header with logo and close button */}
-            <div className="flex items-center justify-between p-4 border-b">
+            <div className="flex items-center justify-between p-4 border-b border-[#f3f2f8]">
               <Link href="/" className="flex items-center gap-2" onClick={() => setIsMobileMenuOpen(false)}>
                 <Image
                   src={data?.logo || "/images/logofooter.png"}
@@ -194,19 +194,20 @@ export function Header() {
                   <UserProfileMobile user={user} />
                 </div>
               ) : (
-                <div className="pt-6 space-y-3">
+                <div className="pt-6 space-y-3 w-full flex flex-col gap-4">
                   <Link
                     href="/login"
-                    className="block text-center text-gray-700 hover:text-gray-900 font-semibold px-6 py-4 border rounded-xl text-lg"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
+                    <Button className="w-full rounded-[14px] px-6 py-5.5 bg-white-900 text-black hover:bg-cyan-50 cursor-pointer text-lg border border-[#f3f2f8]">
                     Giriş
+                    </Button>
                   </Link>
                   <Link
                     href="/register"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
-                    <Button className="w-full rounded-[14px] px-6 py-4 bg-gray-900 text-white hover:bg-gray-800 cursor-pointer text-lg">
+                    <Button className="w-full rounded-[14px] px-6 py-5.5 bg-gray-900 text-white hover:bg-gray-800 cursor-pointer text-lg">
                       E-ticarət saytını aç
                     </Button>
                   </Link>

@@ -155,7 +155,7 @@ function Login() {
             </Button>
           </form>
 
-          <p className="mt-4 text-sm text-muted-foreground font-semibold text-center">
+          <p className="mt-4 text-sm text-muted-foreground font-semibold item-center justify-center flex  gap-2 ">
             Hesabın yoxdur ?
             
             <Link
