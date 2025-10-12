@@ -1,56 +1,59 @@
-import { queryOptions } from "@tanstack/react-query"
 import { getCategoryStore, getStore, getProductStoreCategory, getProductSingle, getAllProductsStore, FilterProductsStore } from "./api"
-
-
-
+import { queryKeys, createQueryOptions } from "@/lib/query-config"
 
 export const getStoreOptions = function(slug: string){
-    return queryOptions({
-        queryKey: ['store-options' , slug],
-        queryFn: () => getStore(slug)
-    })
+    return createQueryOptions(
+        queryKeys.store.bySlug(slug),
+        () => getStore(slug),
+        {
+            staleTime: 10 * 60 * 1000, 
+        }
+    )
 }
-
-
 
 export const getCategoryStoreOptions = function(slug: string){
-    return queryOptions({
-        queryKey: ['category-store-options' , slug],
-        queryFn: () => getCategoryStore(slug)
-    })
+    return createQueryOptions(
+        queryKeys.store.categories(slug),
+        () => getCategoryStore(slug),
+        {
+            staleTime: 15 * 60 * 1000, 
+        }
+    )
 }
-
-
 
 export const getProductStoreCategoryOptions = function(
     slug: string,
     category_name: string,
     search?: string 
   ) {
-    return queryOptions({
-      queryKey: ["product-store-category-options", slug, category_name, search],
-      queryFn: () => getProductStoreCategory(slug, category_name, search),
-    });
+    return createQueryOptions(
+      queryKeys.products.byCategory(slug, category_name, search),
+      () => getProductStoreCategory(slug, category_name, search),
+      {
+          staleTime: 3 * 60 * 1000, 
+      }
+    );
   };
-
-
 
 export const getProductSingleOptions = function(slug: string){
-    return queryOptions({
-        queryKey: ['product-single-options' , slug],
-        queryFn: () => getProductSingle(slug)
-    })
+    return createQueryOptions(
+        queryKeys.products.bySlug(slug),
+        () => getProductSingle(slug),
+        {
+            staleTime: 10 * 60 * 1000,
+        }
+    )
 }
 
-
- 
 export const getAllProductsStoreOptions = function(slug: string, search?: string) {
-    return queryOptions({
-      queryKey: ['all-products-store-options', slug, search],
-      queryFn: () => getAllProductsStore(slug, search),
-    });
+    return createQueryOptions(
+      queryKeys.products.byStore(slug, search),
+      () => getAllProductsStore(slug, search),
+      {
+          staleTime: 2 * 60 * 1000, 
+      }
+    );
   };
-
 
 interface ProductFilters {
   category_id?: number;
@@ -60,10 +63,9 @@ interface ProductFilters {
 }
 
 export const getFilteredProductsStoreOptions = (filters: ProductFilters) => {
-  return queryOptions({
-    queryKey: ['products', 'filter', filters],
-      
-    queryFn: () => {
+  return createQueryOptions(
+    queryKeys.products.filtered(filters as Record<string, unknown>),
+    () => {
       const formData = new FormData();
       if (filters.category_id) formData.append('category_id', String(filters.category_id));
       if (filters.min_price) formData.append('min_price', String(filters.min_price));
@@ -72,6 +74,9 @@ export const getFilteredProductsStoreOptions = (filters: ProductFilters) => {
       
       return FilterProductsStore(formData);
     },
-    enabled: false, 
-  });
+    {
+        staleTime: 1 * 60 * 1000, 
+        enabled: false, 
+    }
+  );
 };

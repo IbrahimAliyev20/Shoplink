@@ -1,7 +1,3 @@
-/**
- * Centralized image paths for better management and type safety
- * All static images should be referenced from here
- */
 
 export const STATIC_IMAGES = {
   // Brand logos

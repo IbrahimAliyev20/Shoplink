@@ -1,12 +1,14 @@
-import { queryOptions } from "@tanstack/react-query";
 import { getPromocode } from "./api";
-
+import { queryKeys, createQueryOptions } from "@/lib/query-config";
 
 const getPromocodeOptions = () => {
-    return queryOptions({
-        queryKey: ['promocode-options'],
-        queryFn: () => getPromocode()
-    })
-}
+    return createQueryOptions(
+        queryKeys.promocodes(),
+        () => getPromocode(),
+        {
+            staleTime: 5 * 60 * 1000, // 5 minutes for promocodes
+        }
+    );
+};
 
 export default getPromocodeOptions;

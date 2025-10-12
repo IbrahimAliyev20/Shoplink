@@ -1,10 +1,12 @@
-
-import { queryOptions } from "@tanstack/react-query"
-import { getSosial } from "./api"
+import { getSosial } from "./api";
+import { queryKeys, createQueryOptions } from "@/lib/query-config";
 
 export const getSosialOptions = function(){
-    return queryOptions({
-        queryKey: ['sosial-options'],
-        queryFn: () => getSosial()
-    })
-}
+    return createQueryOptions(
+        queryKeys.home.social(),
+        () => getSosial(),
+        {
+            staleTime: 30 * 60 * 1000, // 30 minutes for social links (rarely changes)
+        }
+    );
+};

@@ -1,11 +1,14 @@
 import getTrackNumber from "./api";
-import { queryOptions } from "@tanstack/react-query";
+import { queryKeys, createQueryOptions } from "@/lib/query-config";
 
 const getTrackNumberOptions = (slug: string) => {
-    return queryOptions({
-        queryKey: ['track-number', slug],
-        queryFn: () => getTrackNumber(slug)
-    });
+    return createQueryOptions(
+        queryKeys.trackNumber(slug),
+        () => getTrackNumber(slug),
+        {
+            staleTime: 1 * 60 * 1000, // 1 minute for tracking info
+        }
+    );
 };
 
 export default getTrackNumberOptions;

@@ -1,10 +1,13 @@
-import { queryOptions } from "@tanstack/react-query"
-import { getSetup } from "./api"
+import { getSetup } from "./api";
+import { queryKeys, createQueryOptions } from "@/lib/query-config";
 
 export const getSetupOptions = function(){
-    return queryOptions({
-        queryKey: ['setup-options'],
-        queryFn: () => getSetup()
-    })
-}
+    return createQueryOptions(
+        queryKeys.home.setup(),
+        () => getSetup(),
+        {
+            staleTime: 30 * 60 * 1000, // 30 minutes for setup info (rarely changes)
+        }
+    );
+};
 

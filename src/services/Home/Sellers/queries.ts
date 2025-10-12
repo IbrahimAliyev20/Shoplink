@@ -1,11 +1,13 @@
-
-import { queryOptions } from "@tanstack/react-query"
-import { getSellers } from "./api"
+import { getSellers } from "./api";
+import { queryKeys, createQueryOptions } from "@/lib/query-config";
 
 export const getSellersOptions = function(){
-    return queryOptions({
-        queryKey: ['sellers-options'],
-        queryFn: () => getSellers()
-    })
-}
+    return createQueryOptions(
+        queryKeys.home.sellers(),
+        () => getSellers(),
+        {
+            staleTime: 10 * 60 * 1000, // 10 minutes for sellers (may change more frequently)
+        }
+    );
+};
 

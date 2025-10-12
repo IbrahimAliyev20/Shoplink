@@ -1,18 +1,24 @@
-import { queryOptions } from "@tanstack/react-query";
 import { getSingleUserOrder, getUserOrder } from "./api";
+import { queryKeys, createQueryOptions } from "@/lib/query-config";
 
 const getUserOrderQuery  = () => {
-  return queryOptions({
-    queryKey: ["userOrder"],
-    queryFn: () => getUserOrder(),
-  });
+  return createQueryOptions(
+    queryKeys.orders.userOrders(),
+    () => getUserOrder(),
+    {
+      staleTime: 1 * 60 * 1000, // 1 minute for user orders
+    }
+  );
 };
 
 const getSingleUserOrderQuery = (orderId: string) => {
-  return queryOptions({
-    queryKey: ["singleUserOrder", orderId],
-    queryFn: () => getSingleUserOrder(orderId),
-  });
+  return createQueryOptions(
+    queryKeys.orders.byId(orderId),
+    () => getSingleUserOrder(orderId),
+    {
+      staleTime: 5 * 60 * 1000, // 5 minutes for individual orders
+    }
+  );
 };
 
 export { getUserOrderQuery, getSingleUserOrderQuery };

@@ -9,6 +9,7 @@ import {
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { useRouter } from "next/navigation";
+import { queryConfig } from "@/lib/query-config";
 
 interface QueryProviderProps {
   children: ReactNode;
@@ -32,20 +33,7 @@ function makeQueryClient(router: AppRouterInstance) {
         }
       },
     }),
-    defaultOptions: {
-      queries: {
-        staleTime: 60 * 1000,
-        gcTime: 10 * 60 * 1000,
-        retry: 2,
-        retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
-        refetchOnWindowFocus: false,
-        refetchOnReconnect: true,
-      },
-      mutations: {
-        retry: 1,
-        retryDelay: 1000,
-      },
-    },
+    ...queryConfig,
   });
 }
 

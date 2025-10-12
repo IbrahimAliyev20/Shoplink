@@ -1,10 +1,13 @@
-import { queryOptions } from "@tanstack/react-query"
-import { getFaqs } from "./api"
+import { getFaqs } from "./api";
+import { queryKeys, createQueryOptions } from "@/lib/query-config";
 
 export const getFaqsOptions = function(){
-    return queryOptions({
-        queryKey: ['faqs-options'],
-        queryFn: () => getFaqs()
-    })
-}
+    return createQueryOptions(
+        queryKeys.home.faqs(),
+        () => getFaqs(),
+        {
+            staleTime: 30 * 60 * 1000, // 30 minutes for FAQs (rarely changes)
+        }
+    );
+};
 

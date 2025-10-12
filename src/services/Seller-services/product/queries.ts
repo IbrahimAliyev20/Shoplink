@@ -1,18 +1,23 @@
-import { queryOptions } from "@tanstack/react-query";
 import { getAllProducts, getShowProduct } from "./api";
+import { queryKeys, createQueryOptions } from "@/lib/query-config";
 
 export const productQueries = {
     all: () => 
-        queryOptions({
-            queryKey: ['products'],
-            queryFn: getAllProducts,
-        }),
+        createQueryOptions(
+            queryKeys.products.all(),
+            getAllProducts,
+            {
+                staleTime: 3 * 60 * 1000, // 3 minutes for all products
+            }
+        ),
     show: (id: number) => 
-        queryOptions({
-            queryKey: ['product', id],
-            queryFn: () => getShowProduct(id),
-        }),
-  
+        createQueryOptions(
+            queryKeys.products.byId(id),
+            () => getShowProduct(id),
+            {
+                staleTime: 10 * 60 * 1000, // 10 minutes for single product
+            }
+        ),
 };
 
 

@@ -3,17 +3,8 @@
 import React, { useState, useEffect } from "react";
 import ProductList from "./shared/ProductList";
 import FilterPanel from "./FilterModal";
-import { useQuery } from "@tanstack/react-query";
-import {
-  CategoryStore,
-  ProductStoreCategory,
-} from "@/types/storeforusers/types";
-import {
-  getAllProductsStoreOptions,
-  getProductStoreCategoryOptions,
-  getFilteredProductsStoreOptions,
-} from "@/services/User-services/StoreForUsers/queries";
-import { getAllProductsStore } from "@/services/User-services/StoreForUsers/api";
+import { CategoryStore } from "@/types/storeforusers/types";
+import { useProductsData } from "@/hooks/useProductsData";
 import { Input } from "@/components/ui/input";
 
 interface ProductFilters {
@@ -39,7 +30,6 @@ const TabsMarket: React.FC<TabsMarketProps> = ({ categories, storeSlug }) => {
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [filters, setFilters] = useState<ProductFilters>({});
-  const [hasActiveFilters, setHasActiveFilters] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -51,93 +41,21 @@ const TabsMarket: React.FC<TabsMarketProps> = ({ categories, storeSlug }) => {
     };
   }, [searchTerm]);
 
-  useEffect(() => {
-    const hasFilters = Object.keys(filters).some(
-      (key) =>
-        filters[key as keyof ProductFilters] !== undefined &&
-        filters[key as keyof ProductFilters] !== null
-    );
-    setHasActiveFilters(hasFilters);
-  }, [filters]);
-
   const handleApplyFilters = (newFilters: ProductFilters) => {
     setFilters(newFilters);
   };
 
   const handleClearFilters = () => {
     setFilters({});
-    setHasActiveFilters(false);
   };
 
-  const shouldUseFilteredQuery = hasActiveFilters && !debouncedSearchTerm;
-  const shouldUseSearchQuery = debouncedSearchTerm && !hasActiveFilters;
-  const shouldUseCategoryQuery =
-    !debouncedSearchTerm && !hasActiveFilters && activeTab !== "all";
-
-  const {
-    data: filteredProducts = [],
-    isLoading: isFilteredLoading,
-    isError: isFilteredError,
-  } = useQuery({
-    ...getFilteredProductsStoreOptions(filters),
-    enabled: shouldUseFilteredQuery,
+  const { products, isLoading, isError } = useProductsData({
+    storeSlug,
+    activeTab,
+    debouncedSearchTerm,
+    filters,
+    categories,
   });
-
-  const {
-    data: searchProducts = [],
-    isLoading: isSearchLoading,
-    isError: isSearchError,
-  } = useQuery({
-    queryKey: ["all-products-store-options", storeSlug, debouncedSearchTerm],
-    queryFn: () => getAllProductsStore(storeSlug, debouncedSearchTerm),
-    enabled: Boolean(shouldUseSearchQuery && debouncedSearchTerm.length > 0),
-  });
-
-  const {
-    data: categoryProducts = [],
-    isLoading: isCategoryLoading,
-    isError: isCategoryError,
-  } = useQuery({
-    ...getProductStoreCategoryOptions(storeSlug, activeTab),
-    enabled: Boolean(shouldUseCategoryQuery && !!activeTab),
-  });
-
-  const {
-    data: allProducts = [],
-    isLoading: isAllLoading,
-    isError: isAllError,
-  } = useQuery({
-    ...getAllProductsStoreOptions(storeSlug),
-    enabled: Boolean(
-      !shouldUseFilteredQuery &&
-        !shouldUseSearchQuery &&
-        !shouldUseCategoryQuery
-    ),
-  });
-
-  const products: ProductStoreCategory[] = shouldUseFilteredQuery
-    ? filteredProducts
-    : shouldUseSearchQuery
-    ? searchProducts
-    : shouldUseCategoryQuery
-    ? categoryProducts
-    : allProducts;
-
-  const isLoading = shouldUseFilteredQuery
-    ? isFilteredLoading
-    : shouldUseSearchQuery
-    ? isSearchLoading
-    : shouldUseCategoryQuery
-    ? isCategoryLoading
-    : isAllLoading;
-
-  const isError = shouldUseFilteredQuery
-    ? isFilteredError
-    : shouldUseSearchQuery
-    ? isSearchError
-    : shouldUseCategoryQuery
-    ? isCategoryError
-    : isAllError;
 
   return (
     <div>

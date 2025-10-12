@@ -1,15 +1,22 @@
-import { queryOptions } from "@tanstack/react-query";
 import { getClients, getShowClient } from "./api";
+import { queryKeys, createQueryOptions } from "@/lib/query-config";
 
 export const getClientsQuery = (page: number) => {
-    return queryOptions({
-        queryKey: ["clients", page],
-        queryFn: () => getClients(page),
-    });
+    return createQueryOptions(
+        queryKeys.clients.all(page),
+        () => getClients(page),
+        {
+            staleTime: 3 * 60 * 1000, // 3 minutes for client lists
+        }
+    );
 };
+
 export const getShowClientQuery = (id: string) => {
-    return queryOptions({
-        queryKey: ["clients", id],
-        queryFn: () => getShowClient(id),
-    });
+    return createQueryOptions(
+        queryKeys.clients.byId(id),
+        () => getShowClient(id),
+        {
+            staleTime: 10 * 60 * 1000, // 10 minutes for individual clients
+        }
+    );
 };

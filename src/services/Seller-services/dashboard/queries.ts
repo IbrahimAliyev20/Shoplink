@@ -1,23 +1,32 @@
-import { queryOptions } from "@tanstack/react-query";
 import { getLastActivities, getReportStats, getStoreStats } from "./api";
+import { queryKeys, createQueryOptions } from "@/lib/query-config";
 
 export const getStoreStatsQuery = () => {   
-    return queryOptions({
-        queryKey: ["store-stats"],
-        queryFn: getStoreStats,
-    });
+    return createQueryOptions(
+        queryKeys.dashboard.stats(),
+        getStoreStats,
+        {
+            staleTime: 2 * 60 * 1000, // 2 minutes for stats
+        }
+    );
 };
 
 export const getReportStatsQuery = () => {
-    return queryOptions({
-        queryKey: ["report-stats"],
-        queryFn: getReportStats,
-    });
+    return createQueryOptions(
+        queryKeys.dashboard.reports(),
+        getReportStats,
+        {
+            staleTime: 5 * 60 * 1000, // 5 minutes for reports
+        }
+    );
 };
 
 export const getLastActivitiesQuery = () => {
-    return queryOptions({
-        queryKey: ["last-activities"],
-        queryFn: getLastActivities,
-    });
+    return createQueryOptions(
+        queryKeys.dashboard.activities(),
+        getLastActivities,
+        {
+            staleTime: 1 * 60 * 1000, // 1 minute for activities
+        }
+    );
 };

@@ -1,10 +1,12 @@
-
-import { queryOptions } from "@tanstack/react-query"
-import { getAllStore } from "./api"
+import { getAllStore } from "./api";
+import { queryKeys, createQueryOptions } from "@/lib/query-config";
 
 export const getAllStoreQuery = () => {
-    return queryOptions({
-        queryKey: ['all-store-options'],
-        queryFn: () => getAllStore()
-    })
-}
+    return createQueryOptions(
+        queryKeys.store.all(),
+        () => getAllStore(),
+        {
+            staleTime: 10 * 60 * 1000, // 10 minutes for store list
+        }
+    );
+};
