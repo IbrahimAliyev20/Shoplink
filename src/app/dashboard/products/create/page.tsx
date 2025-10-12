@@ -16,7 +16,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import RichTextEditor from "@/components/shared/editor";
+import { DynamicRichTextEditor } from "@/components/dynamic/DynamicComponents";
 import { X, Plus } from "lucide-react";
 
 import { createProductMutation } from "@/services/Seller-services/product/mutations";
@@ -433,7 +433,7 @@ const CreateProduct = () => {
                   name="description"
                   control={control}
                   render={({ field }) => (
-                    <RichTextEditor
+                    <DynamicRichTextEditor
                       value={field.value}
                       onChange={field.onChange}
                       placeholder="Məhsulun təsvirini daxil edin"

@@ -1,10 +1,8 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
-import LastOrders from "@/components/dashboard/panel/LastOrders";
 import MetricCard from "@/components/dashboard/MetricCard";
-import RevenueChart from "@/components/dashboard/RevenueChart";
-import RecentActivities from "@/components/dashboard/RecentActivities";
+import { DynamicRevenueChart, DynamicRecentActivities, DynamicLastOrders } from "@/components/dynamic/DynamicComponents";
 import { useDashboardData } from "@/hooks/useDashboardData";
 
 type Timeframe = "monthly" | "weekly" | "daily";
@@ -36,14 +34,14 @@ export default function DashboardPage() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-md:gap-4">
-          <RevenueChart
+          <DynamicRevenueChart
             chartData={activeChartData}
             timeframe={timeframe}
             onTimeframeChange={setTimeframe}
           />
-          <RecentActivities activities={lastActivities?.logs || []} />
+          <DynamicRecentActivities activities={lastActivities?.logs || []} />
         </div>
-        <LastOrders />
+        <DynamicLastOrders />
       </div>
     </div>
   );

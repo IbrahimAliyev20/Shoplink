@@ -1,5 +1,5 @@
 "use client";
-import RichTextEditor from "@/components/shared/editor";
+import { DynamicRichTextEditor } from "@/components/dynamic/DynamicComponents";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import React, { useState, useRef, useEffect } from "react";
@@ -271,7 +271,7 @@ const ProductEdit: React.FC = () => {
             <label className="block text-sm font-medium mb-2 ">
               Məhsulun təsviri
             </label>
-            <RichTextEditor
+            <DynamicRichTextEditor
               value={formData.description}
               onChange={(value) => handleInputChange("description", value)}
             />
