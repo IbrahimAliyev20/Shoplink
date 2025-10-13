@@ -106,18 +106,18 @@ const SupportDashboard = () => {
       </CardHeader>
       <CardContent className="space-y-6 max-md:space-y-4 max-md:p-4 max-md:pt-0">
         <Tabs defaultValue="shopping" className="w-full">
-          <TabsList className="max-w-3xl  grid w-full grid-cols-1 sm:grid-cols-3 mb-6 p-0.5 rounded-3xl h-auto bg-[#F2F4F8]">
+          <TabsList className="max-w-3xl mx-auto flex w-full overflow-x-auto sm:grid sm:grid-cols-3 mb-6 p-1 rounded-4xl h-auto scrollbar-hide bg-[#f2f4f8]">
             {tabs.map((tab, index) => (
-              <TabsTrigger key={index} value={tab.id} className="rounded-3xl text-xs sm:text-sm py-2 px-3">{tab.label}</TabsTrigger>
+              <TabsTrigger key={index} value={tab.id} className="rounded-4xl text-sm sm:text-base py-3 px-4 whitespace-nowrap">{tab.label}</TabsTrigger>
             ))}
           </TabsList>
           {tabs.map((tab, index) => (
             <TabsContent key={index} value={tab.id}>
-              <Accordion type="single" collapsible defaultValue="item-1" className="w-full flex flex-col gap-1.5">
+              <Accordion type="single" collapsible defaultValue="item-1" className="w-full flex flex-col gap-2">
                 {faqData[tab.id as keyof typeof faqData]?.map((faq, faqIndex) => (
-                  <AccordionItem key={faqIndex} value={faq.question} className="border-b-0 border-1 border-[#F3F2F8] rounded-xl bg-[#FBFDFF]">
-                    <AccordionTrigger className="text-left font-medium px-2 sm:px-3 text-xs sm:text-sm py-2">{faq.question}</AccordionTrigger>
-                    <AccordionContent className="text-gray-600 space-y-1.5 px-3 pb-2">
+                  <AccordionItem key={faqIndex} value={faq.question} className="border-b-0 border-1 border-[#F3F2F8] rounded-[16px] bg-[#FBFDFF]">
+                    <AccordionTrigger className="text-left font-medium px-3 sm:px-4 text-sm sm:text-base">{faq.question}</AccordionTrigger>
+                    <AccordionContent className="text-gray-600 space-y-2 px-4">
                       <ul className="space-y-1.5">
                         {faq.answer.map((item, idx) => (
                           <li key={idx} className="text-xs text-gray-600 flex items-start">

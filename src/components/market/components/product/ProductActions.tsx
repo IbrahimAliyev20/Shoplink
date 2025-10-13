@@ -40,14 +40,14 @@ const ProductActions: React.FC<ProductActionsProps> = ({
       <Button
         variant="outline"
         onClick={handleBuyNow}
-        className="w-full py-5 border border-gray-300 rounded-xl font-semibold hover:bg-gray-50 transition-colors text-base max-md:py-3 max-md:text-sm max-md:rounded-lg max-md:order-2"
+        className="w-full h-12 border border-gray-300 rounded-xl font-semibold hover:bg-gray-50 transition-colors text-base max-md:py-3 max-md:text-sm max-md:rounded-lg max-md:order-2"
       >
         İndi al
       </Button>
       <Button
         variant="default"
         onClick={handleAddToCart}
-        className="w-full py-5 bg-[#E23359] text-white rounded-xl font-semibold hover:bg-[#E23359]/90 transition-colors text-base max-md:py-3 max-md:text-sm max-md:rounded-lg max-md:order-1"
+        className="w-full h-12 bg-[#E23359] text-white rounded-xl font-semibold hover:bg-[#E23359]/90 transition-colors text-base max-md:py-3 max-md:text-sm max-md:rounded-lg max-md:order-1"
       >
         Səbətə at
       </Button>

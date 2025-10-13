@@ -44,35 +44,35 @@ function AddressForm({
 
   return (
     <div className="min-h-screen bg-white">
-      <div className="flex items-center gap-4 p-4 border-b">
+      <div className="flex items-center gap-3 md:gap-4 p-3 md:p-4 border-b">
         <Button
           variant="ghost"
           size="icon"
           onClick={onBack}
-          className="h-8 w-8"
+          className="h-7 w-7 md:h-8 md:w-8"
         >
-          <ChevronLeft className="h-5 w-5" />
+          <ChevronLeft className="h-4 w-4 md:h-5 md:w-5" />
         </Button>
-        <h1 className="text-lg font-medium">
+        <h1 className="text-base md:text-lg font-medium">
           {isEditing ? "Ünvanı düzəlt" : "Ünvan əlavə et"}
         </h1>
       </div>
 
-      <div className="p-4">
+      <div className="p-3 md:p-4">
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-            <div className="grid grid-cols-2 gap-4">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 md:space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
               <FormField
                 control={form.control}
                 name="country"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Ölkə</FormLabel>
+                    <FormLabel className="text-sm md:text-base">Ölkə</FormLabel>
                     <FormControl>
                       <Input
                         placeholder="Ölkəni qeyd edin"
                         {...field}
-                        className="h-12 rounded-lg border-[#F3F2F8] focus:border-[#FF13F0] focus:ring-[#FF13F0]"
+                        className="h-10 md:h-12 rounded-lg border-[#F3F2F8] focus:border-[#FF13F0] focus:ring-[#FF13F0] text-sm md:text-base"
                       />
                     </FormControl>
                     <FormMessage />
@@ -84,12 +84,12 @@ function AddressForm({
                 name="city"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Şəhər</FormLabel>
+                    <FormLabel className="text-sm md:text-base">Şəhər</FormLabel>
                     <FormControl>
                       <Input
                         placeholder="Şəhəri qeyd edin"
                         {...field}
-                        className="h-12 rounded-lg border-[#F3F2F8] focus:border-[#FF13F0] focus:ring-[#FF13F0]"
+                        className="h-10 md:h-12 rounded-lg border-[#F3F2F8] focus:border-[#FF13F0] focus:ring-[#FF13F0] text-sm md:text-base"
                       />
                     </FormControl>
                     <FormMessage />
@@ -97,18 +97,18 @@ function AddressForm({
                 )}
               />
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
               <FormField
                 control={form.control}
                 name="title"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Ünvan başlığı</FormLabel>
+                    <FormLabel className="text-sm md:text-base">Ünvan başlığı</FormLabel>
                     <FormControl>
                       <Input
                         placeholder="Məs: Ev, İş"
                         {...field}
-                        className="h-12 rounded-lg border-[#F3F2F8] focus:border-[#FF13F0] focus:ring-[#FF13F0]"
+                        className="h-10 md:h-12 rounded-lg border-[#F3F2F8] focus:border-[#FF13F0] focus:ring-[#FF13F0] text-sm md:text-base"
                       />
                     </FormControl>
                     <FormMessage />
@@ -120,12 +120,12 @@ function AddressForm({
                 name="address"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Ünvan</FormLabel>
+                    <FormLabel className="text-sm md:text-base">Ünvan</FormLabel>
                     <FormControl>
                       <Input
                         placeholder="Ətraflı ünvanı qeyd edin"
                         {...field}
-                        className="h-12 rounded-lg border-[#F3F2F8] focus:border-[#FF13F0] focus:ring-[#FF13F0]"
+                        className="h-10 md:h-12 rounded-lg border-[#F3F2F8] focus:border-[#FF13F0] focus:ring-[#FF13F0] text-sm md:text-base"
                       />
                     </FormControl>
                     <FormMessage />
@@ -136,7 +136,7 @@ function AddressForm({
             <div className="flex items-center justify-end">
               <Button
                 type="submit"
-                className="bg-[#E23359] hover:bg-[#E23359]/90 text-white rounded-[16px] px-8 py-5"
+                className="bg-[#E23359] hover:bg-[#E23359]/90 text-white rounded-[16px] px-6 md:px-8 py-3 md:py-5 h-12 text-sm md:text-base w-full md:w-auto"
                 disabled={isLoading}
               >
                 {isLoading ? "Yadda saxlanılır..." : "Yadda saxla"}

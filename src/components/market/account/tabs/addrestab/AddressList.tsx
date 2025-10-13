@@ -14,7 +14,7 @@ interface AddressListProps {
 function AddressList({ addresses, onAddNew, onEdit, onDelete, onSelect }: AddressListProps) {
   return (
     <div className="p-2">
-      <div className="space-y-2">
+      <div className="space-y-2 md:space-y-2">
         {addresses.map((address) => (
           <AddressItem
             key={address.id}
@@ -26,7 +26,7 @@ function AddressList({ addresses, onAddNew, onEdit, onDelete, onSelect }: Addres
         ))}
       </div>
       <div className="flex items-center justify-end mt-4">
-        <Button variant="default" onClick={onAddNew} className="bg-white hover:bg-white/90 text-black px-4 h-10">
+        <Button variant="default" onClick={onAddNew} className="bg-white hover:bg-white/90 text-black px-3 md:px-4 h-8 md:h-10 text-sm md:text-base w-full md:w-auto">
           + Ünvan əlavə et
         </Button>
       </div>

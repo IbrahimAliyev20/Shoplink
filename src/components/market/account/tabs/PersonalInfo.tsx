@@ -148,7 +148,7 @@ function PersonalInfo({ user }: { user: { name: string; email: string; phone?: s
       <div className="flex justify-end max-sm:justify-center">
         <Button
           onClick={handleSaveChanges}
-          className="bg-[#E23359] hover:bg-[#E23359]/90 text-white font-medium px-8 py-3 rounded-lg max-sm:px-6 max-sm:py-2.5 max-sm:text-sm max-sm:w-full"
+          className="bg-[#E23359] hover:bg-[#E23359]/90 text-white font-medium px-8  rounded-lg max-sm:px-6  max-sm:text-sm max-sm:w-full h-12"
           disabled={isPending}
         >
           {isPending ? "Yadda saxlanılır..." : "Dəyişiklikləri yadda saxla"}

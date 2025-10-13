@@ -26,6 +26,8 @@ async function MarketHome({ params }: MarketHomePageProps) {
         <div className="pb-30 max-md:pb-20">
           <MarketHero store={storeData} />
         </div>
+        <h2 className=' container mx-auto px-4 max-md:px-3 text-2xl md:text-3xl font-medium text-black max-md:text-xl mb-6'>{storeData.name}</h2>
+
         <div className="container mx-auto px-4 max-md:px-3">
           <TabsMarket categories={categories} storeSlug={marketSlug} />
         </div>

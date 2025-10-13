@@ -15,41 +15,41 @@ interface AddressItemProps {
 
 function AddressItem({ address, onEdit, onDelete, onSelect }: AddressItemProps) {
   return (
-    <div className="bg-[#fbfdff] border border-[#f3f2f8] rounded-lg p-4" >
+    <div className="bg-[#FBFDFF] border border-[#f3f2f8] rounded-lg p-3 md:p-4" >
       <div className="flex items-start justify-between">
-        <div className="flex-1">
+        <div className="flex-1 min-w-0">
           <div className="relative flex items-center gap-2 mb-2">
-            <MapPin className="w-4 h-4 text-gray-400" />
-            <h3 className="font-medium text-gray-900">{address.title}</h3>
+            <MapPin className="w-3 h-3 md:w-4 md:h-4 text-gray-400 flex-shrink-0" />
+            <h3 className="text-sm md:text-base font-medium text-gray-900 truncate">{address.title}</h3>
             {address.selected === 1 && (
-              <div className="absolute right-0 top-0 bg-[#fff5ff] text-[#FF13F0] text-base px-3 py-2 rounded-lg flex items-center gap-1 font-medium">
+              <div className="absolute right-0 top-0 bg-[#fff5ff] text-[#FF13F0] text-xs md:text-sm px-2 md:px-3 py-1 md:py-2 rounded-lg flex items-center gap-1 font-medium">
                 Seçilmiş ünvan
               </div>
             )}
           </div>
           
-          <p className="text-sm text-gray-600 mb-1">{address.address}</p>
-          <p className="text-sm text-gray-600">
+          <p className="text-xs md:text-sm text-gray-600 mb-1 truncate">{address.address}</p>
+          <p className="text-xs md:text-sm text-gray-600 truncate">
             {address.city}/{address.country}
           </p>
         </div>
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" size="icon" className="h-8 w-8">
-              <MoreVertical className="h-4 w-4" />
+            <Button variant="ghost" size="icon" className="h-7 w-7 md:h-8 md:w-8 flex-shrink-0">
+              <MoreVertical className="h-3 w-3 md:h-4 md:w-4" />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuItem onClick={() => onEdit(address)}>
-              <Edit className="w-4 h-4 mr-2" /> Düzəliş et
+          <DropdownMenuContent align="end" >
+            <DropdownMenuItem onClick={() => onEdit(address)} className="hover:bg-[#F2F4F8]">
+              <Edit className="w-3 h-3 md:w-4 md:h-4 mr-2" /> Düzəliş et
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => onDelete(address.id)}>
-              <Trash2 className="w-4 h-4 mr-2" /> Ünvanı sil
+            <DropdownMenuItem onClick={() => onDelete(address.id)} className="hover:bg-[#F2F4F8]">
+              <Trash2 className="w-3 h-3 md:w-4 md:h-4 mr-2" /> Ünvanı sil
             </DropdownMenuItem>
             {address.selected !== 1 && (
-              <DropdownMenuItem onClick={() => onSelect(address.id)}>
-                <CircleCheck className="w-4 h-4 mr-2" /> Seçilmiş ünvan et
+              <DropdownMenuItem onClick={() => onSelect(address.id)} className="hover:bg-[#F2F4F8]">
+                <CircleCheck className="w-3 h-3 md:w-4 md:h-4 mr-2" /> Seçilmiş ünvan et
               </DropdownMenuItem>
             )}
           </DropdownMenuContent>

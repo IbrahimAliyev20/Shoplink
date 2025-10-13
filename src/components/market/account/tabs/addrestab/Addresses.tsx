@@ -171,7 +171,7 @@ function Addresses() {
   return (
     <div className="min-h-screen bg-white">
       <div>
-        <h1 className="text-2xl font-medium text-gray-900 mb-2">Ünvanlarım</h1>
+        <h1 className="text-xl md:text-2xl font-medium text-gray-900 mb-2">Ünvanlarım</h1>
         
         {addresses && addresses.length === 0 ? (
           <EmptyState onAddNew={handleAddNew} />

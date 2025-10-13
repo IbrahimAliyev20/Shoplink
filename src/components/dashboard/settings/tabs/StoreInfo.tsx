@@ -115,7 +115,7 @@ const StoreInfo = () => {
       </CardHeader>
       <CardContent className="space-y-6 pb-24 max-md:space-y-4 max-md:p-4 max-md:pt-0 max-md:pb-12">
         <div className="space-y-6 max-md:space-y-4">
-          <div className="grid grid-cols-2 gap-6 w-full max-md:grid-cols-1 max-md:gap-4">
+          <div className="grid grid-cols-2  gap-6 w-full max-md:grid-cols-1 max-md:gap-4">
             <div className="space-y-2 w-full">
               <Label htmlFor="storeName" className="text-sm font-medium text-gray-700 max-md:text-xs">
                 Mağaza adı
@@ -147,7 +147,7 @@ const StoreInfo = () => {
               </Select>
             </div>
 
-            <div className="col-span-2 space-y-2 w-full">
+            <div className=" col-span-1 md:col-span-2 space-y-2 w-full">
               <Label htmlFor="currency" className="text-sm font-medium text-gray-700 max-md:text-xs">
                 Valyuta
               </Label>

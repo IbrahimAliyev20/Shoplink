@@ -13,7 +13,7 @@ function ContactMarket() {
   });
   return (
     <div className=" flex items-center justify-center py-10">
-      <div className="max-w-6xl mx-auto bg-[#FBFDFF] rounded-2xl overflow-hidden grid grid-cols-1 lg:grid-cols-2 p-20 shadow-sm">
+      <div className="max-w-6xl mx-auto bg-[#FBFDFF] rounded-2xl overflow-hidden grid grid-cols-1 lg:grid-cols-2 p-4 md:p-20 shadow-sm">
         
         <div className="py-8 flex flex-col justify-between ">
           <div>
@@ -108,7 +108,7 @@ function ContactMarket() {
     <Button
       variant="default"
       type="submit"
-      className="w-full rounded-xl bg-[#E23359] hover:bg-[#E23359]/90   px-6 py-4 text-base font-medium text-white cursor-pointer"
+      className="w-full h-12 rounded-xl bg-[#E23359] hover:bg-[#E23359]/90   px-6 py-4 text-base font-medium text-white cursor-pointer"
     >
       Mesaj göndər
     </Button>

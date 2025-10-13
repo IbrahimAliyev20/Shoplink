@@ -2,8 +2,7 @@
 import React, { useState, useMemo } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Search, Eye, ListFilter } from "lucide-react";
+import { Search, Eye } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { getStoreOrdersOptions } from "@/services/Seller-services/orderforseller/queries";
 import ReusablePagination from "@/components/dashboard/ReusablePagination";

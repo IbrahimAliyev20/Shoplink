@@ -5,7 +5,7 @@ const StrideXAboutPage = () => {
   return (
     
       <div className="py-12 max-w-5xl mx-auto rounded-2xl overflow-hidden">
-        <div className=" space-y-8">
+        <div className=" space-y-8 p-4 ">
           
           <section>
             <div className="relative w-full h-80 md:h-100 rounded-2xl overflow-hidden mb-8">

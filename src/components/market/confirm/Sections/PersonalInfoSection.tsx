@@ -36,7 +36,7 @@ function PersonalInfoSection({ register, control, errors }: PersonalInfoSectionP
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <label className="block text-sm font-semibold text-gray-600 mb-2">
+          <label className="block text-sm font-regular  text-black mb-2">
             Ad,soyad
           </label>
           <Input
@@ -54,7 +54,7 @@ function PersonalInfoSection({ register, control, errors }: PersonalInfoSectionP
           )}
         </div>
         <div>
-          <label className="block text-sm font-semibold text-gray-600 mb-2">
+          <label className="block text-sm font-regular  text-black mb-2">
             Telefon nömrəsi
           </label>
           <div className="flex items-center w-full h-12 border border-gray-300 rounded-lg focus-within:ring-1">
@@ -92,7 +92,7 @@ function PersonalInfoSection({ register, control, errors }: PersonalInfoSectionP
           )}
         </div>
         <div className="md:col-span-2">
-          <label className="block text-sm font-semibold text-gray-600 mb-2">
+          <label className="block text-sm font-regular  text-black mb-2">
             E-mail
           </label>
           <Input

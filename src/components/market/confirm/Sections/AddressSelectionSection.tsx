@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { ChevronUpIcon, PlusIcon } from "lucide-react";
+import { ChevronDownIcon, PlusIcon } from "lucide-react";
 import { UseFormRegister, Control, FieldErrors } from "react-hook-form";
 
 import { Address } from "@/types";
@@ -42,7 +42,7 @@ function AddressSelectionSection({
         <h2 className="text-lg font-medium text-gray-900 mb-2">
           Çatdırılma Məlumatları
         </h2>
-        <p className="text-sm text-gray-600 mb-4">Çatdırılma ünvanı</p>
+        <p className="block text-sm font-regular  text-black mb-2">Çatdırılma ünvanı</p>
 
         <div className="relative">
           <div
@@ -54,7 +54,7 @@ function AddressSelectionSection({
             <span className="text-gray-500">
               {selectedAddress ? selectedAddress.title : "Ünvan"}
             </span>
-            <ChevronUpIcon
+            <ChevronDownIcon
               className={`w-4 h-4 text-gray-400 transition-transform ${
                 isAddressDropdownOpen ? "rotate-180" : ""
               }`}
@@ -125,7 +125,7 @@ function AddressSelectionSection({
         </div>
 
         <div className="mt-8">
-          <h2 className="text-lg font-medium text-gray-900 mb-4">Qeyd</h2>
+          <h2 className="block text-sm font-regular  text-black mb-2">Qeyd</h2>
           <textarea
             placeholder="Sifarişiniz barədə əlavə qeydləriniz varsa daxil edin"
             {...register("notes")}
@@ -149,7 +149,7 @@ function AddressSelectionSection({
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
       <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-regular  text-black mb-2">
             Şəhər
           </label>
           <select
@@ -170,7 +170,7 @@ function AddressSelectionSection({
         </div>
         
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-regular  text-black mb-2">
             Ünvan
           </label>
           <input

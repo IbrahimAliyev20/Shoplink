@@ -29,7 +29,6 @@ export default function MarketHero({ store }: MarketHeroProps) {
           alt={`Mağaza logosu - ${store.name}`}
           className="w-28 h-28 md:w-32 md:h-32 rounded-full object-cover border-2 md:border-2 border-white max-md:w-20 max-md:h-20" 
         />
-        <h2 className='text-2xl md:text-3xl font-medium text-black max-md:text-xl'>{store.name}</h2>
       </div>
 
     </section>

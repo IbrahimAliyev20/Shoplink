@@ -124,9 +124,8 @@ function AccountPage({ user }: { user: UserData }) {
             </div>
           </div>
         </Tabs>
-        
-        <Dialog open={showLogoutDialog} onOpenChange={setShowLogoutDialog}>
-          <DialogContent className="sm:max-w-md max-sm:max-w-[90vw] max-sm:mx-4">
+        <Dialog open={showLogoutDialog} onOpenChange={setShowLogoutDialog}  >
+          <DialogContent className="sm:max-w-md max-sm:max-w-[90%]   ">
             <div className="text-center ">
                <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4 max-sm:w-12 max-sm:h-12 max-sm:mb-3">
                  <svg

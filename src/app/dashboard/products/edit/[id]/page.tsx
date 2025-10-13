@@ -71,7 +71,6 @@ const ProductEdit: React.FC = () => {
   const mainImageInputRef = useRef<HTMLInputElement>(null);
 
   const handleInputChange = (field: string, value: string | number) => {
-    // Ensure price fields default to 0 when empty
     let processedValue = value;
     if (field === 'sales_price' || field === 'discount_price' || field === 'purchase_price') {
       processedValue = value === "" || value === null || value === undefined ? "0" : value;
@@ -122,7 +121,6 @@ const ProductEdit: React.FC = () => {
 
     const formDataToSend = new FormData();
 
-    // Ensure price fields are never null/undefined
     const processedData = {
       sales_price: formData.sales_price || "0",
       discount_price: formData.discount_price || "0",
@@ -159,7 +157,7 @@ const ProductEdit: React.FC = () => {
       <form
         onSubmit={handleSubmit}
         className="bg-white p-4 sm:p-6 lg:p-8 rounded-lg shadow"
-        style={{ fontSize: '16px' }} // Prevents zoom on iOS
+        style={{ fontSize: '16px' }}
       >
         <h2 className="text-lg font-medium mb-4 sm:mb-6 break-words"> {product?.name}</h2>
         <div className="mb-6 sm:mb-8">
