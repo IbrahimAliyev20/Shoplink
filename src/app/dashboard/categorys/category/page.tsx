@@ -35,7 +35,7 @@ export default function Category() {
         <h1 className="text-3xl font-medium text-gray-900 max-sm:text-2xl max-sm:font-semibold">
           Kateqoriyalar
         </h1>
-        <Link href="/dashboard/contracts/category/create">
+        <Link href="/dashboard/categorys/category/create">
           <Button
             variant="default"
             className="bg-[#E23359] hover:bg-[#E23359]/90 text-white max-sm:w-full max-sm:text-sm max-sm:py-2.5 max-sm:flex max-sm:items-center max-sm:justify-center max-sm:space-x-2"
@@ -117,13 +117,13 @@ export default function Category() {
                         <td className="py-4 px-6 max-sm:py-3 max-sm:px-4">
                           <div className="flex items-center justify-start space-x-2 max-sm:space-x-1">
                             <Link
-                              href={`/dashboard/contracts/category/preview/${category.id}`}
+                              href={`/dashboard/categorys/category/preview/${category.id}`}
                               className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors max-sm:p-1.5"
                             >
                               <Eye className="h-4 w-4 max-sm:h-3 max-sm:w-3" />
                             </Link>
                             <Link
-                              href={`/dashboard/contracts/category/edit/${category.id}`}
+                              href={`/dashboard/categorys/category/edit/${category.id}`}
                               className="p-2 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors max-sm:p-1.5"
                             >
                               <Edit className="h-4 w-4 max-sm:h-3 max-sm:w-3" />

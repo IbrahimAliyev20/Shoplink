@@ -13,13 +13,13 @@ const cardData: CardData[] = [
   {
     title: 'Kateqoriyalar',
     description: 'İstifadəçilərin axtardıqlarını tez tapması üçün məhsulları kateqoriyalara ayırın.',
-    slug: '/dashboard/contracts/category',
+    slug: '/dashboard/categorys/category',
     icon: LayoutDashboard ,
   },
   {
     title: 'Brendlər',
     description: 'Brend detalları səhifələrində eyni brendin məhsullarını göstərin.',
-    slug: '/dashboard/contracts/brands',
+    slug: '/dashboard/categorys/brands',
     icon: LayoutDashboard ,
   },
 ];

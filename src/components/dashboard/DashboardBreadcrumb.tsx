@@ -16,7 +16,7 @@ import {
 const dashboardRouteMap: Record<string, string> = {
   "": "Dashboard",
   products: "Məhsullar",
-  contracts: "Müqavilələr",
+  categorys: "Kateqoriyalar",
   customers: "Müştərilər",
   discounts: "Endirimlər",
   reports: "Hesabatlar",
@@ -43,7 +43,7 @@ const contextualRouteMap: Record<
     edit: "Məhsul Redaktə et",
     preview: "Məhsul Önizləmə",
   },
-  contracts: {
+  categorys: {
     category: {
       create: "Kateqoriya Yarat",
       edit: "Kateqoriya Redaktə et",

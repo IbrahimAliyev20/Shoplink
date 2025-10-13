@@ -22,7 +22,7 @@ function PreviewCategory() {
             Əsas məlumatlar
           </h2>
           <Link
-            href={`/dashboard/contracts/category/edit/${id}`}
+            href={`/dashboard/categorys/category/edit/${id}`}
             className="text-[#666666] hover:text-black transition-colors"
           >
             <Edit className="h-4 w-4" />
@@ -54,7 +54,7 @@ function PreviewCategory() {
         <div className="flex justify-between items-start mb-2">
           <h2 className="text-[28px] font-medium text-black">SEO</h2>
           <Link
-            href={`/dashboard/contracts/category/edit/${id}`}
+            href={`/dashboard/categorys/category/edit/${id}`}
             className="text-[#666666] hover:text-black transition-colors"
           >
           <Edit className="h-4 w-4" />
