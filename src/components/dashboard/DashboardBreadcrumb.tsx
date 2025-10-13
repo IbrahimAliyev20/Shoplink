@@ -58,7 +58,7 @@ const generateBreadcrumbs = (pathname: string) => {
 
   const breadcrumbs = [
     {
-      label: "Dashboard",
+      label: "İdarə paneli",
       href: "/dashboard",
       isActive: pathSegments.length === 0,
     },

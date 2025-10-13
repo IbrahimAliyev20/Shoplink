@@ -37,7 +37,7 @@ const routeMapping: Record<string, BreadcrumbItem[]> = {
   ],
   '/profil/profil': [
     { title: 'Profil', link: '/profil' },
-    { title: 'Dashboard', link: '/profil/dashboard' }
+    { title: 'İdarə paneli', link: '/profil/dashboard' }
   ],
   '/profil/my-investments': [
     { title: 'Profil', link: '/profil' },

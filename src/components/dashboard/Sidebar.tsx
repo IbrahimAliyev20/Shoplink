@@ -67,7 +67,7 @@ const menuItems = [
   },
   {
     id: "endirimler",
-    label: "Endirimler",
+    label: "Endirimlər",
     icon: CirclePercent,
     href: "/dashboard/discounts",
   },

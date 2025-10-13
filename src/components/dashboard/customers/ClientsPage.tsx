@@ -3,8 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Search, Eye, ListFilter } from "lucide-react";
+import { Search, Eye } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import ReusablePagination from "../ReusablePagination"; // Bu komponentin yolunu yoxlayın
@@ -86,13 +85,7 @@ export default function ClientsPage() {
                 className="w-full px-4  border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent max-sm:h-10 max-sm:text-sm py-5.5"
               />
             </div>
-            <Button
-              variant="outline"
-              className="flex items-center gap-2 border-gray-300 bg-white text-black hover:bg-gray-50 max-sm:w-full max-sm:justify-center max-sm:h-10 py-5.5"
-            >
-              <ListFilter className="h-4 w-4 max-sm:h-3 max-sm:w-3" />
-              <span className="max-sm:text-sm">Filter</span>
-            </Button>
+        
           </div>
         </CardContent>
       </Card>

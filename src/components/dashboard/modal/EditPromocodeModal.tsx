@@ -107,7 +107,7 @@ function EditPromocodeModal({
       className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
       onClick={handleBackdropClick}
     >
-      <div className="bg-white p-6 rounded-lg shadow-xl w-full max-w-md">
+      <div className="bg-white p-6 rounded-lg shadow-xl w-full max-w-md mx-4">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-semibold">Promokodu tənzimlə</h2>
           <button
@@ -128,7 +128,7 @@ function EditPromocodeModal({
               placeholder="Promokod adı"
               value={promoCode}
               onChange={(e) => setPromoCode(e.target.value)}
-              className="w-full py-5.5"
+              className="w-full py-5.5 h-12"
             />
           </div>
           <div>
@@ -140,22 +140,23 @@ function EditPromocodeModal({
               placeholder="Endirim faizi"
               value={discountPercent}
               onChange={(e) => setDiscountPercent(e.target.value)}
-              className="w-full py-5.5"
+              className="w-full py-5.5 h-12"
             />
           </div>
         </div>
 
-        <div className="grid  grid-cols-2 gap-4 mt-6">
-          <Button variant="outline" onClick={onClose} disabled={isPending}>
-            Ləğv et
-          </Button>
-          <Button
-            className="bg-[#E23359] hover:bg-[#E23359]/90 text-white disabled:opacity-50"
+        <div className="grid  grid-cols-2 gap-4 mt-6 max-sm:flex max-sm:flex-col max-sm:gap-2">
+        <Button
+            className="bg-[#E23359] hover:bg-[#E23359]/90 text-white disabled:opacity-50 h-12"
             onClick={handleSave}
             disabled={isPending}
           >
             {isPending ? "Yadda saxlanır..." : "Yadda saxla"}
           </Button>
+          <Button variant="outline" onClick={onClose} disabled={isPending} className="h-12">
+            Ləğv et
+          </Button>
+         
         </div>
       </div>
     </div>

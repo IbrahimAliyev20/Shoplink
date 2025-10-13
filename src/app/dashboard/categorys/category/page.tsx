@@ -62,14 +62,7 @@ export default function Category() {
                   className="pl-10 max-sm:pl-8 max-sm:h-10 max-sm:text-sm py-5.5"
                 />
               </div>
-              <Button
-                variant="outline"
-                size="sm"
-                className="flex items-center space-x-2 max-sm:w-full max-sm:h-10 max-sm:text-sm max-sm:space-x-1.5 py-5.5"
-              >
-                <ListFilter className="h-4 w-4 max-sm:h-3 max-sm:w-3" />
-                <span>Filter</span>
-              </Button>
+    
             </div>
           </CardContent>
         </Card>

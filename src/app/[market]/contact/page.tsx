@@ -73,7 +73,7 @@ function ContactMarket() {
         htmlFor="phone"
         className="text-sm font-medium text-gray-600"
       >
-        Telefon nömrəsi
+        Nömrənizi daxil edin
       </label>
       <div className="flex w-full rounded-xl  border-2">
         <select

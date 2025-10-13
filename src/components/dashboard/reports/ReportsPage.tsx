@@ -14,11 +14,11 @@ import {
   ArrowUpDown,
   Eye,
   Trash2,
-  Pencil,
   Search,
   ListFilter,
   X,
   Trash,
+  Edit,
 } from "lucide-react";
 import { Report } from "@/types";
 import { useQuery } from "@tanstack/react-query";
@@ -27,6 +27,13 @@ import ReusablePagination from "../ReusablePagination";
 import { LoadingState } from "@/components/shared/LoadingState";
 import { ErrorState } from "@/components/shared/ErrorState";
 import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { ReportFilterParams } from "@/services/Seller-services/reports/api";
 
 const ReportsPage: React.FC = () => {
@@ -147,7 +154,7 @@ const ReportsPage: React.FC = () => {
       onClick={() => requestSort(sortKey)}
       className={`cursor-pointer hover:bg-gray-50 ${
         className || ""
-      } max-md:px-2 max-md:py-2 max-md:text-xs`}
+      } max-md:px-4 max-md:py-3 max-md:text-xs`}
     >
       <div className="flex items-center gap-1 text-gray-500 font-medium justify-center max-md:text-xs max-md:gap-0.5">
         {children}
@@ -197,7 +204,7 @@ const ReportsPage: React.FC = () => {
                 <div className="absolute top-full -left-116 mt-2 w-[680px] bg-white rounded-lg shadow-lg border border-[#F3F2F8] z-10 max-md:left-0 max-md:w-full max-md:mt-1">
                   <div className="p-4 max-md:p-3">
                     <div className="flex items-center gap-3 mb-4 justify-center max-md:flex-col max-md:gap-2 max-md:mb-3">
-                      <div className="flex-1 max-md:w-full">
+                      <div className="flex-1 max-md:w-full ">
                         <Input
                           type="date"
                           placeholder="Tarix"
@@ -216,13 +223,15 @@ const ReportsPage: React.FC = () => {
                         />
                       </div>
                       <div className="flex-1 max-md:w-full">
-                        <Input
-                          type="text"
-                          placeholder="Stok"
-                          value={stockFilter}
-                          onChange={(e) => setStockFilter(e.target.value)}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg max-md:h-9 max-md:text-sm"
-                        />
+                        <Select value={stockFilter} onValueChange={setStockFilter}>
+                          <SelectTrigger className="w-full px-3 py-2 border border-gray-300 rounded-lg max-md:h-9 max-md:text-sm">
+                            <SelectValue placeholder="Stok" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="0">Stokda yoxdur</SelectItem>
+                            <SelectItem value="1">Stokda var</SelectItem>
+                          </SelectContent>
+                        </Select>
                       </div>
                       <Button
                         variant="ghost"
@@ -274,7 +283,7 @@ const ReportsPage: React.FC = () => {
             <Table>
               <TableHeader>
                 <TableRow className="border-b border-[#F3F2F8] text-center">
-                  <TableHead className="text-gray-500 font-medium text-center max-md:px-2 max-md:py-2 max-md:text-xs max-md:min-w-[40px]">
+                  <TableHead className="text-gray-500 font-medium text-center max-md:px-4 max-md:py-3 max-md:text-xs max-md:min-w-[40px]">
                     №
                   </TableHead>
                   <SortableHeader
@@ -313,7 +322,7 @@ const ReportsPage: React.FC = () => {
                   >
                     Stok məlumatı
                   </SortableHeader>
-                  <TableHead className="text-gray-500 font-medium text-center max-md:px-2 max-md:py-2 max-md:text-xs max-md:min-w-[100px]">
+                  <TableHead className="text-gray-500 font-medium text-center max-md:px-4 max-md:py-3 max-md:text-xs max-md:min-w-[100px]">
                     Əməliyyatlar
                   </TableHead>
                 </TableRow>
@@ -324,10 +333,10 @@ const ReportsPage: React.FC = () => {
                     key={index}
                     className="border-b border-gray-100 hover:bg-gray-50 text-center"
                   >
-                    <TableCell className="font-medium text-gray-900 py-4 max-md:px-2 max-md:py-2 max-md:text-sm">
+                    <TableCell className="font-medium text-gray-900 py-4 max-md:px-4 max-md:py-3 max-md:text-sm">
                       {(currentPage - 1) * itemsPerPage + index + 1}
                     </TableCell>
-                    <TableCell className="py-4 max-md:px-2 max-md:py-2">
+                    <TableCell className="py-4 max-md:px-4 max-md:py-3">
                       <div className="flex items-center gap-3 max-md:gap-2">
                         <Image
                           src={item.image || "/images/team1.webp"}
@@ -344,16 +353,16 @@ const ReportsPage: React.FC = () => {
                     <TableCell className="text-gray-700 text-center max-md:hidden">
                       {item.category}
                     </TableCell>
-                    <TableCell className="text-gray-700 font-medium text-center max-md:px-2 max-md:py-2 max-md:text-sm">
+                    <TableCell className="text-gray-700 font-medium text-center max-md:px-4 max-md:py-3 max-md:text-sm">
                       {item.product_price} AZN
                     </TableCell>
                     <TableCell className="text-gray-700 text-center max-md:hidden">
                       {item.quantity}
                     </TableCell>
-                    <TableCell className="text-gray-700 font-medium text-center max-md:px-2 max-md:py-2 max-md:text-sm">
+                    <TableCell className="text-gray-700 font-medium text-center max-md:px-4 max-md:py-3 max-md:text-sm">
                       {item.total_price} AZN
                     </TableCell>
-                    <TableCell className="py-4 text-center max-md:px-2 max-md:py-2">
+                    <TableCell className="py-4 text-center max-md:px-4 max-md:py-3">
                       {item.stock === null || item.stock === 0 ? (
                         <div className="flex items-center justify-center gap-2 max-md:gap-1">
                           <X className="w-4 h-4 text-red-500 max-md:h-3 max-md:w-3" />
@@ -370,7 +379,7 @@ const ReportsPage: React.FC = () => {
                         </span>
                       )}
                     </TableCell>
-                    <TableCell className="py-4 max-md:px-2 max-md:py-2">
+                    <TableCell className="py-4 max-md:px-4 max-md:py-3">
                       <div className="flex items-center justify-center gap-2 max-md:gap-1">
                         <Button
                           variant="ghost"
@@ -388,7 +397,7 @@ const ReportsPage: React.FC = () => {
                           onClick={() => handleEditProject(item)}
                           title="Redaktə et"
                         >
-                          <Pencil className="h-4 w-4 max-md:h-3 max-md:w-3" />
+                          <Edit className="h-4 w-4 text-gray-600 max-md:h-3 max-md:w-3" />
                         </Button>
                         <Button
                           variant="ghost"

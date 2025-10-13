@@ -51,7 +51,7 @@ function LoginMarketUser() {
   return (
     <section className="bg-[#FBFDFF] h-screen flex items-center justify-center">
       <div
-        className="w-[408px] mx-auto"
+        className="w-full md:w-[408px]  mx-auto md:px-0 px-4"
         style={{
           borderRadius: "16px",
           border: "1px solid #FBFDFF",
@@ -60,12 +60,14 @@ function LoginMarketUser() {
         }}
       >
         <div className="p-6 md:p-10">
+          <Link href={`/${marketSlug}`}>
           <Image
             src={"/images/Logo.svg"}
             alt={"Logo"}
             width={199}
             height={45}
           />
+          </Link>
           <h1 className="text-2xl font-semibold mt-8 mb-10">
             Mağazana daxil ol
           </h1>

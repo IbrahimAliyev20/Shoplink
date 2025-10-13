@@ -204,21 +204,22 @@ function CreateCategory() {
             </CardContent>
           </Card>
 
-          <div className="flex justify-end gap-3 pt-4 max-sm:flex-col max-sm:pt-3 max-sm:gap-2">
+          <div className="flex justify-end gap-3 pt-4 max-sm:flex-col max-sm:pt-3 max-sm:gap-2 ">
+          <Button
+              type="submit"
+              className="px-6 h-12 bg-[#E23359] hover:bg-[#E23359]/90 text-white rounded-xl max-sm:px-6 max-sm:py-3 max-sm:text-sm max-sm:w-full "
+            > 
+              {isPending ? "Saxlanılır..." : "Yadda saxla"}
+            </Button>
             <Button
               type="button"
               variant="outline"
               onClick={() => reset()}
-              className="px-12 border-none shadow-sm rounded-xl max-sm:px-6 max-sm:py-3 max-sm:text-sm max-sm:w-full max-sm:h-11"
+              className="px-12 h-12   border-none shadow-sm rounded-xl max-sm:px-6 max-sm:py-3 max-sm:text-sm max-sm:w-full "
             >
               Ləğv et
             </Button>
-            <Button
-              type="submit"
-              className="px-6 bg-[#E23359] hover:bg-[#E23359]/90 text-white rounded-xl max-sm:px-6 max-sm:py-3 max-sm:text-sm max-sm:w-full max-sm:h-11"
-            > 
-              {isPending ? "Saxlanılır..." : "Yadda saxla"}
-            </Button>
+    
           </div>
         </fieldset>
       </form>

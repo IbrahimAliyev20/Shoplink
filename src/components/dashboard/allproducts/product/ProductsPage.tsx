@@ -86,13 +86,7 @@ export default function ProductsPage() {
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
             </div>
-            <Button
-              variant="outline"
-              className="flex items-center gap-2 border-gray-300 bg-white text-black hover:bg-gray-50"
-            >
-              <ListFilter className="h-4 w-4" />
-              <span>Filter</span>
-            </Button>
+           
           </div>
 
           {/* Table */}

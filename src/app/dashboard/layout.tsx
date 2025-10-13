@@ -44,11 +44,11 @@ export default function DashboardLayout({
       }`}>
         <div className="lg:hidden bg-white  px-4 py-3 flex items-center justify-between border-b sticky top-0 z-30">
           <MobileSidebar />
-          <h1 className="text-lg font-semibold text-gray-900">Dashboard</h1>
+          <h1 className="text-lg font-semibold text-gray-900">İdarə paneli</h1>
           <div className="w-10" />
         </div>
 
-        <main className="p-6">
+        <main className="p-4 md:p-6">
           <DashboardBreadcrumb />
           {children}
         </main>

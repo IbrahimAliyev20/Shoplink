@@ -106,7 +106,6 @@ function DiscountPage() {
   const totalItems = promocode?.length || 0;
   const totalPages = Math.max(1, Math.ceil(totalItems / itemsPerPage));
   
-  // Get current page data
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const currentPageData = promocode?.slice(startIndex, endIndex) || [];
@@ -115,7 +114,6 @@ function DiscountPage() {
     <div className="bg-gray-50">
       <div className="bg-white rounded-lg border border-gray-100">
         <div className="p-6">
-          {/* Create Form */}
           <div className="mb-8">
             <h2 className="text-2xl font-medium text-gray-900 mb-6">
               Yeni promo kod əlavə et
@@ -127,7 +125,7 @@ function DiscountPage() {
                   placeholder="Promo kodu daxil edin"
                   value={promoCode}
                   onChange={(e) => setPromoCode(e.target.value)}
-                  className="bg-[#F3F2F8] border border-[#F3F2F8] rounded-lg h-12 px-4 flex-1 max-sm:w-full focus:ring-pink-500 focus:border-pink-500"
+                  className="bg-[#F3F2F8] border border-[#F3F2F8] rounded-lg h-12  px-4 flex-1 max-sm:w-full focus:ring-pink-500 focus:border-pink-500"
                 />
                 <Input
                   type="text"

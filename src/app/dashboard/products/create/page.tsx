@@ -147,12 +147,12 @@ const CreateProduct = () => {
 
   return (
     <div className="mx-auto space-y-6 bg-gray-50/50 p-0 sm:p-6 lg:p-8">
-      <h1 className="text-3xl font-medium mb-6">Yeni məhsul əlavə et</h1>
+      <h1 className="text-2xl md:text-3xl font-medium mb-6">Yeni məhsul əlavə et</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <fieldset disabled={isPending} className="space-y-6">
           <Card>
             <CardHeader>
-              <CardTitle className="text-2xl font-medium">
+              <CardTitle className="text-xl md:text-2xl font-medium">
                 Əsas məlumatlar
               </CardTitle>
             </CardHeader>
@@ -470,18 +470,19 @@ const CreateProduct = () => {
             </CardContent>
           </Card>
 
-          <div className="flex justify-end gap-4 pt-4">
-            <Button type="button" variant="outline" size="lg" className="px-8">
-              Geri
-            </Button>
-            <Button
+          <div className="flex justify-end flex-col md:flex-row gap-4 pt-4">
+          <Button
               type="submit"
-              className="bg-[#E23359] hover:bg-[#E23359]/90 text-white px-8 cursor-pointer"
+              className="bg-[#E23359] hover:bg-[#E23359]/90 text-white px-8 cursor-pointer h-12"
               size="lg"
               disabled={isPending}
             >
               {isPending ? "Əlavə edilir..." : "Əlavə et"}
             </Button>
+            <Button type="button" variant="outline" size="lg" className="px-8 h-12">
+              Geri
+            </Button>
+          
           </div>
         </fieldset>
       </form>

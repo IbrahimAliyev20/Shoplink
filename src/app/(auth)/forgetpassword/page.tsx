@@ -13,6 +13,7 @@ import {
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { ArrowLeft, Check } from "lucide-react";
+import Link from "next/link";
 
 // Helper component for floating label effect
 interface FloatingFieldProps {
@@ -283,11 +284,10 @@ function ForgetPassword() {
     }
   };
 
-
   return (
     <section className="bg-[#FBFDFF] h-screen flex items-center justify-center">
       <div
-        className="w-[408px] mx-auto"
+        className="w-full md:w-[408px]  mx-auto md:px-0 px-4"
         style={{
           borderRadius: "16px",
           border: "1px solid #FBFDFF",
@@ -298,12 +298,14 @@ function ForgetPassword() {
         <div className="p-6 md:p-10">
           {currentStep !== "success" && (
             <>
+            <Link href="/">
               <Image
                 src={"/images/Logo.svg"}
                 alt={"Logo"}
                 width={199}
                 height={45}
               />
+              </Link>
 
               <div className="flex items-center gap-4 mt-8 mb-10">
                 <button

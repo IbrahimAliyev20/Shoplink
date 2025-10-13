@@ -2,14 +2,19 @@
 
 import React, { useState, useMemo } from "react";
 import MetricCard from "@/components/dashboard/MetricCard";
-import { DynamicRevenueChart, DynamicRecentActivities, DynamicLastOrders } from "@/components/dynamic/DynamicComponents";
+import {
+  DynamicRevenueChart,
+  DynamicRecentActivities,
+  DynamicLastOrders,
+} from "@/components/dynamic/DynamicComponents";
 import { useDashboardData } from "@/hooks/useDashboardData";
 
 type Timeframe = "monthly" | "weekly" | "daily";
 
 export default function DashboardPage() {
   const [timeframe, setTimeframe] = useState<Timeframe>("monthly");
-  const { dashboardMetrics, monthlyChartData, lastActivities } = useDashboardData();
+  const { dashboardMetrics, monthlyChartData, lastActivities } =
+    useDashboardData();
 
   const activeChartData = useMemo(() => {
     switch (timeframe) {
@@ -17,7 +22,7 @@ export default function DashboardPage() {
         return monthlyChartData;
     }
   }, [timeframe, monthlyChartData]);
-  console.log(dashboardMetrics)
+  console.log(dashboardMetrics);
 
   return (
     <div>

@@ -57,7 +57,7 @@ export function UserProfile({ user }: UserProfileProps) {
           </Button>
 
           {isDropdownOpen && (
-            <div className="absolute right-0 top-full mt-2 w-48 bg-white border rounded-lg shadow-lg z-50">
+            <div className="absolute right-0 top-full mt-2 min-w-48 bg-white border rounded-lg shadow-lg z-50">
               <div className="p-3 border-b">
                 <p className="text-sm font-medium text-gray-900">{user.name}</p>
                 <p className="text-xs text-gray-500">{user.email}</p>
@@ -69,7 +69,7 @@ export function UserProfile({ user }: UserProfileProps) {
                   className="flex items-center gap-2 w-full px-3 py-2 text-sm text-gray-700 hover:bg-gray-50"
                 >
                   <Store size={16} />
-                  Dashboard
+                  İdarə paneli
                 </button>
           
                 
@@ -121,7 +121,7 @@ export function UserProfileMobile({ user }: UserProfileMobileProps) {
         className="flex items-center gap-2 w-full px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-lg"
       >
         <Store size={16} />
-        Dashboard
+        İdarə paneli
       </button>
       
       <button

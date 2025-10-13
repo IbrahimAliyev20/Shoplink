@@ -21,7 +21,7 @@ export const DynamicRevenueChart = dynamic(
   {
     loading: () => (
       <div className="bg-white rounded-lg shadow p-6">
-        <Skeleton className="h-6 w-32 mb-4" />
+        <Skeleton className="h-6 w-full mb-4" />
         <Skeleton className="h-64 w-full" />
       </div>
     ),

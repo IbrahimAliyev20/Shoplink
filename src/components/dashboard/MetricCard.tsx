@@ -6,9 +6,9 @@ import { MetricData } from "@/utils/static";
 
 const icons = {
   dollar: <Image src="/images/moneybag.svg" alt="moneybag" width={20} height={20} className="h-5 w-5 text-gray-500" />,
-  users: <Box className="h-5 w-5 text-gray-500" />,
-  userCheck: <Box className="h-5 w-5 text-gray-500" />,
-  zap: <User className="h-5 w-5 text-gray-500" />,
+  users: <Box className="h-5 w-5 text-[#B927D6]" />,
+  userCheck: <Box className="h-5 w-5 text-[#007AFF]" />,
+  zap: <User className="h-5 w-5 text-[#5856D6]" />,
   Box: <Package className="h-5 w-5 text-white" />,
   check: <Check className="h-5 w-5 text-white" />,
   creditCard: <CreditCard className="h-5 w-5 text-white" />,

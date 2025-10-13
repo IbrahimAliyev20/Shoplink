@@ -38,7 +38,7 @@ export default function QuestionsSec() {
      </div>
           {/* Right side - Questions */}
           <div className="order-1 lg:order-2 lg:col-span-4">
-            <h2 className="text-[40px] font-medium text-gray-900 mb-8 leading-tight text-center  ">
+            <h2 className="text-[24px] md:text-[40px] font-medium text-gray-900 mb-8 leading-tight text-center  ">
               E-ticarət saytı necə qurulur?
             </h2>
             

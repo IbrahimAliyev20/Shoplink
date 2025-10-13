@@ -147,7 +147,7 @@ export default function ContactPage() {
 
               <div className="space-y-2">
                 <label htmlFor="phone" className="text-sm text-gray-500">
-                  Telefon nömrəsi
+                Nömrənizi daxil edin
                 </label>
                 <fieldset
                   className={`flex items-center rounded-xl border transition-all duration-200 ${

@@ -66,11 +66,11 @@ export default function RevenueChart({ chartData, timeframe, onTimeframeChange }
           </SelectContent>
         </Select>
       </CardHeader>
-      <CardContent className="h-[350px] w-full  max-md:h-[250px]">
+      <CardContent className="h-[350px] w-full max-md:h-[250px] px-2">
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart
             data={chartData}
-            margin={{ top: 5, right: 20, bottom: 20, left: 30 }}
+            margin={{ top: 10, right: 10, bottom: 10, left: 0 }}
           >
             <defs>
               <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
@@ -88,7 +88,7 @@ export default function RevenueChart({ chartData, timeframe, onTimeframeChange }
               fontSize={12}
               tickLine={false}
               axisLine={false}
-              dy={10}
+              dy={5}
             />
             <YAxis
               stroke="#9ca3af"
@@ -96,7 +96,7 @@ export default function RevenueChart({ chartData, timeframe, onTimeframeChange }
               tickLine={false}
               axisLine={false}
               tickFormatter={(value) => `${value}`}
-              dx={-10}
+              dx={0}
             />
             <Tooltip
               content={<CustomTooltip />}
