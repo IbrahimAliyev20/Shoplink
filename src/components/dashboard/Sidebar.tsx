@@ -148,7 +148,7 @@ export default function Sidebar({
   return (
     <div
       className={cn(
-        "fixed left-0 top-0 z-40 min-h-screen overflow-y-auto bg-black text-white transition-all duration-300 ease-in-out   shadow-xl",
+        "fixed left-0 top-0 z-40 min-h-screen overflow-y-auto bg-black text-white transition-all duration-300 ease-in-out  shadow-xl",
         isCollapsed ? "w-16" : "w-64",
         className
       )}

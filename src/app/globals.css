@@ -145,3 +145,6 @@
     display: none;
   }
 }
+.border-r{
+  border: none !important;
+}
