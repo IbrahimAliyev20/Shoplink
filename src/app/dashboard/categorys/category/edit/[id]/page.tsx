@@ -226,20 +226,21 @@ function EditCategory() {
           </Card>
 
           <div className="flex justify-end gap-3 pt-4 max-sm:flex-col max-sm:pt-3 max-sm:gap-2">
+          <Button
+              type="submit"
+              className="px-6 h-12 bg-[#E23359] hover:bg-[#E23359]/90 text-white rounded-xl max-sm:px-6 max-sm:py-2.5 max-sm:text-sm max-sm:w-full"
+            >
+              {isPending ? "Yenilənir..." : "Yadda saxla"}
+            </Button>
             <Button
               type="button"
               variant="outline"
               onClick={() => reset(category)}
-              className="px-12 border-none shadow-sm rounded-xl max-sm:px-6 max-sm:py-2.5 max-sm:text-sm max-sm:w-full"
+              className="px-12 h-12  border-none shadow-sm rounded-xl max-sm:px-6 max-sm:py-2.5 max-sm:text-sm max-sm:w-full"
             >
               Ləğv et
             </Button>
-            <Button
-              type="submit"
-              className="px-6 bg-[#E23359] hover:bg-[#E23359]/90 text-white rounded-xl max-sm:px-6 max-sm:py-2.5 max-sm:text-sm max-sm:w-full"
-            >
-              {isPending ? "Yenilənir..." : "Yadda saxla"}
-            </Button>
+     
           </div>
         </fieldset>
       </form>
