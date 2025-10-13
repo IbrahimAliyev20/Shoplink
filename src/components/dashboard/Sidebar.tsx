@@ -72,10 +72,10 @@ const menuItems = [
     href: "/dashboard/discounts",
   },
   {
-    id: "anlasmalar",
-    label: "Anlayışlar",
+    id: "kateqoriyalar", 
+    label: "Kateqoriyalar",
     icon: SquareCheck,
-    href: "/dashboard/contracts",
+    href: "/dashboard/categorys",
   },
   {
     id: "tesvimlenmelev",

@@ -22,18 +22,6 @@ const cardData: CardData[] = [
     slug: '/dashboard/contracts/brands',
     icon: LayoutDashboard ,
   },
-  {
-    title: 'Xüsusi sahələr',
-    description: 'Məhsul filtrləri yaradın və atributları əlavə edib mövcuda göstərin.',
-    slug: '/dashboard/contracts/specialarea',
-    icon: LayoutDashboard ,
-  },
-  {
-    title: 'Variant növləri',
-    description: 'Məhsullarınızı şaxələndirmək üçün ölçü, rəng və ölçülər kimi variantlar əlavə edin.',
-    slug: '/dashboard/contracts/variants',
-    icon: LayoutDashboard ,
-  },
 ];
 
 function ContractPage() {
