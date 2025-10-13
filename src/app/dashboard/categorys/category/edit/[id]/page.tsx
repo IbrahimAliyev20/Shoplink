@@ -210,7 +210,7 @@ function EditCategory() {
                     className="max-sm:h-10 max-sm:text-sm"
                   />
                 </div>
-                <div className="col-span-2   space-y-2 max-sm:space-y-1.5">
+                <div className="col-span-1 md:col-span-2   space-y-2 max-sm:space-y-1.5">
                   <Label htmlFor="meta_title" className="max-sm:text-sm">
                     Açar sözlərx
                   </Label>

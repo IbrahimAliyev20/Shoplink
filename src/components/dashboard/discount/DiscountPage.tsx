@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Edit, Eye, Trash2, ArrowUpDown } from "lucide-react";
+import { Edit,  Trash2, ArrowUpDown } from "lucide-react";
 import {
   Table,
   TableBody,
@@ -189,13 +189,6 @@ function DiscountPage() {
                     </TableCell>
                     <TableCell className="text-center py-4">
                       <div className="flex items-center justify-center gap-2">
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          className="h-8 w-8 text-blue-600 hover:bg-blue-50 rounded-full"
-                        >
-                          <Eye className="h-4 w-4" />
-                        </Button>
                         <Button
                           variant="ghost"
                           size="icon"
