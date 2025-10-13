@@ -6,6 +6,7 @@ import { User, LogOut, Store } from "lucide-react";
 import { logoutAction } from "@/services/auth/server-actions";
 import { UserData } from "@/types";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 interface UserProfileProps {
   user: UserData;
@@ -64,13 +65,14 @@ export function UserProfile({ user }: UserProfileProps) {
               </div>
               
               <div className="py-1">
-                <button
-                  onClick={handleDashboard}
-                  className="flex items-center gap-2 w-full px-3 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                <Link
+                  href="/dashboard"
+                  className="flex items-center gap-2 w-full px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 cursor-pointer"
+                  onClick={() => setIsDropdownOpen(false)}
                 >
                   <Store size={16} />
                   İdarə paneli
-                </button>
+                </Link>
           
                 
                 <hr className="my-1" />
@@ -116,13 +118,13 @@ export function UserProfileMobile({ user }: UserProfileMobileProps) {
         <p className="text-xs text-gray-500">{user.email}</p>
       </div>
       
-      <button
-        onClick={() => router.push('/dashboard')}
-        className="flex items-center gap-2 w-full px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-lg"
+      <Link
+        href="/dashboard"
+        className="flex items-center gap-2 w-full px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-lg cursor-pointer"
       >
         <Store size={16} />
         İdarə paneli
-      </button>
+      </Link>
       
       <button
         onClick={handleLogout}

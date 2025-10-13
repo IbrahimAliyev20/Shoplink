@@ -24,6 +24,7 @@ import { categoryQueries } from "@/services/Seller-services/category/queries";
 import { productQueries } from "@/services/Seller-services/product/queries";
 import { useRouter } from "next/navigation";
 import CreateCategoryModal from "@/components/dashboard/modal/CreateCategoryModal";
+import Link from "next/link";
 
 type ProductFormValues = {
   name: string;
@@ -479,8 +480,10 @@ const CreateProduct = () => {
             >
               {isPending ? "Əlavə edilir..." : "Əlavə et"}
             </Button>
-            <Button type="button" variant="outline" size="lg" className="px-8 h-12">
-              Geri
+            <Button type="button" variant="outline" size="lg" asChild className="px-8 h-12">
+              <Link href="/dashboard/products">
+                Geri
+              </Link>
             </Button>
           
           </div>

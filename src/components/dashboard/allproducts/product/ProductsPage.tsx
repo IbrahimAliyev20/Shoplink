@@ -65,10 +65,12 @@ export default function ProductsPage() {
             </h1>
             <Button
               variant="default"
-              onClick={() => router.push("/dashboard/products/create")}
-              className="bg-[#E23359] hover:bg-[#E23359]/90 text-white font-medium py-2 px-6 rounded-lg cursor-pointer"
+              asChild
+              className="bg-[#E23359] hover:bg-[#E23359]/90 text-white font-medium py-2 px-6 rounded-lg"
             >
-              Məhsul əlavə et
+              <Link href="/dashboard/products/create">
+                Məhsul əlavə et
+              </Link>
             </Button>
           </div>
       <div className="bg-white rounded-lg border border-gray-100">

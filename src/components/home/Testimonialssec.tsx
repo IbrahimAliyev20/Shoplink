@@ -47,7 +47,7 @@ export default function TestimonialsSection() {
               <button
                 key={index}
                 onClick={() => setActiveTestimonial(testimonial)}
-                className={`relative rounded-[8px] overflow-hidden  transition-all duration-300 ${
+                className={`relative cursor-pointer rounded-[8px] overflow-hidden  transition-all duration-300 ${
                   activeTestimonial?.name === testimonial.name
                     ? ""
                     : "opacity-50 hover:opacity-100"

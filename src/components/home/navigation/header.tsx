@@ -116,7 +116,7 @@ export function Header() {
         )}
 
         <button
-          className="md:hidden p-2"
+          className="md:hidden p-2 cursor-pointer"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           aria-label="Toggle mobile menu"
         >
@@ -139,7 +139,7 @@ export function Header() {
               </Link>
               <button
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="p-2"
+                className="p-2 cursor-pointer"
                 aria-label="Close mobile menu"
               >
                 <X size={24} />

@@ -3,6 +3,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 interface ActionButtonsSectionProps {
   marketSlug: string;
@@ -17,10 +18,12 @@ function ActionButtonsSection({ marketSlug, isPending }: ActionButtonsSectionPro
       <Button
         type="button"
         variant="outline"
-        onClick={() => router.push(`/${marketSlug}/basket`)}
+        asChild
         className="flex-1 h-12 rounded-[16px]"
       >
-        Ləğv et
+        <Link href={`/${marketSlug}/basket`}>
+          Ləğv et
+        </Link>
       </Button>
       <Button
         type="submit"

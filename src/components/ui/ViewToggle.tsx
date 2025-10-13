@@ -18,7 +18,7 @@ export const ViewToggle: React.FC<ViewToggleProps> = ({
     <div className="flex items-center gap-2">
       <button
         onClick={() => onViewChange("list")}
-        className={`p-2 border rounded-md transition-colors ${
+        className={`p-2 border rounded-md transition-colors cursor-pointer ${
           activeView === "list"
             ? "bg-green-100 border-green-500"
             : "border-[#F3F2F8] hover:bg-gray-100"
@@ -33,7 +33,7 @@ export const ViewToggle: React.FC<ViewToggleProps> = ({
       </button>
       <button
         onClick={() => onViewChange("grid")}
-        className={`p-2 border rounded-md transition-colors ${
+        className={`p-2 border rounded-md transition-colors cursor-pointer ${
           activeView === "grid"
             ? "bg-green-100 border-green-500"
             : "border-[#F3F2F8] hover:bg-gray-100"

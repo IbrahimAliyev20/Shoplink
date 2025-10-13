@@ -41,7 +41,7 @@ const OrderSummaryView = ({ order, onShowDetails }: { order: TrackNumber, onShow
                     </div>
                     <button
                         onClick={onShowDetails}
-                        className="bg-gray-900 hover:bg-gray-800 text-white px-6 py-3 rounded-lg flex items-center gap-2 whitespace-nowrap transition-colors"
+                        className="bg-gray-900 hover:bg-gray-800 text-white px-6 py-3 rounded-lg flex items-center gap-2 whitespace-nowrap transition-colors cursor-pointer"
                     >
                         Sifariş statusuna baxın
                         <ArrowRight className="w-5 h-5" />
@@ -61,9 +61,9 @@ const OrderSummaryView = ({ order, onShowDetails }: { order: TrackNumber, onShow
                     <div className="flex items-center gap-3"><span className="text-gray-700">Nizami rayonu ,M.Abbasov küçəsi</span></div>
                 </div>
                 <div className="flex gap-4 mt-6">
-                    <button className="w-10 h-10 rounded-lg bg-pink-50 hover:bg-pink-100 flex items-center justify-center transition-colors"><svg className="w-5 h-5 text-pink-500" fill="currentColor" viewBox="0 0 24 24"><path d="M9.198 21.5h4.158c3.218 0 5.424-2.206 5.424-5.424V7.924C18.78 4.706 16.574 2.5 13.356 2.5H9.198C5.98 2.5 3.774 4.706 3.774 7.924v8.152C3.774 19.294 5.98 21.5 9.198 21.5zM12 7.043c-2.73 0-4.957 2.227-4.957 4.957S9.27 16.957 12 16.957s4.957-2.227 4.957-4.957S14.73 7.043 12 7.043zm0 7.914c-1.633 0-2.957-1.324-2.957-2.957s1.324-2.957 2.957-2.957 2.957 1.324 2.957 2.957-1.324 2.957-2.957 2.957zm4.363-7.514c-.665 0-1.204-.54-1.204-1.204s.54-1.204 1.204-1.204 1.204.54 1.204 1.204-.539 1.204-1.204 1.204z"/></svg></button>
-                    <button className="w-10 h-10 rounded-lg bg-pink-50 hover:bg-pink-100 flex items-center justify-center transition-colors"><Instagram className="w-5 h-5 text-pink-500" /></button>
-                    <button className="w-10 h-10 rounded-lg bg-pink-50 hover:bg-pink-100 flex items-center justify-center transition-colors"><Send className="w-5 h-5 text-pink-500" /></button>
+                    <button className="w-10 h-10 rounded-lg bg-pink-50 hover:bg-pink-100 flex items-center justify-center transition-colors cursor-pointer"><svg className="w-5 h-5 text-pink-500" fill="currentColor" viewBox="0 0 24 24"><path d="M9.198 21.5h4.158c3.218 0 5.424-2.206 5.424-5.424V7.924C18.78 4.706 16.574 2.5 13.356 2.5H9.198C5.98 2.5 3.774 4.706 3.774 7.924v8.152C3.774 19.294 5.98 21.5 9.198 21.5zM12 7.043c-2.73 0-4.957 2.227-4.957 4.957S9.27 16.957 12 16.957s4.957-2.227 4.957-4.957S14.73 7.043 12 7.043zm0 7.914c-1.633 0-2.957-1.324-2.957-2.957s1.324-2.957 2.957-2.957 2.957 1.324 2.957 2.957-1.324 2.957-2.957 2.957zm4.363-7.514c-.665 0-1.204-.54-1.204-1.204s.54-1.204 1.204-1.204 1.204.54 1.204 1.204-.539 1.204-1.204 1.204z"/></svg></button>
+                    <button className="w-10 h-10 rounded-lg bg-pink-50 hover:bg-pink-100 flex items-center justify-center transition-colors cursor-pointer"><Instagram className="w-5 h-5 text-pink-500" /></button>
+                    <button className="w-10 h-10 rounded-lg bg-pink-50 hover:bg-pink-100 flex items-center justify-center transition-colors cursor-pointer"><Send className="w-5 h-5 text-pink-500" /></button>
                 </div>
             </div>
         </div>

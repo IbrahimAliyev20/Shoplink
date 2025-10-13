@@ -479,10 +479,12 @@ function ForgetPassword() {
               </p>
 
               <Button
-                onClick={() => router.push("/login")}
+                asChild
                 className="w-full h-12 rounded-full bg-[#E23359] hover:bg-[#E23359]/90"
               >
-                Daxil ol
+                <Link href="/login">
+                  Daxil ol
+                </Link>
               </Button>
             </div>
           )}
