@@ -128,11 +128,12 @@ function ConfirmPage() {
                   control={control}
                   errors={errors}
                 />
-
+                <div className="flex w-full justify-end">
                 <ActionButtonsSection
                   marketSlug={marketSlug}
                   isPending={isPending}
                 />
+                </div>
               </fieldset>
             </form>
           </div>

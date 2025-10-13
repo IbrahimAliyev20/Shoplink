@@ -13,7 +13,7 @@ function ActionButtonsSection({ marketSlug, isPending }: ActionButtonsSectionPro
   const router = useRouter();
 
   return (
-    <div className="flex space-x-4">
+    <div className="flex space-x-4 ">
       <Button
         type="button"
         variant="outline"

@@ -194,7 +194,7 @@ export default function Sidebar({
             variant="ghost"
             size="sm"
             onClick={toggleCollapsed}
-            className="h-8 w-8 p-0 text-gray-400 hover:text-white hover:bg-gray-800 flex-shrink-0"
+            className="h-8 w-8 p-0 text-gray-400 hover:text-white hover:bg-gray-800 flex-shrink-0 hidden lg:block"
           >
             {isCollapsed ? (
               <Menu className="h-4 w-4" />
