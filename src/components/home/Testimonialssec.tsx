@@ -70,18 +70,18 @@ export default function TestimonialsSection() {
             <div className="overflow-hidden">
               <div className="flex flex-col lg:flex-row">
                 <div className="lg:w-1/2">
-                  <div className="w-[510px] h-[300px] overflow-hidden rounded-lg">
+                  <div className=" w-full h-full md:w-[510px] md:h-[300px] overflow-hidden rounded-lg">
                     <Image
                       src={activeTestimonial.image || "/placeholder.svg"}
                       alt={activeTestimonial.name}
                       width={510}
                       height={305}
-                      className="w-[510px] h-[300px] object-contain"
+                      className="w-full h-full object-cover"
                     />
                   </div>
                 </div>
 
-                <div className=" p-8 lg:p-12 flex flex-col justify-between">
+                <div className=" p-0 lg:p-12 flex flex-col justify-between md:mt-0 mt-4 ">
                   <blockquote className="text-lg lg:text-xl text-gray-700 mb-6 leading-relaxed">
                     <p
                       dangerouslySetInnerHTML={{
