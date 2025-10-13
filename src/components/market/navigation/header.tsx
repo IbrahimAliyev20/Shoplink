@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { UserData } from "@/types";
-import { toast } from "sonner";
 import { useCart } from "@/contexts/CartContext";
 import { getUser } from "@/services/auth/api";
 import { getAuthToken } from "@/lib/api/client";
@@ -21,10 +20,14 @@ export default function Header({ marketSlug }: { marketSlug: string }) {
     const checkUserStatus = async () => {
       try {
         const token = getAuthToken();
-        const userData = await getUser(token || "");
-        setUser(userData?.data);
+        
+        if (token) {
+          const userData = await getUser(token);
+          setUser(userData?.data);
+        } else {
+          setUser(null);
+        }
       } catch (error) {
-        toast.error(error instanceof Error ? error.message : "Giriş zamanı xəta baş verdi.");
         setUser(null);
       } finally {
         setIsLoading(false);
@@ -32,7 +35,7 @@ export default function Header({ marketSlug }: { marketSlug: string }) {
     };
 
     checkUserStatus();
-  }, []); 
+  }, []);
 
   return (
     <header className="bg-white border-b border-[#F3F2F8]">

@@ -142,14 +142,55 @@ function AddressSelectionSection({
     );
   }
 
-  // Fallback form
   return (
     <div className="mb-8">
       <h2 className="text-lg font-medium text-gray-900 mb-4">
         Çatdırılma Məlumatları
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Fallback form content... */}
+      <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Şəhər
+          </label>
+          <select
+            {...register("city")}
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400"
+          >
+            <option value="Bakı">Bakı</option>
+            <option value="Gəncə">Gəncə</option>
+            <option value="Sumqayıt">Sumqayıt</option>
+            <option value="Mingəçevir">Mingəçevir</option>
+            <option value="Lənkəran">Lənkəran</option>
+            <option value="Şəki">Şəki</option>
+            <option value="Quba">Quba</option>
+            <option value="Şamaxı">Şamaxı</option>
+            <option value="Ağdam">Ağdam</option>
+            <option value="Füzuli">Füzuli</option>
+          </select>
+        </div>
+        
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Ünvan
+          </label>
+          <input
+            type="text"
+            placeholder="Ünvanı qeyd edin"
+            {...register("address")}
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400"
+          />
+        </div>
+      </div>
+      
+      <div className="mt-6">
+        <label className="block text-sm font-medium text-gray-700 mb-2">
+          Qeyd
+        </label>
+        <textarea
+          placeholder="Sifarişiniz barədə əlavə qeydləriniz varsa daxil edin"
+          {...register("notes")}
+          className="w-full h-24 px-3 py-2 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-pink-400"
+        />
       </div>
     </div>
   );

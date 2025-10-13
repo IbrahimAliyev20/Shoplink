@@ -17,6 +17,7 @@ export default function DashboardPage() {
         return monthlyChartData;
     }
   }, [timeframe, monthlyChartData]);
+  console.log(dashboardMetrics)
 
   return (
     <div>

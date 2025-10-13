@@ -13,7 +13,7 @@ function PreviewProduct() {
         enabled: !!id,
     });
     return (
-        <div className="min-h-screen bg-[#FAFAFB] p-6">
+        <div className="min-h-screen bg-[#FAFAFB] p-0 md:p-6">
           <h1 className="text-[28px] font-medium text-black">{product?.name}</h1>
           <div className="bg-white rounded-[12px] shadow-sm mb-6 p-8">
             <div className="flex justify-between items-start mb-8">

@@ -77,7 +77,7 @@ function OrderSummarySection({ marketSlug }: OrderSummarySectionProps) {
           <div className="flex justify-between items-center">
             <span className="text-green-600">Promokod endirimi</span>
             <span className="font-medium text-green-600">
-              -{summary.promocodeDiscount} AZN
+              {summary.promocodeDiscount} AZN
             </span>
           </div>
         )}

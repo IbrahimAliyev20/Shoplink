@@ -180,12 +180,14 @@ export default function Sidebar({
             )}
           >
             {!isCollapsed && (
+              <Link href="/">
               <Image
                 src="/images/logofooter.png"
                 alt="Logo"
                 width={150}
                 height={40}
               />
+              </Link>
             )}
           </div>
           <Button

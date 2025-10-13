@@ -6,7 +6,7 @@ const getUserOrderQuery  = () => {
     queryKeys.orders.userOrders(),
     () => getUserOrder(),
     {
-      staleTime: 1 * 60 * 1000, // 1 minute for user orders
+      staleTime: 1 * 60 * 1000, 
     }
   );
 };
@@ -16,7 +16,7 @@ const getSingleUserOrderQuery = (orderId: string) => {
     queryKeys.orders.byId(orderId),
     () => getSingleUserOrder(orderId),
     {
-      staleTime: 5 * 60 * 1000, // 5 minutes for individual orders
+      staleTime: 5 * 60 * 1000,
     }
   );
 };

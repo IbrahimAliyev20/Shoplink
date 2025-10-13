@@ -155,221 +155,223 @@ const ProductEdit: React.FC = () => {
   }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="mx-auto bg-white p-8 rounded-lg shadow"
-    >
-      <h2 className="text-lg font-medium mb-6"> {product?.name}</h2>
-      <div className="mb-8">
-        <h3 className="text-base font-semibold mb-4">Məhsul detalları</h3>
-        <div className="grid grid-cols-1 gap-6">
-          <div>
-            <label className="block text-sm font-medium mb-2">
-              Məhsulun adı
-            </label>
-            <Input
-              className="w-full border border-[#F3F2F8] rounded px-3 py-2"
-              value={formData.name}
-              onChange={(e) => handleInputChange("name", e.target.value)}
-            />
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div className="min-w-[260px] w-full mx-auto">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white p-4 sm:p-6 lg:p-8 rounded-lg shadow"
+        style={{ fontSize: '16px' }} // Prevents zoom on iOS
+      >
+        <h2 className="text-lg font-medium mb-4 sm:mb-6 break-words"> {product?.name}</h2>
+        <div className="mb-6 sm:mb-8">
+          <h3 className="text-base font-semibold mb-4">Məhsul detalları</h3>
+          <div className="grid grid-cols-1 gap-4 sm:gap-6">
             <div>
               <label className="block text-sm font-medium mb-2">
-                Satış qiyməti
-              </label>
-              <div className="relative">
-                <Input
-                  placeholder="7000"
-                  className="w-full rounded-sm border border-[#F3F2F8] py-5.5 px-4 text-base  "
-                  value={formData.sales_price}
-                  onChange={(e) =>
-                    handleInputChange("sales_price", e.target.value || "0")
-                  }
-                />
-                <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500 text-base">
-                  AZN
-                </span>
-              </div>
-            </div>
-            <div>
-              <label className="block text-sm font-medium mb-2">
-                Endirim qiyməti
-              </label>
-              <div className="relative">
-                <Input
-                  placeholder="0"
-                  className="w-full rounded-sm border border-[#F3F2F8] py-5.5 px-4 text-base  "
-                  value={formData.discount_price}
-                  onChange={(e) =>
-                    handleInputChange("discount_price", e.target.value || "0")
-                  }
-                />
-                <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 text-base">
-                  AZN
-                </span>
-              </div>
-            </div>
-            <div>
-              <label className="block text-sm font-medium mb-2">
-                Alış qiyməti
-              </label>
-              <div className="relative">
-                <Input
-                  placeholder="10.000"
-                  className="w-full rounded-sm border border-[#F3F2F8] py-5.5 px-4 text-base  "
-                  value={formData.purchase_price}
-                  onChange={(e) =>
-                    handleInputChange("purchase_price", e.target.value || "0")
-                  }
-                />
-                <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500 text-base">
-                  AZN
-                </span>
-              </div>
-            </div>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium mb-2">
-                Kateqoriya
-              </label>
-              <Select
-                value={formData.category_id > 0 ? String(formData.category_id) : undefined}
-                onValueChange={(value) =>
-                  handleInputChange("category_id", parseInt(value))
-                }
-                >
-                  <SelectTrigger className="h-10 w-full">
-                    <SelectValue placeholder="Kateqoriya seçin" /> 
-                  </SelectTrigger>
-                  <SelectContent>
-                    {categories?.map((category) => (
-                      <SelectItem value={String(category.id)} key={category.id}>
-                        {category.name}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-            </div>
-            <div>
-              <label className="block text-sm font-medium mb-2">
-                Stok sayı
+                Məhsulun adı
               </label>
               <Input
-                placeholder="200"
-                className="w-full border border-[#F3F2F8]  px-3 py-5.5 rounded-md "
-                value={formData.stock}
-                onChange={(e) =>
-                  handleInputChange("stock", parseInt(e.target.value) || 0)
-                }
-                type="number"
+                className="w-full border border-[#F3F2F8] rounded px-3 py-3 sm:py-2 text-base min-h-[44px] sm:min-h-auto"
+                value={formData.name}
+                onChange={(e) => handleInputChange("name", e.target.value)}
               />
             </div>
-          </div>
-          <div>
-            <label className="block text-sm font-medium mb-2 ">
-              Məhsulun təsviri
-            </label>
-            <DynamicRichTextEditor
-              value={formData.description}
-              onChange={(value) => handleInputChange("description", value)}
-            />
-          </div>
-        </div>
-      </div>
-
-      <div>
-        <h3 className="text-base font-semibold mb-4">Məhsulun şəkilləri</h3>
-        <div className="mb-6">
-          <label className="block mb-2 font-medium text-gray-800">
-            Ön şəkil
-          </label>
-          <div className="flex items-center gap-4">
-            {product?.image && (
-              <Image
-                src={product.image}
-                alt="Product main image"
-                width={128}
-                height={128}
-                className="object-cover w-32 h-32 rounded-xl border border-[#F3F2F8]"
-              />
-            )}
-            <div className="w-full bg-[#FBFDFF] border border-gray-100 rounded-lg p-8 flex flex-col items-center justify-center text-center cursor-pointer transition-colors" onClick={triggerMainImageInput}>
-              <Image src="/images/createimage.svg" alt="Upload icon" width={48} height={48} className="mb-4" />
-              <p className="text-sm text-gray-600 mb-2">
-                Siz .jpeg, .jpg, .png, .webp formatında faylları maksimum 7MB ölçüyə qədər yükləyə bilərsiniz.
-              </p>
-              <p className="text-sm font-medium text-[#FF13F0]">
-                + Şəkil əlavə et
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <label className="block mb-2 font-medium">Digər şəkillər</label>
-        <div className="flex flex-wrap gap-4 items-center">
-          {product?.images?.map((image, index) => (
-            <div key={index} className="relative group w-32 h-32">
-              <Image
-                src={image.image}
-                alt="Product image"
-                width={128}
-                height={128}
-                className="object-cover w-full h-full rounded-xl border border-[#F3F2F8]"
-              />
-              <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-xl flex items-start justify-end gap-2 p-2">
-                <button
-                  type="button"
-                  onClick={() => toast.info(`Dəyişdir: ${image.id}`)}
-                  className="p-2 bg-black/80 rounded-full hover:bg-black/90"
-                >
-                  <RefreshCcw className="w-4 h-4 text-white" />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => toast.error(`Sil: ${image.id}`)}
-                  className="p-2 bg-black/80 rounded-full hover:bg-black/90"
-                >
-                  <Trash2 className="w-4 h-4 text-white" />
-                </button>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+              <div>
+                <label className="block text-sm font-medium mb-2">
+                  Satış qiyməti
+                </label>
+                <div className="relative">
+                  <Input
+                    placeholder="7000"
+                    className="w-full rounded-sm border border-[#F3F2F8] py-3 sm:py-5.5 px-4 text-base min-h-[44px] sm:min-h-auto"
+                    value={formData.sales_price}
+                    onChange={(e) =>
+                      handleInputChange("sales_price", e.target.value || "0")
+                    }
+                  />
+                  <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500 text-base">
+                    AZN
+                  </span>
+                </div>
               </div>
-            </div>
-          ))}
-
-          {otherImages.map((image) => (
-            <div key={image.id} className="relative group w-32 h-32">
-              <Image
-                src={image.url}
-                alt="New product image"
-                width={128}
-                height={128}
-                className="object-cover w-full h-full rounded-xl border border-[#F3F2F8]"
-              />
-              <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-xl flex items-start justify-end p-1.5">
-                <div className="flex items-center gap-1">
-                  <button
-                    type="button"
-                    onClick={() => handleDeleteImage(image.id)}
-                    className="p-1.5 bg-white/80 rounded-md hover:bg-white"
-                  >
-                    <Trash2 className="w-4 h-4 text-red-500" />
-                  </button>
+              <div>
+                <label className="block text-sm font-medium mb-2">
+                  Endirim qiyməti
+                </label>
+                <div className="relative">
+                  <Input
+                    placeholder="0"
+                    className="w-full rounded-sm border border-[#F3F2F8] py-3 sm:py-5.5 px-4 text-base min-h-[44px] sm:min-h-auto"
+                    value={formData.discount_price}
+                    onChange={(e) =>
+                      handleInputChange("discount_price", e.target.value || "0")
+                    }
+                  />
+                  <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 text-base">
+                    AZN
+                  </span>
+                </div>
+              </div>
+              <div className="sm:col-span-2 lg:col-span-1">
+                <label className="block text-sm font-medium mb-2">
+                  Alış qiyməti
+                </label>
+                <div className="relative">
+                  <Input
+                    placeholder="10.000"
+                    className="w-full rounded-sm border border-[#F3F2F8] py-3 sm:py-5.5 px-4 text-base min-h-[44px] sm:min-h-auto"
+                    value={formData.purchase_price}
+                    onChange={(e) =>
+                      handleInputChange("purchase_price", e.target.value || "0")
+                    }
+                  />
+                  <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500 text-base">
+                    AZN
+                  </span>
                 </div>
               </div>
             </div>
-          ))}
-
-          <button
-            type="button"
-            onClick={triggerFileInput}
-            className="w-32 h-32 flex flex-col items-center justify-center bg-gray-50 rounded-lg border border-[#F3F2F8] transition-colors text-gray-600 cursor-pointer"
-          >
-            <div className="w-8 h-8 rounded-full bg-white border border-[#F3F2F8] flex items-center justify-center mb-2">
-              <span className="text-lg font-medium text-gray-600">+</span>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium mb-2">
+                  Kateqoriya
+                </label>
+                <Select
+                  value={formData.category_id > 0 ? String(formData.category_id) : undefined}
+                  onValueChange={(value) =>
+                    handleInputChange("category_id", parseInt(value))
+                  }
+                  >
+                    <SelectTrigger className="h-11 sm:h-10 w-full min-h-[44px] sm:min-h-auto">
+                      <SelectValue placeholder="Kateqoriya seçin" /> 
+                    </SelectTrigger>
+                    <SelectContent>
+                      {categories?.map((category) => (
+                        <SelectItem value={String(category.id)} key={category.id}>
+                          {category.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-2">
+                  Stok sayı
+                </label>
+                <Input
+                  placeholder="200"
+                  className="w-full border border-[#F3F2F8] px-3 py-3 sm:py-5.5 rounded-md text-base min-h-[44px] sm:min-h-auto"
+                  value={formData.stock}
+                  onChange={(e) =>
+                    handleInputChange("stock", parseInt(e.target.value) || 0)
+                  }
+                  type="number"
+                />
+              </div>
             </div>
-            <span className="text-sm font-medium text-gray-600">Şəkil əlavə et</span>
-          </button>
+            <div>
+              <label className="block text-sm font-medium mb-2">
+                Məhsulun təsviri
+              </label>
+              <DynamicRichTextEditor
+                value={formData.description}
+                onChange={(value) => handleInputChange("description", value)}
+              />
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <h3 className="text-base font-semibold mb-4">Məhsulun şəkilləri</h3>
+          <div className="mb-6">
+            <label className="block mb-2 font-medium text-gray-800">
+              Ön şəkil
+            </label>
+            <div className="flex flex-col sm:flex-row items-center gap-4">
+              {product?.image && (
+                <Image
+                  src={product.image}
+                  alt="Product main image"
+                  width={128}
+                  height={128}
+                  className="object-cover w-24 h-24 sm:w-32 sm:h-32 rounded-xl border border-[#F3F2F8] flex-shrink-0"
+                />
+              )}
+              <div className="w-full bg-[#FBFDFF] border border-gray-100 rounded-lg p-4 sm:p-8 flex flex-col items-center justify-center text-center cursor-pointer transition-colors" onClick={triggerMainImageInput}>
+                <Image src="/images/createimage.svg" alt="Upload icon" width={48} height={48} className="mb-4" />
+                <p className="text-xs sm:text-sm text-gray-600 mb-2">
+                  Siz .jpeg, .jpg, .png, .webp formatında faylları maksimum 7MB ölçüyə qədər yükləyə bilərsiniz.
+                </p>
+                <p className="text-sm font-medium text-[#FF13F0]">
+                  + Şəkil əlavə et
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <label className="block mb-2 font-medium">Digər şəkillər</label>
+          <div className="flex flex-wrap gap-3 sm:gap-4 items-center">
+            {product?.images?.map((image, index) => (
+              <div key={index} className="relative group w-24 h-24 sm:w-32 sm:h-32">
+                <Image
+                  src={image.image}
+                  alt="Product image"
+                  width={128}
+                  height={128}
+                  className="object-cover w-full h-full rounded-xl border border-[#F3F2F8]"
+                />
+                <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-xl flex items-start justify-end gap-1 sm:gap-2 p-1 sm:p-2">
+                  <button
+                    type="button"
+                    onClick={() => toast.info(`Dəyişdir: ${image.id}`)}
+                    className="p-1.5 sm:p-2 bg-black/80 rounded-full hover:bg-black/90"
+                  >
+                    <RefreshCcw className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => toast.error(`Sil: ${image.id}`)}
+                    className="p-1.5 sm:p-2 bg-black/80 rounded-full hover:bg-black/90"
+                  >
+                    <Trash2 className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
+                  </button>
+                </div>
+              </div>
+            ))}
+
+            {otherImages.map((image) => (
+              <div key={image.id} className="relative group w-24 h-24 sm:w-32 sm:h-32">
+                <Image
+                  src={image.url}
+                  alt="New product image"
+                  width={128}
+                  height={128}
+                  className="object-cover w-full h-full rounded-xl border border-[#F3F2F8]"
+                />
+                <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-xl flex items-start justify-end p-1 sm:p-1.5">
+                  <div className="flex items-center gap-1">
+                    <button
+                      type="button"
+                      onClick={() => handleDeleteImage(image.id)}
+                      className="p-1 sm:p-1.5 bg-white/80 rounded-md hover:bg-white"
+                    >
+                      <Trash2 className="w-3 h-3 sm:w-4 sm:h-4 text-red-500" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+
+            <button
+              type="button"
+              onClick={triggerFileInput}
+              className="w-24 h-24 sm:w-32 sm:h-32 flex flex-col items-center justify-center bg-gray-50 rounded-lg border border-[#F3F2F8] transition-colors text-gray-600 cursor-pointer"
+            >
+              <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-white border border-[#F3F2F8] flex items-center justify-center mb-1 sm:mb-2">
+                <span className="text-sm sm:text-lg font-medium text-gray-600">+</span>
+              </div>
+              <span className="text-xs sm:text-sm font-medium text-gray-600">Şəkil əlavə et</span>
+            </button>
 
           <Input
             type="file"
@@ -390,16 +392,17 @@ const ProductEdit: React.FC = () => {
         </div>
       </div>
 
-      <div className="flex justify-end mt-10">
-        <button
-          type="submit"
-          disabled={isPending}
-          className="bg-[#E23359] text-white px-6 py-2 rounded-lg font-medium hover:bg-[#E23359]/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          {isPending ? "Yenilənir..." : "Dəyişiklikləri yadda saxla"}
-        </button>
-      </div>
-    </form>
+        <div className="flex justify-end mt-6 sm:mt-10">
+          <button
+            type="submit"
+            disabled={isPending}
+            className="bg-[#E23359] text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-medium hover:bg-[#E23359]/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base w-full sm:w-auto"
+          >
+            {isPending ? "Yenilənir..." : "Dəyişiklikləri yadda saxla"}
+          </button>
+        </div>
+      </form>
+    </div>
   );
 };
 

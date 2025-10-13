@@ -3,7 +3,6 @@
 import dynamic from "next/dynamic";
 import { Skeleton } from "@/components/ui/skeleton";
 
-// Dynamic imports with loading states
 export const DynamicRichTextEditor = dynamic(
   () => import("@/components/shared/editor"),
   {
@@ -13,7 +12,7 @@ export const DynamicRichTextEditor = dynamic(
         <Skeleton className="h-32 w-full" />
       </div>
     ),
-    ssr: false, // Disable SSR for heavy components
+    ssr: false,
   }
 );
 

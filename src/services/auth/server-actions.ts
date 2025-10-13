@@ -18,9 +18,21 @@ export async function loginAction(
     const data = res.data as AuthLoginResponse;
 
     const token = data?.data?.token;
+    const userRole = data?.data?.user?.role;
     
     if (token) {
       (await cookies()).set(TOKEN_COOKIE_NAME, token, {
+        httpOnly: false,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+        path: "/",
+        maxAge: 60 * 60 * 24 * 7,
+      });
+    }
+
+    // Store user role in cookie for middleware access
+    if (userRole && Array.isArray(userRole)) {
+      (await cookies()).set('user_role', JSON.stringify(userRole), {
         httpOnly: false,
         secure: process.env.NODE_ENV === "production",
         sameSite: "lax",
@@ -47,6 +59,7 @@ export async function logoutAction() {
   try {
     const cookieStore = await cookies();
     cookieStore.delete("access_token");
+    cookieStore.delete("user_role");
 
     return { success: true };
   } catch {
@@ -63,8 +76,21 @@ export async function registerAction(
     const data = res.data as AuthRegisterResponse;
 
     const token = data?.data?.access_token;
+    const userRole = data?.data?.role;
+    
     if (token) {
       (await cookies()).set(TOKEN_COOKIE_NAME, token, {
+        httpOnly: false,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+        path: "/",
+        maxAge: 60 * 60 * 24 * 7,
+      });
+    }
+
+    // Store user role in cookie for middleware access
+    if (userRole && Array.isArray(userRole)) {
+      (await cookies()).set('user_role', JSON.stringify(userRole), {
         httpOnly: false,
         secure: process.env.NODE_ENV === "production",
         sameSite: "lax",

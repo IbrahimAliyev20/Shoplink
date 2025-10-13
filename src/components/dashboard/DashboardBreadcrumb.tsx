@@ -138,7 +138,7 @@ export default function DashboardBreadcrumb() {
   }
 
   return (
-    <div className="mb-6  rounded-lg   px-4 py-3 ">
+    <div className="mb-6  rounded-lg  px-2 py-2 md:px-4 md:py-3 ">
       <Breadcrumb>
         <BreadcrumbList className="flex-wrap">
           {breadcrumbs.map((crumb, index) => (

@@ -65,11 +65,11 @@ function CreateCategory() {
   };
 
   return (
-    <div className="space-y-6 max-sm:space-y-4">
+    <div className="min-w-[260px] w-full  mx-auto space-y-6 max-sm:space-y-4">
       <h1 className="text-2xl font-medium text-gray-900 max-sm:text-xl max-sm:font-semibold">
         Kateqoriya
       </h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} style={{ fontSize: '16px' }}>
         <fieldset disabled={isPending} className="space-y-6 max-sm:space-y-4">
           <Card className="shadow-none border-2 border-[#F3F2F8]">
             <CardHeader className="mb-10 max-sm:mb-6">
@@ -78,7 +78,7 @@ function CreateCategory() {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4 max-sm:space-y-3 max-sm:px-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 space-y-6 max-sm:gap-4 max-sm:space-y-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                 <div className="space-y-2 max-sm:space-y-1.5">
                   <Label htmlFor="categoryName" className="max-sm:text-sm">
                     Kateqoriya adı
@@ -87,7 +87,7 @@ function CreateCategory() {
                     id="categoryName"
                     placeholder="Kateqoriya adı"
                     {...register("name", { required: "Ad mütləqdir" })}
-                    className="max-sm:h-10 max-sm:text-sm py-5.5"
+                    className="max-sm:h-11 max-sm:text-sm py-3 sm:py-5.5 min-h-[44px] sm:min-h-auto"
                   />
                   {errors.name && (
                     <p className="text-xs text-red-600 mt-1">
@@ -108,7 +108,7 @@ function CreateCategory() {
                     {...register("description", {
                       required: "Təsvir mütləqdir",
                     })}
-                    className="max-sm:h-10 max-sm:text-sm py-5.5"
+                    className="max-sm:h-11 max-sm:text-sm py-3 sm:py-5.5 min-h-[44px] sm:min-h-auto"
                   />
                   {errors.description && (
                     <p className="text-xs text-red-600 mt-1">
@@ -130,7 +130,7 @@ function CreateCategory() {
                         onValueChange={field.onChange}
                         value={field.value}
                       >
-                        <SelectTrigger className="w-full max-sm:h-10 max-sm:text-sm py-5.5">
+                        <SelectTrigger className="w-full max-sm:h-11 max-sm:text-sm py-3 sm:py-5.5 min-h-[44px] sm:min-h-auto">
                           <SelectValue placeholder="Seçin" />
                         </SelectTrigger>
                         <SelectContent>
@@ -162,43 +162,42 @@ function CreateCategory() {
                 SEO
               </CardTitle>
               <p className="text-sm text-gray-600 max-sm:text-xs">
-                Sizə uyğun olan ödəniş metodunu seçin
+                SEO parametrlərini doldurun
               </p>
             </CardHeader>
             <CardContent className="space-y-4 max-sm:space-y-3 max-sm:px-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-sm:gap-3">
-              
-               <div className="space-y-2 max-sm:space-y-1.5">
-                  <Label htmlFor="meta_keywords" className="max-sm:text-sm">
-                    SEO Başlıq (Keywords)
-                  </Label>
-                  <Input
-                    id="meta_keywords"
-                    placeholder="Kateqoriya adı"
-                    {...register("meta_keywords")}
-                    className="max-sm:h-10 max-sm:text-sm py-5.5"
-                  />
-                </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-sm:gap-3">
                 <div className="space-y-2 max-sm:space-y-1.5">
-                  <Label htmlFor="meta_description" className="max-sm:text-sm">
-                    SEO Təsvir (Description)
-                  </Label>
-                  <Input
-                    id="meta_description"
-                    placeholder="Kateqoriya təsviri"
-                    {...register("meta_description")}
-                    className="max-sm:h-10 max-sm:text-sm py-5.5"
-                  />
-                </div>
-                <div className="col-span-2   space-y-2 max-sm:space-y-1.5">
                   <Label htmlFor="meta_title" className="max-sm:text-sm">
-                    Açar sözlər 
+                    SEO Başlıq
                   </Label>
                   <Input
                     id="meta_title"
-                    placeholder="Kateqoriya adı"
+                    placeholder="SEO başlığı"
                     {...register("meta_title")}
-                    className="max-sm:h-10 max-sm:text-sm py-5.5"
+                    className="max-sm:h-11 max-sm:text-sm py-3 sm:py-5.5 min-h-[44px] sm:min-h-auto"
+                  />
+                </div>
+                <div className="space-y-2 max-sm:space-y-1.5">
+                  <Label htmlFor="meta_keywords" className="max-sm:text-sm">
+                    Açar sözlər
+                  </Label>
+                  <Input
+                    id="meta_keywords"
+                    placeholder="Açar sözlər"
+                    {...register("meta_keywords")}
+                    className="max-sm:h-11 max-sm:text-sm py-3 sm:py-5.5 min-h-[44px] sm:min-h-auto"
+                  />
+                </div>
+                <div className="sm:col-span-2 space-y-2 max-sm:space-y-1.5">
+                  <Label htmlFor="meta_description" className="max-sm:text-sm">
+                    SEO Təsvir
+                  </Label>
+                  <Input
+                    id="meta_description"
+                    placeholder="SEO təsviri"
+                    {...register("meta_description")}
+                    className="max-sm:h-11 max-sm:text-sm py-3 sm:py-5.5 min-h-[44px] sm:min-h-auto"
                   />
                 </div>
               </div>
@@ -210,13 +209,13 @@ function CreateCategory() {
               type="button"
               variant="outline"
               onClick={() => reset()}
-              className="px-12 border-none shadow-sm rounded-xl max-sm:px-6 max-sm:py-2.5 max-sm:text-sm max-sm:w-full"
+              className="px-12 border-none shadow-sm rounded-xl max-sm:px-6 max-sm:py-3 max-sm:text-sm max-sm:w-full max-sm:h-11"
             >
               Ləğv et
             </Button>
             <Button
               type="submit"
-              className="px-6 bg-[#E23359] hover:bg-[#E23359]/90 text-white rounded-xl max-sm:px-6 max-sm:py-2.5 max-sm:text-sm max-sm:w-full"
+              className="px-6 bg-[#E23359] hover:bg-[#E23359]/90 text-white rounded-xl max-sm:px-6 max-sm:py-3 max-sm:text-sm max-sm:w-full max-sm:h-11"
             > 
               {isPending ? "Saxlanılır..." : "Yadda saxla"}
             </Button>

@@ -146,7 +146,7 @@ const CreateProduct = () => {
   };
 
   return (
-    <div className="mx-auto space-y-6 bg-gray-50/50 p-4 sm:p-6 lg:p-8">
+    <div className="mx-auto space-y-6 bg-gray-50/50 p-0 sm:p-6 lg:p-8">
       <h1 className="text-3xl font-medium mb-6">Yeni məhsul əlavə et</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <fieldset disabled={isPending} className="space-y-6">

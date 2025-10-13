@@ -45,46 +45,61 @@ function OrderDetails({ orderId, onBack }: OrderDetailsProps) {
       </div>
 
       <div className="rounded-lg border border-[#F3F2F8]">
-        <div className="flex items-center justify-between gap-4 p-6 border-b border-[#F3F2F8]">
-          <div className="flex items-start gap-4">
-            <div className="w-24 h-24 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
-              <Image
-                src={order.detail[0].image}
-                alt={order.detail[0].product || "Məhsul"}
-                width={96}
-                height={96}
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div>
-              <h2 className="text-lg font-medium text-gray-900">
-                {order.detail[0].product || "Məhsul adı "}
-              </h2>
-            </div>
-          </div>
-
-          <div className="flex flex-col items-end gap-4">
+        <div className="p-6 border-b border-[#F3F2F8]">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-lg font-medium text-gray-900">Məhsullar</h2>
             <div className="flex items-center gap-2 text-sm font-medium text-green-600">
               <StatusIcons status={order.status} />
             </div>
-            <Button className="bg-gray-800 text-white px-4 h-9 rounded-lg text-sm hover:bg-gray-700">
-              Sifariş detalları
-            </Button>
+          </div>
+          
+          <div className="space-y-4">
+            {order.detail && order.detail.map((item, index) => (
+              <div key={index} className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg">
+                <div className="w-16 h-16 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
+                  {item.image ? (
+                    <Image
+                      src={item.image}
+                      alt={item.product || "Məhsul"}
+                      width={64}
+                      height={64}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center text-gray-400">
+                      <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                  )}
+                </div>
+                
+                <div className="flex-1">
+                  <h3 className="font-medium text-gray-900">{item.product}</h3>
+                  <p className="text-sm text-gray-600">{item.category || "Kateqoriya yoxdur"}</p>
+                </div>
+                
+                <div className="text-right">
+                  <p className="text-sm text-gray-600">Miqdar: {item.quantity}</p>
+                  <p className="font-medium text-gray-900">{item.total_price} AZN</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
 
-        <div className="flex items-center justify-end gap-10 text-sm text-gray-600 px-6 py-4">
+        <div className="flex items-center justify-between text-sm text-gray-600 px-6 py-4">
           <p>
-            {order.detail[0].quantity} məhsul :
-            <span className="font-medium text-gray-900">
-              {order.total_price} AZN
-            </span>
+            Ümumi miqdar: {order.detail ? order.detail.reduce((total, item) => total + parseInt(item.quantity || "0"), 0) : 0} məhsul
           </p>
-      
-          <p>
-            Sifariş ID :
-            <span className="font-medium text-gray-900">{order.id}</span>
-          </p>
+          <div className="flex items-center gap-6">
+            <p>
+              Ümumi qiymət: <span className="font-medium text-gray-900">{order.total_price} AZN</span>
+            </p>
+            <p>
+              Sifariş ID: <span className="font-medium text-gray-900">{order.id}</span>
+            </p>
+          </div>
         </div>
       </div>
 

@@ -33,7 +33,7 @@ interface CheckPromoResponse {
 
 
 export const checkPromocode = async (payload: CheckPromoPayload) => {
-    const response = await post<ApiResponse<CheckPromoResponse>>("/api/promocode-check", payload);
+    const response = await post<ApiResponse<CheckPromoResponse>>("/user/promocode-check", payload);
     if (!response.data || !response.status) {
         throw new Error("Promokod etibarsızdır və ya xəta baş verdi");
     }

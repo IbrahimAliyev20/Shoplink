@@ -20,7 +20,7 @@ const OtherProductsInCategory: React.FC<OtherProductsInCategoryProps> = ({ curre
   );
 
   const otherProducts = categoryProducts?.filter(product => product.id !== currentProduct.id) || [];
-
+  
   if (isLoading) {
     return (
       <div className="mt-12">

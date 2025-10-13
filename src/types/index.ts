@@ -167,6 +167,8 @@ export interface TrackNumberDetail {
   product_price: number;
   total_price: number;
   image: string;
+  category?: string;
+  stock?: number;
 }
 
 

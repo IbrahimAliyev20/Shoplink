@@ -13,7 +13,7 @@ function PreviewCategory() {
     enabled: !!id,
   });
   return (
-    <div className="min-h-screen bg-[#FAFAFB] p-6">
+    <div className="min-h-screen bg-[#FAFAFB] p-0 md:p-6">
       <h1 className="text-[28px] font-medium text-black mb-6">{category?.name}</h1>
       
       <div className="bg-white rounded-2xl border border-[#F3F2F8] mb-3 p-8 ">
