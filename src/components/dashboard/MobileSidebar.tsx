@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import React from 'react';
 import { Menu } from 'lucide-react';
@@ -22,7 +22,7 @@ export default function MobileSidebar() {
           <Menu className="h-5 w-5" />
         </Button>
       </SheetTrigger>
-      <SheetContent side="left" className="p-0 w-64">
+      <SheetContent side="left" className="p-0 w-64 !h-screen !max-h-screen overflow-y-auto">
         <div className="h-full bg-gray-900">
           <Sidebar 
             className="relative border-0" 
