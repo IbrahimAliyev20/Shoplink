@@ -1,7 +1,19 @@
 import React from "react";
 import Image from "next/image";
+import { getMetaTags } from "@/services/MetaTags/api";
+import { Metadata } from "next";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const metaTags = await getMetaTags();
+  return {
+    title: metaTags?.data[1]?.title || "Shoplink",
+    description: metaTags?.data[1]?.meta_description || "Shoplink",
+    keywords: metaTags?.data[1]?.meta_keywords || "Shoplink",
+  };
+} 
 
 const StrideXAboutPage = () => {
+
   return (
     
       <div className="py-12 max-w-5xl mx-auto rounded-2xl overflow-hidden">

@@ -273,3 +273,10 @@ export interface LastActivities {
   }[];
 
 }
+
+export interface MetaTagsTypes {
+  title: string;
+  meta_title: string;
+  meta_description: string;
+  meta_keywords: string;
+}

@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { User, LogOut, Store } from "lucide-react";
 import { logoutAction } from "@/services/auth/server-actions";
 import { UserData } from "@/types";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 interface UserProfileProps {
@@ -15,7 +14,6 @@ interface UserProfileProps {
 export function UserProfile({ user }: UserProfileProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const router = useRouter();
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -36,12 +34,6 @@ export function UserProfile({ user }: UserProfileProps) {
       console.error("Logout failed:", error);
     }
   };
-
-  const handleDashboard = () => {
-    router.push('/dashboard');
-    setIsDropdownOpen(false);
-  };
-
 
   return (
     <div className="hidden md:flex items-center gap-4 relative">
@@ -99,12 +91,10 @@ interface UserProfileMobileProps {
 }
 
 export function UserProfileMobile({ user }: UserProfileMobileProps) {
-  const router = useRouter();
 
   const handleLogout = async () => {
     try {
       await logoutAction();
-      // Force a complete page refresh to clear all state
       window.location.href = '/';
     } catch (error) {
       console.error("Logout failed:", error);

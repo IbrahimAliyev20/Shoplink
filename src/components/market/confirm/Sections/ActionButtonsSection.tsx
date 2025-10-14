@@ -2,7 +2,6 @@
 
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 interface ActionButtonsSectionProps {
@@ -11,7 +10,6 @@ interface ActionButtonsSectionProps {
 }
 
 function ActionButtonsSection({ marketSlug, isPending }: ActionButtonsSectionProps) {
-  const router = useRouter();
 
   return (
     <div className="flex w-full flex-col sm:flex-row space-x-4 gap-4 sm:gap-0 ">

@@ -1,43 +1,31 @@
 import { QueryClientConfig } from "@tanstack/react-query";
 
-/**
- * Optimized query configuration for better performance and deduplication
- */
 export const queryConfig: Partial<QueryClientConfig> = {
   defaultOptions: {
     queries: {
-      // Increased stale time to reduce unnecessary refetches
-      staleTime: 5 * 60 * 1000, // 5 minutes
-      gcTime: 30 * 60 * 1000, // 30 minutes (was 10 minutes)
-
-      // Optimized retry strategy
+      staleTime: 5 * 60 * 1000,
+      gcTime: 30 * 60 * 1000,
       retry: (failureCount, error: unknown) => {
-        // Don't retry on 4xx errors (client errors)
         if (error && typeof error === "object" && "response" in error) {
           const response = (error as { response: { status: number } }).response;
           if (response?.status >= 400 && response?.status < 500) {
             return false;
           }
         }
-        // Retry up to 3 times for server errors
         return failureCount < 3;
       },
 
       retryDelay: (attemptIndex) => {
-        // Exponential backoff with jitter
         const baseDelay = Math.min(1000 * 2 ** attemptIndex, 30000);
         const jitter = Math.random() * 1000;
         return baseDelay + jitter;
       },
 
-      // Disable refetch on window focus for better UX
       refetchOnWindowFocus: false,
       refetchOnReconnect: true,
 
-      // Enable request deduplication
       refetchOnMount: true,
 
-      // Network mode for better offline handling
       networkMode: "online",
     },
     mutations: {
@@ -48,17 +36,12 @@ export const queryConfig: Partial<QueryClientConfig> = {
   },
 };
 
-/**
- * Query key factory for consistent and type-safe query keys
- */
 export const queryKeys = {
-  // User related queries
   user: {
     current: ["user", "current"] as const,
     all: () => ["user"] as const,
   },
 
-  // Store related queries
   store: {
     all: () => ["stores"] as const,
     bySlug: (slug: string) => ["store", slug] as const,
@@ -84,7 +67,6 @@ export const queryKeys = {
       ["products", "filter", filters] as const,
   },
 
-  // Dashboard related queries
   dashboard: {
     stats: () => ["dashboard", "stats"] as const,
     reports: (filters?: Record<string, unknown>) =>
@@ -92,13 +74,11 @@ export const queryKeys = {
     activities: () => ["dashboard", "activities"] as const,
   },
 
-  // Category related queries
   categories: {
     all: () => ["categories"] as const,
     byId: (id: number) => ["category", id] as const,
   },
 
-  // Order related queries
   orders: {
     all: () => ["orders"] as const,
     byId: (id: string) => ["order", id] as const,
@@ -106,7 +86,6 @@ export const queryKeys = {
     storeOrders: () => ["store", "orders"] as const,
   },
 
-  // Address related queries
   addresses: {
     all: () => ["addresses"] as const,
   },
@@ -117,6 +96,7 @@ export const queryKeys = {
   },
 
   home: {
+    metaTags: () => ["home", "meta-tags"] as const,
     hero: () => ["home", "hero"] as const,
     about: () => ["home", "about"] as const,
     advantages: () => ["home", "advantages"] as const,

@@ -18,13 +18,11 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteProductMutation } from "@/services/Seller-services/product/mutations";
 import { toast } from "sonner";
 import ReusablePagination from "../../ReusablePagination";
-import { useRouter } from "next/navigation";
 
 export default function ProductsPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
-  const router = useRouter();
 
   const queryClient = useQueryClient();
   const { data: allProducts } = useQuery({ ...productQueries.all() });

@@ -4,6 +4,7 @@ import "@/app/globals.css";
 import { QueryProvider } from "@/providers/QueryProvider";
 import { Toaster } from "sonner";
 import ClientLayout from "@/components/home/navigation/clientLayout";
+import { getMetaTags } from "@/services/MetaTags/api";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -11,12 +12,18 @@ const poppins = Poppins({
   variable: "--font-poppins",
 });
 
-export const metadata: Metadata = {
-  title: "Shoplink",
-  description: "Shoplink",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const data = await getMetaTags();
+  const metaTags = data?.data[0];
 
-export default async function RootLayout({
+  return {
+    title: metaTags?.title || "Shoplink",
+    description: metaTags?.meta_description || "Shoplink",
+    keywords: metaTags?.meta_keywords || "Shoplink",
+  };
+}
+
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -26,7 +33,7 @@ export default async function RootLayout({
       <body className={poppins.className}>
         <QueryProvider>
           <ClientLayout>{children}</ClientLayout>
-            <Toaster position="top-center" richColors />
+          <Toaster position="top-center" richColors />
         </QueryProvider>
       </body>
     </html>
