@@ -6,12 +6,26 @@ import Link from "next/link";
 import { Metadata } from "next";
 import { MARKET_META } from "@/utils/MetaTagsData";
 
-export async function generateMetadata(): Promise<Metadata> {
-  return {
-    title: MARKET_META.title,
-    description: MARKET_META.meta_description,
-    keywords: MARKET_META.meta_keywords,
-  };
+export async function generateMetadata({ params }: MarketHomePageProps): Promise<Metadata> {
+  const { market: marketSlug } = await params;
+  
+  try {
+    const storeData = await getStore(marketSlug);
+    
+    return {
+      title: `Shoplink - ${storeData.name}`,
+      description: `${storeData.name} mağazasında keyfiyyətli məhsulları kəşf edin. Geniş çeşid və rahat alış-veriş təcrübəsi.`,
+      keywords: `shoplink, ${storeData.name}, mağaza, məhsullar, alış-veriş, keyfiyyətli, çeşid`,
+    };
+  } catch (error) {
+    console.error('Error loading store data for metadata:', error);
+    
+    return {
+      title: MARKET_META.title,
+      description: MARKET_META.meta_description,
+      keywords: MARKET_META.meta_keywords,
+    };
+  }
 }
 
 interface MarketHomePageProps {
