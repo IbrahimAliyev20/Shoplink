@@ -49,7 +49,7 @@ const SettingsPage =  () => {
                     <TabsTrigger
                       key={item.value}
                       value={item.value}
-                      className="bg-white w-full justify-center md:justify-start items-center gap-3 px-4 py-3 text-base font-medium rounded-lg text-gray-600 data-[state=active]:bg-[#F2F4F8]/80 data-[state=active]:text-black data-[state=active]:shadow-sm transition-all duration-200 max-md:flex-1 max-md:whitespace-nowrap max-md:text-sm max-md:px-0 max-md:py-0 max-md:gap-2 "
+                      className="bg-white w-full justify-center md:justify-start items-center gap-3 px-4 py-3 text-base font-medium rounded-lg text-gray-600 data-[state=active]:bg-[#F2F4F8]/80 data-[state=active]:text-black data-[state=active]:shadow-sm transition-all duration-200 hover:bg-[#F2F4F8]/60 hover:text-gray-800 max-md:flex-1 max-md:whitespace-nowrap max-md:text-sm max-md:px-0 max-md:py-0 max-md:gap-2 "
                     >
                       <Icon className="h-5 w-5 max-md:h-10 max-md:w-10" />
                       <span className="max-md:hidden ">{item.label}</span>

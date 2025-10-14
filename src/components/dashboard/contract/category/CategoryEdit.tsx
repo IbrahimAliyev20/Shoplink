@@ -149,7 +149,7 @@ function EditCategory() {
                     control={control}
                     rules={{ required: "Sıralama mütləqdir" }}
                     render={({ field }) => (
-                      <Select onValueChange={field.onChange} value={field.value}>
+                      <Select onValueChange={field.onChange} value={field.value || "desc"}>
                         <SelectTrigger className="w-full max-sm:h-10 max-sm:text-sm">
                           <SelectValue placeholder="Seçin" />
                         </SelectTrigger>

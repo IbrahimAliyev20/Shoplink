@@ -43,6 +43,7 @@ const PersonalInfo = ({ user }: { user: UserData }) => {
   const [region, setRegion] = useState("");
   const [image, setImage] = useState<string | File>("");
   const [imagePreview, setImagePreview] = useState<string>("");
+  
   useEffect(() => {
     if (user) {
       setName(user.name || "");
@@ -66,9 +67,16 @@ const PersonalInfo = ({ user }: { user: UserData }) => {
     formData.append("fin", fin);
     formData.append("type", type);
     formData.append("region", region);
-    formData.append("image", image instanceof File ? image : image);
+
+    // DÜZƏLİŞ EDİLMİŞ HİSSƏ
+    // Yalnız o zaman şəkli əlavə edirik ki, istifadəçi yeni fayl seçmiş olsun.
+    if (image instanceof File) {
+      formData.append("image", image);
+    }
+    
     updateUser(formData);
   };
+
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {

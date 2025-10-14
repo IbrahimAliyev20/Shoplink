@@ -1,12 +1,16 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useUpdatePasswordMutation } from "@/services/auth/mutations";    
 
 const Security = () => {
+  const { mutate: updatePassword } = useUpdatePasswordMutation();
+  const [currentPassword, setCurrentPassword] = useState('')
+  const [newPassword, setNewPassword] = useState('')
   return (
     <Card className="bg-white border-none shadow-none">
       <CardHeader className="p-0">
@@ -33,6 +37,8 @@ const Security = () => {
                   type="password"
                   placeholder="Şifrənizi daxil edin"
                   className="h-12 rounded-lg w-full max-sm:h-10 max-sm:text-sm"
+                  value={currentPassword}
+                  onChange={(e) => setCurrentPassword(e.target.value)}
                 />
               </div>
               <div className="space-y-2 w-full max-sm:space-y-1.5">
@@ -47,12 +53,14 @@ const Security = () => {
                   type="password"
                   placeholder="Yeni şifrənizi daxil edin"
                   className="h-12 rounded-lg w-full max-sm:h-10 max-sm:text-sm"
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
                 />
               </div>
             </div>
           </div>
           <div className="flex justify-end max-sm:justify-center">
-            <Button className="h-12 bg-[#E23359] hover:bg-purple-700 cursor-pointer rounded-[12px] max-sm:w-full max-sm:text-sm max-sm:py-2.5">
+            <Button onClick={() => updatePassword({ old_password: currentPassword, password: newPassword, password_confirmation: newPassword })} className="h-12 bg-[#E23359] hover:bg-[#E23359]/90 cursor-pointer rounded-[12px] max-sm:w-full max-sm:text-sm max-sm:py-2.5">
               Dəyişiklikləri yadda saxla
             </Button>
           </div>

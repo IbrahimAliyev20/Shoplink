@@ -133,10 +133,10 @@ function CreateCategory() {
                         </SelectTrigger>
                         <SelectContent>
                           <SelectItem value="asc">
-                            Yaradılma tarixi (Asc)
+                            Yaradılma tarixi (Artan sıra)
                           </SelectItem>
                           <SelectItem value="desc">
-                            Yaradılma tarixi (Desc)
+                            Yaradılma tarixi (Azalan sıra)
                           </SelectItem>
                           <SelectItem value="A-Z">A-Z</SelectItem>
                           <SelectItem value="Z-A">Z-A</SelectItem>

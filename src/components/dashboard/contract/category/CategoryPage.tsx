@@ -87,13 +87,13 @@ export default function Category() {
                     </tr>
                   </thead>
                   <tbody>
-                    {category?.map((category) => (
+                    {category?.map((category, index) => (
                       <tr
                         key={category.id}
                         className="border-b border-[#F3F2F8] hover:bg-gray-50"
                       >
                         <td className="py-4 px-6 text-sm text-gray-900 max-sm:py-3 max-sm:px-4 max-sm:text-xs">
-                          {category.id}
+                          {index + 1}
                         </td>
                         <td className="py-4 px-6 max-sm:py-3 max-sm:px-4">
                           <div className="flex items-center space-x-3">

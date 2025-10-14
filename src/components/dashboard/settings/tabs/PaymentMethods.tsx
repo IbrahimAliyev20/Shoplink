@@ -2,9 +2,6 @@
 
 import React, { useState } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { Switch } from '@/components/ui/switch'
-import { Trash } from 'lucide-react'
 import { PAYMENT_METHODS } from '@/utils/static'
 
 interface PaymentMethod {
@@ -34,9 +31,6 @@ function PaymentMethods() {
           <CardTitle className="text-2xl font-medium max-md:text-xl">
             Ödəniş metodları
           </CardTitle>
-          <Button className="bg-[#E23359] hover:bg-[#E23359]/90 cursor-pointer rounded-[10px] max-md:w-full max-md:h-10">
-            Əlavə et
-          </Button>
         </div>
       </CardHeader>
       <CardContent className="space-y-4 max-md:space-y-3 max-md:p-4 max-md:pt-0">
@@ -52,13 +46,6 @@ function PaymentMethods() {
                 </span>
               </div>
               <div className='flex items-center gap-4 max-md:gap-3'>
-              
-              <Switch
-                checked={method.enabled}
-                onCheckedChange={() => handleTogglePaymentMethod(method.id)}
-                className="data-[state=checked]:bg-green-500 max-md:scale-90"
-              />
-              <Trash className="h-5 w-5 text-gray-600 cursor-pointer max-md:h-4 max-md:w-4" />
               </div>
             </div>
           ))}

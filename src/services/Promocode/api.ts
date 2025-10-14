@@ -29,10 +29,14 @@ export const deletePromocode = async (id: number) => {
 
 export const ChangePromocodeStatus = async (formData: FormData) => {
   const statusId = formData.get('id');
+  const status = formData.get('status');
   if (!statusId) {
     throw new Error("Promo code ID is missing in FormData for status change.");
   }
-  const response = await post<{ data: Promocode }>(`user/promocode/status/${statusId}`);
+  if (!status) {
+    throw new Error("Status is missing in FormData for status change.");
+  }
+  const response = await post<{ data: Promocode }>(`user/promocode/status/${statusId}`, formData);
   return response.data;
 };
 

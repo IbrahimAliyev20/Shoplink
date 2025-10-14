@@ -156,6 +156,7 @@ export interface StoreOrder {
     address: string;
     city: string;
     total_price: number;
+    total_quantity: number;
     status: number;
     promocode?: string | null;
     detail: TrackNumberDetail[]
@@ -187,7 +188,7 @@ export interface ClientsResponse {
   created_at: string;
   order_count: number;
   feedback: string;
- 
+  feedback_id?: number;
 }
 
 export interface FeedbackResponse {

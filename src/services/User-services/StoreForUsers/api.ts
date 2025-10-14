@@ -17,20 +17,26 @@ export const getCategoryStore = async (
   return response.data;
 };
 
+// --- DÜZƏLİŞ EDİLMİŞ FUNKSİYA ---
 export const getProductStoreCategory = async (
-    slug: string,
-    category_name: string,
-    search?: string 
-  ): Promise<ProductStoreCategory[]> => {
-    let apiUrl = `api/products/${slug}/${category_name}`;
-  
-    if (search && search.trim() !== "") {
-      apiUrl += `?search=${encodeURIComponent(search)}`;
-    }
-  
-    const response = await get<{ data: ProductStoreCategory[] }>(apiUrl);
-    return response.data;
-  };
+  slug: string,
+  category_name: string,
+  search?: string
+): Promise<ProductStoreCategory[]> => {
+  // Kateqoriya adını slug formatına çeviririk (boşluqları '-' ilə əvəz edib kiçik hərflərə çeviririk)
+  const categorySlug = category_name.toLowerCase().replace(/\s+/g, '-');
+
+  // URL-i yeni yaratdığımız "categorySlug" ilə yığırıq
+  let apiUrl = `api/products/${slug}/${categorySlug}`;
+
+  if (search && search.trim() !== "") {
+    apiUrl += `?search=${encodeURIComponent(search)}`;
+  }
+
+  const response = await get<{ data: ProductStoreCategory[] }>(apiUrl);
+  return response.data;
+};
+// --- DÜZƏLİŞİN SONU ---
 
 export const getProductSingle = async (
   slug: string
@@ -41,8 +47,11 @@ export const getProductSingle = async (
   return response.data;
 };
 
-export const getAllProductsStore = async ( slug: string, search?: string):
-   Promise<ProductStoreCategory[]> => {let apiUrl = `api/all-products/${slug}`;
+export const getAllProductsStore = async (
+  slug: string,
+  search?: string
+): Promise<ProductStoreCategory[]> => {
+  let apiUrl = `api/all-products/${slug}`;
   if (search && search.trim() !== "") {
     apiUrl += `?search=${encodeURIComponent(search)}`;
   }
@@ -50,7 +59,12 @@ export const getAllProductsStore = async ( slug: string, search?: string):
   return response.data;
 };
 
-export const FilterProductsStore = async ( formData: FormData): Promise<ProductStoreCategory[]> => {
-  const response = await post<{ data: ProductStoreCategory[] }>('api/filter', formData);
+export const FilterProductsStore = async (
+  formData: FormData
+): Promise<ProductStoreCategory[]> => {
+  const response = await post<{ data: ProductStoreCategory[] }>(
+    "api/filter",
+    formData
+  );
   return response.data;
 };

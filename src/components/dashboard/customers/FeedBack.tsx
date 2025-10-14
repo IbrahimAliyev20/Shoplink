@@ -88,7 +88,7 @@ function FeedBack({ user_id }: { user_id: string }) {
       return
     }
   
-    if (!clientFeedback?.id) {
+    if (!clientFeedback?.feedback_id) {
       toast.error('Feedback ID tapılmadı')
       return
     }
@@ -96,17 +96,17 @@ function FeedBack({ user_id }: { user_id: string }) {
     const formData = new FormData()
     formData.append('note', feedbackText)
   
-    updateMutation.mutate({ id: clientFeedback.id, formData })
+    updateMutation.mutate({ id: clientFeedback.feedback_id, formData })
   }
 
   const handleDeleteFeedback = () => {
-    if (!clientFeedback?.id) {
+    if (!clientFeedback?.feedback_id) {
       toast.error('Feedback ID tapılmadı')
       return
     }
 
-    if (clientFeedback.id) {
-      deleteMutation.mutate(clientFeedback.id as number)
+    if (clientFeedback.feedback_id) {
+      deleteMutation.mutate(clientFeedback.feedback_id)
     }
   }
   return (

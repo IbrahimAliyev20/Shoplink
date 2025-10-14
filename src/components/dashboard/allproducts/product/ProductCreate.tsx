@@ -79,8 +79,8 @@ const ProductCreatePage = () => {
   });
 
   const onSubmit: SubmitHandler<ProductFormValues> = (data) => {
-    if (!mainImage) {
-      toast.error("Əsas məhsul şəkli mütləqdir.");
+    if (!mainImage || additionalImages.length === 0) {
+      toast.error("Əsas məhsul şəkli və əlavə şəkillər mütləqdir.");
       return;
     }
 

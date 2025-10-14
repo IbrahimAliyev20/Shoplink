@@ -79,7 +79,7 @@ export default function ClientsPage() {
               <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 max-sm:h-3 max-sm:w-3" />
               <Input
                 type="text"
-                placeholder="Məhsul axtarın"
+                placeholder="Müştəri axtarın"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full px-4  border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent max-sm:h-10 max-sm:text-sm py-5.5"
@@ -107,12 +107,12 @@ export default function ClientsPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredClients.map((client) => (
+                  {filteredClients.map((client, index) => (
                     <tr
                       key={client.id}
                       className="border-b border-[#F3F2F8] hover:bg-gray-50"
                     >
-                      <td className="py-4 px-6 text-sm text-gray-900">{client.id}</td>
+                      <td className="py-4 px-6 text-sm text-gray-900">{index + 1}</td>
                       <td className="py-4 px-6">
                         <div className="flex items-center space-x-3">
                           <span className="text-sm font-medium text-gray-900">{client.name}</span>

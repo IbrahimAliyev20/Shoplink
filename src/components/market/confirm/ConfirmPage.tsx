@@ -74,9 +74,12 @@ function ConfirmPage() {
     }
 
     const orderPayload: OrderPayload = {
-      name: selectedAddress
-        ? `${selectedAddress.name} ${selectedAddress.surname}`
-        : data.fullName,
+      // --- DÜZƏLİŞ BURADADIR ---
+      name:
+        selectedAddress && selectedAddress.name
+          ? `${selectedAddress.name} ${selectedAddress.surname}` // Seçilmiş ünvan varsa, adı və soyadı birləşdir
+          : data.fullName, // Yoxdursa, formadakı tam adı götür
+
       email: data.email,
       phone: selectedAddress
         ? selectedAddress.phone
@@ -130,8 +133,8 @@ function ConfirmPage() {
                 />
                 <div className="flex w-full justify-end">
                 <ActionButtonsSection
-                  marketSlug={marketSlug}
-                  isPending={isPending}
+                    marketSlug={marketSlug}
+                    isPending={isPending}
                 />
                 </div>
               </fieldset>

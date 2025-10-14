@@ -34,22 +34,23 @@ const CartItem: React.FC<CartItemProps> = ({
               {item.name}
             </h3>
             <div className="flex items-center gap-3 max-md:gap-2">
-              <button
-                onClick={() => onQuantityChange(item.id, 1)}
-                className="w-8 h-8 border border-gray-300 rounded-full flex items-center justify-center text-gray-600 hover:bg-gray-50 transition-colors max-md:w-7 max-md:h-7 max-md:text-sm disabled:opacity-50 disabled:cursor-not-allowed"
-                disabled={item.quantity >= item.stock}
+            <button
+                onClick={() => onQuantityChange(item.id, -1)}
+                className="w-8 h-8 border border-gray-300 rounded-full flex items-center justify-center text-gray-600 hover:bg-gray-50 transition-colors max-md:w-7 max-md:h-7 max-md:text-sm cursor-pointer"
+                disabled={item.quantity <= 1}
               >
-                +
+                −
               </button>
               <span className="w-8 text-center font-medium text-lg max-md:w-6 max-md:text-base">
                 {item.quantity}
               </span>
+          
               <button
-                onClick={() => onQuantityChange(item.id, -1)}
-                className="w-8 h-8 border border-gray-300 rounded-full flex items-center justify-center text-gray-600 hover:bg-gray-50 transition-colors max-md:w-7 max-md:h-7 max-md:text-sm"
-                disabled={item.quantity <= 1}
+                onClick={() => onQuantityChange(item.id, 1)}
+                className="w-8 h-8 border border-gray-300 rounded-full flex items-center justify-center text-gray-600 hover:bg-gray-50 transition-colors max-md:w-7 max-md:h-7 max-md:text-sm disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                disabled={item.quantity >= item.stock}
               >
-                −
+                +
               </button>
             </div>
           </div>

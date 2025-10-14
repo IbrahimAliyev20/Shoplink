@@ -61,6 +61,7 @@ export const useLoginMutation = () => {
       }
     },
     onError: (error) => {
+      console.log(error)
       toast.error(error.message || "Giriş zamanı xəta baş verdi.");
     },
   });
@@ -110,7 +111,7 @@ export const useRegisterMutation = () => {
       }
     },
     onError: () => { 
-        toast.error("Qeydiyyat zamanı xəta baş verdi.");
+        toast.error("Bu email artıq istifadə olunub.");
     },
   });
 };

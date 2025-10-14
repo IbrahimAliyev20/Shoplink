@@ -20,7 +20,7 @@ const QuantitySelector: React.FC<QuantitySelectorProps> = ({
       <div className="flex items-center gap-4 max-md:gap-3">
         <button
           onClick={() => onQuantityChange(-1)}
-          className="w-11 h-11 border border-gray-300 rounded-full flex items-center justify-center text-xl text-gray-600 hover:bg-gray-100 transition max-md:w-9 max-md:h-9 max-md:text-lg"
+          className="w-11 h-11 border border-gray-300 rounded-full flex items-center justify-center text-xl text-gray-600 hover:bg-gray-100 transition max-md:w-9 max-md:h-9 max-md:text-lg cursor-pointer"
           aria-label="Miqdarı azalt"
           disabled={quantity <= 1}
         >
@@ -31,7 +31,7 @@ const QuantitySelector: React.FC<QuantitySelectorProps> = ({
         </span>
         <button
           onClick={() => onQuantityChange(1)}
-          className="w-11 h-11 border border-gray-300 rounded-full flex items-center justify-center text-xl text-gray-600 hover:bg-gray-100 transition max-md:w-9 max-md:h-9 max-md:text-lg"
+          className="w-11 h-11 border border-gray-300 rounded-full flex items-center justify-center text-xl text-gray-600 hover:bg-gray-100 transition max-md:w-9 max-md:h-9 max-md:text-lg cursor-pointer"
           aria-label="Miqdarı artır"
           disabled={stock <= quantity}
         >

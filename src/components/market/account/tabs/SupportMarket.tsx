@@ -33,9 +33,9 @@ function SupportMarket() {
       <CardContent className="space-y-6 max-md:space-y-4 max-md:p-4 max-md:pt-0">
         {getFaqsData().length > 0 && (
           <Tabs value={activeTab.toString()} onValueChange={(value) => setActiveTab(parseInt(value))} className="w-full">
-            <TabsList className="max-w-3xl mx-auto flex w-full overflow-x-auto sm:grid sm:grid-cols-3 mb-6 p-1 rounded-4xl h-auto scrollbar-hide bg-[#F2F4F8]">
+            <TabsList className="max-w-3xl mx-auto flex w-full overflow-x-auto mb-6 p-1 rounded-4xl h-auto scrollbar-hide bg-[#F2F4F8] gap-1 scroll-smooth">
               {getFaqsData().map((faq, index) => (
-                <TabsTrigger key={index} value={index.toString()} className="rounded-4xl text-sm sm:text-base py-3 px-4 whitespace-nowrap">
+                <TabsTrigger key={index} value={index.toString()} className="rounded-4xl text-sm sm:text-base py-3 px-4 whitespace-nowrap flex-shrink-0 min-w-fit">
                   {faq.name}
                 </TabsTrigger>
               ))}
@@ -45,10 +45,10 @@ function SupportMarket() {
                 <Accordion type="single" collapsible className="w-full flex flex-col gap-2">
                   {getCurrentFaqs().map((item, faqIndex) => (
                     <AccordionItem key={faqIndex} value={item.question} className="border-b-0 border-1 border-[#F3F2F8] rounded-[16px] bg-[#FBFDFF]">
-                      <AccordionTrigger className="text-left font-medium px-3 sm:px-4 text-sm sm:text-base">
+                      <AccordionTrigger className="text-left font-medium px-3 sm:px-4 text-sm sm:text-base break-words">
                         {item.question}
                       </AccordionTrigger>
-                      <AccordionContent className="text-gray-600 space-y-2 px-4">
+                      <AccordionContent className="text-gray-600 space-y-2 px-4 break-words">
                         {item.answer}
                       </AccordionContent>
                     </AccordionItem>

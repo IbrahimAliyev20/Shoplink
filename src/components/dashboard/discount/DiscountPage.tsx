@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Checkbox } from "@/components/ui/checkbox";
+import { Switch } from "@/components/ui/switch";
 import { Edit,  Trash2, ArrowUpDown } from "lucide-react";
 import {
   Table,
@@ -90,8 +90,12 @@ function DiscountPage() {
   };
 
   const handleChangeStatus = (promoCodeId: number) => {
+    const promocodeToUpdate = promocode?.find((p) => p.id === promoCodeId);
+    if (!promocodeToUpdate) return;
+    
     const formData = new FormData();
     formData.append("id", promoCodeId.toString());
+    formData.append("status", promocodeToUpdate.status === 1 ? "0" : "1");
     changeStatus(formData);
   };
 
@@ -167,19 +171,19 @@ function DiscountPage() {
                   <TableHead className="text-black font-medium text-center">
                     Əməliyyatlar
                   </TableHead>
+                  <TableHead className="text-black font-medium text-center">
+                    Status
+                  </TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {currentPageData.map((promocode ) => (
+                {currentPageData.map((promocode, index) => (
                   <TableRow
                     key={promocode.id}
                     className="border-b border-gray-100 hover:bg-gray-50"
                   >
                     <TableCell className="text-center py-4">
-                      <Checkbox
-                        checked={promocode.status === 1}
-                        onCheckedChange={() => handleChangeStatus(promocode.id)}
-                      />
+                      {startIndex + index + 1}
                     </TableCell>
                     <TableCell className="text-gray-900 text-center py-4 font-medium">
                       {promocode.name}
@@ -205,6 +209,15 @@ function DiscountPage() {
                         >
                           <Trash2 className="h-4 w-4" />
                         </Button>
+                      </div>
+                    </TableCell>
+                    <TableCell className="text-center py-4">
+                      <div className="flex items-center justify-center">
+                        <Switch
+                          checked={promocode.status === 1}
+                          onCheckedChange={() => handleChangeStatus(promocode.id)}
+                          className={`data-[state=checked]:bg-green-500 data-[state=unchecked]:bg-[#F3F2F8]`}
+                        />
                       </div>
                     </TableCell>
                   </TableRow>
