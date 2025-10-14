@@ -1,5 +1,13 @@
 import ClientsPage from '@/components/dashboard/customers/ClientsPage';
 import React from 'react';
+import { Metadata } from "next";
+import { CUSTOMERS_META } from "@/utils/MetaTagsData";
+
+export const metadata: Metadata = {
+  title: CUSTOMERS_META.title,
+  description: CUSTOMERS_META.meta_description,
+  keywords: CUSTOMERS_META.meta_keywords,
+};
 
 export default function CustomersPage() {
   return (

@@ -4,7 +4,7 @@ import "@/app/globals.css";
 import { QueryProvider } from "@/providers/QueryProvider";
 import { Toaster } from "sonner";
 import ClientLayout from "@/components/home/navigation/clientLayout";
-import { getMetaTags } from "@/services/MetaTags/api";
+import { HOME_META } from "@/utils/MetaTagsData";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -13,13 +13,10 @@ const poppins = Poppins({
 });
 
 export async function generateMetadata(): Promise<Metadata> {
-  const data = await getMetaTags();
-  const metaTags = data?.data[0];
-
   return {
-    title: metaTags?.title || "Shoplink",
-    description: metaTags?.meta_description || "Shoplink",
-    keywords: metaTags?.meta_keywords || "Shoplink",
+    title: HOME_META.title,
+    description: HOME_META.meta_description,
+    keywords: HOME_META.meta_keywords,
   };
 }
 

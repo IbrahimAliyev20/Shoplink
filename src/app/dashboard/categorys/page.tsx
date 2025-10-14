@@ -1,7 +1,14 @@
-'use client';
 
 import ContractPage from '@/components/dashboard/contract/ContractPage';
 import React from 'react';
+import { Metadata } from "next";
+import { CATEGORIES_META } from "@/utils/MetaTagsData";
+
+export const metadata: Metadata = {
+  title: CATEGORIES_META.title,
+  description: CATEGORIES_META.meta_description,
+  keywords: CATEGORIES_META.meta_keywords,
+};
 
 export default function Contracts() {
   return (

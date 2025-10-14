@@ -1,5 +1,13 @@
 import ReportsPage from '@/components/dashboard/reports/ReportsPage'
 import React from 'react'
+import { Metadata } from "next";
+import { REPORTS_META } from "@/utils/MetaTagsData";
+
+export const metadata: Metadata = {
+  title: REPORTS_META.title,
+  description: REPORTS_META.meta_description,
+  keywords: REPORTS_META.meta_keywords,
+};
 
 const Reports = () => {
   return (

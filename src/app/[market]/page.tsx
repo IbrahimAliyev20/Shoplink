@@ -3,6 +3,16 @@ import MarketHero from "@/components/market/components/MarketHero";
 import TabsMarket from "@/components/market/components/TabsMarket";
 import { getAllProductsStore, getCategoryStore, getStore } from "@/services/User-services/StoreForUsers/api";
 import Link from "next/link";
+import { Metadata } from "next";
+import { MARKET_META } from "@/utils/MetaTagsData";
+
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: MARKET_META.title,
+    description: MARKET_META.meta_description,
+    keywords: MARKET_META.meta_keywords,
+  };
+}
 
 interface MarketHomePageProps {
   params: Promise<{

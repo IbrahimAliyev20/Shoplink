@@ -1,4 +1,12 @@
 import React from 'react';
+import { Metadata } from "next";
+import { ERROR_403_META } from "@/utils/MetaTagsData";
+
+export const metadata: Metadata = {
+  title: ERROR_403_META.title,
+  description: ERROR_403_META.meta_description,
+  keywords: ERROR_403_META.meta_keywords,
+};
 
 const ForbiddenPage = () => {
   return (

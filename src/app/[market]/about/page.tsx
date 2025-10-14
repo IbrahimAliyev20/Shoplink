@@ -1,14 +1,13 @@
 import React from "react";
 import Image from "next/image";
-import { getMetaTags } from "@/services/MetaTags/api";
 import { Metadata } from "next";
+import { MARKET_ABOUT_META } from "@/utils/MetaTagsData";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const metaTags = await getMetaTags();
   return {
-    title: metaTags?.data[1]?.title || "Shoplink",
-    description: metaTags?.data[1]?.meta_description || "Shoplink",
-    keywords: metaTags?.data[1]?.meta_keywords || "Shoplink",
+    title: MARKET_ABOUT_META.title,
+    description: MARKET_ABOUT_META.meta_description,
+    keywords: MARKET_ABOUT_META.meta_keywords,
   };
 } 
 

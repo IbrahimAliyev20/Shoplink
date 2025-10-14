@@ -15,13 +15,7 @@ const cardData: CardData[] = [
     description: 'İstifadəçilərin axtardıqlarını tez tapması üçün məhsulları kateqoriyalara ayırın.',
     slug: '/dashboard/categorys/category',
     icon: LayoutDashboard ,
-  },
-  {
-    title: 'Brendlər',
-    description: 'Brend detalları səhifələrində eyni brendin məhsullarını göstərin.',
-    slug: '/dashboard/categorys/brands',
-    icon: LayoutDashboard ,
-  },
+  }
 ];
 
 function ContractPage() {

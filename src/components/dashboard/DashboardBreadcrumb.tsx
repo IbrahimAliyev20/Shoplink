@@ -28,10 +28,7 @@ const dashboardRouteMap: Record<string, string> = {
   preview: "Önizləmə",
   "purchase-orders": "Satınalma sifarişləri",
 
-  brands: "Brendlər",
   category: "Kateqoriya",
-  specialarea: "Xüsusi sahə",
-  variants: "Variantlar",
 };
 
 const contextualRouteMap: Record<

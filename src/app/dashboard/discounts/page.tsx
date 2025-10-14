@@ -1,5 +1,13 @@
 
-import React from 'react';
+import React from 'react'
+import { Metadata } from "next";
+import { DISCOUNTS_META } from "@/utils/MetaTagsData";
+
+export const metadata: Metadata = {
+  title: DISCOUNTS_META.title,
+  description: DISCOUNTS_META.meta_description,
+  keywords: DISCOUNTS_META.meta_keywords,
+};;
 import DiscountPage from '@/components/dashboard/discount/DiscountPage';
 
 export default function Discounts() {

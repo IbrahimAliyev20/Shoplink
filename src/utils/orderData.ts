@@ -10,7 +10,7 @@ export const orderDetailPageData = {
   product: {
     id: 1,
     name: "Tommy Hilfiger Men's Kelby Sneaker",
-    image: "/images/sneaker.jpg", // You'll need to add this image
+    image: "/images/sneaker.jpg", 
     price: "1250 AZN",
     quantity: 1,
   },
@@ -31,7 +31,6 @@ export const orderDetailPageData = {
   },
 };
 
-// Order Track Page Data
 export const orderTrackPageData = {
   tracking: {
     deliveryNumber: "#9581347322",
@@ -88,7 +87,6 @@ export const orderTrackPageData = {
   },
 };
 
-// Status configuration for styling
 export const statusConfig = {
   completed: {
     bgColor: "bg-green-500",
