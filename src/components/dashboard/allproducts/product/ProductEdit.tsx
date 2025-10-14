@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useParams, useRouter } from "next/navigation";
@@ -39,20 +39,17 @@ const ProductEdit: React.FC = () => {
   const queryClient = useQueryClient();
   const productId = parseInt(params.id as string);
 
-  // --- MƏNTİQ HİSSƏSİ ---
-
-  // 1. Form idarəetməsi üçün react-hook-form
   const { register, handleSubmit, control, reset, watch, setValue } = useForm<ProductEditFormValues>();
 
-  // 2. Şəkilləri idarə etmək üçün state-lər
   const [existingImages, setExistingImages] = useState<ProductImage[]>([]);
   const [mainImagePreview, setMainImagePreview] = useState<string | null>(null);
   const [newImagePreviews, setNewImagePreviews] = useState<string[]>([]);
   const [deletedImageIds, setDeletedImageIds] = useState<number[]>([]);
+  
+  const [isFormReady, setIsFormReady] = useState(false);
 
-  // 3. API sorğuları
   const { data: product, isLoading } = useQuery({ ...productQueries.show(productId), enabled: !!productId });
-  const { data: categories } = useQuery(categoryQueries.all());
+  const { data: categories, isLoading: categoriesLoading } = useQuery(categoryQueries.all());
 
   const { mutate: updateProduct, isPending } = useMutation({
     ...updateProductMutation(),
@@ -65,26 +62,30 @@ const ProductEdit: React.FC = () => {
     onError: (error) => { toast.error("Məhsul yenilənərkən xəta baş verdi: " + error.message); },
   });
 
-  // 4. Formu ilkin data ilə doldurmaq üçün useEffect
   useEffect(() => {
-    if (product) {
-      reset({
+    if (product && categories && !categoriesLoading) {
+      const categoryIdStr = String(product.category_id);
+      
+      
+      const initialData = {
         name: product.name,
         sales_price: parseFloat(product.detail.sales_price),
         discount_price: product.detail.discount_price ? parseFloat(product.detail.discount_price) : undefined,
         purchase_price: parseFloat(product.detail.purchase_price),
-        category_id: String(product.category_id),
+        category_id: categoryIdStr,
         stock: product.detail.stock,
         description: product.detail.description,
         meta_description: product.detail.meta_description,
         meta_keywords: product.detail.meta_keywords,
-      });
+      };
+      
+      reset(initialData);
       setMainImagePreview(product.image);
       setExistingImages(product.images);
+      setIsFormReady(true);
     }
-  }, [product, reset]);
+  }, [product, categories, categoriesLoading, reset]);
 
-  // 5. Yeni şəkillər üçün önbaxış (preview) yaratmaq
   const watchedNewMainImage = watch("new_main_image");
   const watchedNewImages = watch("new_images");
 
@@ -106,9 +107,14 @@ const ProductEdit: React.FC = () => {
   }, [watchedNewImages]);
 
 
-  // 6. Şəkil silmə məntiqi
+  // 7. Şəkil silmə məntiqi
   const handleDeleteExistingImage = (id: number) => {
-    setDeletedImageIds(prev => [...prev, id]);
+    console.log('Deleting image ID:', id); // Debug üçün
+    setDeletedImageIds(prev => {
+      const newIds = [...prev, id];
+      console.log('Updated deletedImageIds:', newIds); // Debug üçün
+      return newIds;
+    });
     setExistingImages(prev => prev.filter(img => img.id !== id));
   };
   
@@ -119,34 +125,32 @@ const ProductEdit: React.FC = () => {
     setValue("new_images", newFiles.files.length > 0 ? newFiles.files : undefined);
   };
 
-  // 7. Form submit olduqda FormData-nın yığılması
   const onSubmit: SubmitHandler<ProductEditFormValues> = (data) => {
+    console.log('Submit - deletedImageIds:', deletedImageIds); // Debug üçün
+    
     const formData = new FormData();
     
     formData.append("id", productId.toString());
 
-    // Mətn sahələrini əlavə edirik
     Object.entries(data).forEach(([key, value]) => {
       if (!key.startsWith('new_') && value !== null && value !== undefined) {
         formData.append(key, String(value));
       }
     });
 
-    // Yeni əsas şəkli əlavə edirik
     if (data.new_main_image && data.new_main_image.length > 0) {
       formData.append("image", data.new_main_image[0]);
     }
     
-    // Yeni əlavə şəkilləri əlavə edirik
     if (data.new_images && data.new_images.length > 0) {
       Array.from(data.new_images).forEach(file => {
         formData.append(`images[]`, file);
       });
     }
 
-    // Silinəcək şəkillərin ID-lərini əlavə edirik
     if (deletedImageIds.length > 0) {
       deletedImageIds.forEach(id => {
+        console.log('Appending deleted_image:', id); // Debug üçün
         formData.append('deleted_images[]', String(id));
       });
     }
@@ -154,7 +158,8 @@ const ProductEdit: React.FC = () => {
     updateProduct(formData);
   };
 
-  if (isLoading) return <div>Yüklənir...</div>;
+  // Form yalnız hazır olduqda render ol
+  if (isLoading || categoriesLoading || !isFormReady) return <div>Yüklənir...</div>;
 
   return (
     <div className="min-w-[260px] w-full mx-auto">
@@ -186,16 +191,26 @@ const ProductEdit: React.FC = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                     <div>
                         <label className="block text-sm font-medium mb-2">Kateqoriya</label>
-                        <Controller name="category_id" control={control} render={({ field }) => (
-                            <Select onValueChange={field.onChange} value={field.value}>
-                                <SelectTrigger><SelectValue placeholder="Kateqoriya seçin" /></SelectTrigger>
+                        <Controller 
+                          name="category_id" 
+                          control={control} 
+                          render={({ field }) => {
+                            return (
+                              <Select onValueChange={field.onChange} value={field.value || ''}>
+                                <SelectTrigger>
+                                  <SelectValue placeholder="Kateqoriya seçin" />
+                                </SelectTrigger>
                                 <SelectContent>
-                                    {categories?.map((category: Category) => (
-                                        <SelectItem value={String(category.id)} key={category.id}>{category.name}</SelectItem>
-                                    ))}
+                                  {categories?.map((category: Category) => (
+                                    <SelectItem value={String(category.id)} key={category.id}>
+                                      {category.name}
+                                    </SelectItem>
+                                  ))}
                                 </SelectContent>
-                            </Select>
-                        )}/>
+                              </Select>
+                            );
+                          }} 
+                        />
                     </div>
                     <div>
                         <label className="block text-sm font-medium mb-2">Stok sayı</label>

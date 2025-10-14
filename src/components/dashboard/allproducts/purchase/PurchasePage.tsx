@@ -18,12 +18,15 @@ export default function PurchasePage() {
 
   const filteredOrders = useMemo(() => {
     if (!storeOrders) return [];
-    if (!searchTerm) return storeOrders;
+    
+    // Sort orders by ID in descending order (newest first)
+    const sortedOrders = [...storeOrders].sort((a, b) => b.id - a.id);
+    
+    if (!searchTerm) return sortedOrders;
 
-    return storeOrders.filter(
+    return sortedOrders.filter(
       (order) =>
-        order.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        order.id.toString().includes(searchTerm)
+        order.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
   }, [storeOrders, searchTerm]);
 
@@ -31,7 +34,6 @@ export default function PurchasePage() {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const paginatedOrders = filteredOrders.slice(startIndex, endIndex);
-  console.log(paginatedOrders);
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
@@ -69,7 +71,7 @@ export default function PurchasePage() {
                 <thead>
                   <tr className="border-b border-[#F3F2F8]">
                     <th className="text-left py-4 px-6 text-sm font-medium text-gray-500 max-sm:py-3 max-sm:px-4 max-sm:text-xs">
-                      Sifariş №
+                      No
                     </th>
                     <th className="text-left py-4 px-6 text-sm font-medium text-gray-500 max-sm:py-3 max-sm:px-4 max-sm:text-xs">
                       Təchizatçı
@@ -86,13 +88,13 @@ export default function PurchasePage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {paginatedOrders.map((product) => (
+                  {paginatedOrders.map((product, index) => (
                     <tr
                       key={product.id}
                       className="border-b border-[#F3F2F8] hover:bg-gray-50"
                     >
                       <td className="py-4 px-6 text-sm text-gray-900 max-sm:py-3 max-sm:px-4 max-sm:text-xs">
-                        {product.id}
+                        {startIndex + index + 1}
                       </td>
                       <td className="py-4 px-6 max-sm:py-3 max-sm:px-4">
                         <div className="flex items-center space-x-3 max-sm:space-x-2">

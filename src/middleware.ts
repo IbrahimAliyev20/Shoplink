@@ -4,10 +4,12 @@ import type { NextRequest } from 'next/server';
 export default function middleware(request: NextRequest) {
   const token = request.cookies.get('access_token')?.value;
   const userRoleCookie = request.cookies.get('user_role')?.value;
+  const marketSlug = request.nextUrl.pathname.split('/')[1];
   const { pathname } = request.nextUrl;
 
   const protectedRoutes = ['/dashboard'];
   const authRoutes = ['/login', '/register'];
+  const marketAccountRoute = `/${marketSlug}/account`;
 
   const isProtectedRoute = protectedRoutes.some(route => 
     pathname.startsWith(route)
@@ -17,7 +19,8 @@ export default function middleware(request: NextRequest) {
     pathname.startsWith(route)
   );
 
-  // Parse user role from cookie
+  const isMarketAccountRoute = pathname.startsWith(marketAccountRoute) && pathname.endsWith('/account');
+
   let userRoles: string[] = [];
   if (userRoleCookie) {
     try {
@@ -35,7 +38,6 @@ export default function middleware(request: NextRequest) {
     return NextResponse.redirect(loginUrl);
   }
 
-  // Block dashboard access for users with "user" role
   if (isProtectedRoute && token && hasUserRole && !hasSellerRole) {
     const homeUrl = new URL('/', request.url);
     return NextResponse.redirect(homeUrl);
@@ -43,6 +45,11 @@ export default function middleware(request: NextRequest) {
 
   if (isAuthRoute && token) {
     const dashboardUrl = new URL('/', request.url);
+    return NextResponse.redirect(dashboardUrl);
+  }
+
+  if (isMarketAccountRoute && token && hasSellerRole) {
+    const dashboardUrl = new URL('/dashboard', request.url);
     return NextResponse.redirect(dashboardUrl);
   }
 

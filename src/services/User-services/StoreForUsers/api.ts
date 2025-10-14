@@ -17,16 +17,22 @@ export const getCategoryStore = async (
   return response.data;
 };
 
-// --- DÜZƏLİŞ EDİLMİŞ FUNKSİYA ---
 export const getProductStoreCategory = async (
   slug: string,
   category_name: string,
   search?: string
 ): Promise<ProductStoreCategory[]> => {
-  // Kateqoriya adını slug formatına çeviririk (boşluqları '-' ilə əvəz edib kiçik hərflərə çeviririk)
-  const categorySlug = category_name.toLowerCase().replace(/\s+/g, '-');
+  const categorySlug = category_name
+    .toLowerCase()
+    .replace(/ə/g, 'e')
+    .replace(/ğ/g, 'g')
+    .replace(/ç/g, 'c')
+    .replace(/ö/g, 'o')
+    .replace(/ü/g, 'u')
+    .replace(/ı/g, 'i')
+    .replace(/ş/g, 's')
+    .replace(/\s+/g, '-');
 
-  // URL-i yeni yaratdığımız "categorySlug" ilə yığırıq
   let apiUrl = `api/products/${slug}/${categorySlug}`;
 
   if (search && search.trim() !== "") {
@@ -36,7 +42,7 @@ export const getProductStoreCategory = async (
   const response = await get<{ data: ProductStoreCategory[] }>(apiUrl);
   return response.data;
 };
-// --- DÜZƏLİŞİN SONU ---
+
 
 export const getProductSingle = async (
   slug: string

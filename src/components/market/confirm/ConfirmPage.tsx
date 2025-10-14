@@ -1,13 +1,13 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { useParams } from "next/navigation";
 import { createOrderMutation } from "@/services/User-services/orderforusers/mutations";
 import { getUserQuery } from "@/services/auth/queries";
-import { OrderPayload, Address } from "@/types";
+import { OrderPayload, Address, UserData } from "@/types";
 import { addressQueries } from "@/services/User-services/address/queries";
 import { useCart } from "@/contexts/CartContext";
 import {
@@ -42,6 +42,7 @@ function ConfirmPage() {
     handleSubmit,
     control,
     formState: { errors },
+    reset, // reset funksiyasını useForm-dan alırıq
   } = useForm<OrderFormValues>({
     defaultValues: {
       paymentMethod: "cash",
@@ -54,6 +55,22 @@ function ConfirmPage() {
       notes: "",
     },
   });
+
+  // userData gəldiyi zaman formu yeniləmək üçün useEffect əlavə edirik
+  useEffect(() => {
+    // Yalnız userData mövcud olduqda işləməsi üçün yoxlayırıq
+    if (userData?.data) {
+      // Formanın dəyərlərini userData-dan gələn məlumatlarla yeniləyirik
+      reset({
+        ...control._defaultValues, // Formanın digər default dəyərlərini qoruyuruq
+        fullName: userData.data.name || "",
+        email: userData.data.email || "",
+        // Əgər userData.data.phone "+994 701234567" formatındadırsa, onu ayırırıq.
+        // Sizin databazadakı formata uyğun dəyişə bilərsiniz.
+        phoneNumber: userData.data.phone?.replace("+994", "").trim() || "",
+      });
+    }
+  }, [userData, reset]); // Bu effekt userData və ya reset dəyişdikdə işə düşəcək
 
   const { mutate: createOrder, isPending } = useMutation({
     ...createOrderMutation(),
@@ -74,11 +91,10 @@ function ConfirmPage() {
     }
 
     const orderPayload: OrderPayload = {
-      // --- DÜZƏLİŞ BURADADIR ---
       name:
         selectedAddress && selectedAddress.name
-          ? `${selectedAddress.name} ${selectedAddress.surname}` // Seçilmiş ünvan varsa, adı və soyadı birləşdir
-          : data.fullName, // Yoxdursa, formadakı tam adı götür
+          ? `${selectedAddress.name} ${selectedAddress.surname}`
+          : data.fullName,
 
       email: data.email,
       phone: selectedAddress
@@ -121,6 +137,7 @@ function ConfirmPage() {
                   register={register}
                   control={control}
                   errors={errors}
+                  userData={userData?.data as UserData}
                 />
 
                 <AddressSelectionSection
@@ -132,10 +149,10 @@ function ConfirmPage() {
                   errors={errors}
                 />
                 <div className="flex w-full justify-end">
-                <ActionButtonsSection
+                  <ActionButtonsSection
                     marketSlug={marketSlug}
                     isPending={isPending}
-                />
+                  />
                 </div>
               </fieldset>
             </form>

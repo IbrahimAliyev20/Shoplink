@@ -12,7 +12,6 @@ function Orders() {
   const [selectedOrderId, setSelectedOrderId] = useState<string | null>(null);
 
   const { data: orders, isLoading, isError } = useQuery(getUserOrderQuery());
-  console.log(orders);
 
   if (selectedOrderId) {
     return (

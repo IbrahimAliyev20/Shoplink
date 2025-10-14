@@ -31,9 +31,14 @@ export const useCart = () => {
   return context;
 };
 
-export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
-  const [appliedPromocode, setAppliedPromocode] = useState<{ name: string; discount?: number } | null>(null);
+  const [appliedPromocode, setAppliedPromocode] = useState<{
+    name: string;
+    discount?: number;
+  } | null>(null);
   const [promocodeDiscount, setPromocodeDiscount] = useState<number>(0);
 
   useEffect(() => {
@@ -42,7 +47,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const parsedCart = JSON.parse(savedCart);
       const migratedCart = parsedCart.map((item: CartItem) => ({
         ...item,
-        stock: item.stock || 999
+        stock: item.stock || 999,
       }));
       setCartItems(migratedCart);
     }
@@ -70,29 +75,33 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       toast.error("Səbətinizdə məhsul olmalıdır.");
       return;
     }
-    const productIds = cartItems.map(item => item.id);
+    const productIds = cartItems.map((item) => item.id);
     checkPromo({ promocode: code, products: productIds });
   };
-  
+
   const removePromocode = () => {
     setAppliedPromocode(null);
     setPromocodeDiscount(0);
   };
-  
+
   const addToCart = (product: Product, quantity: number = 1) => {
     const productStock = product.detail.stock || 0;
-    
+
     setCartItems((prev) => {
       const existingItem = prev.find((item) => item.id === product.id);
-      
+
       if (existingItem) {
         const newTotalQuantity = existingItem.quantity + quantity;
         if (newTotalQuantity > productStock) {
-          toast.error(`Maksimum ${productStock} ədəd əlavə edə bilərsiniz. Səbətdə ${existingItem.quantity} ədəd var.`);
+          toast.error(
+            `Maksimum ${productStock} ədəd əlavə edə bilərsiniz. Səbətdə ${existingItem.quantity} ədəd var.`
+          );
           return prev;
         }
         return prev.map((item) =>
-          item.id === product.id ? { ...item, quantity: newTotalQuantity } : item
+          item.id === product.id
+            ? { ...item, quantity: newTotalQuantity }
+            : item
         );
       } else {
         if (quantity > productStock) {
@@ -112,7 +121,8 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     });
   };
 
-  const removeFromCart = (id: number) => setCartItems((prev) => prev.filter((item) => item.id !== id));
+  const removeFromCart = (id: number) =>
+    setCartItems((prev) => prev.filter((item) => item.id !== id));
 
   const updateQuantity = (id: number, change: number) => {
     setCartItems((prev) =>
@@ -135,13 +145,24 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     removePromocode();
   };
 
-  const getCartSummary = () => calculateCartSummary(cartItems, promocodeDiscount);
-  const getCartCount = () => cartItems.reduce((total, item) => total + item.quantity, 0);
+  const getCartSummary = () =>
+    calculateCartSummary(cartItems, promocodeDiscount);
+  const getCartCount = () =>
+    cartItems.reduce((total, item) => total + item.quantity, 0);
 
   const value: CartContextType = {
-    cartItems, appliedPromocode, promocodeDiscount, isApplyingPromo,
-    addToCart, removeFromCart, updateQuantity, clearCart,
-    applyPromocode, removePromocode, getCartSummary, getCartCount,
+    cartItems,
+    appliedPromocode,
+    promocodeDiscount,
+    isApplyingPromo,
+    addToCart,
+    removeFromCart,
+    updateQuantity,
+    clearCart,
+    applyPromocode,
+    removePromocode,
+    getCartSummary,
+    getCartCount,
   };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

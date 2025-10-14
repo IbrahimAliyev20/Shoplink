@@ -38,42 +38,35 @@ const nextConfig: NextConfig = {
     ],
   },
   
-  // Webpack optimization
   webpack: (config, { dev, isServer }) => {
     if (!dev && !isServer) {
-      // Optimize bundle splitting
       config.optimization.splitChunks = {
         chunks: 'all',
         cacheGroups: {
-          // Vendor chunks
           vendor: {
             test: /[\\/]node_modules[\\/]/,
             name: 'vendors',
             chunks: 'all',
             priority: 10,
           },
-          // TipTap editor chunk
           tiptap: {
             test: /[\\/]node_modules[\\/]@tiptap[\\/]/,
             name: 'tiptap',
             chunks: 'all',
             priority: 20,
           },
-          // Radix UI chunk
           radix: {
             test: /[\\/]node_modules[\\/]@radix-ui[\\/]/,
             name: 'radix',
             chunks: 'all',
             priority: 20,
           },
-          // Charts chunk
           charts: {
             test: /[\\/]node_modules[\\/](recharts|framer-motion)[\\/]/,
             name: 'charts',
             chunks: 'all',
             priority: 20,
           },
-          // Common chunk
           common: {
             name: 'common',
             minChunks: 2,

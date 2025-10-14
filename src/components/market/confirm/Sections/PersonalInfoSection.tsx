@@ -10,6 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { UserData } from "@/types";
 
 interface FormData {
   paymentMethod: string;
@@ -26,12 +27,14 @@ interface PersonalInfoSectionProps {
   register: UseFormRegister<FormData>;
   control: Control<FormData>;
   errors: FieldErrors<FormData>;
+  userData: UserData;
 }
 
-function PersonalInfoSection({ register, control, errors }: PersonalInfoSectionProps) {
+function PersonalInfoSection({ register, control, errors,  }: PersonalInfoSectionProps) {
   return (
     <div className="mb-8">
       <h2 className="text-lg font-semibold text-gray-800 mb-4">
+        
         Şəxsi Məlumat
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -45,6 +48,7 @@ function PersonalInfoSection({ register, control, errors }: PersonalInfoSectionP
             {...register("fullName", {
               required: "Ad və soyad mütləqdir",
             })}
+            
             className="w-full h-12 rounded-lg border-gray-300"
           />
           {errors.fullName && (

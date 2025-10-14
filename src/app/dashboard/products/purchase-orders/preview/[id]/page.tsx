@@ -9,6 +9,7 @@ import {
 import { useChangeStoreOrderStatusMutation } from "@/services/Seller-services/orderforseller/mutations";
 import StatusSelect from "@/components/dashboard/allproducts/purchase/StatusSelect";
 import { toast } from "sonner";
+import Image from "next/image";
 
 function PurchasePreviewPage() {
   const params = useParams();
@@ -93,24 +94,7 @@ function PurchasePreviewPage() {
                       {storeOrder?.address}
                     </p>
                   </div>
-                  <div className="flex items-center justify-between py-1">
-                    <p className="text-sm text-gray-500">Sifariş detayları</p>
-                    {/* <p className="text-sm font-medium text-gray-900">
-                      {storeOrder?.detail.map((item) => (
-                        <div key={item.id}>
-                          <p>{item.product.name}</p>
-                          <p>{item.product.price}</p>
-                          <p>{item.product.currency}</p>
-                        </div>
-                      ))}
-                    </p> */}
-                  </div>
-              <div className="flex items-center justify-between py-1">
-                <p className="text-sm text-gray-500">Sifarişin cəmi</p>
-                <p className="text-sm font-medium text-gray-900">
-                  {storeOrder?.total_price}
-                </p>
-              </div>
+         
               <div className="flex items-center justify-between py-1">
                 <p className="text-sm text-gray-500">Status</p>
                 <div className="text-sm font-medium text-gray-900 w-48">
@@ -125,6 +109,59 @@ function PurchasePreviewPage() {
                   )}
                 </div>
               </div>
+              <div className="py-1">
+                <p className="text-sm text-gray-500 mb-3">Sifariş detayları</p>
+                <div className="space-y-3">
+                  {storeOrder?.detail.map((item, index) => (
+                    <div key={index} className="flex items-center gap-4 p-3 bg-gray-50 rounded-lg border">
+                      <div className="w-16 h-16 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
+                        {item.image ? (
+                          <Image 
+                            src={item.image} 
+                            alt={item.product} 
+                            width={64} 
+                            height={64} 
+                            className="w-full h-full object-cover"
+                          />
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center text-gray-400">
+                            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                              <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd" />
+                            </svg>
+                          </div>
+                        )}
+                      </div>
+                      
+                      <div className="flex-1 min-w-0">
+                        <h3 className="text-sm font-medium text-gray-900 truncate">
+                          {item.product}
+                        </h3>
+                        <p className="text-xs text-gray-600 truncate">
+                          {item.category || "Kateqoriya yoxdur"}
+                        </p>
+                        <div className="flex items-center gap-4 mt-1">
+                          <span className="text-xs text-gray-500">
+                            Miqdar: {item.quantity}
+                          </span>
+                          <span className="text-xs text-gray-500">
+                            Vahid qiymət: {item.product_price} AZN
+                          </span>
+                          <span className="text-xs text-gray-500">
+                            Stok: {item.stock}
+                          </span>
+                        </div>
+                      </div>
+                      
+                      <div className="text-right flex-shrink-0">
+                        <p className="text-sm font-medium text-gray-900">
+                          {item.total_price + 5 } AZN
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+          
             </div>
           </section>
           <div className="pt-4 border-t">

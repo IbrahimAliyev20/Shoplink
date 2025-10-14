@@ -74,6 +74,11 @@ export interface UserData {
   image: string;
   role: string[];
   complete: number;
+  created_at: string;
+  expiration_date: string;
+  feedback: string;
+  feedback_id: number;
+  order_count: number;
 }
 
 

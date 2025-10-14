@@ -100,7 +100,6 @@ function AddAddressModal({ isOpen, onClose }: AddAddressModalProps) {
   });
 
   const onSubmit = (data: AddressFormData) => {
-    console.log("Form submitted with data:", data);
     createAddress(data as Omit<Address, "id" | "selected">);
   };
 

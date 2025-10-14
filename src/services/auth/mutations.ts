@@ -61,7 +61,6 @@ export const useLoginMutation = () => {
       }
     },
     onError: (error) => {
-      console.log(error)
       toast.error(error.message || "Giriş zamanı xəta baş verdi.");
     },
   });
