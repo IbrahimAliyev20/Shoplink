@@ -40,7 +40,7 @@ interface ApiErrorResponse {
 const handleApiError = (error: AxiosError<ApiErrorResponse>): void => {
   if (!error.response) {
     if (typeof window !== "undefined") {
-      toast.error(
+      console.error(
         "İnternet bağlantısı yoxdur. Zəhmət olmasa yenidən cəhd edin."
       );
     }

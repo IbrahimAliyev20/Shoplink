@@ -42,12 +42,12 @@ export default function TestimonialsSection() {
         </div>
 
         <div className="mb-[36px]">
-          <div className="grid grid-cols-4 md:grid-cols-6 gap-4 lg:gap-2  ">
+          <div className="grid grid-cols-4 md:grid-cols-6 gap-2">
             {data?.map((testimonial, index) => (
               <button
                 key={index}
                 onClick={() => setActiveTestimonial(testimonial)}
-                className={`relative cursor-pointer rounded-[8px] overflow-hidden  transition-all duration-300 ${
+                className={`relative cursor-pointer rounded-[8px] overflow-hidden transition-all duration-300 w-full h-[80px] md:h-[165px] ${
                   activeTestimonial?.name === testimonial.name
                     ? ""
                     : "opacity-50 hover:opacity-100"
@@ -56,9 +56,8 @@ export default function TestimonialsSection() {
                 <Image
                   src={testimonial.thumb_image || "/placeholder.svg"}
                   alt={testimonial.name}
-                  width={300}
-                  height={165}
-                  className="md:w-[185px] md:h-[165px] w-[80px] h-[80px]  object-cover"
+                  fill
+                  className="object-cover"
                 />
               </button>
             ))}
