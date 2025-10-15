@@ -20,13 +20,14 @@ import { ContactForm } from "@/types/home/hometypes";
 import { getContactQuery } from "@/services/Home/Contact/queries";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
-import {  MapPin, Mail, Phone } from "lucide-react";
+import { MapPin, Mail, Phone } from "lucide-react";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 
 const formSchema = z.object({
   name: z.string().min(2, "Ad və soyad ən azı 2 simvol olmalıdır"),
   phone: z.string().min(9, "Telefon nömrəsi düzgün deyil"),
   message: z.string().min(10, "Mesaj ən azı 10 simvol olmalıdır"),
-  countryCode: z.string(),
 });
 
 type FormData = z.infer<typeof formSchema>;
@@ -39,7 +40,6 @@ export default function ContactPage() {
     handleSubmit,
     formState: { errors, isSubmitting },
     setValue,
-    watch,
     reset,
   } = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -47,17 +47,14 @@ export default function ContactPage() {
       name: "",
       phone: "",
       message: "",
-      countryCode: "+994",
     },
   });
-
-  const countryCode = watch("countryCode");
 
   const onSubmit = async (data: FormData) => {
     try {
       const contactData: ContactForm = {
         name: data.name,
-        phone: `${data.countryCode}${data.phone}`,
+        phone: data.phone,
         message: data.message,
       };
 
@@ -88,32 +85,27 @@ export default function ContactPage() {
               </p>
             </div>
             <div className="py-8 flex flex-col justify-between ">
-              <div>
-                <h2 className="text-3xl md:text-4xl font-semibold text-gray-900 mb-8">
-                  Sualınız Var? Biz Buradayıq!
-                </h2>
-                <div className="space-y-6 text-gray-700">
-                  <div className="flex items-center space-x-4">
-                    <Mail className="h-6 w-6 text-gray-600" />
-                    <Link href={`mailto:${contact?.email}`} className="text-lg">
-                      {contact?.email}
-                    </Link>
-                  </div>
-                  <div className="flex items-center space-x-4">
-                    <Phone className="h-6 w-6 text-gray-600" />
-                    <Link href={`tel:${contact?.phone}`} className="text-lg">
-                      {contact?.phone}
-                    </Link>
-                  </div>
-                  <div className="flex items-start space-x-4">
-                    <MapPin className="h-6 w-6 text-gray-600 flex-shrink-0 mt-1" />
-                    <Link
-                      href={`https://maps.app.goo.gl/jQ7jUeF8eZU6UxQy9`}
-                      className="text-lg"
-                    >
-                      {contact?.address}
-                    </Link>
-                  </div>
+              <div className="space-y-6 text-gray-700">
+                <div className="flex items-center space-x-4">
+                  <Mail className="h-6 w-6 text-gray-600" />
+                  <Link href={`mailto:${contact?.email}`} className="text-lg">
+                    {contact?.email}
+                  </Link>
+                </div>
+                <div className="flex items-center space-x-4">
+                  <Phone className="h-6 w-6 text-gray-600" />
+                  <Link href={`tel:${contact?.phone}`} className="text-lg">
+                    {contact?.phone}
+                  </Link>
+                </div>
+                <div className="flex items-start space-x-4">
+                  <MapPin className="h-6 w-6 text-gray-600 flex-shrink-0 mt-1" />
+                  <Link
+                    href={`https://maps.app.goo.gl/jQ7jUeF8eZU6UxQy9`}
+                    className="text-lg"
+                  >
+                    {contact?.address}
+                  </Link>
                 </div>
               </div>
             </div>
@@ -147,33 +139,35 @@ export default function ContactPage() {
 
               <div className="space-y-2">
                 <label htmlFor="phone" className="text-sm text-gray-500">
-                Nömrənizi daxil edin
+                  Nömrənizi daxil edin
                 </label>
                 <fieldset
-                  className={`flex items-center rounded-xl border transition-all duration-200 ${
+                  className={`rounded-xl border transition-all duration-200 ${
                     errors.phone ? "border-red-500" : "border-gray-300"
                   }`}
                 >
-                  <div className="flex w-full items-center ">
-                    <Select
-                      value={countryCode}
-                      onValueChange={(value) => setValue("countryCode", value)}
-                    >
-                      <SelectTrigger className="w-22 h-10 bg-transparent border-none focus:ring-0 focus:ring-offset-0">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="+994">+994</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <Input
-                      id="phone"
-                      type="tel"
-                      placeholder="Telefon nömrənizi daxil edin"
-                      {...register("phone")}
-                      className="flex-1 h-10 px-2 py-6 bg-transparent border-none focus:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
-                    />
-                  </div>
+                  <PhoneInput
+                    country="az"
+                    value=""
+                    onChange={(value) => setValue("phone", value)}
+                    inputStyle={{
+                      width: "100%",
+                      height: "40px",
+                      borderRadius: "12px",
+                      border: "none",
+                      fontSize: "16px",
+                      paddingLeft: "48px",
+                    }}
+                    buttonStyle={{
+                      border: "none",
+                      borderRadius: "12px 0 0 12px",
+                      backgroundColor: "transparent",
+                    }}
+                    containerStyle={{
+                      width: "100%",
+                    }}
+                    placeholder="Nömrənizi daxil edin"
+                  />
                 </fieldset>
               </div>
               {errors.phone && (

@@ -75,7 +75,7 @@ export default function RecentActivities({ activities }: RecentActivitiesProps) 
                 className="flex items-start space-x-3 max-md:space-x-2"
               >
                 <div
-                  className={`w-10 h-10 ${iconColor} rounded-full flex items-center justify-center flex-shrink-0 max-md:w-6 max-md:h-6`}
+                  className={`w-12   h-12 ${iconColor} rounded-full flex items-center justify-center flex-shrink-0 max-md:w-6 max-md:h-6`}
                 >
                   {statusConfig[key as keyof typeof statusConfig].icon}
                 </div>

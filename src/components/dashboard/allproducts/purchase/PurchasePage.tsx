@@ -41,9 +41,9 @@ export default function PurchasePage() {
   };
 
   return (
-    <div className=" bg-white rounded-lg border border-[#F3F2F8] p-4 ">
+    <div className=" bg-white rounded-lg border border-[#F3F2F8]  ">
       <Card className="border-none shadow-none">
-        <CardContent className=" max-sm:p-4">
+        <CardContent>
           <div
             className="flex items-center 
             space-x-4 max-sm:flex-col max-sm:space-x-0 max-sm:space-y-3 max-sm:items-stretch"
@@ -63,26 +63,26 @@ export default function PurchasePage() {
         </CardContent>
       </Card>
 
-      <Card className="border-none shadow-none">
-        <CardContent className="p-0">
+      <Card className="border-none shadow-none py-0">
+        <CardContent className="p-4">
           <div className="overflow-x-auto">
             <div className="max-sm:min-w-[600px]">
               <table className="w-full">
                 <thead>
                   <tr className="border-b border-[#F3F2F8]">
-                    <th className="text-left py-4 px-6 text-sm font-medium text-gray-500 max-sm:py-3 max-sm:px-4 max-sm:text-xs">
+                    <th className="text-left py-4 px-6 text-sm font-medium text-gray-500 max-sm:py-3 max-sm:px-4 ">
                       No
                     </th>
-                    <th className="text-left py-4 px-6 text-sm font-medium text-gray-500 max-sm:py-3 max-sm:px-4 max-sm:text-xs">
+                    <th className="text-left py-4 px-6 text-sm font-medium text-gray-500 max-sm:py-3 max-sm:px-4 ">
                       Təchizatçı
                     </th>
-                    <th className="text-left py-4 px-6 text-sm font-medium text-gray-500 max-sm:py-3 max-sm:px-4 max-sm:text-xs">
+                    <th className="text-left py-4 px-6 text-sm font-medium text-gray-500 max-sm:py-3 max-sm:px-4 ">
                       Cəmi
                     </th>
-                    <th className="text-left py-4 px-6 text-sm font-medium text-gray-500 max-sm:py-3 max-sm:px-4 max-sm:text-xs">
+                    <th className="text-left py-4 px-6 text-sm font-medium text-gray-500 max-sm:py-3 max-sm:px-4 ">
                       Status
                     </th>
-                    <th className="text-left py-4 px-6 text-sm font-medium text-gray-500 max-sm:py-3 max-sm:px-4 max-sm:text-xs">
+                    <th className="text-left py-4 px-6 text-sm font-medium text-gray-500 max-sm:py-3 max-sm:px-4 ">
                       Əməliyyatlar
                     </th>
                   </tr>
@@ -93,7 +93,7 @@ export default function PurchasePage() {
                       key={product.id}
                       className="border-b border-[#F3F2F8] hover:bg-gray-50"
                     >
-                      <td className="py-4 px-6 text-sm text-gray-900 max-sm:py-3 max-sm:px-4 max-sm:text-xs">
+                      <td className="py-4 px-6 text-sm text-gray-900 max-sm:py-3 max-sm:px-4 ">
                         {startIndex + index + 1}
                       </td>
                       <td className="py-4 px-6 max-sm:py-3 max-sm:px-4">
@@ -103,10 +103,10 @@ export default function PurchasePage() {
                           </span>
                         </div>
                       </td>
-                      <td className="py-4 px-6 text-sm text-gray-900 max-sm:py-3 max-sm:px-4 max-sm:text-xs">
+                      <td className="py-4 px-6 text-sm text-gray-900 max-sm:py-3 max-sm:px-4 ">
                         {product.total_price} AZN
                       </td>
-                      <td className="py-4 px-6 text-sm text-gray-900 max-sm:py-3 max-sm:px-4 max-sm:text-xs">
+                      <td className="py-4 px-6 text-sm text-gray-900 max-sm:py-3 max-sm:px-4 ">
                         <StatusIcons status={product.status} />
                       </td>
                       <td className="py-4 px-6 max-sm:py-3 max-sm:px-4">

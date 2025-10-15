@@ -32,7 +32,7 @@ const CustomTooltip = ({ active, payload, label }: RechartsTooltipProps) => {
     return (
       <div className="bg-white p-3 rounded-lg border shadow-lg">
         <p className="text-sm text-muted-foreground">{label}</p>
-        <p className="text-base font-bold">{`${value.toLocaleString()} AZN`}</p>
+        <p className="text-base font-medium">{`${value.toLocaleString()} AZN`}</p>
       </div>
     );
   }
@@ -56,9 +56,9 @@ export default function RevenueChart({ chartData, timeframe, onTimeframeChange }
           value={timeframe}
           onValueChange={onTimeframeChange}
         >
-          <SelectTrigger className="w-[100px] h-8 text-sm max-md:w-[80px] max-md:text-xs">
+          {/* <SelectTrigger className="w-[100px] h-8 text-sm max-md:w-[80px] max-md:text-xs">
             <SelectValue placeholder="6 ay" />
-          </SelectTrigger>
+          </SelectTrigger> */}
           <SelectContent>
             <SelectItem value="monthly">6 ay</SelectItem>
             <SelectItem value="weekly">Həftəlik</SelectItem>

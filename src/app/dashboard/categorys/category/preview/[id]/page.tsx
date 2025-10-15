@@ -18,7 +18,7 @@ function PreviewCategory() {
       
       <div className="bg-white rounded-2xl border border-[#F3F2F8] mb-3 p-8 ">
         <div className="flex justify-between items-start mb-8">
-          <h2 className="text-[24px] font-medium text-black">
+          <h2 className=" text-lg md:text-2xl font-medium text-black">
             Əsas məlumatlar
           </h2>
           <Link

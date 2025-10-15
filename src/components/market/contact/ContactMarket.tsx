@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { getContactQuery } from "@/services/Home/Contact/queries";
 import { useQuery } from "@tanstack/react-query";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 
 function ContactMarketPage() {
   
@@ -15,7 +17,7 @@ function ContactMarketPage() {
   return (
     <div className=" flex items-center justify-center py-10">
       <div className="max-w-6xl mx-auto bg-[#FBFDFF] rounded-2xl overflow-hidden grid grid-cols-1 lg:grid-cols-2 p-4 md:p-20 shadow-sm">
-        <div className="py-8 flex flex-col justify-between ">
+        <div className="py-8 flex md:gap-0 gap-5 flex-col justify-between ">
           <div>
             <h2 className="text-3xl md:text-4xl font-semibold text-gray-900 mb-8">
               Sualınız Var? Biz Buradayıq!
@@ -82,20 +84,28 @@ function ContactMarketPage() {
               >
                 Nömrənizi daxil edin
               </label>
-              <div className="flex w-full rounded-xl  border-2">
-                <select
-                  id="country-code"
-                  className="bg-transparent pl-4 pr-2 text-gray-700  sm:text-base border-r border-gray-300"
-                >
-                  <option>+994</option>
-                </select>
-                <input
-                  type="tel"
-                  id="phone"
-                  placeholder="Telefon nömrənizi daxil edin"
-                  className="flex-1 block w-full bg-transparent px-4 py-4 text-gray-900 placeholder:text-[#8E8E93] focus:outline-none sm:text-base sm:leading-6"
-                />
-              </div>
+              <PhoneInput
+                country="az"
+                value=""
+                onChange={() => {}}
+                inputStyle={{
+                  width: "100%",
+                  height: "56px",
+                  borderRadius: "12px",
+                  border: "2px solid #e5e7eb",
+                  fontSize: "16px",
+                  paddingLeft: "48px",
+                }}
+                buttonStyle={{
+                  border: "2px solid #e5e7eb",
+                  borderRadius: "12px 0 0 12px",
+                  backgroundColor: "transparent",
+                }}
+                containerStyle={{
+                  width: "100%",
+                }}
+                placeholder="Nömrənizi daxil edin"
+              />
             </div>
 
             <div className="space-y-2">

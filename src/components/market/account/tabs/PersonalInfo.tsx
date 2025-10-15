@@ -13,11 +13,12 @@ import {
 import { toast } from "sonner";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { updateUserMutation } from "@/services/auth/updateUser/mutations";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 
 interface PersonalInfoData {
   fullName: string;
-  phoneCode: string;
-  phoneNumber: string;
+  phone: string;
   email: string;
 }
 
@@ -37,22 +38,16 @@ function PersonalInfo({ user }: { user: { name: string; email: string; phone?: s
 
   const [personalInfo, setPersonalInfo] = useState<PersonalInfoData>({
     fullName: "",
-    phoneCode: "+994",
-    phoneNumber: "",
+    phone: "",
     email: "",
   });
 
   useEffect(() => {
     if (user) {
-        const fullPhone = user.phone || "";
-        const phoneCode = fullPhone.startsWith("+994") ? "+994" : "+994";
-        const phoneNumber = fullPhone.replace(phoneCode, "");
-
         setPersonalInfo({
             fullName: user.name || "",
             email: user.email || "",
-            phoneCode,
-            phoneNumber,
+            phone: user.phone || "",
         });
     }
   }, [user]);
@@ -69,7 +64,7 @@ function PersonalInfo({ user }: { user: { name: string; email: string; phone?: s
     const payload = {
       name: personalInfo.fullName,
       email: personalInfo.email,
-      phone: `${personalInfo.phoneCode}${personalInfo.phoneNumber}`,
+      phone: personalInfo.phone,
     };
     
     if (!payload.name || !payload.email) {
@@ -105,29 +100,29 @@ function PersonalInfo({ user }: { user: { name: string; email: string; phone?: s
             <label className="block text-sm font-medium text-gray-700 mb-2 max-sm:text-xs max-sm:mb-1.5">
               Telefon nömrəsi
             </label>
-            <div className="flex items-center w-full h-12 border border-gray-300 rounded-lg focus-within:ring-1 transition-all duration-200 max-sm:h-10">
-              <Select
-                value={personalInfo.phoneCode}
-                onValueChange={(value) => handleInputChange("phoneCode", value)}
-                disabled={isPending}
-              >
-                <SelectTrigger className="w-22 h-full bg-transparent border-0 rounded-r-none focus:ring-0 focus:ring-offset-0 max-sm:w-20 max-sm:text-sm">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="+994">+994</SelectItem>
-                  <SelectItem value="+90">+90</SelectItem>
-                  <SelectItem value="+7">+7</SelectItem>
-                </SelectContent>
-              </Select>
-              <Input
-                type="tel"
-                value={personalInfo.phoneNumber}
-                onChange={(e) => handleInputChange("phoneNumber", e.target.value)}
-                className="flex-1 h-full bg-transparent border-0 border-[#F3F2F8] rounded-l-none max-sm:text-sm"
-                disabled={isPending}
-              />
-            </div>
+            <PhoneInput
+              country="az"
+              value={personalInfo.phone}
+              onChange={(value) => handleInputChange("phone", value)}
+              disabled={isPending}
+              inputStyle={{
+                width: "100%",
+                height: "48px",
+                borderRadius: "8px",
+                border: "1px solid #F3F2F8",
+                fontSize: "16px",
+                paddingLeft: "48px",
+              }}
+              buttonStyle={{
+                border: "1px solid #F3F2F8",
+                borderRadius: "8px 0 0 8px",
+                backgroundColor: "transparent",
+              }}
+              containerStyle={{
+                width: "100%",
+              }}
+              placeholder="Nömrənizi daxil edin"
+            />
           </div>
         </div>
 

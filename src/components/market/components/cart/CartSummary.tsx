@@ -87,7 +87,7 @@ const CartSummary: React.FC<CartSummaryProps> = ({ summary, onCompleteOrder }) =
       </div>
       <button
         onClick={onCompleteOrder}
-        className="w-full bg-[#E23359] text-white py-2 rounded-xl font-medium text-lg hover:bg-[#E23359]/90 transition-colors cursor-pointer"
+        className="w-full bg-[#E23359]  text-white h-12 rounded-xl font-medium text-base hover:bg-[#E23359]/90 transition-colors cursor-pointer"
       >
         Sifarişi tamamla
       </button>

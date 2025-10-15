@@ -56,6 +56,11 @@ function DiscountPage() {
   });
 
   const handleCreatePromocode = () => {
+    if (!promoCode.trim() || !discountPercent.trim()) {
+      toast.error("Promo kod və endirim faizi doldurulmalıdır");
+      return;
+    }
+    
     const formData = new FormData();
     formData.append("name", promoCode);
     formData.append("discount", discountPercent);
@@ -105,7 +110,6 @@ function DiscountPage() {
     setIsEditModalOpen(true);
   };
 
-  // Pagination logic
   const itemsPerPage = 5;
   const totalItems = promocode?.length || 0;
   const totalPages = Math.max(1, Math.ceil(totalItems / itemsPerPage));
@@ -129,26 +133,33 @@ function DiscountPage() {
                   placeholder="Promo kodu daxil edin"
                   value={promoCode}
                   onChange={(e) => setPromoCode(e.target.value)}
-                  className="bg-[#F3F2F8] border border-[#F3F2F8] rounded-lg h-12  px-4 flex-1 max-sm:w-full focus:ring-pink-500 focus:border-pink-500"
+                  className="md:py-0 py-3 h-12 bg-[#F3F2F8] border border-[#F3F2F8] rounded-lg  px-4 flex-1 max-sm:w-full focus:ring-pink-500 focus:border-pink-500"
                 />
                 <Input
                   type="text"
-                  placeholder="Endirim faizi"
+                  placeholder="Endirim faizi (1-100)"
                   value={discountPercent}
-                  onChange={(e) => setDiscountPercent(e.target.value)}
-                  className="bg-[#F3F2F8] border border-[#F3F2F8] rounded-lg h-12 px-4 flex-1 max-sm:w-full focus:ring-pink-500 focus:border-pink-500"
-                />
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    if (/^\d*$/.test(value)) {
+                      const numValue = parseInt(value);
+                      if (value === "" || (numValue >= 1 && numValue <= 100)) {
+                        setDiscountPercent(value);
+                      }
+                    }
+                  }}
+                  className="bg-[#F3F2F8] border border-[#F3F2F8] rounded-lg md:py-0 py-3 h-12  px-4 flex-1 max-sm:w-full focus:ring-pink-500 focus:border-pink-500"/>
               </div>
               <Button
-                className="h-12 px-10 bg-[#E23359] hover:bg-[#E23359]/90 text-white font-medium rounded-lg max-sm:h-12 max-sm:px-6 max-sm:w-full"
+                className="h-12 px-10 bg-[#E23359] hover:bg-[#E23359]/90 text-white font-medium rounded-lg max-sm:h-12 max-sm:px-6 max-sm:w-full disabled:opacity-50 disabled:cursor-not-allowed"
                 onClick={handleCreatePromocode}
+                disabled={!promoCode.trim() || !discountPercent.trim()}
               >
                 Əlavə et
               </Button>
             </div>
           </div>
 
-          {/* Table */}
           <div className="overflow-x-auto">
             <Table>
               <TableHeader>

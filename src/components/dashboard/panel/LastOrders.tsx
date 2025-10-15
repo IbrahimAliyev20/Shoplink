@@ -41,7 +41,7 @@ const LastOrders: React.FC = () => {
       <div className="bg-white rounded-xl  border border-[#F3F2F8]">
         <div className="p-6 pb-4">
           <div className="flex items-center justify-between mb-6">
-            <h2 className=" text-xl md:text-2xl font-medium text-gray-900">
+            <h2 className=" text-lg md:text-2xl font-medium text-gray-900">
               Ən son sifarişlər
             </h2>
             <Link href="/dashboard/products/purchase-orders" className="text-gray-700 hover:text-gray-900 text-sm font-medium flex items-center gap-1 whitespace-nowrap ">
@@ -49,7 +49,7 @@ const LastOrders: React.FC = () => {
             </Link>
           </div>
 
-          <div className=" bg-white rounded-lg border border-[#F3F2F8] ">
+          <div className=" bg-white rounded-lg  ">
             <Card className="border-none shadow-none">
               <CardContent className="p-0">
                 <div className="overflow-x-auto">

@@ -61,58 +61,36 @@ const generateBreadcrumbs = (pathname: string) => {
     },
   ];
 
-  let currentPath = "/dashboard";
+  // If we're on the dashboard root, return only the dashboard breadcrumb
+  if (pathSegments.length === 0) {
+    return breadcrumbs;
+  }
 
-  pathSegments.forEach((segment, index) => {
+  // Find the main section (first non-dynamic segment)
+  let mainSection = "";
+  let mainSectionLabel = "";
+  
+  for (const segment of pathSegments) {
     if (segment.startsWith("[") && segment.endsWith("]")) {
-      return;
+      continue;
     }
-
     if (/^\d+$/.test(segment)) {
-      return;
+      continue;
     }
+    
+    mainSection = segment;
+    mainSectionLabel = dashboardRouteMap[segment] || segment.charAt(0).toUpperCase() + segment.slice(1);
+    break;
+  }
 
-    currentPath += `/${segment}`;
-    const isLast = index === pathSegments.length - 1;
-
-    let label = dashboardRouteMap[segment];
-
-    if (index > 0) {
-      const parentSegment = pathSegments[index - 1];
-      const contextualMapping = contextualRouteMap[parentSegment];
-      if (contextualMapping && typeof contextualMapping[segment] === "string") {
-        label = contextualMapping[segment];
-      } else if (
-        contextualMapping &&
-        typeof contextualMapping[segment] === "object"
-      ) {
-        const grandParentSegment = index > 1 ? pathSegments[index - 2] : "";
-        const nestedMapping = contextualMapping[segment] as Record<
-          string,
-          string
-        >;
-        if (
-          grandParentSegment &&
-          nestedMapping &&
-          nestedMapping[grandParentSegment]
-        ) {
-          label = nestedMapping[grandParentSegment];
-        }
-      }
-    }
-
-    if (!label) {
-      label =
-        dashboardRouteMap[segment] ||
-        segment.charAt(0).toUpperCase() + segment.slice(1);
-    }
-
+  // Add the main section breadcrumb
+  if (mainSection) {
     breadcrumbs.push({
-      label,
-      href: currentPath,
-      isActive: isLast,
+      label: mainSectionLabel,
+      href: `/dashboard/${mainSection}`,
+      isActive: pathSegments.length === 1 || (pathSegments.length === 2 && /^\d+$/.test(pathSegments[1])),
     });
-  });
+  }
 
   return breadcrumbs;
 };

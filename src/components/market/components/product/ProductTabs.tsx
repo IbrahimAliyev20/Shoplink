@@ -41,7 +41,7 @@ const ProductTabs: React.FC<ProductTabsProps> = ({
         )}
         {activeTab === "delivery" && (
           <div className="prose prose-sm max-w-none text-gray-700 max-md:text-xs">
-            <ul className="max-md:space-y-1">
+            <ul className="max-md:space-y-1 list-disc list-inside">
               <li>2-3 iş günü ərzində çatdırılma</li>
               <li>100 AZN-dən yuxarı sifarişlərə pulsuz çatdırılma</li>
               <li>14 gün ərzində geri qaytarma imkanı</li>

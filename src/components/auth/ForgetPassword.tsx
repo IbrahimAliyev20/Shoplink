@@ -285,9 +285,9 @@ function ForgetPassword() {
   };
 
   return (
-    <section className="bg-[#FBFDFF] h-screen flex items-center justify-center">
+    <section className="bg-[#FBFDFF] h-screen flex items-center justify-center p-4">
       <div
-        className="w-full md:w-[408px]  mx-auto md:px-0 px-4"
+        className="w-full md:w-[408px]  mx-auto md:px-0 px-4 "
         style={{
           borderRadius: "16px",
           border: "1px solid #FBFDFF",
@@ -318,7 +318,7 @@ function ForgetPassword() {
                       setCurrentStep("otp");
                     }
                   }}
-                  className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                  className="p-2 hover:bg-gray-100 rounded-[12px] transition-colors"
                 >
                   <ArrowLeft size={20} />
                 </button>
@@ -349,7 +349,7 @@ function ForgetPassword() {
               <Button
                 type="submit"
                 disabled={forgetPasswordMutation.isPending}
-                className="mt-2 h-12 rounded-full bg-[#E23359] hover:bg-[#E23359]/90"
+                className="mt-2 h-12 rounded-[12px] bg-[#E23359] hover:bg-[#E23359]/90"
               >
                 {forgetPasswordMutation.isPending
                   ? "Göndərilir..."

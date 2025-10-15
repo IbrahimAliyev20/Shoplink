@@ -22,6 +22,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import { getStoreOptions } from "@/services/User-services/StoreForUsers/queries";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 
 
 interface FloatingFieldProps {
@@ -142,12 +144,28 @@ function RegisterUser() {
                     <FormItem>
                       <FloatingField id="phone" label="Telefon nömrəsi">
                         <FormControl>
-                          <Input
-                            type="tel"
-                            placeholder="Telefon nömrənizi daxil edin"
-                            className="peer h-12 rounded-lg border-[#AEAEB2] focus:outline-none focus-visible:ring-0"
+                          <PhoneInput
+                            country="az"
+                            value={field.value}
+                            onChange={field.onChange}
                             disabled={isPending || form.formState.isSubmitting}
-                            {...field}
+                            inputStyle={{
+                              width: "100%",
+                              height: "48px",
+                              borderRadius: "8px",
+                              border: "1px solid #AEAEB2",
+                              fontSize: "16px",
+                              paddingLeft: "48px",
+                            }}
+                            buttonStyle={{
+                              border: "1px solid #AEAEB2",
+                              borderRadius: "8px 0 0 8px",
+                              backgroundColor: "transparent",
+                            }}
+                            containerStyle={{
+                              width: "100%",
+                            }}
+                            placeholder="Nömrənizi daxil edin"
                           />
                         </FormControl>
                       </FloatingField>
@@ -234,7 +252,7 @@ function RegisterUser() {
 
               <Button
                 type="submit"
-                className="mt-2 h-12 rounded-full bg-[#E23359] hover:bg-[#E23359]/90"
+                className="mt-2 h-12 rounded-[12px] bg-[#E23359] hover:bg-[#E23359]/90"
                 disabled={isPending || form.formState.isSubmitting}
               >
                 {isPending || form.formState.isSubmitting

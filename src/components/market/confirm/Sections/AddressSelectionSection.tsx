@@ -7,7 +7,7 @@ import { UseFormRegister, Control, FieldErrors } from "react-hook-form";
 import { Address } from "@/types";
 import AddAddressModal from "./AddAddressModal";
 
-interface FormData {
+interface OrderFormValues {
   paymentMethod: string;
   fullName: string;
   email: string;
@@ -22,9 +22,9 @@ interface AddressSelectionSectionProps {
   addresses: Address[] | undefined;
   selectedAddress: Address | null;
   setSelectedAddress: (address: Address) => void;
-  register: UseFormRegister<FormData>;
-  control: Control<FormData>;
-  errors: FieldErrors<FormData>;
+  register: UseFormRegister<OrderFormValues>;
+  control: Control<OrderFormValues>;
+  errors: FieldErrors<OrderFormValues>;
 }
 
 function AddressSelectionSection({

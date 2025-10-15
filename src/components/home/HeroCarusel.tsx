@@ -85,7 +85,7 @@ export default function HeroCarousel() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <button className="bg-[#E23359] text-white px-6 sm:px-8 py-2 sm:py-3 rounded-2xl font-semibold text-base sm:text-lg hover:from-pink-600 hover:to-purple-700 duration-300 flex items-center gap-2 group shadow-lg hover:shadow-xl cursor-pointer">
+              <button className="bg-[#E23359] text-white px-6 sm:px-8 py-2 sm:py-3 rounded-2xl font-medium text-base  hover:from-pink-600 hover:to-purple-700 duration-300 flex items-center gap-2 group shadow-lg hover:shadow-xl cursor-pointer">
                 {data?.btn_text}
                 <svg
                   className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform duration-300"
@@ -123,9 +123,7 @@ export default function HeroCarousel() {
                           fill
                           className="object-cover transition-transform duration-700 group-hover:scale-110"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-br from-purple-500/30 to-pink-500/30 opacity-80" />
-                        <div className="absolute inset-0 bg-black/20" />
-                      </div>
+                        </div>
                     </div>
                   ))}
                 </div>
@@ -150,8 +148,6 @@ export default function HeroCarousel() {
                           fill
                           className="object-cover transition-transform duration-700 group-hover:scale-110"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/30 to-teal-500/30 opacity-80" />
-                        <div className="absolute inset-0 bg-black/20" />
                       </div>
                     </div>
                   ))}

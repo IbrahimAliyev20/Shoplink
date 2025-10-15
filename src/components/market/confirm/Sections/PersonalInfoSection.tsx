@@ -3,16 +3,11 @@
 import React from "react";
 import { Controller, UseFormRegister, Control, FieldErrors } from "react-hook-form";
 import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { UserData } from "@/types";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 
-interface FormData {
+interface OrderFormValues {
   paymentMethod: string;
   fullName: string;
   email: string;
@@ -24,9 +19,9 @@ interface FormData {
 }
 
 interface PersonalInfoSectionProps {
-  register: UseFormRegister<FormData>;
-  control: Control<FormData>;
-  errors: FieldErrors<FormData>;
+  register: UseFormRegister<OrderFormValues>;
+  control: Control<OrderFormValues>;
+  errors: FieldErrors<OrderFormValues>;
   userData: UserData;
 }
 
@@ -61,34 +56,44 @@ function PersonalInfoSection({ register, control, errors,  }: PersonalInfoSectio
           <label className="block text-sm font-regular  text-black mb-2">
             Telefon nömrəsi
           </label>
-          <div className="flex items-center w-full h-12 border border-gray-300 rounded-lg focus-within:ring-1">
-            <Controller
-              name="phoneCode"
-              control={control}
-              render={({ field }) => (
-                <Select
-                  onValueChange={field.onChange}
-                  value={field.value}
-                >
-                  <SelectTrigger className="w-22 h-full bg-transparent border-0 rounded-r-none focus:ring-0">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="+994">+994</SelectItem>
-                    <SelectItem value="+90">+90</SelectItem>
-                  </SelectContent>
-                </Select>
-              )}
-            />
-            <Input
-              type="tel"
-              placeholder="70 888 45 81"
-              {...register("phoneNumber", {
-                required: "Nömrə mütləqdir",
-              })}
-              className="flex-1 h-full bg-transparent border-0 rounded-l-none"
-            />
-          </div>
+          <Controller
+            name="phoneNumber"
+            control={control}
+            render={({ field }) => (
+              <PhoneInput
+                country="az"
+                value={field.value}
+                onChange={(value) => {
+                  // Extract phone code and number from the full phone value
+                  const phoneCode = value.substring(0, 4); // +994
+                  const phoneNumber = value.substring(4); // remaining digits
+                  field.onChange(phoneNumber);
+                  // Update phoneCode field as well
+                  control._formValues.phoneCode = phoneCode;
+                }}
+                inputStyle={{
+                  width: "100%",
+                  height: "48px",
+                  borderRadius: "8px",
+                  border: "1px solid #d1d5db",
+                  fontSize: "16px",
+                  paddingLeft: "48px",
+                }}
+                buttonStyle={{
+                  border: "1px solid #d1d5db",
+                  borderRadius: "8px 0 0 8px",
+                  backgroundColor: "transparent",
+                }}
+                containerStyle={{
+                  width: "100%",
+                }}
+                placeholder="70 888 45 81"
+              />
+            )}
+            rules={{
+              required: "Nömrə mütləqdir",
+            }}
+          />
           {errors.phoneNumber && (
             <p className="text-red-500 text-xs mt-1">
               {errors.phoneNumber.message}

@@ -204,13 +204,13 @@ const ReportsPage: React.FC = () => {
                 <div className="absolute top-full -left-116 mt-2 w-[680px] bg-white rounded-lg shadow-lg border border-[#F3F2F8] z-10 max-md:left-0 max-md:w-full max-md:mt-1">
                   <div className="p-4 max-md:p-3">
                     <div className="flex items-center gap-3 mb-4 justify-center max-md:flex-col max-md:gap-2 max-md:mb-3">
-                      <div className="flex-1 max-md:w-full ">
+                      <div className="flex-1 max-md:w-full relative">
                         <Input
                           type="date"
                           placeholder="Tarix"
                           value={dateFilter}
                           onChange={(e) => setDateFilter(e.target.value)}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg max-md:h-9 max-md:text-sm"
+                          className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-lg max-md:h-9 max-md:text-sm [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:right-3 [&::-webkit-calendar-picker-indicator]:top-1/2 [&::-webkit-calendar-picker-indicator]:transform [&::-webkit-calendar-picker-indicator]:-translate-y-1/2 [&::-webkit-calendar-picker-indicator]:cursor-pointer"
                         />
                       </div>
                       <div className="flex-1 max-md:w-full">

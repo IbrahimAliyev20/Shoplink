@@ -28,6 +28,10 @@ export default function Category() {
     mutation.mutate(id);
   };
 
+  const filteredCategories = category?.filter((cat) =>
+    cat.name.toLowerCase().includes(searchTerm.toLowerCase())
+  ) || [];
+
   return (
     <div className="space-y-6 max-sm:space-y-4 ">
       <div className="flex items-center justify-between max-sm:flex-col max-sm:items-start max-sm:space-y-3">
@@ -37,6 +41,7 @@ export default function Category() {
         <Link href="/dashboard/categorys/category/create">
           <Button
             variant="default"
+            
             className="bg-[#E23359] hover:bg-[#E23359]/90 text-white max-sm:w-full max-sm:text-sm max-sm:py-2.5 max-sm:flex max-sm:items-center max-sm:justify-center max-sm:space-x-2"
           >
             <Plus className="h-4 w-4 max-sm:h-3 max-sm:w-3" />
@@ -45,8 +50,8 @@ export default function Category() {
         </Link>
       </div>
       <div className="bg-white rounded-lg border border-[#F3F2F8]  md:p-0 p-4">
-        <Card className="border-none shadow-none">
-          <CardContent className="p-6 max-sm:p-4">
+        <Card className="border-none shadow-none p-0">
+          <CardContent className="p-6 max-sm:p-4 ">
             <div
               className="flex items-center 
                space-x-4 max-sm:flex-col max-sm:space-x-0 max-sm:space-y-3 max-sm:items-stretch"
@@ -55,7 +60,7 @@ export default function Category() {
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4 max-sm:h-3 max-sm:w-3" />
                 <Input
                   type="text"
-                  placeholder="Məhsul axtarın"
+                  placeholder="Kateqoriya axtarın"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="pl-10 max-sm:pl-8 max-sm:h-10 max-sm:text-sm py-5.5"
@@ -72,37 +77,37 @@ export default function Category() {
                 <table className="w-full">
                   <thead>
                     <tr className="border-b border-[#F3F2F8]">
-                      <th className="text-left py-4 px-6 text-sm font-medium text-gray-500 max-sm:py-3 max-sm:px-4 max-sm:text-xs">
+                      <th className="text-left py-4 px-6 text-sm font-medium text-gray-500 max-sm:py-3 max-sm:px-4 ">
                         №
                       </th>
-                      <th className="text-left py-4 px-6 text-sm font-medium text-gray-500 max-sm:py-3 max-sm:px-4 max-sm:text-xs">
+                      <th className="text-left py-4 px-6 text-sm font-medium text-gray-500 max-sm:py-3 max-sm:px-4 ">
                         Kateqoriya adı
                       </th>
-                      <th className="text-left py-4 px-6 text-sm font-medium text-gray-500 max-sm:py-3 max-sm:px-4 max-sm:text-xs">
+                      <th className="text-left py-4 px-6 text-sm font-medium text-gray-500 max-sm:py-3 max-sm:px-4 ">
                         Sıralama
                       </th>
-                      <th className="text-left py-4 px-6 text-sm font-medium text-gray-500 max-sm:py-3 max-sm:px-4 max-sm:text-xs">
+                      <th className="text-left py-4 px-6 text-sm font-medium text-gray-500 max-sm:py-3 max-sm:px-4 ">
                         Əməliyyatlar
                       </th>
                     </tr>
                   </thead>
                   <tbody>
-                    {category?.map((category, index) => (
+                    {filteredCategories.map((category, index) => (
                       <tr
                         key={category.id}
                         className="border-b border-[#F3F2F8] hover:bg-gray-50"
                       >
-                        <td className="py-4 px-6 text-sm text-gray-900 max-sm:py-3 max-sm:px-4 max-sm:text-xs">
+                        <td className="py-4 px-6 text-sm text-gray-900 max-sm:py-3 max-sm:px-4 ">
                           {index + 1}
                         </td>
                         <td className="py-4 px-6 max-sm:py-3 max-sm:px-4">
                           <div className="flex items-center space-x-3">
-                            <span className="text-sm font-medium text-gray-900 max-sm:text-xs">
+                            <span className="text-sm font-medium text-gray-900 ">
                               {category.name}
                             </span>
                           </div>
                         </td>
-                        <td className="py-4 px-6 text-sm text-gray-900 max-sm:py-3 max-sm:px-4 max-sm:text-xs">
+                        <td className="py-4 px-6 text-sm text-gray-900 max-sm:py-3 max-sm:px-4 ">
                           {category.order}
                         </td>
                         <td className="py-4 px-6 max-sm:py-3 max-sm:px-4">

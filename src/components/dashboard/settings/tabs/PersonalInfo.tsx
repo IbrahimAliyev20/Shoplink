@@ -19,6 +19,8 @@ import { toast } from "sonner";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { updateUserMutation } from "@/services/auth/updateUser/mutations";
 import { getUserQuery } from "@/services/auth/queries";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 
 const PersonalInfo = ({ user }: { user: UserData }) => {
   const queryClient = useQueryClient();
@@ -130,29 +132,34 @@ const PersonalInfo = ({ user }: { user: UserData }) => {
                 id="name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="h-12 rounded-xl w-full max-md:h-10 border-gray-300 focus:border-gray-400 focus:ring-1 focus:ring-gray-400"
+                className="h-12 rounded-xl w-full  border-gray-300 focus:border-gray-400 focus:ring-1 focus:ring-gray-400"
               />
             </div>
 
             <div className="space-y-2 w-full">
               <Label htmlFor="phone" className="text-sm font-medium text-gray-900">Telefon nömrəsi</Label>
-              <div className="flex items-center w-full h-12 border border-gray-300 rounded-xl focus-within:ring-1 focus-within:ring-gray-400 focus-within:border-gray-400 transition-all duration-200 max-md:h-10">
-                <Select defaultValue="+994">
-                  <SelectTrigger className="w-24 h-full bg-transparent border-0 rounded-r-none focus:ring-0 max-md:w-20 max-md:text-sm">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="+994">+994</SelectItem>
-                  </SelectContent>
-                </Select>
-                <div className="w-px h-6 bg-gray-200 max-md:h-5"></div>
-                <Input
-                  id="phone"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  className="flex-1 h-full bg-transparent border-0 rounded-l-none focus:ring-0 max-md:text-sm"
-                />
-              </div>
+              <PhoneInput
+                country="az"
+                value={phone}
+                onChange={setPhone}
+                inputStyle={{
+                  width: "100%",
+                  height: "48px",
+                  borderRadius: "12px",
+                  border: "1px solid #d1d5db",
+                  fontSize: "16px",
+                  paddingLeft: "48px",
+                }}
+                buttonStyle={{
+                  border: "1px solid #d1d5db",
+                  borderRadius: "12px 0 0 12px",
+                  backgroundColor: "transparent",
+                }}
+                containerStyle={{
+                  width: "100%",
+                }}
+                placeholder="Nömrənizi daxil edin"
+              />
             </div>
 
             <div className="space-y-2 w-full">
@@ -162,7 +169,7 @@ const PersonalInfo = ({ user }: { user: UserData }) => {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="h-12 rounded-xl w-full max-md:h-10 max-md:text-sm border-gray-300 focus:border-gray-400 focus:ring-1 focus:ring-gray-400"
+                className="h-12 rounded-xl w-full  max-md:text-sm border-gray-300 focus:border-gray-400 focus:ring-1 focus:ring-gray-400"
               />
             </div>
 
@@ -172,7 +179,7 @@ const PersonalInfo = ({ user }: { user: UserData }) => {
                 id="voen"
                 value={voen}
                 onChange={(e) => setVoen(e.target.value)}
-                className="h-12 rounded-xl w-full max-md:h-10 max-md:text-sm border-gray-300 focus:border-gray-400 focus:ring-1 focus:ring-gray-400"
+                className="h-12 rounded-xl w-full  max-md:text-sm border-gray-300 focus:border-gray-400 focus:ring-1 focus:ring-gray-400"
               />
             </div>
 
@@ -182,14 +189,14 @@ const PersonalInfo = ({ user }: { user: UserData }) => {
                 id="fin"
                 value={fin}
                 onChange={(e) => setFin(e.target.value)}
-                className="h-12 rounded-xl w-full max-md:h-10 max-md:text-sm border-gray-300 focus:border-gray-400 focus:ring-1 focus:ring-gray-400"
+                className="h-12 rounded-xl w-full  max-md:text-sm border-gray-300 focus:border-gray-400 focus:ring-1 focus:ring-gray-400"
               />
             </div>
 
             <div className="space-y-2 w-full">
               <Label htmlFor="membership" className="text-sm font-medium text-gray-900">Üzvlük tipi</Label>
               <Select value={type} onValueChange={setType}>
-                <SelectTrigger className="h-12 rounded-xl w-full max-md:h-10 max-md:text-sm border-gray-300 focus:border-gray-400 focus:ring-1 focus:ring-gray-400">
+                <SelectTrigger className="h-12 rounded-xl w-full  max-md:text-sm border-gray-300 focus:border-gray-400 focus:ring-1 focus:ring-gray-400">
                   <SelectValue placeholder="Üzvlük tipi seçin" />
                 </SelectTrigger>
                 <SelectContent>
@@ -204,7 +211,7 @@ const PersonalInfo = ({ user }: { user: UserData }) => {
             <div className="space-y-2 w-full">
               <Label htmlFor="region" className="text-sm font-medium text-gray-900">Bölgə</Label>
               <Select value={region} onValueChange={setRegion}>
-                <SelectTrigger className="h-12 rounded-xl w-full max-md:h-10 max-md:text-sm border-gray-300 focus:border-gray-400 focus:ring-1 focus:ring-gray-400">
+                <SelectTrigger className="h-12 rounded-xl w-full   max-md:text-sm border-gray-300 focus:border-gray-400 focus:ring-1 focus:ring-gray-400">
                   <SelectValue placeholder="Bölgə seçin" />
                 </SelectTrigger>
                 <SelectContent>

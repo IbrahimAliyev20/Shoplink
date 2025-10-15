@@ -64,14 +64,14 @@ function CreateCategory() {
 
   return (
     <div className="min-w-[260px] w-full  mx-auto space-y-6 max-sm:space-y-4">
-      <h1 className="text-2xl font-medium text-gray-900 max-sm:text-xl max-sm:font-semibold">
+      <h1 className="text-2xl font-medium text-gray-900 max-sm:text-xl ">
         Kateqoriya
       </h1>
       <form onSubmit={handleSubmit(onSubmit)} style={{ fontSize: "16px" }}>
         <fieldset disabled={isPending} className="space-y-6 max-sm:space-y-4">
-          <Card className="shadow-none border-2 border-[#F3F2F8]">
-            <CardHeader className="mb-10 max-sm:mb-6">
-              <CardTitle className="text-2xl font-medium max-sm:text-xl max-sm:font-semibold">
+          <Card className="shadow-none border-2 border-[#F3F2F8] gap-0 ">
+            <CardHeader className="mb-10 max-sm:mb-4 px-4 md:px-6">
+              <CardTitle className="text-2xl font-medium max-sm:text-xl ">
                 Əsas məlumatlar
               </CardTitle>
             </CardHeader>
@@ -154,12 +154,12 @@ function CreateCategory() {
             </CardContent>
           </Card>
 
-          <Card className="shadow-none border-2 border-[#F3F2F8]">
-            <CardHeader className="mb-10 max-sm:mb-6">
-              <CardTitle className="text-2xl font-medium max-sm:text-xl max-sm:font-semibold">
+          <Card className="shadow-none border-2 border-[#F3F2F8] ">
+            <CardHeader className="mb-10 max-sm:mb-6 px-4 md:px-6">
+              <CardTitle className="text-2xl font-medium max-sm:text-xl max-sm:font-semibold ">
                 SEO
               </CardTitle>
-              <p className="text-sm text-gray-600 max-sm:text-xs">
+              <p className="text-sm text-gray-600 ">
                 SEO parametrlərini doldurun
               </p>
             </CardHeader>
