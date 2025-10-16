@@ -286,3 +286,13 @@ export interface MetaTagsTypes {
   meta_description: string;
   meta_keywords: string;
 }
+
+export interface SocialMediaDashboardApiResponse {
+  id: number;
+  facebook: string;
+  instagram: string;
+  linkedin: string;
+  phone: string;
+  email: string;
+  address: string;
+}

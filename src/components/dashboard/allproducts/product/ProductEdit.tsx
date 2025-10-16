@@ -148,6 +148,41 @@ const ProductEdit: React.FC = () => {
     );
   };
 
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>, type: 'main' | 'additional') => {
+    const files = e.target.files;
+    if (!files || files.length === 0) return;
+
+    // Validate file types
+    const allowedTypes = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
+    const invalidFiles: File[] = [];
+    const validFiles: File[] = [];
+
+    Array.from(files).forEach((file) => {
+      if (!allowedTypes.includes(file.type)) {
+        invalidFiles.push(file);
+      } else {
+        validFiles.push(file);
+      }
+    });
+
+    if (invalidFiles.length > 0) {
+      toast.error("Yalnız .jpeg, .jpg, .png, .webp formatları dəstəklənir");
+      return;
+    }
+
+    if (type === 'main' && validFiles.length > 0) {
+      // Create a new FileList-like object
+      const dataTransfer = new DataTransfer();
+      dataTransfer.items.add(validFiles[0]);
+      setValue("new_main_image", dataTransfer.files);
+    } else if (type === 'additional' && validFiles.length > 0) {
+      // Create a new FileList-like object
+      const dataTransfer = new DataTransfer();
+      validFiles.forEach(file => dataTransfer.items.add(file));
+      setValue("new_images", dataTransfer.files);
+    }
+  };
+
   const onSubmit: SubmitHandler<ProductEditFormValues> = (data) => {
 
     const formData = new FormData();
@@ -319,8 +354,9 @@ const ProductEdit: React.FC = () => {
                 <input
                   id="main-image-upload"
                   type="file"
+                  accept=".jpeg,.jpg,.png,.webp"
                   className="hidden"
-                  {...register("new_main_image")}
+                  onChange={(e) => handleImageChange(e, 'main')}
                 />
               </div>
             </div>
@@ -382,8 +418,9 @@ const ProductEdit: React.FC = () => {
                 id="new-images-upload"
                 type="file"
                 multiple
+                accept=".jpeg,.jpg,.png,.webp"
                 className="hidden"
-                {...register("new_images")}
+                onChange={(e) => handleImageChange(e, 'additional')}
               />
             </div>
           </div>

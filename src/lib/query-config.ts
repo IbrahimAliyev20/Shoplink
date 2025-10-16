@@ -111,6 +111,9 @@ export const queryKeys = {
   promocodes: () => ["promocodes"] as const,
   subscriptions: () => ["subscriptions"] as const,
   trackNumber: (slug: string) => ["track-number", slug] as const,
+  socialMedia: {
+    dashboard: () => ["social-media", "dashboard"] as const,
+  },
 } as const;
 
 export const createQueryOptions = <T>(

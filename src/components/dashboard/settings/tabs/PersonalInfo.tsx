@@ -70,8 +70,6 @@ const PersonalInfo = ({ user }: { user: UserData }) => {
     formData.append("type", type);
     formData.append("region", region);
 
-    // DÜZƏLİŞ EDİLMİŞ HİSSƏ
-    // Yalnız o zaman şəkli əlavə edirik ki, istifadəçi yeni fayl seçmiş olsun.
     if (image instanceof File) {
       formData.append("image", image);
     }
@@ -82,6 +80,17 @@ const PersonalInfo = ({ user }: { user: UserData }) => {
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
+      const allowedTypes = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
+      if (!allowedTypes.includes(file.type)) {
+        toast.error("Yalnız .jpeg, .jpg, .png, .webp formatları dəstəklənir");
+        return;
+      }
+      
+      if (file.size > 7 * 1024 * 1024) {
+        toast.error("Fayl ölçüsü 7MB-dan böyük ola bilməz");
+        return;
+      }
+      
       setImage(file);
       const previewUrl = URL.createObjectURL(file);
       setImagePreview(previewUrl);
@@ -110,7 +119,7 @@ const PersonalInfo = ({ user }: { user: UserData }) => {
             </Avatar>
             <input
               type="file"
-              accept="image/*"
+              accept=".jpeg,.jpg,.png,.webp"
               className="absolute inset-0 opacity-0 cursor-pointer"
               onChange={handleImageChange}
             />

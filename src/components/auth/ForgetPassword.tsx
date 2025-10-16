@@ -186,7 +186,6 @@ function ForgetPassword() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  // const [token, setToken] = useState('') // <-- BU SƏTR LƏĞV EDİLDİ, ARTIQ EHTİYAC YOXDUR
 
   const router = useRouter();
 

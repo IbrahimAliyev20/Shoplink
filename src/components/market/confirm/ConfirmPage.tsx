@@ -42,7 +42,7 @@ function ConfirmPage() {
     handleSubmit,
     control,
     formState: { errors },
-    reset, // reset funksiyasını useForm-dan alırıq
+    reset, 
   } = useForm<OrderFormValues>({
     defaultValues: {
       paymentMethod: "cash",
@@ -56,17 +56,12 @@ function ConfirmPage() {
     },
   });
 
-  // userData gəldiyi zaman formu yeniləmək üçün useEffect əlavə edirik
   useEffect(() => {
-    // Yalnız userData mövcud olduqda işləməsi üçün yoxlayırıq
     if (userData?.data) {
-      // Formanın dəyərlərini userData-dan gələn məlumatlarla yeniləyirik
       reset({
-        ...control._defaultValues, // Formanın digər default dəyərlərini qoruyuruq
+        ...control._defaultValues, 
         fullName: userData.data.name || "",
         email: userData.data.email || "",
-        // Əgər userData.data.phone "+994 701234567" formatındadırsa, onu ayırırıq.
-        // Sizin databazadakı formata uyğun dəyişə bilərsiniz.
         phoneNumber: userData.data.phone?.replace("+994", "").trim() || "",
       });
     }

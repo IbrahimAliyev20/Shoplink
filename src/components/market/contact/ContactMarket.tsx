@@ -3,16 +3,15 @@ import React from "react";
 import { Mail, Phone, MapPin, Facebook, Instagram, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { getContactQuery } from "@/services/Home/Contact/queries";
-import { useQuery } from "@tanstack/react-query";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
+import { SocialMediaDashboardQuery } from "@/services/Seller-services/socialmedia/queries";
+import { useQuery } from "@tanstack/react-query";
 
 function ContactMarketPage() {
-  
-  const { data: contact } = useQuery({
-    ...getContactQuery(),
-  });
+
+  const { data: socialMediaDashboard } = useQuery(SocialMediaDashboardQuery());
+
 
   return (
     <div className=" flex items-center justify-center py-10">
@@ -25,35 +24,38 @@ function ContactMarketPage() {
             <div className="space-y-6 text-gray-700">
               <div className="flex items-center space-x-4">
                 <Mail className="h-6 w-6 text-gray-600" />
-                <span className="text-lg">{contact?.email}</span>
+                <span className="text-lg">{socialMediaDashboard?.data?.email}</span>
               </div>
               <div className="flex items-center space-x-4">
                 <Phone className="h-6 w-6 text-gray-600" />
-                <span className="text-lg">{contact?.phone}</span>
+                <span className="text-lg">{socialMediaDashboard?.data?.phone}</span>
               </div>
               <div className="flex items-start space-x-4">
                 <MapPin className="h-6 w-6 text-gray-600 flex-shrink-0 mt-1" />
-                <span className="text-lg">{contact?.address}</span>
+                <span className="text-lg">{socialMediaDashboard?.data?.address}</span>
               </div>
             </div>
           </div>
 
           <div className=" flex space-x-6">
             <Link
-              href="#"
+              href={socialMediaDashboard?.data?.facebook || ""}
               className="flex items-center justify-center w-12 h-12 rounded-full bg-white shadow-sm  transition-colors"
+              target="_blank"
             >
               <Facebook className="text-pink-500" />
             </Link>
             <Link
-              href="#"
+              href={socialMediaDashboard?.data?.instagram || ""}
               className="flex items-center justify-center w-12 h-12 rounded-full bg-white shadow-sm transition-colors"
+              target="_blank"
             >
               <Instagram className="text-pink-500" />
             </Link>
             <Link
-              href="#"
+              href={socialMediaDashboard?.data?.linkedin || ""}
               className="flex items-center justify-center w-12 h-12 rounded-full bg-white shadow-sm  transition-colors"
+              target="_blank"
             >
               <Send className="text-pink-500" />
             </Link>

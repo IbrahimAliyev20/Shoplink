@@ -119,14 +119,31 @@ const ProductCreatePage = () => {
     const files = event.target.files;
     if (!files || files.length === 0) return;
 
+    // Validate file types
+    const allowedTypes = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
+    const invalidFiles: File[] = [];
+    const validFiles: File[] = [];
+
+    Array.from(files).forEach((file) => {
+      if (!allowedTypes.includes(file.type)) {
+        invalidFiles.push(file);
+      } else {
+        validFiles.push(file);
+      }
+    });
+
+    if (invalidFiles.length > 0) {
+      toast.error("Yalnız .jpeg, .jpg, .png, .webp formatları dəstəklənir");
+      return;
+    }
+
     if (type === "main") {
-      const file = files[0];
+      const file = validFiles[0];
       setMainImage(file);
       setMainImagePreview(URL.createObjectURL(file));
     } else {
-      const newFiles = Array.from(files);
-      setAdditionalImages((prev) => [...prev, ...newFiles]);
-      const newPreviews = newFiles.map((file) => URL.createObjectURL(file));
+      setAdditionalImages((prev) => [...prev, ...validFiles]);
+      const newPreviews = validFiles.map((file) => URL.createObjectURL(file));
       setAdditionalImagePreviews((prev) => [...prev, ...newPreviews]);
     }
   };
@@ -244,7 +261,7 @@ const ProductCreatePage = () => {
                 <input
                   ref={mainImageInputRef}
                   type="file"
-                  accept="image/*"
+                  accept=".jpeg,.jpg,.png,.webp"
                   className="hidden"
                   onChange={(e) => handleFileSelect(e, "main")}
                 />
@@ -294,7 +311,7 @@ const ProductCreatePage = () => {
                   ref={additionalImagesInputRef}
                   type="file"
                   multiple
-                  accept="image/*"
+                  accept=".jpeg,.jpg,.png,.webp"
                   className="hidden"
                   onChange={(e) => handleFileSelect(e, "additional")}
                 />

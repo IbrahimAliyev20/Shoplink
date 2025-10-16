@@ -22,7 +22,6 @@ import Link from "next/link";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 
-
 interface FloatingFieldProps {
   id: string;
   label: string;
@@ -100,7 +99,7 @@ function RegisterSeller() {
       >
         <div className="p-6 md:p-10">
           <Link href="/">
-          <Image src="/images/Logo.svg" alt="Logo" width={199} height={45} />
+            <Image src="/images/Logo.svg" alt="Logo" width={199} height={45} />
           </Link>
           <h1 className="text-2xl font-semibold mt-8 mb-10">
             Öz e-ticarət saytını qur!
@@ -234,36 +233,7 @@ function RegisterSeller() {
                             className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
                             onClick={() => setShowPassword((s) => !s)}
                           >
-                            {showPassword ? (
-                              <svg
-                                width="20"
-                                height="20"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              >
-                                <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
-                                <circle cx="12" cy="12" r="3" />
-                              </svg>
-                            ) : (
-                              <svg
-                                width="20"
-                                height="20"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              >
-                                <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
-                                <circle cx="12" cy="12" r="3" />
-                                <path d="m2 2 20 20" />
-                              </svg>
-                            )}
+                            {showPassword ? "🙈" : "👁️"}
                           </button>
                         </div>
                       </FloatingField>
