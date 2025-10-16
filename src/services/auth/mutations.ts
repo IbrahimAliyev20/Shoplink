@@ -39,7 +39,14 @@ export const useLoginMutation = () => {
       if (marketSlug) {
         formData.append("marketSlug", marketSlug as string);
       }
-      return loginAction(formData);
+      const result = await loginAction(formData);
+      
+      // Check if the result is an error response
+      if ('error' in result && 'status' in result) {
+        throw new Error(result.error);
+      }
+      
+      return result;
     },
     onSuccess: async (data) => {
       if (data.message === "successful login" && data.data.user) {
@@ -86,7 +93,14 @@ export const useRegisterMutation = () => {
       if (marketSlug) {
         formData.append("marketSlug", marketSlug as string);
       }
-      return registerAction(formData);
+      const result = await registerAction(formData);
+      
+      // Check if the result is an error response
+      if ('error' in result && 'status' in result) {
+        throw new Error(result.error);
+      }
+      
+      return result;
     },
     onSuccess: async (data) => {
       if (data.status === "success" && data.data?.role) {

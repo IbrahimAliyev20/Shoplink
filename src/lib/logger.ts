@@ -1,7 +1,4 @@
-/**
- * Logger utility for development debugging
- * Automatically disabled in production to reduce bundle size and prevent data leaks
- */
+
 
 type LogLevel = 'debug' | 'info' | 'warn' | 'error';
 

@@ -115,7 +115,7 @@ function LoginMarketUser() {
 
             <div className="flex items-center justify-end">
               <Link
-                href={"/forgot-password"}
+                href={"/forgetpassword"}
                 className="text-sm text-muted-foreground hover:underline"
               >
                 Şifrəmi unutdum

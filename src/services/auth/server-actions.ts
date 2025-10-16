@@ -9,7 +9,7 @@ const TOKEN_COOKIE_NAME = "access_token";
 
 export async function loginAction(
   formData: FormData
-): Promise<AuthLoginResponse> {
+): Promise<AuthLoginResponse | { error: string; status: "error" }> {
   try {
     const res = await axios.post(`${API_BASE_URL}user/login`, formData, {
       headers: {},
@@ -47,11 +47,11 @@ export async function loginAction(
       console.error("AXIOS XƏTASI:", error.response?.data);
       const errorMessage =
         error.response?.data?.message || "Giriş zamanı xəta baş verdi";
-      throw new Error(errorMessage);
+      return { error: errorMessage, status: "error" as const };
     }
 
     console.error("NAMƏLUM XƏTA:", error);
-    throw new Error("Giriş zamanı gözlənilməz xəta baş verdi");
+    return { error: "Giriş zamanı gözlənilməz xəta baş verdi", status: "error" as const };
   }
 }
 
@@ -69,7 +69,7 @@ export async function logoutAction() {
 
 export async function registerAction(
   formData: FormData
-): Promise<AuthRegisterResponse> {
+): Promise<AuthRegisterResponse | { error: string; status: "error" }> {
   try {
     const res = await axios.post(`${API_BASE_URL}user/register`, formData, {});
 
@@ -105,11 +105,11 @@ export async function registerAction(
       console.error("AXIOS XƏTASI:", error.response?.data);
       const errorMessage =
         error.response?.data?.message || "Qeydiyyat zamanı xəta baş verdi";
-      throw new Error(errorMessage);
+      return { error: errorMessage, status: "error" as const };
     }
 
     console.error("NAMƏLUM XƏTA:", error);
-    throw new Error("Qeydiyyat zamanı gözlənilməz xəta baş verdi");
+    return { error: "Qeydiyyat zamanı gözlənilməz xəta baş verdi", status: "error" as const };
   }
 }
 
