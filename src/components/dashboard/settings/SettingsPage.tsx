@@ -35,8 +35,11 @@ const SettingsPage = () => {
           orientation="vertical"
           className="w-full max-md:orientation-horizontal"
         >
-          <div className=" grid grid-cols-1 lg:grid-cols-4   h-full max-md:grid-cols-1  ">
-            <div className="rounded-xl col-span-1 w-full lg:w-69 flex-shrink-0 h-full bg-white max-md:order-2 max-md:fixed max-md:bottom-0 max-md:left-0 max-md:right-0 max-md:z-50 max-md:w-full max-md:bg-white max-md:h-16 max-md:shadow-[0_-4px_12px_rgba(0,0,0,0.06)] border border-[#F3F2F8]">
+          {/* ----- ƏSAS DƏYİŞİKLİK BU SƏTİRDƏDİR ----- */}
+          <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr] lg:gap-8 items-start">
+            
+            {/* Sidebar (sol menyu) - `col-span-1` və `lg:w-69` silindi */}
+            <div className="rounded-xl w-full flex-shrink-0 bg-white max-md:order-2 max-md:fixed max-md:bottom-0 max-md:left-0 max-md:right-0 max-md:z-50 max-md:w-full max-md:bg-white max-md:h-16 max-md:shadow-[0_-4px_12px_rgba(0,0,0,0.06)] border border-[#F3F2F8]">
               <TabsList className="w-full h-auto flex flex-col items-start justify-start p-4 rounded-xl bg-white max-md:flex-row max-md:items-center max-md:justify-between max-md:overflow-x-auto max-md:p-0 max-md:rounded-none max-md:border-t max-md:h-16 gap-1">
                 {navItems.map((item) => {
                   const Icon = item.icon;
@@ -54,7 +57,8 @@ const SettingsPage = () => {
               </TabsList>
             </div>
 
-            <div className="col-span-3 max-md:order-1">
+            {/* Content (sağ tərəf) - `col-span-3` silindi */}
+            <div className="max-md:order-1">
               <div>
                 <TabsContent value="personal">
                   {user?.data && <PersonalInfo user={user.data} />}

@@ -54,7 +54,7 @@ const handleApiError = (error: AxiosError<ApiErrorResponse>): void => {
   switch (status) {
     case 401:
       handleUnauthorized();
-      toast.error("Sessiya müddəti bitib. Yenidən daxil olun.");
+      toast.error("Hesab tapılmadı.");
       break;
 
     case 403:

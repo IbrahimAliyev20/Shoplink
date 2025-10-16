@@ -18,6 +18,7 @@ export interface AuthLoginResponse {
   data: {
       token: string;
       user: {
+          store_slug: string;
           name: string;
           email: string;
           phone: string;

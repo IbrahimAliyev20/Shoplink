@@ -54,7 +54,7 @@ export const useLoginMutation = () => {
             router.push("/dashboard/shopsetup");
           }
         } else if (user.role.includes("user")) {
-          router.push(`/${marketSlug}/account`);
+          router.push(`/${data.data.user.store_slug}/account`);
         }
       } else {
         toast.error(data.message || "Naməlum xəta baş verdi.");
