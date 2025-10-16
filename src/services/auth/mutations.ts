@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useParams, useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { extractErrorMessage } from "@/lib/api/errors";
 import { loginAction, logoutAction, registerAction } from "./server-actions";
 import { logout, updatePassword } from "./api";
 import { AuthLoginResponse, AuthRegisterResponse } from "@/types";
@@ -61,7 +62,7 @@ export const useLoginMutation = () => {
       }
     },
     onError: (error) => {
-      toast.error(error.message || "Giriş zamanı xəta baş verdi.");
+      toast.error(extractErrorMessage(error) || "Giriş zamanı xəta baş verdi.");
     },
   });
 };
@@ -109,8 +110,8 @@ export const useRegisterMutation = () => {
         toast.error(data.message || "Qeydiyyat uğursuz oldu.");
       }
     },
-    onError: () => { 
-        toast.error("Bu email artıq istifadə olunub.");
+    onError: (error) => { 
+        toast.error(extractErrorMessage(error) || "Bu email artıq istifadə olunub.");
     },
   });
 };
@@ -130,9 +131,7 @@ export const useLogoutMutation = () => {
       }
     },
     onError: (error) => {
-      const errorMessage =
-        error instanceof Error ? error.message : "Naməlum bir xəta baş verdi.";
-      toast.error(errorMessage);
+      toast.error(extractErrorMessage(error));
     },
   });
 };
@@ -144,11 +143,7 @@ export const useUpdatePasswordMutation = () => {
       toast.success("Şifrəniz uğurla yeniləndi!");
     },
     onError: (error: unknown) => {
-      const message =
-        error instanceof Error
-          ? error.message
-          : "Şifrəni yeniləyərkən xəta baş verdi";
-      toast.error(message);
+      toast.error(extractErrorMessage(error) || "Şifrəni yeniləyərkən xəta baş verdi");
     },
   });
 };

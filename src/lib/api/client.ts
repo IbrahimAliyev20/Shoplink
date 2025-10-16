@@ -7,7 +7,7 @@ import axios, {
 } from "axios";
 import Cookies from "js-cookie";
 import { getAcceptLanguageHeader } from "@/lib/utils";
-import { toast } from "sonner";
+import { extractErrorMessage } from "./errors";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 const TOKEN_COOKIE_NAME = "access_token";
@@ -37,69 +37,57 @@ interface ApiErrorResponse {
   errors?: Record<string, string[]>;
 }
 
-const handleApiError = (error: AxiosError<ApiErrorResponse>): void => {
+const handleApiError = (error: AxiosError<ApiErrorResponse>): string => {
   if (!error.response) {
     if (typeof window !== "undefined") {
       console.error(
         "İnternet bağlantısı yoxdur. Zəhmət olmasa yenidən cəhd edin."
       );
     }
-    return;
+    return "İnternet bağlantısı yoxdur. Zəhmət olmasa yenidən cəhd edin.";
   }
 
   const { status, data } = error.response;
 
-  if (typeof window === "undefined") return;
+  if (typeof window === "undefined") return "Naməlum xəta baş verdi.";
 
   switch (status) {
     case 401:
       handleUnauthorized();
-      toast.error("Hesab tapılmadı.");
-      break;
+      return "Hesab tapılmadı.";
 
     case 403:
-      toast.error("Bu əməliyyat üçün icazəniz yoxdur.");
-      break;
+      return "Bu əməliyyat üçün icazəniz yoxdur.";
 
     case 404:
-      toast.error("Axtardığınız məlumat tapılmadı.");
-      break;
+      return "Axtardığınız məlumat tapılmadı.";
 
     case 422:
       if (data?.errors) {
         const firstError = Object.values(data.errors)[0]?.[0];
-        toast.error(firstError || "Məlumatlar düzgün deyil.");
+        return firstError || "Məlumatlar düzgün deyil.";
       } else {
-        toast.error(data?.message || "Məlumatlar düzgün deyil.");
+        return data?.message || "Məlumatlar düzgün deyil.";
       }
-      break;
 
     case 429:
-      toast.error("Çox sayda sorğu göndərildi. Bir az gözləyin.");
-      break;
+      return "Çox sayda sorğu göndərildi. Bir az gözləyin.";
 
     case 500:
     case 502:
     case 503:
-      toast.error(
-        "Server xətası baş verdi. Zəhmət olmasa bir qədər sonra yenidən cəhd edin."
-      );
-      break;
+      return "Server xətası baş verdi. Zəhmət olmasa bir qədər sonra yenidən cəhd edin.";
 
     default:
-      toast.error(data?.message || "Naməlum xəta baş verdi.");
+      return data?.message || "Naməlum xəta baş verdi.";
   }
-
-  if (process.env.NODE_ENV === "development") {
-    console.error("[API Error]", {
-      status,
-      url: error.config?.url,
-      data: error.response?.data,
-    });
-  }
+  
 };
 
+let interceptorsAttached = false;
+
 const setupInterceptors = (): void => {
+  if (interceptorsAttached) return;
   client.interceptors.request.use(
     (config: InternalAxiosRequestConfig) => {
       const token = getAuthToken();
@@ -143,17 +131,22 @@ const setupInterceptors = (): void => {
   client.interceptors.response.use(
     (response: AxiosResponse) => response,
     (error: AxiosError<ApiErrorResponse>) => {
-      // Handle timeout errors
-      if (error.code === "ECONNABORTED" || error.code === "ETIMEDOUT") {
-        if (typeof window !== "undefined") {
-          toast.error("Sorğu müddəti bitdi. Zəhmət olmasa yenidən cəhd edin.");
-        }
+      // Normalize error message but do not show toasts here
+      const normalizedMessage =
+        error.code === "ECONNABORTED" || error.code === "ETIMEDOUT"
+          ? "Sorğu müddəti bitdi. Zəhmət olmasa yenidən cəhd edin."
+          : handleApiError(error);
+
+      // Override error.message so callers can toast exactly once
+      if (normalizedMessage) {
+        (error as Error).message = normalizedMessage;
       } else {
-        handleApiError(error);
+        (error as Error).message = extractErrorMessage(error);
       }
       return Promise.reject(error);
     }
   );
+  interceptorsAttached = true;
 };
 
 setupInterceptors();
