@@ -148,7 +148,7 @@ export default function Sidebar({
   return (
     <div
       className={cn(
-        "fixed left-0 top-0 z-40 min-h-screen overflow-y-auto bg-black text-white transition-all duration-300 ease-in-out  shadow-xl",
+        "fixed left-0 top-0 z-40 min-h-screen overflow-y-auto bg-[#141414] text-white transition-all duration-300 ease-in-out  shadow-xl",
         isCollapsed ? "w-16" : "w-64",
         className
       )}
@@ -160,7 +160,7 @@ export default function Sidebar({
           <div className={cn("flex items-center space-x-3 transition-opacity duration-200", isCollapsed && "opacity-0")}>
             {!isCollapsed && (
               <Link href="/">
-                <Image src="/images/logofooter.png" alt="Logo" width={150} height={40} />
+                <Image src="/images/logofooter.svg" alt="Logo" width={150} height={40} />
               </Link>
             )}
           </div>

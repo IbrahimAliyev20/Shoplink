@@ -23,13 +23,13 @@ export function Footer() {
     return null
   }
   return (
-    <footer className="bg-gray-900 text-white">
+    <footer className="bg-[#141414] text-white">
       <div className="container mx-auto px-4 py-12">
         {/* Logo and Social Section */}
         <div className="flex flex-col items-center gap-6">
           <Link href="/" className="flex items-center gap-2">
           <Image 
-            src={data?.logo || "/images/logofooter.png"} 
+            src="/images/logofooter.svg" 
             alt="Logo" 
             width={150} 
             height={40} 

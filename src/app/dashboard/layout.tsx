@@ -44,7 +44,7 @@ export default function DashboardLayout({
   const shouldShowSidebar = !isShopSetupPage && hasStore;
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[#fbfdff]">
       {/* Only show sidebar if not on shop setup page and store exists */}
       {shouldShowSidebar && (
         <div className="hidden lg:block">

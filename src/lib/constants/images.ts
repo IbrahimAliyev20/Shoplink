@@ -2,7 +2,7 @@
 export const STATIC_IMAGES = {
   // Brand logos
   logo: '/images/Logo.svg',
-  logoFooter: '/images/logofooter.png',
+  logoFooter: '/images/logofooter.svg',
   shoplinkInfo: '/images/shoplinkinfo.webp',
   
   // Advantages

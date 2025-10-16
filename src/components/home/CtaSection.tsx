@@ -22,7 +22,7 @@ export default function CtaSection() {
       backgroundRepeat: 'no-repeat'
     }}>
       {/* Gradient overlay */}
-      <div className="absolute inset-0  bg-[#242123]"></div>
+      <div className="absolute inset-0  bg-[#141414]"></div>
       
       {/* Content */}
       <div className="relative z-10">
@@ -30,7 +30,7 @@ export default function CtaSection() {
         {/* Logo */}
         <div className="flex items-center justify-center gap-3 mb-8">
          <Image
-         src="/images/logofooter.png" 
+         src="/images/logofooter.svg" 
          alt="Logo"
          width={185}
          height={50}

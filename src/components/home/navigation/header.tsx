@@ -69,11 +69,11 @@ export function Header() {
       <div className="container mx-auto flex h-20 items-center justify-between px-4">
         <Link href="/" className="flex items-center gap-2">
           <Image
-            src={data?.logo || "/images/logofooter.png"}
+            src="/images/logo.svg"
             alt="Logo"
             width={120}
             height={32}
-            className="sm:w-[150px] sm:h-[40px]"
+            className="sm:w-[180px] sm:h-[60x]"
           />
         </Link>
 
@@ -131,7 +131,7 @@ export function Header() {
             <div className="flex items-center justify-between p-4 border-b border-[#f3f2f8]">
               <Link href="/" className="flex items-center gap-2" onClick={() => setIsMobileMenuOpen(false)}>
                 <Image
-                  src={data?.logo || "/images/logofooter.png"}
+                  src="/images/logofooter.svg"
                   alt="Logo"
                   width={120}
                   height={32}
