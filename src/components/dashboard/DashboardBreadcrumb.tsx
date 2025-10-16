@@ -31,23 +31,23 @@ const dashboardRouteMap: Record<string, string> = {
   category: "Kateqoriya",
 };
 
-const contextualRouteMap: Record<
-  string,
-  Record<string, string | Record<string, string>>
-> = {
-  products: {
-    create: "Yarat",
-    edit: "Məhsul Redaktə et",
-    preview: "Məhsul Önizləmə",
-  },
-  categorys: {
-    category: {
-      create: "Kateqoriya Yarat",
-      edit: "Kateqoriya Redaktə et",
-      preview: "Kateqoriya Önizləmə",
-    },
-  },
-};
+// const contextualRouteMap: Record<
+//   string,
+//   Record<string, string | Record<string, string>>
+// > = {
+//   products: {
+//     create: "Yarat",
+//     edit: "Məhsul Redaktə et",
+//     preview: "Məhsul Önizləmə",
+//   },
+//   categorys: {
+//     category: {
+//       create: "Kateqoriya Yarat",
+//       edit: "Kateqoriya Redaktə et",
+//       preview: "Kateqoriya Önizləmə",
+//     },
+//   },
+// };
 
 const generateBreadcrumbs = (pathname: string) => {
   const pathWithoutDashboard = pathname.replace("/dashboard", "");

@@ -16,7 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { DynamicRichTextEditor } from "@/components/dynamic/DynamicComponents";
+import { Textarea } from "@/components/ui/textarea";
 import { Trash2 } from "lucide-react";
 
 import { productQueries } from "@/services/Seller-services/product/queries";
@@ -278,15 +278,10 @@ const ProductEdit: React.FC = () => {
                 <label className="block text-sm font-medium mb-2">
                   Məhsulun təsviri
                 </label>
-                <Controller
-                  name="description"
-                  control={control}
-                  render={({ field }) => (
-                    <DynamicRichTextEditor
-                      value={field.value}
-                      onChange={field.onChange}
-                    />
-                  )}
+                <Textarea
+                  {...register("description")}
+                  className="w-full min-h-32"
+                  placeholder="Məhsulun təsvirini buraya yazın..."
                 />
               </div>
             </div>

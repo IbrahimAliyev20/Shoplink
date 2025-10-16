@@ -16,7 +16,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { DynamicRichTextEditor } from "@/components/dynamic/DynamicComponents";
+import { Textarea } from "@/components/ui/textarea";
 import { X, Plus } from "lucide-react";
 
 import { createProductMutation } from "@/services/Seller-services/product/mutations";
@@ -38,6 +38,7 @@ type ProductFormValues = {
   stock: number;
   meta_description: string;
   meta_keywords: string;
+  
 };
 
 const ProductCreatePage = () => {
@@ -433,16 +434,10 @@ const ProductCreatePage = () => {
               </div>
               <div className="space-y-2">
                 <Label>Məhsulun təsviri</Label>
-                <Controller
-                  name="description"
-                  control={control}
-                  render={({ field }) => (
-                    <DynamicRichTextEditor
-                      value={field.value}
-                      onChange={field.onChange}
-                      placeholder="Məhsulun təsvirini daxil edin"
-                    />
-                  )}
+                <Textarea
+                  {...register("description")}
+                  className="w-full min-h-32 border border-[#F3F2F8] px-3 py-5.5 rounded-md"
+                  placeholder="Məhsulun təsvirini daxil edin"
                 />
               </div>
             </CardContent>

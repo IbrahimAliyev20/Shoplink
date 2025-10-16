@@ -3,18 +3,6 @@
 import dynamic from "next/dynamic";
 import { Skeleton } from "@/components/ui/skeleton";
 
-export const DynamicRichTextEditor = dynamic(
-  () => import("@/components/shared/editor"),
-  {
-    loading: () => (
-      <div>
-        <Skeleton className="h-10 w-full mb-2" />
-        <Skeleton className="h-32 w-full" />
-      </div>
-    ),
-    ssr: false,
-  }
-);
 
 export const DynamicRevenueChart = dynamic(
   () => import("@/components/dashboard/RevenueChart"),

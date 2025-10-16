@@ -14,7 +14,7 @@ import { getAuthToken } from "@/lib/api/client";
 import { UserData } from "@/types";
 
 export function Header() {
-  const { data, isError, error } = useQuery(getSosialOptions());
+  const {  isError, error } = useQuery(getSosialOptions());
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [user, setUser] = useState<UserData | null>();

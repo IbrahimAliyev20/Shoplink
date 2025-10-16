@@ -70,7 +70,7 @@ function ConfirmPage() {
         phoneNumber: userData.data.phone?.replace("+994", "").trim() || "",
       });
     }
-  }, [userData, reset]); // Bu effekt userData və ya reset dəyişdikdə işə düşəcək
+  }, [userData, reset]); 
 
   const { mutate: createOrder, isPending } = useMutation({
     ...createOrderMutation(),
