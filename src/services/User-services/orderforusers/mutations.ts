@@ -7,7 +7,7 @@ export const createOrderMutation = () =>
     mutationFn: (orderPayload: OrderPayload) => createOrder(orderPayload),
   });
 
-export const checkPromocodeMutation = () =>
-  mutationOptions({
-    mutationFn: (payload: { promocode: string; products: number[] }) => checkPromocode(payload),
-  });
+  export const checkPromocodeMutation = () =>
+    mutationOptions({
+      mutationFn: (payload: { promocode: string; products: { product_id: number; quantity: number }[] }) => checkPromocode(payload),
+    });

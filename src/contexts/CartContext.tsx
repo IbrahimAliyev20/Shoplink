@@ -4,7 +4,7 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 
-import { CartItem, calculateCartSummary } from "@/components/market/data/cart";
+import { CartItem, calculateCartSummary, roundMoney } from "@/components/market/data/cart";
 import { Product } from "@/types/product/productTypes";
 import { checkPromocode } from "@/services/User-services/orderforusers/api";
 
@@ -60,9 +60,9 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
   const { mutate: checkPromo, isPending: isApplyingPromo } = useMutation({
     mutationFn: checkPromocode,
     onSuccess: (data, variables) => {
-      const discount = data.product_price - data.promocode_price;
+      const discount = roundMoney(data.product_price - data.promocode_price);  // Round to 2 decimal places
       setPromocodeDiscount(discount);
-      setAppliedPromocode({ name: variables.promocode });
+      setAppliedPromocode({ name: variables.promocode, discount });  // Opsiyonel: discount'ı da saxla, lazım olsa
       toast.success("Promokod uğurla tətbiq edildi!");
     },
     onError: (error) => {
@@ -75,8 +75,14 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
       toast.error("Səbətinizdə məhsul olmalıdır.");
       return;
     }
-    const productIds = cartItems.map((item) => item.id);
-    checkPromo({ promocode: code, products: productIds });
+    const payload = {
+      promocode: code,
+      products: cartItems.map((item) => ({
+        product_id: item.id,  // Veya Number(item.id) et, amma id zaten number
+        quantity: item.quantity
+      }))  // Dəyişiklik burda: object array, Postman kimi
+    };
+    checkPromo(payload);
   };
 
   const removePromocode = () => {

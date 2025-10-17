@@ -22,9 +22,8 @@ export const createOrder = async (orderPayload: OrderPayload) => {
 
 interface CheckPromoPayload {
   promocode: string;
-  products: number[]; 
+  products: { product_id: number; quantity: number }[];  
 }
-
 
 interface CheckPromoResponse {
   promocode_price: number; 

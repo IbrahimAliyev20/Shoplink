@@ -3,6 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import { useCart } from "@/contexts/CartContext";
+import { roundMoney } from "@/components/market/data/cart";
 
 interface OrderSummarySectionProps {
   marketSlug: string;
@@ -40,7 +41,7 @@ function OrderSummarySection({ marketSlug }: OrderSummarySectionProps) {
                   {item.quantity} ədəd
                 </p>
                 <p className="text-sm font-medium text-gray-900">
-                  {item.price * item.quantity} AZN
+                  {roundMoney(item.price * item.quantity)} AZN
                 </p>
               </div>
             </div>
