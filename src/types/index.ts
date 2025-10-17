@@ -80,6 +80,7 @@ export interface UserData {
   feedback: string;
   feedback_id: number;
   order_count: number;
+  plan_id: number;
 }
 
 

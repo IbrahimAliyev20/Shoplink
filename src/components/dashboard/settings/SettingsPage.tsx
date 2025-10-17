@@ -8,6 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getUserQuery } from "@/services/auth/queries";
 import SupportDashboard from "./tabs/SupportDashboard";
 import SocialMediaDashboard from "./tabs/SocialMediaDashboard";
+import Subscription from "@/app/dashboard/subscription/page";
 
 const navItems = [
   { value: "personal", label: "Şəxsi məlumatlar", icon: CircleUser },
@@ -15,6 +16,7 @@ const navItems = [
   { value: "security", label: "Təhlükəsizlik", icon: Shield },
   { value: "payment", label: "Ödəniş metodları", icon: CreditCard },
   { value: "social", label: "Sosial media", icon: Instagram },
+  { value: "subscription", label: "Abunəlik", icon: CreditCard },
   { value: "support", label: "Dəstək", icon: Info },
 ];
 
@@ -74,6 +76,9 @@ const SettingsPage = () => {
                 </TabsContent>
                 <TabsContent value="social">
                   <SocialMediaDashboard />
+                </TabsContent>
+                <TabsContent value="subscription">
+                  <Subscription />
                 </TabsContent>
                 <TabsContent value="support">
                   <SupportDashboard />

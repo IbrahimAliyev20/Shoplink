@@ -6,10 +6,14 @@ import { Badge } from "@/components/ui/badge";
 import { getSubscribesQuery } from "@/services/Seller-services/subscribe/queires";
 import { useQuery } from "@tanstack/react-query";
 import { usePlanPaymentMutation } from "@/services/Seller-services/subscribe/mutations";
+import { getUserQuery } from "@/services/auth/queries";
 
 
 const Subscription = () => {
-  
+
+  const { data: user } = useQuery(getUserQuery());
+  const userPlanId = user?.data?.plan_id;
+
   const [selectedDuration, setSelectedDuration] = useState<
     "1-month" | "6-month" | "12-month"
   >("1-month");
