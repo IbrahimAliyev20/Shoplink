@@ -26,9 +26,11 @@ export const getProductStoreCategoryOptions = function(
     category_name: string,
     search?: string 
   ) {
+    // Normalize empty strings to undefined to prevent duplicate cache keys
+    const normalizedSearch = search?.trim() || undefined;
     return createQueryOptions(
-      queryKeys.products.byCategory(slug, category_name, search),
-      () => getProductStoreCategory(slug, category_name, search),
+      queryKeys.products.byCategory(slug, category_name, normalizedSearch),
+      () => getProductStoreCategory(slug, category_name, normalizedSearch),
       {
           staleTime: 3 * 60 * 1000, 
       }
@@ -46,9 +48,11 @@ export const getProductSingleOptions = function(slug: string){
 }
 
 export const getAllProductsStoreOptions = function(slug: string, search?: string) {
+    // Normalize empty strings to undefined to prevent duplicate cache keys
+    const normalizedSearch = search?.trim() || undefined;
     return createQueryOptions(
-      queryKeys.products.byStore(slug, search),
-      () => getAllProductsStore(slug, search),
+      queryKeys.products.byStore(slug, normalizedSearch),
+      () => getAllProductsStore(slug, normalizedSearch),
       {
           staleTime: 2 * 60 * 1000, 
       }
@@ -75,8 +79,8 @@ export const getFilteredProductsStoreOptions = (filters: ProductFilters) => {
       return FilterProductsStore(formData);
     },
     {
-        staleTime: 1 * 60 * 1000, 
-        enabled: false, 
+        staleTime: 1 * 60 * 1000,
+        // Removed enabled: false - query is controlled by useProductsData hook
     }
   );
 };

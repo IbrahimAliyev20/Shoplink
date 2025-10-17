@@ -26,9 +26,9 @@ interface UseProductsDataProps {
 }
 
 /**
- * Optimized hook for managing product data with deduplication
- * This hook intelligently determines which query to use based on current state
- * and prevents multiple simultaneous API calls
+ * Optimized hook for managing product data with single query
+ * This hook uses a single useQuery instance with dynamic query options
+ * to prevent cache bloat and unnecessary re-renders
  */
 export function useProductsData({
   storeSlug,
@@ -71,84 +71,31 @@ export function useProductsData({
     return category?.name || "";
   }, [queryStrategy, activeTab, categories]);
 
-  const {
-    data: filteredProducts = [],
-    isLoading: isFilteredLoading,
-    isError: isFilteredError,
-  } = useQuery({
-    ...getFilteredProductsStoreOptions(filters),
-    enabled: queryStrategy === "filtered",
-  });
-
-  const {
-    data: searchProducts = [],
-    isLoading: isSearchLoading,
-    isError: isSearchError,
-  } = useQuery({
-    ...getAllProductsStoreOptions(storeSlug, debouncedSearchTerm),
-    enabled: queryStrategy === "search",
-  });
-
-  const {
-    data: categoryProducts = [],
-    isLoading: isCategoryLoading,
-    isError: isCategoryError,
-  } = useQuery({
-    ...getProductStoreCategoryOptions(storeSlug, categoryName),
-    enabled: queryStrategy === "category" && !!categoryName,
-  });
-
-  const {
-    data: allProducts = [],
-    isLoading: isAllLoading,
-    isError: isAllError,
-  } = useQuery({
-    ...getAllProductsStoreOptions(storeSlug),
-    enabled: queryStrategy === "all",
-  });
-
-  // Return the appropriate data based on strategy
-  const products: ProductStoreCategory[] = useMemo(() => {
+  // Dynamically select query options based on strategy (single query approach)
+  const queryOptions = useMemo(() => {
     switch (queryStrategy) {
       case "filtered":
-        return filteredProducts;
+        return getFilteredProductsStoreOptions(filters);
       case "search":
-        return searchProducts;
+        return getAllProductsStoreOptions(storeSlug, debouncedSearchTerm);
       case "category":
-        return categoryProducts;
+        return getProductStoreCategoryOptions(storeSlug, categoryName);
       case "all":
       default:
-        return allProducts;
+        return getAllProductsStoreOptions(storeSlug);
     }
-  }, [queryStrategy, filteredProducts, searchProducts, categoryProducts, allProducts]);
+  }, [queryStrategy, filters, storeSlug, debouncedSearchTerm, categoryName]);
 
-  const isLoading = useMemo(() => {
-    switch (queryStrategy) {
-      case "filtered":
-        return isFilteredLoading;
-      case "search":
-        return isSearchLoading;
-      case "category":
-        return isCategoryLoading;
-      case "all":
-      default:
-        return isAllLoading;
-    }
-  }, [queryStrategy, isFilteredLoading, isSearchLoading, isCategoryLoading, isAllLoading]);
-
-  const isError = useMemo(() => {
-    switch (queryStrategy) {
-      case "filtered":
-        return isFilteredError;
-      case "search":
-        return isSearchError;
-      case "category":
-        return isCategoryError;
-      case "all":
-      default:
-        return isAllError;
-    }
-  }, [queryStrategy, isFilteredError, isSearchError, isCategoryError, isAllError]);
+  // Single useQuery hook with dynamic options
+  const {
+    data: products = [],
+    isLoading,
+    isError,
+  } = useQuery<ProductStoreCategory[]>({
+    ...queryOptions,
+    // Enable query only when we have valid data
+    enabled: queryStrategy !== "category" || !!categoryName,
+  });
 
   return {
     products,

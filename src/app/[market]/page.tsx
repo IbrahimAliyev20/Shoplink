@@ -1,7 +1,7 @@
 import React from "react";
 import MarketHero from "@/components/market/components/MarketHero";
 import TabsMarket from "@/components/market/components/TabsMarket";
-import { getAllProductsStore, getCategoryStore, getStore } from "@/services/User-services/StoreForUsers/api";
+import { getCategoryStore, getStore } from "@/services/User-services/StoreForUsers/api";
 import Link from "next/link";
 import { Metadata } from "next";
 import { MARKET_META } from "@/utils/MetaTagsData";
@@ -39,10 +39,10 @@ async function MarketHome({ params }: MarketHomePageProps) {
   
 
   try {
+    // Fetch only necessary data - products are fetched client-side in TabsMarket
     const [storeData, categories] = await Promise.all([
       getStore(marketSlug),
       getCategoryStore(marketSlug),
-      getAllProductsStore(marketSlug),
     ]);
 
     return (

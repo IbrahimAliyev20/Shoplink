@@ -3,11 +3,12 @@ import { QueryClientConfig } from "@tanstack/react-query";
 export const queryConfig: Partial<QueryClientConfig> = {
   defaultOptions: {
     queries: {
-      staleTime: 5 * 60 * 1000,
-      gcTime: 30 * 60 * 1000,
+      staleTime: 5 * 60 * 1000, // 5 minutes default
+      gcTime: 30 * 60 * 1000, // 30 minutes garbage collection
       retry: (failureCount, error: unknown) => {
         if (error && typeof error === "object" && "response" in error) {
           const response = (error as { response: { status: number } }).response;
+          // Don't retry on 4xx errors (client errors)
           if (response?.status >= 400 && response?.status < 500) {
             return false;
           }
@@ -16,16 +17,15 @@ export const queryConfig: Partial<QueryClientConfig> = {
       },
 
       retryDelay: (attemptIndex) => {
+        // Exponential backoff with jitter
         const baseDelay = Math.min(1000 * 2 ** attemptIndex, 30000);
         const jitter = Math.random() * 1000;
         return baseDelay + jitter;
       },
 
-      refetchOnWindowFocus: false,
-      refetchOnReconnect: true,
-
-      refetchOnMount: true,
-
+      refetchOnWindowFocus: false, // Prevent unnecessary refetches
+      refetchOnReconnect: true, // Refetch when internet reconnects
+      refetchOnMount: false, // Changed to false to prevent duplicate fetches
       networkMode: "online",
     },
     mutations: {
@@ -34,6 +34,31 @@ export const queryConfig: Partial<QueryClientConfig> = {
       networkMode: "online",
     },
   },
+};
+
+// Optimized config for static content (rarely changes)
+export const staticContentOptions = {
+  staleTime: 30 * 60 * 1000, // 30 minutes - content rarely changes
+  gcTime: 60 * 60 * 1000, // 1 hour - keep in cache longer
+  refetchOnMount: false,
+  refetchOnWindowFocus: false,
+  refetchOnReconnect: false,
+};
+
+// Optimized config for dynamic content (frequently changes)
+export const dynamicContentOptions = {
+  staleTime: 1 * 60 * 1000, // 1 minute - fresher data needed
+  gcTime: 5 * 60 * 1000, // 5 minutes - shorter cache
+  refetchOnMount: false, // Still controlled to avoid duplicates
+  refetchOnWindowFocus: false,
+};
+
+// Optimized config for real-time content (orders, stats)
+export const realtimeContentOptions = {
+  staleTime: 30 * 1000, // 30 seconds - very fresh data
+  gcTime: 2 * 60 * 1000, // 2 minutes
+  refetchOnMount: false,
+  refetchOnWindowFocus: false,
 };
 
 export const queryKeys = {

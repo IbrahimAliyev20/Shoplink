@@ -1,13 +1,11 @@
 import { getLastActivities, getReportStats, getStoreStats } from "./api";
-import { queryKeys, createQueryOptions } from "@/lib/query-config";
+import { queryKeys, createQueryOptions, realtimeContentOptions, dynamicContentOptions } from "@/lib/query-config";
 
 export const getStoreStatsQuery = () => {   
     return createQueryOptions(
         queryKeys.dashboard.stats(),
         getStoreStats,
-        {
-            staleTime: 2 * 60 * 1000, // 2 minutes for stats
-        }
+        realtimeContentOptions // Using optimized config for real-time data
     );
 };
 
@@ -15,9 +13,7 @@ export const getReportStatsQuery = () => {
     return createQueryOptions(
         queryKeys.dashboard.reports(),
         getReportStats,
-        {
-            staleTime: 5 * 60 * 1000, // 5 minutes for reports
-        }
+        dynamicContentOptions // Using optimized config for dynamic data
     );
 };
 
@@ -25,8 +21,6 @@ export const getLastActivitiesQuery = () => {
     return createQueryOptions(
         queryKeys.dashboard.activities(),
         getLastActivities,
-        {
-            staleTime: 1 * 60 * 1000, // 1 minute for activities
-        }
+        realtimeContentOptions // Using optimized config for real-time data
     );
 };

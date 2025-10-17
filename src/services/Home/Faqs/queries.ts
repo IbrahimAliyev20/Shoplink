@@ -1,13 +1,11 @@
 import { getFaqs } from "./api";
-import { queryKeys, createQueryOptions } from "@/lib/query-config";
+import { queryKeys, createQueryOptions, staticContentOptions } from "@/lib/query-config";
 
 export const getFaqsOptions = function(){
     return createQueryOptions(
         queryKeys.home.faqs(),
         () => getFaqs(),
-        {
-            staleTime: 30 * 60 * 1000, // 30 minutes for FAQs (rarely changes)
-        }
+        staticContentOptions // Using optimized config for static content
     );
 };
 

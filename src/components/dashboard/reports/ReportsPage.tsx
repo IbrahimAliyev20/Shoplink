@@ -39,12 +39,10 @@ import { ReportFilterParams } from "@/services/Seller-services/reports/api";
 const ReportsPage: React.FC = () => {
   type SortKey = keyof Report;
 
-  // Inputlar üçün istifadə olunan state-lər
   const [dateFilter, setDateFilter] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("");
   const [stockFilter, setStockFilter] = useState("");
 
-  // API sorğusuna göndəriləcək AKTİV filterlər üçün state
   const [activeApiFilters, setActiveApiFilters] = useState<ReportFilterParams>(
     {}
   );
@@ -72,7 +70,7 @@ const ReportsPage: React.FC = () => {
     if (stockFilter) newFilters.stock = stockFilter;
 
     setActiveApiFilters(newFilters);
-    setCurrentPage(1); // Filter tətbiq ediləndə ilk səhifəyə qayıt
+    setCurrentPage(1); 
     setShowFilter(false);
   };
 

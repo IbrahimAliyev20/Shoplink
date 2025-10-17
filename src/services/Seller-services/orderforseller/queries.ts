@@ -1,14 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import { getStoreOrders, getStoreOrder } from "./api";
-import { queryKeys, createQueryOptions } from "@/lib/query-config";
+import { queryKeys, createQueryOptions, realtimeContentOptions, dynamicContentOptions } from "@/lib/query-config";
 
 const getStoreOrdersOptions = () => {
   return createQueryOptions(
     queryKeys.orders.storeOrders(),
     getStoreOrders,
-    {
-      staleTime: 1 * 60 * 1000, // 1 minute for order lists
-    }
+    realtimeContentOptions // Using optimized config for real-time order data
   );
 };
 
@@ -16,9 +14,7 @@ const getStoreOrderOptions = (id: string) => {
   return createQueryOptions(
     queryKeys.orders.byId(id),
     () => getStoreOrder(id),
-    {
-      staleTime: 5 * 60 * 1000, // 5 minutes for individual orders
-    }
+    dynamicContentOptions // Using optimized config for individual order details
   );
 };
 
